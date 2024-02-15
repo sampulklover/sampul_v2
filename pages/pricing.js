@@ -1,9 +1,11 @@
 import initStripe from 'stripe';
 import { loadStripe } from '@stripe/stripe-js';
+import { Elements, PaymentElement } from '@stripe/react-stripe-js';
 import { useUser } from '../context/user';
 import Loading from '../components/Laoding';
 import axios from 'axios';
 import { supabase } from '../utils/supabase';
+import CheckoutButton from '../components/CheckoutButton';
 
 const Pricing = ({ plans }) => {
   const { user, login, isLoading } = useUser();
@@ -56,41 +58,43 @@ const Pricing = ({ plans }) => {
   };
 
   const processSubscription = (planId) => async () => {
-    // const { data } = await axios.get(`/api/subscription/${planId}`);
     const stripe = initStripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY);
 
-    const { data } = await supabase
-      .from('accounts')
-      .select('*')
-      .eq('uuid', user.uuid)
-      .single();
+    try {
+      const userAccount = await supabase
+        .from('accounts')
+        .select('*')
+        .eq('uuid', user.uuid)
+        .single();
 
-    var stripe_customer_value = null;
+      if (!userAccount.data) {
+        const createCustomerResult = await createStripeCustomer();
+        userAccount.data = {
+          stripe_customer: createCustomerResult.stripe_customer,
+        };
+      }
 
-    if (data.stripe_customer) {
-      stripe_customer_value = data.stripe_customer;
-    } else {
-      const customer = await createStripeCustomer();
-      stripe_customer_value = customer.stripe_customer;
+      const lineItems = [
+        {
+          price: planId,
+          quantity: 1,
+        },
+      ];
+
+      const session = await stripe.checkout.sessions.create({
+        customer: userAccount.data.stripe_customer,
+        mode: 'subscription',
+        payment_method_types: ['card'],
+        line_items: lineItems,
+        success_url: 'http://localhost:3000/payment/success',
+        cancel_url: 'http://localhost:3000/payment/cancelled',
+      });
+
+      await loadStripe(session.id);
+      await stripe.redirectToCheckout({ sessionId: session.id });
+    } catch (error) {
+      console.error('Error creating Stripe Checkout session:', error);
     }
-
-    const lineItems = [
-      {
-        price: planId,
-        quantity: 1,
-      },
-    ];
-
-    const session = await stripe.checkout.sessions.create({
-      customer: stripe_customer_value,
-      mode: 'subscription',
-      payment_method_types: ['card'],
-      line_items: lineItems,
-      success_url: 'http://localhost:3000/payment/success',
-      cancel_url: 'http://localhost:3000/payment/cancelled',
-    });
-
-    await loadStripe(session.id);
   };
 
   const showSubscribeButton = !!user && !user?.profile?.accounts?.is_subscribed;
@@ -106,15 +110,15 @@ const Pricing = ({ plans }) => {
           <p className="text-gray-500">
             ${plan.price / 100} / {plan.interval}
           </p>
-
           {isLoading ? (
             <Loading />
           ) : (
             <div>
               {showSubscribeButton && (
-                <button onClick={processSubscription(plan.id)}>
-                  Subscribe
-                </button>
+                // <button onClick={processSubscription(plan.id)}>
+                //   Subscribe
+                // </button>
+                <CheckoutButton price_id={plan.id} />
               )}
               {showCreateAccountButton && (
                 <button onClick={login}>Create Account</button>
