@@ -29,7 +29,7 @@ const CheckoutButton = ({ price_id = '' }) => {
       return data?.stripe_customer;
     } catch (err) {
       console.log(err);
-      router.push('/error');
+      //   router.push('/error');
     }
   };
 
@@ -48,13 +48,14 @@ const CheckoutButton = ({ price_id = '' }) => {
       }
     } catch (err) {
       console.log(err);
-      router.push('/error');
+      //   router.push('/error');
     }
   };
 
   const handler = async () => {
     try {
       const stripeCustomer = await getStripeCustomerId();
+      console.log('stripeCustomer', stripeCustomer);
       if (stripeCustomer && price_id) {
         const stripe = await asyncStripe;
 
@@ -66,17 +67,17 @@ const CheckoutButton = ({ price_id = '' }) => {
           }),
           headers: { 'Content-Type': 'application/json' },
         });
-
+        console.log('price_id', price_id);
         const { sessionId } = await res.json();
         const { error } = await stripe.redirectToCheckout({ sessionId });
-
+        console.log('sessionId', sessionId);
         if (error) {
           throw new Error(error.message);
         }
       }
     } catch (err) {
       console.error(err);
-      router.push('/error');
+      //   router.push('/error');
     }
   };
 
