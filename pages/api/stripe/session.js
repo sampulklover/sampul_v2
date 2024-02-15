@@ -15,7 +15,7 @@ export default async function handler(req, res) {
       ];
 
       const session = await stripe.checkout.sessions.create({
-        customer: 'cus_PYwhRY5Gek9lYq',
+        customer: body.stripe_customer,
         mode: 'subscription',
         line_items: lineItems,
         // {CHECKOUT_SESSION_ID} is a string literal; do not change it!
@@ -27,7 +27,7 @@ export default async function handler(req, res) {
 
       res.status(200).json({ sessionId: session.id });
     } catch (err) {
-      res.status(500).json({ error: 'Error checkout session' });
+      res.status(500).json({ error: 'Error checkout session', err });
     }
   } else {
     res.status(405).json({ error: 'Method Not Allowed' });
