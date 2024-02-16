@@ -10,93 +10,6 @@ import CheckoutButton from '../components/CheckoutButton';
 const Pricing = ({ plans }) => {
   const { user, login, isLoading } = useUser();
 
-  const callApi = async () => {
-    const { API_ROUTE_SECRET } = process.env;
-    const data = {
-      record: {
-        email: 'hfzTest@gmail.com',
-        uuid: '19947ad2-a782-4c94-857e-fdb40e9061bb',
-      },
-    };
-
-    try {
-      const response = await axios.post(
-        'http://localhost:3000/api/create-stripe-customer',
-        data,
-        {
-          headers: {
-            API_ROUTE_SECRET: API_ROUTE_SECRET,
-          },
-        }
-      );
-
-      console.log(response.data);
-    } catch (error) {
-      console.error('Error calling the API:', error);
-    }
-  };
-
-  const createStripeCustomer = async () => {
-    const stripe = initStripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY);
-
-    if (user.uuid && user.profile.email) {
-      const customer = await stripe.customers.create({
-        email: user.profile.email,
-      });
-
-      const { data, error } = await supabase
-        .from('accounts')
-        .update({
-          stripe_customer: customer.id,
-        })
-        .eq('uuid', user.uuid)
-        .select()
-        .single();
-
-      return data;
-    }
-  };
-
-  const processSubscription = (planId) => async () => {
-    const stripe = initStripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY);
-
-    try {
-      const userAccount = await supabase
-        .from('accounts')
-        .select('*')
-        .eq('uuid', user.uuid)
-        .single();
-
-      if (!userAccount.data) {
-        const createCustomerResult = await createStripeCustomer();
-        userAccount.data = {
-          stripe_customer: createCustomerResult.stripe_customer,
-        };
-      }
-
-      const lineItems = [
-        {
-          price: planId,
-          quantity: 1,
-        },
-      ];
-
-      const session = await stripe.checkout.sessions.create({
-        customer: userAccount.data.stripe_customer,
-        mode: 'subscription',
-        payment_method_types: ['card'],
-        line_items: lineItems,
-        success_url: 'http://localhost:3000/payment/success',
-        cancel_url: 'http://localhost:3000/payment/cancelled',
-      });
-
-      await loadStripe(session.id);
-      await stripe.redirectToCheckout({ sessionId: session.id });
-    } catch (error) {
-      console.error('Error creating Stripe Checkout session:', error);
-    }
-  };
-
   const showSubscribeButton = !!user && !user?.profile?.accounts?.is_subscribed;
   const showCreateAccountButton = !user;
   const showManageSubscriptionButton =
@@ -114,12 +27,7 @@ const Pricing = ({ plans }) => {
             <Loading />
           ) : (
             <div>
-              {showSubscribeButton && (
-                // <button onClick={processSubscription(plan.id)}>
-                //   Subscribe
-                // </button>
-                <CheckoutButton price_id={plan.id} />
-              )}
+              {showSubscribeButton && <CheckoutButton price_id={plan.id} />}
               {showCreateAccountButton && (
                 <button onClick={login}>Create Account</button>
               )}

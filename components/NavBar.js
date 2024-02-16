@@ -10,6 +10,7 @@ const NavBar = () => {
       <Link href={user ? '/logout' : '/login'}>
         {user ? 'Logout' : 'Login'}
       </Link>
+      {!!user && <Link href="/dashboard">Dashboard</Link>}
     </nav>
   );
 };
