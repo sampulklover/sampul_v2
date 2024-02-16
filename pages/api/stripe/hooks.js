@@ -27,7 +27,8 @@ const handler = async (req, res) => {
         .from('accounts')
         .update({
           is_subscribed: true,
-          interval: event.data.object.items.data[0].plan.interval,
+          stripe_interval: event.data.object.items.data[0].plan.interval,
+          stripe_product: event.data.object.items.data[0].plan.product,
         })
         .eq('stripe_customer', event.data.object.customer);
       break;
@@ -36,7 +37,8 @@ const handler = async (req, res) => {
         .from('accounts')
         .update({
           is_subscribed: false,
-          interval: null,
+          stripe_interval: null,
+          stripe_product: null,
         })
         .eq('stripe_customer', event.data.object.customer);
       break;

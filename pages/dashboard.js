@@ -43,7 +43,7 @@ const Dashboard = () => {
         <>
           <p className="mb-6">
             {user?.profile?.accounts.is_subscribed
-              ? `Subscribed: ${user.profile.accounts.interval}`
+              ? `Subscribed: ${user.profile.accounts.stripe_interval}, Product: ${user.profile.accounts.stripe_product}`
               : 'Not subscribed'}
           </p>
           <button onClick={getStripePortal}>Manage subscription</button>
