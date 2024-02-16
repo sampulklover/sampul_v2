@@ -1,4 +1,4 @@
-import { supabase } from '../../../utils/supabase';
+import { getServiceSupabase } from '../../../utils/supabase';
 import initStripe from 'stripe';
 
 const stripe = initStripe(process.env.STRIPE_SECRET_KEY);
@@ -10,6 +10,8 @@ export default async function handler(req, res) {
       message: 'Only POST requests are allowed',
     });
   }
+
+  const supabase = getServiceSupabase();
 
   try {
     const { uuid, email } = req.body;

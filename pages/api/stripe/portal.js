@@ -1,4 +1,4 @@
-import { supabase } from '../../../utils/supabase';
+import { getServiceSupabase } from '../../../utils/supabase';
 import initStripe from 'stripe';
 
 const stripe = initStripe(process.env.STRIPE_SECRET_KEY);
@@ -13,6 +13,7 @@ export default async function handler(req, res) {
 
   try {
     const { uuid } = req.body;
+    const supabase = getServiceSupabase();
 
     const { data } = await supabase
       .from('accounts')
