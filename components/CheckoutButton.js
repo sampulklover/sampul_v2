@@ -52,7 +52,7 @@ const CheckoutButton = ({ price_id = '' }) => {
     }
   };
 
-  const handler = async () => {
+  const getStripeSession = async () => {
     try {
       const stripeCustomer = await getStripeCustomerId();
 
@@ -83,7 +83,7 @@ const CheckoutButton = ({ price_id = '' }) => {
 
   return (
     <button
-      onClick={handler}
+      onClick={getStripeSession}
       className="bg-blue-700 hover:bg-blue-800 duration-200 px-8 py-4 text-white"
     >
       Checkout Now
