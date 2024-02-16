@@ -1,83 +1,74 @@
 import { loadStripe } from '@stripe/stripe-js';
-import { useRouter } from 'next/router';
-import { supabase } from '../utils/supabase';
 import { useUser } from '../context/user';
-import initStripe from 'stripe';
 
 const asyncStripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
-const stripe = initStripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY);
 
 const CheckoutButton = ({ price_id = '' }) => {
   const { user } = useUser();
-  const router = useRouter();
 
-  const createStripeCustomerId = async () => {
+  const getStripeCustomer = async () => {
     try {
-      const customer = await stripe.customers.create({
-        email: user.profile.email,
+      const response = await fetch('/api/stripe/customer', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: user.profile.email, uuid: user.uuid }),
       });
 
-      const { data } = await supabase
-        .from('accounts')
-        .update({
-          stripe_customer: customer.id,
-        })
-        .eq('uuid', user.uuid)
-        .select()
-        .single();
+      if (!response.ok) {
+        throw new Error('Failed to create Stripe customer ID');
+      }
 
-      return data?.stripe_customer;
-    } catch (err) {
-      console.log(err);
-      //   router.push('/error');
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error creating Stripe customer ID:', error);
+      return null;
     }
   };
 
-  const getStripeCustomerId = async () => {
+  const createStripeSession = async ({ price_id, stripe_customer_id }) => {
     try {
-      const { data } = await supabase
-        .from('accounts')
-        .select('*')
-        .eq('uuid', user.uuid)
-        .single();
+      const response = await fetch('/api/stripe/session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          price_id: price_id,
+          stripe_customer_id: stripe_customer_id,
+        }),
+      });
 
-      if (data && data.stripe_customer) {
-        return data.stripe_customer;
-      } else {
-        return await createStripeCustomerId();
+      if (!response.ok) {
+        throw new Error('Failed to create Stripe session');
       }
-    } catch (err) {
-      console.log(err);
-      //   router.push('/error');
+
+      const data = await response.json();
+      const { session_id, error } = data;
+
+      if (error) {
+        throw new Error(error);
+      }
+
+      const stripe_async = await asyncStripe;
+      await stripe_async.redirectToCheckout({ sessionId: session_id });
+
+      return session_id;
+    } catch (error) {
+      console.error('Error creating Stripe session:', error);
+      return null;
     }
   };
 
   const getStripeSession = async () => {
-    try {
-      const stripeCustomer = await getStripeCustomerId();
-
-      if (stripeCustomer && price_id) {
-        const stripe = await asyncStripe;
-
-        const res = await fetch('/api/stripe/session', {
-          method: 'POST',
-          body: JSON.stringify({
-            price_id: price_id,
-            stripe_customer: stripeCustomer,
-          }),
-          headers: { 'Content-Type': 'application/json' },
-        });
-
-        const { sessionId } = await res.json();
-        const { error } = await stripe.redirectToCheckout({ sessionId });
-
-        if (error) {
-          throw new Error(error.message);
-        }
-      }
-    } catch (err) {
-      console.error(err);
-      //   router.push('/error');
+    const data = await getStripeCustomer();
+    if (data?.stripe_customer_id) {
+      await createStripeSession({
+        price_id: price_id,
+        stripe_customer_id: data.stripe_customer_id,
+      });
     }
   };
 

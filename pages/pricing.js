@@ -1,10 +1,6 @@
 import initStripe from 'stripe';
-import { loadStripe } from '@stripe/stripe-js';
-import { Elements, PaymentElement } from '@stripe/react-stripe-js';
 import { useUser } from '../context/user';
 import Loading from '../components/Laoding';
-import axios from 'axios';
-import { supabase } from '../utils/supabase';
 import CheckoutButton from '../components/CheckoutButton';
 
 const Pricing = ({ plans }) => {
