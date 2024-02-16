@@ -4,33 +4,29 @@ import Loading from '../components/Laoding';
 import { useRouter } from 'next/router';
 import initStripe from 'stripe';
 
-const stripe = initStripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY);
-const host = process.env.NEXT_PUBLIC_HOST;
-
 const Dashboard = () => {
   const { user, isLoading } = useUser();
   const router = useRouter();
 
   const getStripePortal = async () => {
     try {
-      const { data } = await supabase
-        .from('accounts')
-        .select('*')
-        .eq('uuid', user.uuid)
-        .single();
+      const response = await fetch(`/api/stripe/portal`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ uuid: user.uuid }),
+      });
 
-      if (data && data.stripe_customer) {
-        const session = await stripe.billingPortal.sessions.create({
-          customer: data.stripe_customer,
-          return_url: `${host}/success`,
-        });
-
-        router.push(session.url);
-      } else {
-        return null;
+      if (!response.ok) {
+        throw new Error('Failed to get Stripe portal');
       }
-    } catch (err) {
-      console.log(err);
+
+      const data = await response.json();
+      router.push(data?.url);
+    } catch (error) {
+      console.error('Error to get Stripe portal:', error);
+      return null;
     }
   };
 
