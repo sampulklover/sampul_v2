@@ -33,7 +33,7 @@ const handler = async (req, res) => {
       break;
     case 'customer.subscription.deleted':
       await supabase
-        .from('profile')
+        .from('accounts')
         .update({
           is_subscribed: false,
           interval: null,
