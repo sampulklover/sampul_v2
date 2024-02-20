@@ -47,6 +47,7 @@ const DigitalAssetsCard = ({ typeName, summary, editFunction }) => {
 
               return (
                 <div
+                  key={index}
                   class="col"
                   onClick={() => {
                     editFunction(item);
