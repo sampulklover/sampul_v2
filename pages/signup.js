@@ -3,7 +3,7 @@ import { useUser } from '../context/user';
 import Loading from '../components/Laoding';
 import Link from 'next/link';
 
-const main = () => {
+const SignUp = () => {
   const { normalSignup, googleLogin } = useUser();
   const [isLoading, setIsLoading] = useState({
     normal_signup: false,
@@ -148,4 +148,4 @@ const main = () => {
   );
 };
 
-export default main;
+export default SignUp;

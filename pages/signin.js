@@ -3,7 +3,7 @@ import { useUser } from '../context/user';
 import Loading from '../components/Laoding';
 import ForgotPasswordModal from '../components/ForgotPasswordModal';
 
-const main = () => {
+const SignIn = () => {
   const { normalLogin, googleLogin } = useUser();
   const [isLoading, setIsLoading] = useState({
     normal_login: false,
@@ -128,4 +128,4 @@ const main = () => {
   );
 };
 
-export default main;
+export default SignIn;
