@@ -1,8 +1,18 @@
-const Loading = () => {
+const Loading = ({ title = '', loading = false }) => {
   return (
-    <div class="spinner-border spinner-border-sm" role="status">
-      <span class="sr-only">Loading...</span>
-    </div>
+    <>
+      {loading ? (
+        <>
+          <div
+            className="spinner-border spinner-border-sm mx-2"
+            role="status"
+          ></div>
+          <span>{title}</span>
+        </>
+      ) : (
+        <span>{title}</span>
+      )}
+    </>
   );
 };
 

@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect, useContext } from 'react';
 import { supabase } from '../utils/supabase';
 import { useRouter } from 'next/router';
+import toast from 'react-hot-toast';
 
 const Context = createContext();
 
@@ -38,15 +39,76 @@ const Provider = ({ children }) => {
     });
   }, []);
 
-  const login = async () => {
-    const email = 'clickerhizers@gmail.com';
-    const password = '1qaz2wsx';
-
-    supabase.auth.signInWithPassword({
+  const normalLogin = async ({ email, password }) => {
+    const { data, error } = await supabase.auth.signInWithPassword({
       email: email,
       password: password,
     });
-    router.push('/');
+
+    if (error) {
+      if (error.message === 'Email not confirmed') {
+        let errorMessage = `Email not yet confirmed. Check your inbox for the confirmation link or <b onClick="openResendVerificationModal()" style=" text-decoration: underline; cursor: pointer;">click here to resend verification</b>.`;
+        toast.error(errorMessage);
+      } else {
+        toast.error(error.message);
+      }
+      return;
+    }
+
+    router.push('/dashboard');
+  };
+
+  const normalSignup = async ({ name, email, password }) => {
+    const { data, error } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        emailRedirectTo: process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL,
+        data: {
+          name: name,
+        },
+      },
+    });
+
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+
+    if (
+      data.user &&
+      data.user.identities &&
+      data.user.identities.length === 0
+    ) {
+      const authError = {
+        name: 'AuthApiError',
+        message: 'User already exists',
+      };
+      toast.error(authError.message);
+      return;
+    }
+
+    router.push('/dashboard');
+  };
+
+  const googleLogin = async () => {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        queryParams: {
+          // access_type: 'offline',
+          prompt: 'consent',
+        },
+        redirectTo: process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL,
+      },
+    });
+
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+
+    router.push('/dashboard');
   };
 
   const logout = async () => {
@@ -58,7 +120,9 @@ const Provider = ({ children }) => {
   const exposed = {
     user,
     isLoading,
-    login,
+    normalLogin,
+    googleLogin,
+    normalSignup,
     logout,
   };
 
