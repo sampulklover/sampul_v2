@@ -48,7 +48,7 @@ const ExtraWishes = () => {
 
   const [runEffect, setRunEffect] = useState(false);
 
-  const elemetList = () => {
+  const elementList = () => {
     const inputElements = {
       nazar: {
         form: document.getElementById('extra-wishes-nazar-form'),
@@ -156,7 +156,7 @@ const ExtraWishes = () => {
           return;
         }
 
-        var inputElements = elemetList();
+        var inputElements = elementList();
         var charityData = [];
         var waqfData = [];
 
@@ -237,7 +237,7 @@ const ExtraWishes = () => {
       [keyName]: true,
     });
 
-    const addData = processForm(elemetList()[keyName].elements, false);
+    const addData = processForm(elementList()[keyName].elements, false);
     const db = supabase.from('extra_wishes');
 
     const { data, error } = await db.select('*').eq('uuid', user.uuid);
