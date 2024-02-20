@@ -99,53 +99,6 @@ const ExtraWishes = () => {
     return inputElements;
   };
 
-  const getExtraWishes = async () => {
-    const { data, error } = await supabase
-      .from('extra_wishes')
-      .select('*')
-      .eq('uuid', user.uuid);
-
-    if (error) {
-      setSummary({
-        data: null,
-        isReady: true,
-      });
-      toast.error(error.message);
-      return;
-    }
-
-    var inputElements = elemetList();
-    var charityData = [];
-    var waqfData = [];
-
-    if (data.lenght !== 0) {
-      var currentData = data[0];
-
-      for (const key in inputElements) {
-        if (inputElements.hasOwnProperty(key)) {
-          for (const key2 in inputElements[key].elements) {
-            if ((key2 !== 'charity_bodies') & (key2 !== 'waqf_bodies')) {
-              inputElements[key].elements[key2].value = currentData[key2];
-            }
-            if (key2 == 'charity_bodies') {
-              charityData = currentData[key2];
-            }
-            if (key2 == 'waqf_bodies') {
-              waqfData = currentData[key2];
-            }
-          }
-        }
-      }
-    }
-
-    mapMultiselectList({ charityData: charityData, waqfData: waqfData });
-
-    setSummary({
-      data: data,
-      isReady: true,
-    });
-  };
-
   const mapMultiselectList = ({ charityData, waqfData }) => {
     var newCharity = [];
     var defaultCharity = [];
@@ -188,6 +141,53 @@ const ExtraWishes = () => {
   useEffect(() => {
     if (!runEffect && user.uuid !== null) {
       setRunEffect(true);
+      const getExtraWishes = async () => {
+        const { data, error } = await supabase
+          .from('extra_wishes')
+          .select('*')
+          .eq('uuid', user.uuid);
+
+        if (error) {
+          setSummary({
+            data: null,
+            isReady: true,
+          });
+          toast.error(error.message);
+          return;
+        }
+
+        var inputElements = elemetList();
+        var charityData = [];
+        var waqfData = [];
+
+        if (data.lenght !== 0) {
+          var currentData = data[0];
+
+          for (const key in inputElements) {
+            if (inputElements.hasOwnProperty(key)) {
+              for (const key2 in inputElements[key].elements) {
+                if ((key2 !== 'charity_bodies') & (key2 !== 'waqf_bodies')) {
+                  inputElements[key].elements[key2].value = currentData[key2];
+                }
+                if (key2 == 'charity_bodies') {
+                  charityData = currentData[key2];
+                }
+                if (key2 == 'waqf_bodies') {
+                  waqfData = currentData[key2];
+                }
+              }
+            }
+          }
+        }
+
+        mapMultiselectList({ charityData: charityData, waqfData: waqfData });
+
+        setSummary({
+          data: data,
+          isReady: true,
+        });
+      };
+
       getExtraWishes();
     }
   }, [user, runEffect]);

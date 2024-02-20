@@ -4,7 +4,7 @@ import Loading from '../components/Laoding';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 
-const main = () => {
+const ChangePassword = () => {
   const [isLoading, setIsLoading] = useState({
     new_password: false,
   });
@@ -85,4 +85,4 @@ const main = () => {
   );
 };
 
-export default main;
+export default ChangePassword;
