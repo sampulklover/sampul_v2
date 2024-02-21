@@ -98,6 +98,8 @@ export const replaceOrAddImage = async (options) => {
 };
 
 export const deleteImage = async (options) => {
+  var isSuccess = false;
+
   const { returnData } = options;
   if (returnData?.image_path) {
     const { data, error } = await supabase.storage
@@ -106,6 +108,12 @@ export const deleteImage = async (options) => {
 
     if (error) {
       toast.error(error.message);
+      isSuccess = false;
+      return;
     }
+
+    isSuccess = true;
   }
+
+  return isSuccess;
 };

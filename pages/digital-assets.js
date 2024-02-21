@@ -128,7 +128,7 @@ const DigitalAssets = () => {
 
         if (key == 'image_path') {
           const imageUrl = item[key]
-            ? `${process.env.NEXT_PUBLIC_CDNURL}${item[key]}`
+            ? `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${item[key]}`
             : addUserImg;
           inputElements.digital_assets_modal.image_path.src = imageUrl;
         }
@@ -170,37 +170,65 @@ const DigitalAssets = () => {
   const tabSection = () => {
     return (
       <>
-        <ul class="nav nav-pills justify-content-center tab-background">
-          <li class="nav-item">
-            <a
-              class="nav-link active smpl_text-sm-semibold"
+        <ul
+          class="nav nav-pills justify-content-center tab-background mt-3"
+          id="pills-tab"
+          role="tablist"
+        >
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link smpl_text-sm-semibold active"
+              id="pills-all-tab"
               data-bs-toggle="pill"
-              href="#menu0"
+              data-bs-target="#pills-all"
+              type="button"
+              role="tab"
+              aria-controls="pills-all"
+              aria-selected="true"
             >
               View all
-            </a>
+            </button>
           </li>
-          <li class="nav-item">
-            <a
+          <li class="nav-item" role="presentation">
+            <button
               class="nav-link smpl_text-sm-semibold"
+              id="pills-non-subscription-tab"
               data-bs-toggle="pill"
-              href="#menu1"
+              data-bs-target="#pills-non-subscription"
+              type="button"
+              role="tab"
+              aria-controls="pills-non-subscription"
+              aria-selected="false"
             >
               Non-Subscription
-            </a>
+            </button>
           </li>
-          <li class="nav-item">
-            <a
+          <li class="nav-item" role="presentation">
+            <button
               class="nav-link smpl_text-sm-semibold"
+              id="pills-subscription-tab"
               data-bs-toggle="pill"
-              href="#menu2"
+              data-bs-target="#pills-subscription"
+              type="button"
+              role="tab"
+              aria-controls="pills-subscription"
+              aria-selected="false"
             >
               Subscription
-            </a>
+            </button>
           </li>
         </ul>
-        <div class="tab-content mt-5" style={{ 'min-height': 300 }}>
-          <div class="tab-pane container active" id="menu0">
+        <div
+          class="tab-content mt-5"
+          id="pills-tabContent"
+          style={{ 'min-height': 300 }}
+        >
+          <div
+            class="tab-pane fade show active"
+            id="pills-all"
+            role="tabpanel"
+            aria-labelledby="pills-all-tab"
+          >
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
               <DigitalAssetsCard
                 typeName=""
@@ -209,7 +237,12 @@ const DigitalAssets = () => {
               />
             </div>
           </div>
-          <div class="tab-pane container fade" id="menu1">
+          <div
+            class="tab-pane fade"
+            id="pills-non-subscription"
+            role="tabpanel"
+            aria-labelledby="pills-non-subscription-tab"
+          >
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
               <DigitalAssetsCard
                 typeName="non_subscription"
@@ -218,7 +251,12 @@ const DigitalAssets = () => {
               />
             </div>
           </div>
-          <div class="tab-pane container fade" id="menu2">
+          <div
+            class="tab-pane fade"
+            id="pills-subscription"
+            role="tabpanel"
+            aria-labelledby="pills-subscription-tab"
+          >
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
               <DigitalAssetsCard
                 typeName="subscription"
