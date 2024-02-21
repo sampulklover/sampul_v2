@@ -115,7 +115,7 @@ const Beloved = () => {
 
         if (key == 'image_path') {
           const imageUrl = item[key]
-            ? `${process.env.NEXT_PUBLIC_CDNURL}${item[key]}`
+            ? `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${item[key]}`
             : addUserImg;
           inputElements.beloved_modal.image_path.src = imageUrl;
         }
@@ -166,7 +166,7 @@ const Beloved = () => {
                         );
 
                         const imageUrl = item.image_path
-                          ? `${process.env.NEXT_PUBLIC_CDNURL}${item.image_path}`
+                          ? `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${item.image_path}`
                           : emptyUserImg;
 
                         return (
@@ -291,7 +291,7 @@ const Beloved = () => {
                         );
 
                         const imageUrl = item.image_path
-                          ? `${process.env.NEXT_PUBLIC_CDNURL}${item.image_path}`
+                          ? `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${item.image_path}`
                           : emptyUserImg;
 
                         return (

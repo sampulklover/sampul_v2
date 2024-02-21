@@ -1,23 +1,27 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { supabase } from '../utils/supabase';
 import { useUser } from '../context/user';
 import Loading from '../components/Laoding';
 import toast from 'react-hot-toast';
+import QRCode from 'react-qr-code';
 import { instructionsAfterDeath, servicePlatforms } from '../constant/enum';
 import { mapViewElements } from '../utils/helpers';
 import Link from 'next/link';
 import DigitalSummaryCard from '../components/DigitalSummaryCard';
 import Footer from '../components/Footer';
 import Breadcrumb from '../components/Breadcrumb';
+import WillActionButtons from '../components/WillActionButtons';
 
 const Dashboard = () => {
   const { user, isLoading } = useUser();
+  const cardRef = useRef(null);
   const [summary, setSummary] = useState({
     data: null,
     isReady: false,
   });
   const [isReady, setIsReady] = useState(true);
   const [runEffect, setRunEffect] = useState(false);
+  const [qrValue, setQrValue] = useState(null);
 
   useEffect(() => {
     if (!runEffect && user.uuid !== null) {
@@ -334,26 +338,11 @@ const Dashboard = () => {
                   </div>
                 </div>
               </div>
-              <div class="text-md-right text-center">
-                <button
-                  type="button"
-                  class="btn btn-light btn-text btn-lg me-1 mb-1"
-                >
-                  Share
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-light btn-text btn-lg me-1 mb-1"
-                >
-                  Download PDF
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-primary btn-text btn-lg mb-1"
-                >
-                  Generate Wasiat
-                </button>
-              </div>
+              <WillActionButtons
+                setQrValue={setQrValue}
+                cardRef={cardRef}
+                showQrModal={true}
+              />
             </div>
           </div>
         </div>
@@ -383,8 +372,44 @@ const Dashboard = () => {
     );
   };
 
+  const qrCodeModal = () => {
+    return (
+      <div class="modal fade" id="qr-code-modal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Your Wasiat/will QR code</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="text-center">
+                <div ref={cardRef}>
+                  {qrValue !== null && (
+                    <QRCode
+                      title="Sampul"
+                      value={qrValue}
+                      bgColor={'#FFFFFF'}
+                      fgColor={'#000000'}
+                      size={400}
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div class="body">
+      {qrCodeModal()}
       <Breadcrumb pageName={'Dashboard'} />
       <div class="mt-4">{title()}</div>
       <div class="mt-4">{section2()}</div>
