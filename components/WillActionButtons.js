@@ -6,41 +6,67 @@ import { replaceOrAddImage } from '../utils/helpers';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import ShareModal from './ShareModal';
+import Loading from './Laoding';
 
-const WillActionButtons = ({ setQrValue, cardRef, showQrModal = false }) => {
+const WillActionButtons = ({
+  setQrValue,
+  cardRef,
+  showQrModal = false,
+  viewOnly = false,
+  refreshFunction,
+}) => {
   const { user, isLoading } = useUser();
   const router = useRouter();
 
-  const [runEffect, setRunEffect] = useState(false);
   const [shareUrl, setShareUrl] = useState(null);
+  const [buttonLoading, setButtonLoading] = useState({
+    generate: false,
+    download: false,
+  });
 
   useEffect(() => {
-    if (!runEffect && user.uuid !== null) {
-      setRunEffect(true);
-      fetchWillData();
-
-      const download = router.query.download === 'true';
-      if (download) {
-        setTimeout(() => {
-          downloadCert();
-        }, 1000);
+    function shouldRunReadyFunction() {
+      if (viewOnly) {
+        return router.isReady;
+      } else {
+        return router.isReady && user?.uuid !== null;
       }
     }
-  }, [user, runEffect]);
+
+    if (shouldRunReadyFunction()) {
+      readyFunction();
+    }
+  }, [router.isReady, user, viewOnly]);
+
+  const readyFunction = () => {
+    fetchWillData();
+    const download = router.query.download === 'true';
+    if (download) {
+      setTimeout(() => {
+        downloadCert();
+      }, 1000);
+    }
+  };
 
   const fetchWillData = async () => {
-    const { data, error } = await supabase
-      .from('wills')
-      .select(`*, profiles ( * )`)
-      .eq('uuid', user.uuid)
-      .single();
+    if (viewOnly == false) {
+      const { data, error } = await supabase
+        .from('wills')
+        .select(`*, profiles ( * )`)
+        .eq('uuid', user.uuid)
+        .single();
 
-    if (error) {
-      toast.error(error.message);
-    }
+      if (error) {
+        toast.error(error.message);
+      }
 
-    if (data.will_code) {
-      var url = `${process.env.NEXT_PUBLIC_HOST}/view-will?id=${data.will_code}`;
+      if (data?.will_code) {
+        var url = `${process.env.NEXT_PUBLIC_HOST}/view-will?id=${data.will_code}`;
+        setShareUrl(url);
+      }
+    } else {
+      const will_id = router.query.id;
+      var url = `${process.env.NEXT_PUBLIC_HOST}/view-will?id=${will_id}`;
       setShareUrl(url);
     }
   };
@@ -88,6 +114,7 @@ const WillActionButtons = ({ setQrValue, cardRef, showQrModal = false }) => {
       });
 
       setShareUrl(url);
+      refreshFunction();
     } catch (error) {
       toast.error(error.message);
     }
@@ -119,6 +146,11 @@ const WillActionButtons = ({ setQrValue, cardRef, showQrModal = false }) => {
   }
 
   const generateWill = async () => {
+    setButtonLoading({
+      ...buttonLoading,
+      generate: true,
+    });
+
     const updatedTime = new Date().toISOString();
 
     const updateData = {
@@ -139,6 +171,10 @@ const WillActionButtons = ({ setQrValue, cardRef, showQrModal = false }) => {
       .single();
 
     if (error) {
+      setButtonLoading({
+        ...buttonLoading,
+        generate: false,
+      });
       toast.error(error.message);
     }
 
@@ -152,9 +188,13 @@ const WillActionButtons = ({ setQrValue, cardRef, showQrModal = false }) => {
         .select()
         .single();
 
-      generateQRCode(data);
+      await generateQRCode(data);
 
       if (error) {
+        setButtonLoading({
+          ...buttonLoading,
+          generate: false,
+        });
         toast.error(error.message);
       }
     } else {
@@ -168,15 +208,29 @@ const WillActionButtons = ({ setQrValue, cardRef, showQrModal = false }) => {
         .select()
         .single();
 
-      generateQRCode(data);
+      await generateQRCode(data);
 
       if (error) {
+        setButtonLoading({
+          ...buttonLoading,
+          generate: false,
+        });
         toast.error(error.message);
       }
     }
+
+    setButtonLoading({
+      ...buttonLoading,
+      generate: false,
+    });
   };
 
   const downloadCert = async () => {
+    setButtonLoading({
+      ...buttonLoading,
+      download: true,
+    });
+
     var element = document.getElementById('certificate-container');
     let pdf = new jsPDF('p', 'pt', 'a4');
 
@@ -201,14 +255,23 @@ const WillActionButtons = ({ setQrValue, cardRef, showQrModal = false }) => {
         });
       });
     } catch (error) {
+      setButtonLoading({
+        ...buttonLoading,
+        download: false,
+      });
       toast.error(error.message);
     }
+
+    setButtonLoading({
+      ...buttonLoading,
+      download: false,
+    });
   };
 
   return (
     <>
       <ShareModal url={shareUrl} title="Will Certificate" />
-      <div class="text-md-right text-center">
+      <div class="text-md-right">
         <button
           type="button"
           class="btn btn-light btn-text btn-lg me-1 mb-1"
@@ -220,7 +283,9 @@ const WillActionButtons = ({ setQrValue, cardRef, showQrModal = false }) => {
         </button>
         <button
           type="button"
-          class="btn btn-light btn-text btn-lg me-1 mb-1"
+          class={`btn ${
+            viewOnly ? 'btn-primary' : 'btn-light '
+          } btn-text btn-lg me-1 mb-1`}
           onClick={() => {
             if (showQrModal) {
               router.push('will?download=true');
@@ -229,17 +294,21 @@ const WillActionButtons = ({ setQrValue, cardRef, showQrModal = false }) => {
             }
           }}
         >
-          Download PDF
+          <Loading title="Download PDF" loading={buttonLoading.download} />
         </button>
-        <button
-          type="button"
-          class="btn btn-primary btn-text btn-lg mb-1"
-          onClick={() => {
-            generateWill();
-          }}
-        >
-          Generate Wasiat
-        </button>
+        {viewOnly ? (
+          ''
+        ) : (
+          <button
+            type="button"
+            class="btn btn-primary btn-text btn-lg mb-1"
+            onClick={() => {
+              generateWill();
+            }}
+          >
+            <Loading title="Generate Wasiat" loading={buttonLoading.generate} />
+          </button>
+        )}
       </div>
     </>
   );

@@ -12,43 +12,64 @@ import { deleteImage, replaceOrAddImage } from '../utils/helpers';
 import { addUserImg } from '../constant/element';
 
 const ShareModal = ({ url, title }) => {
+  const checkUrl = () => {
+    var proceed = false;
+
+    if (url) {
+      proceed = true;
+    } else {
+      toast.error('Url not found!');
+      proceed = false;
+    }
+
+    return proceed;
+  };
+
   const facebookShare = () => {
-    window.open(
-      'https://www.facebook.com/sharer/sharer.php?u=' +
-        encodeURIComponent(url) +
-        '&title=' +
-        encodeURIComponent(title),
-      '_blank'
-    );
+    const proceed = checkUrl(url);
+    if (proceed)
+      window.open(
+        'https://www.facebook.com/sharer/sharer.php?u=' +
+          encodeURIComponent(url) +
+          '&title=' +
+          encodeURIComponent(title),
+        '_blank'
+      );
   };
 
   const twitterShare = () => {
-    window.open(
-      'https://twitter.com/intent/tweet?url=' +
-        encodeURIComponent(url) +
-        '&text=' +
-        encodeURIComponent(title),
-      '_blank'
-    );
+    const proceed = checkUrl(url);
+    if (proceed)
+      window.open(
+        'https://twitter.com/intent/tweet?url=' +
+          encodeURIComponent(url) +
+          '&text=' +
+          encodeURIComponent(title),
+        '_blank'
+      );
   };
 
   const linkedInShare = () => {
-    window.open(
-      'https://www.linkedin.com/shareArticle?url=' +
-        encodeURIComponent(url) +
-        '&title=' +
-        encodeURIComponent(title),
-      '_blank'
-    );
+    const proceed = checkUrl(url);
+    if (proceed)
+      window.open(
+        'https://www.linkedin.com/shareArticle?url=' +
+          encodeURIComponent(url) +
+          '&title=' +
+          encodeURIComponent(title),
+        '_blank'
+      );
   };
 
   const copyLink = async () => {
-    try {
-      await navigator.clipboard.writeText(url);
-      toast.success('Link copied!');
-    } catch (error) {
-      toast.error(error);
-    }
+    const proceed = checkUrl(url);
+    if (proceed)
+      try {
+        await navigator.clipboard.writeText(url);
+        toast.success('Link copied!');
+      } catch (error) {
+        toast.error(error);
+      }
   };
 
   return (

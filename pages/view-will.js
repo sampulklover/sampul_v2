@@ -16,93 +16,56 @@ import Footer from '../components/Footer';
 import Breadcrumb from '../components/Breadcrumb';
 import BelovedModal from '../components/BelovedModal';
 import { addUserImg, emptyUserImg } from '../constant/element';
+import { useRouter } from 'next/router';
 import WillActionButtons from '../components/WillActionButtons';
 import WillCertCard from '../components/WillCertCard';
-import WillDetailsCard from '../components/WillDetailsCard';
 
 const Beloved = () => {
-  const { user, isLoading } = useUser();
   const cardRef = useRef(null);
+  const router = useRouter();
 
   const [summary, setSummary] = useState({
-    data: { will: null, beloved: [], digitalAssets: [] },
+    data: { will: null },
     isReady: false,
   });
-
-  const [runEffect, setRunEffect] = useState(false);
+  const [isReady, setIsReady] = useState(true);
   const [qrValue, setQrValue] = useState(null);
 
   const fetchWillData = async () => {
-    const { data, error } = await supabase
-      .from('wills')
-      .select(`*, profiles ( * )`)
-      .eq('uuid', user.uuid)
-      .single();
+    const willId = router.query.id;
 
-    if (error) {
-      toast.error(error.message);
-    }
+    if (willId) {
+      const { data, error } = await supabase
+        .from('wills')
+        .select(`*`)
+        .eq('will_code', willId);
 
-    return data;
-  };
+      if (error) {
+        toast.error(error.message);
+      }
 
-  const fetchBelovedData = async () => {
-    const { data, error } = await supabase
-      .from('beloved')
-      .select('*')
-      .eq('uuid', user.uuid);
-
-    if (error) {
-      toast.error(error.message);
-    }
-
-    return data;
-  };
-
-  const fetchDigitalAssetsData = async () => {
-    const { data, error } = await supabase
-      .from('digital_assets')
-      .select('*')
-      .eq('uuid', user.uuid);
-
-    if (error) {
-      toast.error(error.message);
-    }
-
-    return data;
-  };
-
-  const getWill = async () => {
-    try {
-      const [willData, belovedData, digitalAssetsData] = await Promise.all([
-        fetchWillData(),
-        fetchBelovedData(),
-        fetchDigitalAssetsData(),
-      ]);
-
-      setSummary({
-        data: {
-          will: willData,
-          beloved: belovedData,
-          digitalAssets: digitalAssetsData,
-        },
-        isReady: true,
-      });
-    } catch (error) {
-      setSummary({
-        data: null,
-        isReady: true,
-      });
-      toast.error(error.message);
+      if (data.length !== 0) {
+        setSummary({
+          data: {
+            will: data[0],
+          },
+          isReady: true,
+        });
+      } else {
+        toast.error(`The will with ID ${willId} does not exist!`);
+      }
+    } else {
+      toast.error('Will Id not found!');
     }
   };
 
   useEffect(() => {
-    if (!runEffect && user.uuid !== null) {
-      setRunEffect(true);
-      getWill();
+    if (router.isReady) {
+      setTimeout(() => {
+        fetchWillData();
+      }, 1000); // wait for the toast to innitiate
     }
-  }, [user, runEffect]);
+  }, [router.isReady]);
 
   const title = () => {
     return (
@@ -110,9 +73,7 @@ const Beloved = () => {
         <div class="row">
           <div class="col-lg">
             <div class="content-text">
-              <div class="smpl_display-sm-semibold">
-                Review your draft wasiat/will
-              </div>
+              <div class="smpl_display-sm-semibold">Wasiat/will</div>
             </div>
             <div class="smpl_text-md-regular">
               {summary.data.will?.last_updated
@@ -126,8 +87,7 @@ const Beloved = () => {
             <WillActionButtons
               setQrValue={setQrValue}
               cardRef={cardRef}
-              viewOnly={false}
-              refreshFunction={getWill}
+              viewOnly={true}
             />
           </div>
         </div>
@@ -158,20 +118,6 @@ const Beloved = () => {
               Certificate
             </button>
           </li>
-          <li class="nav-item" role="presentation">
-            <button
-              class="nav-link smpl_text-sm-semibold"
-              id="pills-details-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#pills-details"
-              type="button"
-              role="tab"
-              aria-controls="pills-details"
-              aria-selected="false"
-            >
-              Details
-            </button>
-          </li>
         </ul>
         <div
           class="tab-content mt-5"
@@ -195,13 +141,7 @@ const Beloved = () => {
             id="pills-details"
             role="tabpanel"
             aria-labelledby="pills-details-tab"
-          >
-            <WillDetailsCard
-              willData={summary.data}
-              qrValue={qrValue}
-              cardRef={cardRef}
-            />
-          </div>
+          ></div>
         </div>
       </>
     );
@@ -209,7 +149,7 @@ const Beloved = () => {
 
   return (
     <div class="body">
-      <Breadcrumb pageName={'Wasiat/Will'} />
+      {/* <Breadcrumb pageName={'Wasiat/Will'} /> */}
       <div class="mt-4">{title()}</div>
       {tabSection()}
       <Footer />
