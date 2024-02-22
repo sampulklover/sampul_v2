@@ -11,7 +11,7 @@ import DigitalSummaryCard from '../components/DigitalSummaryCard';
 import Footer from '../components/Footer';
 import Breadcrumb from '../components/Breadcrumb';
 import WillActionButtons from '../components/WillActionButtons';
-import QrCodeModal from '../components/QRCodeModal';
+import QrCodeModal from '../components/QrCodeModal';
 
 const Dashboard = () => {
   const { user, isLoading } = useUser();
