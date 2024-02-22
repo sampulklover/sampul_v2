@@ -4,7 +4,6 @@ import { useUser } from '../context/user';
 import Loading from '../components/Laoding';
 import toast from 'react-hot-toast';
 import { instructionsAfterDeath, servicePlatforms } from '../constant/enum';
-import { mapViewElements } from '../utils/helpers';
 import Link from 'next/link';
 import DigitalSummaryCard from '../components/DigitalSummaryCard';
 import Footer from '../components/Footer';
@@ -272,16 +271,18 @@ const DigitalAssets = () => {
 
   return (
     <div class="body">
-      <Breadcrumb pageName={'Digital Assets'} />
-      <DigitalAssetsModal
-        keyType={digitalAssetsModalType.key}
-        selectedItem={digitalAssetsModalType.selectedItem}
-        refreshFunction={getDigitalAssets}
-        belovedList={belovedList.data}
-      />
-      <div class="mt-4">{title()}</div>
-      {tabSection()}
-      <Footer />
+      <div class="content">
+        <Breadcrumb pageName={'Digital Assets'} />
+        <DigitalAssetsModal
+          keyType={digitalAssetsModalType.key}
+          selectedItem={digitalAssetsModalType.selectedItem}
+          refreshFunction={getDigitalAssets}
+          belovedList={belovedList.data}
+        />
+        <div class="mt-4">{title()}</div>
+        {tabSection()}
+        <Footer />
+      </div>
     </div>
   );
 };

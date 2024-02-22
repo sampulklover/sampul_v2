@@ -9,7 +9,7 @@ import {
   relationships,
   servicePlatforms,
 } from '../constant/enum';
-import { formatTimestamp, mapViewElements } from '../utils/helpers';
+import { formatTimestamp } from '../utils/helpers';
 import Link from 'next/link';
 import DigitalSummaryCard from '../components/DigitalSummaryCard';
 import Footer from '../components/Footer';
@@ -196,11 +196,7 @@ const Beloved = () => {
             role="tabpanel"
             aria-labelledby="pills-details-tab"
           >
-            <WillDetailsCard
-              willData={summary.data}
-              qrValue={qrValue}
-              cardRef={cardRef}
-            />
+            <WillDetailsCard willData={summary.data} />
           </div>
         </div>
       </>
@@ -209,9 +205,11 @@ const Beloved = () => {
 
   return (
     <div class="body">
-      <Breadcrumb pageName={'Wasiat/Will'} />
-      <div class="mt-4">{title()}</div>
-      {tabSection()}
+      <div class="content">
+        <Breadcrumb pageName={'Wasiat/Will'} />
+        <div class="mt-4">{title()}</div>
+        {tabSection()}
+      </div>
       <Footer />
     </div>
   );

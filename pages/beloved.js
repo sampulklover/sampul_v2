@@ -9,7 +9,6 @@ import {
   relationships,
   servicePlatforms,
 } from '../constant/enum';
-import { mapViewElements } from '../utils/helpers';
 import Link from 'next/link';
 import DigitalSummaryCard from '../components/DigitalSummaryCard';
 import Footer from '../components/Footer';
@@ -378,23 +377,25 @@ const Beloved = () => {
 
   return (
     <div class="body">
-      <Breadcrumb pageName={'Beloved'} />
-      <BelovedModal
-        keyType={belovedModalType.key}
-        category="co_sampul"
-        selectedItem={belovedModalType.selectedItem}
-        refreshFunction={getBeloved}
-      />
-      <div class="mt-4">{title()}</div>
-      <div class="row mt-4">
-        <div class="col-lg-4 align-self-start">{belovedCard()}</div>
-        <div class="col-lg">
-          <img
-            src="/images/Digital-coins.svg"
-            loading="lazy"
-            alt="Contact image"
-            class="uui-contact05_image"
-          />
+      <div class="content">
+        <Breadcrumb pageName={'Beloved'} />
+        <BelovedModal
+          keyType={belovedModalType.key}
+          category="co_sampul"
+          selectedItem={belovedModalType.selectedItem}
+          refreshFunction={getBeloved}
+        />
+        <div class="mt-4">{title()}</div>
+        <div class="row mt-4">
+          <div class="col-lg-4 align-self-start">{belovedCard()}</div>
+          <div class="col-lg">
+            <img
+              src="/images/Digital-coins.svg"
+              loading="lazy"
+              alt="Contact image"
+              class="uui-contact05_image"
+            />
+          </div>
         </div>
       </div>
       <Footer />
