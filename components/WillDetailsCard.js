@@ -68,8 +68,7 @@ const WillDetailsCard = ({ willData }) => {
         },
         {
           title: '9. Signed by',
-          description: `
-          ${myInfo.nric_name},
+          description: `${myInfo.nric_name},
           ${myInfo.nric_no}
           on ${myInfo.last_updated}`,
           addBreak: true,
@@ -104,7 +103,75 @@ const WillDetailsCard = ({ willData }) => {
       ],
     },
     non_muslim: {
-      title: 'Will & Testator for Digital Asset',
+      title: 'LAST WILL AND TESTAMENT FOR DIGITAL ASSETS',
+      info: [
+        {
+          title: '1. Declaration',
+          description: `I, ${myInfo.nric_name}, ${myInfo.nric_no}, ${myInfo.address} declare this document, created on ${myInfo.last_updated}, as my Last Will and Testament for my digital assets.`,
+        },
+        {
+          title: '2. Revocation',
+          description: `All previous Wills related to my digital assets are revoked.`,
+        },
+        {
+          title: '3. Main Co-Sampul',
+          description: `${myInfo.primary_co_sampul?.nric_name}, ${myInfo.primary_co_sampul?.nric_no} is appointed to safekeep and deliver this Will and Testament of  my digital assets to my beneficiaries.`,
+        },
+        {
+          title: '4. Substitute Co-Sampul',
+          description: `If necessary, ${myInfo.secondary_co_sampul?.nric_name}, ${myInfo.secondary_co_sampul?.nric_no} will act as Substitute Co-Sampul.`,
+        },
+        {
+          title: '5. Digital Assets Distribution',
+          description: `
+          ● Specific Bequests: Certain assets are designated for specific beneficiaries as per [Table 1].
+          ● Residual Estate: The rest of my digital assets not specifically mentioned are to be distributed accordingly.
+          ● Additional Bequests: For charity, [Charitable Body] is designated as per [Table 1]`,
+          addBreak: true,
+        },
+        {
+          title: '6. Guardianship',
+          description: `If my spouse/partner predeceases me or is unable, [Guardian Name], [IC] is appointed for my minor children, with [Guardian Name 2] [IC] as an alternate as per [Table 1]`,
+        },
+        {
+          title: '7. Predecease Condition',
+          description: `If any beneficiary predeceases me, their share shall be redistributed among the remaining beneficiaries or as specified in this Will.`,
+        },
+        {
+          title: '8. Signed by',
+          description: `${myInfo.nric_name},
+          ${myInfo.nric_no}
+          on ${myInfo.last_updated}`,
+          addBreak: true,
+        },
+        {
+          title: '10.	Witnesses',
+          description: (
+            <div>
+              <strong>Signed by</strong>
+              <br />
+              Muhammad Arham Munir Merican bin Amir Feisal Merican
+              <br />
+              931011875001
+              <br />
+              Founder, SAMPUL
+              <br />
+              on {myInfo.last_updated}
+              <br />
+              <br />
+              <strong>Signed by</strong>
+              <br />
+              Farhan Hamid
+              <br />
+              930000020000
+              <br />
+              Co-Founder, SAMPUL
+              <br />
+              on {myInfo.last_updated}
+            </div>
+          ),
+        },
+      ],
     },
   };
 

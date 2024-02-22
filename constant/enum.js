@@ -295,11 +295,13 @@ export const belovedLevel = () => {
 export const religions = () => {
   const options = [
     { name: 'Islam', value: 'islam' },
-    // { name: 'Christianity', value: 'christianity' },
-    // { name: 'Hinduism', value: 'hinduism' },
-    // { name: 'Buddhism', value: 'buddhism' },
-    // { name: 'Sikhism', value: 'sikhism' },
-    // { name: 'Others', value: 'others' },
+    { name: 'Christianity', value: 'christianity' },
+    { name: 'Buddhism', value: 'buddhism' },
+    { name: 'Hinduism', value: 'hinduism' },
+    { name: 'Sikhism', value: 'sikhism' },
+    { name: 'Confucianism', value: 'confucianism' },
+    { name: 'Taoism', value: 'taoism' },
+    { name: 'Other', value: 'other' },
   ];
 
   return options;

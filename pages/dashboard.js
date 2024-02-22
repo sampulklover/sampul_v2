@@ -11,6 +11,7 @@ import DigitalSummaryCard from '../components/DigitalSummaryCard';
 import Footer from '../components/Footer';
 import Breadcrumb from '../components/Breadcrumb';
 import WillActionButtons from '../components/WillActionButtons';
+import QrCodeModal from '../components/QRCodeModal';
 
 const Dashboard = () => {
   const { user, isLoading } = useUser();
@@ -23,68 +24,72 @@ const Dashboard = () => {
   const [runEffect, setRunEffect] = useState(false);
   const [qrValue, setQrValue] = useState(null);
 
+  const initiateFunction = async () => {
+    const { data: singleData, error } = await supabase
+      .from('profiles')
+      .select(`*, beloved ( * ), digital_assets ( * ), wills ( * )`)
+      .eq('uuid', user.uuid)
+      .single();
+    if (error) {
+      setSummary({
+        data: null,
+        isReady: true,
+      });
+      toast.error(error.message);
+      return;
+    }
+
+    singleData.digital_account = [];
+    singleData.subscription_account = [];
+    singleData.digital_assets.forEach((item) => {
+      if (item.account_type === 'non_subscription') {
+        singleData.digital_account.push(item);
+      }
+      if (item.account_type === 'subscription') {
+        singleData.subscription_account.push(item);
+      }
+    });
+    singleData.count_digital = singleData.digital_account.length;
+    singleData.count_subscription = singleData.subscription_account.length;
+    singleData.count_value_digital = singleData.digital_account.reduce(
+      (acc, val) => acc + val.declared_value_myr,
+      0
+    );
+    singleData.count_value_subscription =
+      singleData.subscription_account.reduce(
+        (acc, val) => acc + val.declared_value_myr,
+        0
+      );
+
+    const displayElements = {
+      count_value_digital: document.getElementById(
+        'count-value-digital-account'
+      ),
+      count_digital: document.getElementById('count-digital-account'),
+      count_value_subscription: document.getElementById(
+        'count-value-subscription-account'
+      ),
+      count_subscription: document.getElementById('count-subscription-account'),
+      last_updated: document.getElementById('last-updated-will'),
+    };
+
+    var mapData = singleData;
+    mapViewElements({
+      source: mapData,
+      target: displayElements,
+      viewOnly: true,
+    });
+
+    setSummary({
+      data: singleData,
+      isReady: true,
+    });
+  };
+
   useEffect(() => {
     if (!runEffect && user.uuid !== null) {
       setRunEffect(true);
-
-      const getUserProfile = async () => {
-        const { data: singleData, error } = await supabase
-          .from('profiles')
-          .select(`*, beloved ( * ), digital_assets ( * ), wills ( * )`)
-          .eq('uuid', user.uuid)
-          .single();
-        if (error) {
-          setSummary({
-            data: null,
-            isReady: true,
-          });
-          toast.error(error.message);
-          return;
-        }
-        singleData.digital_account = [];
-        singleData.subscription_account = [];
-        singleData.digital_assets.forEach((item) => {
-          if (item.account_type === 'non_subscription') {
-            singleData.digital_account.push(item);
-          }
-          if (item.account_type === 'subscription') {
-            singleData.subscription_account.push(item);
-          }
-        });
-        singleData.count_digital = singleData.digital_account.length;
-        singleData.count_subscription = singleData.subscription_account.length;
-        singleData.count_value_digital = singleData.digital_account.reduce(
-          (acc, val) => acc + val.declared_value_myr,
-          0
-        );
-        singleData.count_value_subscription =
-          singleData.subscription_account.reduce(
-            (acc, val) => acc + val.declared_value_myr,
-            0
-          );
-
-        const displayElements = {
-          count_value_digital: document.getElementById(
-            'count-value-digital-account'
-          ),
-          count_digital: document.getElementById('count-digital-account'),
-          count_value_subscription: document.getElementById(
-            'count-value-subscription-account'
-          ),
-          count_subscription: document.getElementById(
-            'count-subscription-account'
-          ),
-          last_updated: document.getElementById('last-updated-will'),
-        };
-
-        mapViewElements(singleData, displayElements);
-        setSummary({
-          data: singleData,
-          isReady: true,
-        });
-      };
-
-      getUserProfile();
+      initiateFunction();
     }
   }, [user, runEffect]);
 
@@ -342,6 +347,7 @@ const Dashboard = () => {
                 setQrValue={setQrValue}
                 cardRef={cardRef}
                 showQrModal={true}
+                refreshFunction={initiateFunction}
               />
             </div>
           </div>
@@ -372,50 +378,17 @@ const Dashboard = () => {
     );
   };
 
-  const qrCodeModal = () => {
-    return (
-      <div class="modal fade" id="qr-code-modal">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Your Wasiat/will QR code</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <div class="text-center">
-                <div ref={cardRef}>
-                  {qrValue !== null && (
-                    <QRCode
-                      title="Sampul"
-                      value={qrValue}
-                      bgColor={'#FFFFFF'}
-                      fgColor={'#000000'}
-                      size={400}
-                    />
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
   return (
     <div class="body">
-      {qrCodeModal()}
-      <Breadcrumb pageName={'Dashboard'} />
-      <div class="mt-4">{title()}</div>
-      <div class="mt-4">{section2()}</div>
-      <div class="mt-4">{section3()}</div>
-      <div class="mt-4">{section4()}</div>
-      <Footer />
+      <div class="content">
+        <QrCodeModal cardRef={cardRef} qrValue={qrValue} />
+        <Breadcrumb pageName={'Dashboard'} />
+        <div class="mt-4">{title()}</div>
+        <div class="mt-4">{section2()}</div>
+        <div class="mt-4">{section3()}</div>
+        <div class="mt-4">{section4()}</div>
+        <Footer />
+      </div>
     </div>
   );
 };

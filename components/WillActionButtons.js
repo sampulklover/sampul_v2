@@ -97,8 +97,10 @@ const WillActionButtons = ({
     if (!cardElement) return;
     try {
       const html2canvas = await import('html2canvas');
+
       const result = await html2canvas.default(cardElement, options);
-      const asURL = result.toDataURL();
+      const asURL = await result.toDataURL();
+
       const timestamp = new Date().getTime();
       var file = dataURLtoFile(asURL, `qr_code_${will_id}_${timestamp}.png`);
 
@@ -115,6 +117,7 @@ const WillActionButtons = ({
 
       setShareUrl(url);
       refreshFunction();
+      toast.success('Successfully generated!');
     } catch (error) {
       toast.error(error.message);
     }

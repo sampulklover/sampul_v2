@@ -12,7 +12,7 @@ import {
   servicePlatforms,
   waqfBodies,
 } from '../constant/enum';
-import { mapViewElements } from '../utils/helpers';
+import { processForm } from '../utils/helpers';
 import Link from 'next/link';
 import DigitalSummaryCard from '../components/DigitalSummaryCard';
 import Footer from '../components/Footer';
@@ -210,26 +210,6 @@ const ExtraWishes = () => {
       </>
     );
   };
-
-  function processForm(elements, clearFields = false) {
-    const addData = {};
-
-    if (clearFields) {
-      for (const key in elements) {
-        if (key !== 'image_path') {
-          elements[key].value = '';
-        }
-      }
-    } else {
-      for (const key in elements) {
-        if (key !== 'image_path') {
-          addData[key] = elements[key].value;
-        }
-      }
-    }
-
-    return addData;
-  }
 
   const onSubmitForm = async ({ keyName }) => {
     setButtonLoading({
@@ -551,24 +531,26 @@ const ExtraWishes = () => {
 
   return (
     <div class="body">
-      <Breadcrumb pageName={'Extra Wishes'} />
-      <div class="mt-4">{title()}</div>
-      <div class="row mt-4">
-        <div
-          style={{
-            display: user?.profile?.religion == 'islam' ? 'block' : 'none',
-          }}
-        >
-          {form1()}
-          {form2()}
-        </div>
-        {form3()}
-        <div
-          style={{
-            display: user?.profile?.religion == 'islam' ? 'block' : 'none',
-          }}
-        >
-          {form4()}
+      <div class="content">
+        <Breadcrumb pageName={'Extra Wishes'} />
+        <div class="mt-4">{title()}</div>
+        <div class="row mt-4">
+          <div
+            style={{
+              display: user?.profile?.religion == 'islam' ? 'block' : 'none',
+            }}
+          >
+            {form1()}
+            {form2()}
+          </div>
+          {form3()}
+          <div
+            style={{
+              display: user?.profile?.religion == 'islam' ? 'block' : 'none',
+            }}
+          >
+            {form4()}
+          </div>
         </div>
       </div>
       <Footer />
