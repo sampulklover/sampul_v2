@@ -17,7 +17,7 @@ const NavBar = () => {
       <div class="container-fluid">
         <a class="navbar-brand" href="/">
           <Image
-            src="/images/logo.svg"
+            src="/images/Logo.svg"
             alt="image"
             width={0}
             height={0}
