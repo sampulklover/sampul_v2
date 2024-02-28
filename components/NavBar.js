@@ -36,20 +36,35 @@ const NavBar = () => {
         </button>
         <div class="collapse navbar-collapse" id="mynavbar">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item pe-2">
-              <Link href="/signin">
-                <button class="btn btn-light btn-text btn-lg" type="button">
-                  Sign in
-                </button>
-              </Link>
-            </li>
-            <li class="nav-item">
-              <Link href="/signup">
-                <button class="btn btn-primary btn-lg btn-text" type="button">
-                  Sign up
-                </button>
-              </Link>
-            </li>
+            {user?.uuid ? (
+              <li class="nav-item">
+                <Link href="dashboard">
+                  <button class="btn btn-primary btn-lg btn-text" type="button">
+                    Dashboard
+                  </button>
+                </Link>
+              </li>
+            ) : (
+              <>
+                <li class="nav-item pe-2">
+                  <Link href="signin">
+                    <button class="btn btn-light btn-text btn-lg" type="button">
+                      Sign in
+                    </button>
+                  </Link>
+                </li>
+                <li class="nav-item">
+                  <Link href="signup">
+                    <button
+                      class="btn btn-primary btn-lg btn-text"
+                      type="button"
+                    >
+                      Sign up
+                    </button>
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>

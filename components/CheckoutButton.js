@@ -13,7 +13,7 @@ const CheckoutButton = ({ price_id = '' }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: user.profile.email, uuid: user.uuid }),
+        body: JSON.stringify({ email: user.profile.email, uuid: user?.uuid }),
       });
 
       if (!response.ok) {

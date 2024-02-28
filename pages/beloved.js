@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../utils/supabase';
+import { useRouter } from 'next/router';
 import { useUser } from '../context/user';
 import Loading from '../components/Laoding';
 import toast from 'react-hot-toast';
@@ -15,8 +16,10 @@ import Footer from '../components/Footer';
 import Breadcrumb from '../components/Breadcrumb';
 import BelovedModal from '../components/BelovedModal';
 import { addUserImg, emptyUserImg } from '../constant/element';
+import SideBar from '../components/SideBar';
 
 const Beloved = () => {
+  const router = useRouter();
   const { user, isLoading } = useUser();
   const [summary, setSummary] = useState({
     data: [],
@@ -27,13 +30,14 @@ const Beloved = () => {
   const [belovedModalType, setBelovedModalType] = useState({
     key: 'add',
     selectedItem: null,
+    category: 'co_sampul',
   });
 
   const getBeloved = async () => {
     const { data, error } = await supabase
       .from('beloved')
       .select('*')
-      .eq('uuid', user.uuid)
+      .eq('uuid', user?.uuid)
       .order('created_at', { ascending: false });
 
     if (error) {
@@ -52,7 +56,7 @@ const Beloved = () => {
   };
 
   useEffect(() => {
-    if (!runEffect && user.uuid !== null) {
+    if (!runEffect && user?.uuid) {
       setRunEffect(true);
       getBeloved();
     }
@@ -84,6 +88,7 @@ const Beloved = () => {
     setBelovedModalType({
       key: item ? 'edit' : 'add',
       selectedItem: item ? item : null,
+      category: category,
     });
 
     const inputElements = {
@@ -151,7 +156,7 @@ const Beloved = () => {
               aria-labelledby="headingOne"
               data-bs-parent="#accordion1"
             >
-              <div>
+              <div class="pointer-on-hover">
                 <table class="table table-hover mb-0">
                   <tbody>
                     {summary.data.map((item, index) => {
@@ -173,7 +178,7 @@ const Beloved = () => {
                             <div
                               class="d-flex flex-wrap table-hover py-3 ps-3 px-3"
                               onClick={() => {
-                                belovedModal(item);
+                                belovedModal(item, 'co_sampul');
                               }}
                             >
                               <div class="dp-image-wrapper">
@@ -192,7 +197,17 @@ const Beloved = () => {
                                   <span>{rObject.name}</span>
                                 </div>
                               </div>
+
                               <div class="beloved-tag">
+                                {item.verified ? (
+                                  <div class="badge is-badge-small">
+                                    <span>Confirmed</span>
+                                  </div>
+                                ) : (
+                                  <div class="badge is-badge-small">
+                                    <span>Pending Confirmation</span>
+                                  </div>
+                                )}
                                 <div class="badge is-badge-small">
                                   <span>{lObject.name}</span>
                                 </div>
@@ -259,7 +274,7 @@ const Beloved = () => {
 
         <div class="accordion mt-3" id="accordion2">
           <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
+            <h2 class="accordion-header" id="headingTwo">
               <button
                 class="accordion-button"
                 type="button"
@@ -268,16 +283,16 @@ const Beloved = () => {
                 aria-expanded="true"
                 aria-controls="collapseTwo"
               >
-                <h3 class="heading-xsmall">Beneficiary</h3>
+                <h3 class="heading-xsmall">Beneficiaries</h3>
               </button>
             </h2>
             <div
               id="collapseTwo"
               class="accordion-collapse collapse"
-              aria-labelledby="headingOne"
+              aria-labelledby="headingTwo"
               data-bs-parent="#accordion2"
             >
-              <div>
+              <div class="pointer-on-hover">
                 <table class="table table-hover mb-0">
                   <tbody>
                     {summary.data.map((item, index) => {
@@ -298,7 +313,7 @@ const Beloved = () => {
                             <div
                               class="d-flex flex-wrap table-hover py-3 ps-3 px-3"
                               onClick={() => {
-                                belovedModal(item);
+                                belovedModal(item, 'future_owner');
                               }}
                             >
                               <div class="dp-image-wrapper">
@@ -318,9 +333,15 @@ const Beloved = () => {
                                 </div>
                               </div>
                               <div class="beloved-tag">
-                                <div class="badge is-badge-small">
-                                  <span>{lObject.name}</span>
-                                </div>
+                                {item.verified ? (
+                                  <div class="badge is-badge-small">
+                                    <span>Confirmed</span>
+                                  </div>
+                                ) : (
+                                  <div class="badge is-badge-small">
+                                    <span>Pending Confirmation</span>
+                                  </div>
+                                )}
                               </div>
                             </div>
                           </tr>
@@ -371,35 +392,261 @@ const Beloved = () => {
             </div>
           </div>
         </div>
+
+        <div class="accordion mt-3" id="accordion3">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+              <button
+                class="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseThree"
+                aria-expanded="true"
+                aria-controls="collapseThree"
+              >
+                <h3 class="heading-xsmall">Guardians</h3>
+              </button>
+            </h2>
+            <div
+              id="collapseThree"
+              class="accordion-collapse collapse"
+              aria-labelledby="headingThree"
+              data-bs-parent="#accordion3"
+            >
+              <div class="pointer-on-hover">
+                <table class="table table-hover mb-0">
+                  <tbody>
+                    {summary.data.map((item, index) => {
+                      if (item.type == 'guardian') {
+                        const rObject = relationships().find(
+                          (x) => x.value === item.relationship
+                        );
+                        const lObject = belovedLevel().find(
+                          (x) => x.value === item.level
+                        );
+
+                        const imageUrl = item.image_path
+                          ? `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${item.image_path}`
+                          : emptyUserImg;
+
+                        return (
+                          <tr key={index}>
+                            <div
+                              class="d-flex flex-wrap table-hover py-3 ps-3 px-3"
+                              onClick={() => {
+                                belovedModal(item, 'guardian');
+                              }}
+                            >
+                              <div class="dp-image-wrapper">
+                                <img
+                                  loading="lazy"
+                                  src={imageUrl}
+                                  alt=""
+                                  class="dp-image"
+                                />
+                              </div>
+                              <div class="flex-grow-1">
+                                <div class="smpl_text-sm-semibold crop-text">
+                                  <span>{item.nickname}</span>
+                                </div>
+                                <div class="smpl_text-sm-regular crop-text">
+                                  <span>{rObject.name}</span>
+                                </div>
+                              </div>
+                              <div class="beloved-tag">
+                                {item.verified ? (
+                                  <div class="badge is-badge-small">
+                                    <span>Confirmed</span>
+                                  </div>
+                                ) : (
+                                  <div class="badge is-badge-small">
+                                    <span>Pending Confirmation</span>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </tr>
+                        );
+                      }
+                    })}
+                  </tbody>
+                </table>
+                <div
+                  class="card-copy cosampul-copy"
+                  onClick={() => {
+                    if (accessAllowed()) {
+                      belovedModal(null, 'guardian');
+                    } else {
+                      router.push('settings?tab=nav-billing-tab');
+                    }
+                  }}
+                >
+                  <div class="beloved-block">
+                    <div class="dp-image-wrapper">
+                      <div class="smpl-icon-featured-outline-large">
+                        <div class="uui-icon-1x1-xsmall-2 w-embed">
+                          <svg
+                            width="24"
+                            height="24"
+                            viewbox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M11 3H7.8C6.11984 3 5.27976 3 4.63803 3.32698C4.07354 3.6146 3.6146 4.07354 3.32698 4.63803C3 5.27976 3 6.11984 3 7.8V16.2C3 17.8802 3 18.7202 3.32698 19.362C3.6146 19.9265 4.07354 20.3854 4.63803 20.673C5.27976 21 6.11984 21 7.8 21H16.2C17.8802 21 18.7202 21 19.362 20.673C19.9265 20.3854 20.3854 19.9265 20.673 19.362C21 18.7202 21 17.8802 21 16.2V13M12 8H16V12M15.5 3.5V2M19.4393 4.56066L20.5 3.5M20.5103 8.5H22.0103M3 13.3471C3.65194 13.4478 4.31987 13.5 5 13.5C9.38636 13.5 13.2653 11.3276 15.6197 8"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            ></path>
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="smpl_text-sm-semibold">
+                        Add your Guardian{' '}
+                        {accessAllowed() ? (
+                          ''
+                        ) : (
+                          <span class="text-primary">(Upgrade to Pro)</span>
+                        )}
+                      </div>
+                      <div class="smpl_text-sm-regular">
+                        The future owner of your assets
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion mt-3" id="accordion4">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFour">
+              <button
+                class="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseFour"
+                aria-expanded="true"
+                aria-controls="collapseFour"
+              >
+                <h3 class="heading-xsmall">I am a co-sampul for</h3>
+              </button>
+            </h2>
+            <div
+              id="collapseFour"
+              class="accordion-collapse collapse"
+              aria-labelledby="headingFour"
+              data-bs-parent="#accordion3"
+            >
+              <div class="pointer-on-hover">
+                <table class="table table-hover mb-0">
+                  <tbody>
+                    {summary.data.map((item, index) => {
+                      if (item.type == 'guardian') {
+                        const rObject = relationships().find(
+                          (x) => x.value === item.relationship
+                        );
+                        const lObject = belovedLevel().find(
+                          (x) => x.value === item.level
+                        );
+
+                        const imageUrl = item.image_path
+                          ? `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${item.image_path}`
+                          : emptyUserImg;
+
+                        return (
+                          <tr key={index}>
+                            <div
+                              class="d-flex flex-wrap table-hover py-3 ps-3 px-3"
+                              onClick={() => {
+                                belovedModal(item, 'guardian');
+                              }}
+                            >
+                              <div class="dp-image-wrapper">
+                                <img
+                                  loading="lazy"
+                                  src={imageUrl}
+                                  alt=""
+                                  class="dp-image"
+                                />
+                              </div>
+                              <div class="flex-grow-1">
+                                <div class="smpl_text-sm-semibold crop-text">
+                                  <span>{item.nickname}</span>
+                                </div>
+                                <div class="smpl_text-sm-regular crop-text">
+                                  <span>{rObject.name}</span>
+                                </div>
+                              </div>
+                              <div class="beloved-tag">
+                                {item.verified ? (
+                                  <div class="badge is-badge-small">
+                                    <span>Confirmed</span>
+                                  </div>
+                                ) : (
+                                  <div class="badge is-badge-small">
+                                    <span>Pending Confirmation</span>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </tr>
+                        );
+                      }
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
       </>
     );
   };
 
+  const accessAllowed = () => {
+    if (
+      user?.profile?.accounts.is_subscribed &&
+      user?.profile?.accounts.stripe_product ==
+        process.env.NEXT_PUBLIC_STRIPE_PROFESSIONAL_PRODUCT_ID
+    ) {
+      return true;
+    }
+    return false;
+  };
+
   return (
-    <div class="body">
-      <div class="content">
-        <Breadcrumb pageName={'Beloved'} />
-        <BelovedModal
-          keyType={belovedModalType.key}
-          category="co_sampul"
-          selectedItem={belovedModalType.selectedItem}
-          refreshFunction={getBeloved}
-        />
-        <div class="mt-4">{title()}</div>
-        <div class="row mt-4">
-          <div class="col-lg-4 align-self-start">{belovedCard()}</div>
-          <div class="col-lg">
-            <img
-              src="/images/Digital-coins.svg"
-              loading="lazy"
-              alt="Contact image"
-              class="uui-contact05_image"
-            />
+    <SideBar>
+      <div class="body">
+        <div class="content">
+          <Breadcrumb pageName={'Beloved'} />
+          <BelovedModal
+            keyType={belovedModalType.key}
+            category={belovedModalType.category}
+            selectedItem={belovedModalType.selectedItem}
+            refreshFunction={getBeloved}
+          />
+          <div class="mt-4">{title()}</div>
+          <div class="row mt-4">
+            <div class="col-lg align-self-start">{belovedCard()}</div>
+            <div class="col-lg">
+              <img
+                src="/images/Digital-coins.svg"
+                loading="lazy"
+                alt="Contact image"
+                class="uui-contact05_image"
+              />
+            </div>
           </div>
         </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </SideBar>
   );
 };
 

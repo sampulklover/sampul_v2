@@ -80,7 +80,7 @@ const DigitalAssetsModal = ({
     const { data: returnData, error } = await supabase
       .from('digital_assets')
       .insert({
-        uuid: user.uuid,
+        uuid: user?.uuid,
         ...addData,
       })
       .select();
@@ -92,7 +92,9 @@ const DigitalAssetsModal = ({
 
     $('#digital-assets-modal')?.modal('hide');
     toast.success('Successfully submitted!');
-    refreshFunction();
+    if (refreshFunction) {
+      refreshFunction();
+    }
   };
 
   const editDigitalAssets = async () => {
@@ -128,7 +130,7 @@ const DigitalAssetsModal = ({
       .update({
         ...addData,
       })
-      .eq('uuid', user.uuid)
+      .eq('uuid', user?.uuid)
       .eq('id', selectedItem.id);
 
     if (error) {
@@ -138,7 +140,9 @@ const DigitalAssetsModal = ({
 
     $('#digital-assets-modal')?.modal('hide');
     toast.success('Successfully updated!');
-    refreshFunction();
+    if (refreshFunction) {
+      refreshFunction();
+    }
   };
 
   const deleteDigitalAssets = async () => {
@@ -151,7 +155,7 @@ const DigitalAssetsModal = ({
       const { data, error } = await supabase
         .from('digital_assets')
         .delete()
-        .eq('uuid', user.uuid)
+        .eq('uuid', user?.uuid)
         .eq('id', selectedItem.id);
 
       if (error) {
@@ -169,7 +173,10 @@ const DigitalAssetsModal = ({
 
       $('#digital-assets-modal')?.modal('hide');
       toast.success('Successfully deleted!');
-      refreshFunction();
+
+      if (refreshFunction) {
+        refreshFunction();
+      }
 
       setIsLoading({
         ...isLoading,

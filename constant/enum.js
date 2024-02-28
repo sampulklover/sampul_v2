@@ -239,9 +239,8 @@ export const declaredValues = () => {
 export const instructionsAfterDeath = () => {
   const options = [
     { name: 'Faraid', value: 'faraid' },
-    { name: 'Transfer', value: 'transfer' },
-    { name: 'Gift', value: 'gift' },
-    { name: 'Non-Waris', value: 'non_waris' },
+    { name: 'Transfer as gift', value: 'transfer_as_gift' },
+    { name: 'Terminate', value: 'terminate' },
   ];
 
   return options;
@@ -277,6 +276,7 @@ export const beneficiaryTypes = () => {
   const options = [
     { name: 'Co-Sampul', value: 'co_sampul' },
     { name: 'Future owner', value: 'future_owner' },
+    { name: 'Guardian', value: 'guardian' },
   ];
 
   return options;

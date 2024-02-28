@@ -19,6 +19,7 @@ import { addUserImg, emptyUserImg } from '../constant/element';
 import WillActionButtons from '../components/WillActionButtons';
 import WillCertCard from '../components/WillCertCard';
 import WillDetailsCard from '../components/WillDetailsCard';
+import SideBar from '../components/SideBar';
 
 const Beloved = () => {
   const { user, isLoading } = useUser();
@@ -36,13 +37,15 @@ const Beloved = () => {
     const { data, error } = await supabase
       .from('wills')
       .select(`*, profiles ( * )`)
-      .eq('uuid', user.uuid)
-      .single();
+      .eq('uuid', user?.uuid);
 
     if (error) {
       toast.error(error.message);
     }
 
+    if (data.length > 0) {
+      return data[0];
+    }
     return data;
   };
 
@@ -50,7 +53,7 @@ const Beloved = () => {
     const { data, error } = await supabase
       .from('beloved')
       .select('*')
-      .eq('uuid', user.uuid);
+      .eq('uuid', user?.uuid);
 
     if (error) {
       toast.error(error.message);
@@ -63,7 +66,7 @@ const Beloved = () => {
     const { data, error } = await supabase
       .from('digital_assets')
       .select('*')
-      .eq('uuid', user.uuid);
+      .eq('uuid', user?.uuid);
 
     if (error) {
       toast.error(error.message);
@@ -98,7 +101,7 @@ const Beloved = () => {
   };
 
   useEffect(() => {
-    if (!runEffect && user.uuid !== null) {
+    if (!runEffect && user?.uuid) {
       setRunEffect(true);
       getWill();
     }
@@ -196,7 +199,7 @@ const Beloved = () => {
             role="tabpanel"
             aria-labelledby="pills-details-tab"
           >
-            <WillDetailsCard willData={summary.data} />
+            <WillDetailsCard willData={summary} />
           </div>
         </div>
       </>
@@ -204,14 +207,16 @@ const Beloved = () => {
   };
 
   return (
-    <div class="body">
-      <div class="content">
-        <Breadcrumb pageName={'Wasiat/Will'} />
-        <div class="mt-4">{title()}</div>
-        {tabSection()}
+    <SideBar>
+      <div class="body">
+        <div class="content">
+          <Breadcrumb pageName={'Wasiat/Will'} />
+          <div class="mt-4">{title()}</div>
+          {tabSection()}
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </SideBar>
   );
 };
 

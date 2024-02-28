@@ -12,8 +12,11 @@ export const formatTimestamp = (
     minute: '2-digit',
   }
 ) => {
-  const date = new Date(timestamp);
-  return date.toLocaleDateString('en-US', options);
+  if (timestamp) {
+    const date = new Date(timestamp);
+    return date.toLocaleDateString('en-US', options);
+  }
+  return '[TIMESTAMP]';
 };
 
 export const mapViewElements = ({ source, target, viewOnly = true }) => {

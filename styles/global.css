@@ -2,13 +2,17 @@
   display: flex;
   flex-direction: column;
   /* justify-content: space-between; */
-  padding-top: 3rem;
+  padding-top: 1.5rem;
   padding-bottom: 6rem;
   min-height: 100vh;
-  padding-left: 5rem;
-  padding-right: 5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
   background: #fff;
   font-family: Inter, sans-serif;
+}
+
+.text-primary {
+ color: #533de9 !important;
 }
 
 .content {
@@ -116,6 +120,58 @@
   border: none;
 }
 
+.nav-sticky-bottom {
+    position: fixed;
+    bottom: 0;
+}
+
+.crop-text {
+  -webkit-line-clamp: 2;
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+.nav-bg-custom {
+  background-color: #f5f6f8;
+}
+
+.nav-link-custom {
+  display: block;
+  padding: 0;
+  color: #475467;
+}
+
+.nav-link:hover {
+  background-color: #f9f6ff;
+  color: #533de9;
+  border-radius: 8;
+}
+
+.nav-link-selected {
+  background-color: #533de9;
+  color: #fff;
+  border-radius: 8;
+}
+
+.sticky-bottom {
+  position: sticky;
+  bottom: 0;
+  z-index: 0;
+}
+
+.list-group-item.active {
+  background-color: transparent;
+  border: var(--bs-list-group-border-width) solid var(--bs-list-group-border-color);
+  border-left: 4px solid #533de9;
+}
+
+.get-started-bg {
+  background-color: #f9fafb;
+  border-radius: 1rem;
+  padding: 2rem 2rem 
+}
 /* webflow */
 
 .uui-contact05_image {

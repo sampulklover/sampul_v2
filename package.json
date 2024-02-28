@@ -25,6 +25,7 @@
     "react-hot-toast": "^2.4.1",
     "react-qr-code": "^2.0.12",
     "react-select": "^5.8.0",
+    "resend": "^3.2.0",
     "stripe": "^14.16.0"
   },
   "devDependencies": {
