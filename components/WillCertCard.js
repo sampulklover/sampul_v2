@@ -14,7 +14,14 @@ const WillCertCard = ({ willData, qrValue, cardRef }) => {
     },
   };
 
-  const chekReligion = () => {
+  const myInfo = {
+    nric_name: willData.will?.nric_name
+      ? willData.will.nric_name
+      : '[YOUR NAME]',
+    will_code: willData.will?.will_code ? willData.will.will_code : '[ID]',
+  };
+
+  const checkReligion = () => {
     if (willData.will?.profiles?.religion == 'islam') {
       return 'muslim';
     } else {
@@ -37,22 +44,20 @@ const WillCertCard = ({ willData, qrValue, cardRef }) => {
             </div>
             <div class="wasiat-cert_content-centre">
               <h2 class="heading-xsmall centre">
-                {will_settings[chekReligion()].title}
+                {will_settings[checkReligion()].title}
               </h2>
               <div class="space-medium"></div>
               <div class="text-size-medium centre">
-                {will_settings[chekReligion()].from}
+                {will_settings[checkReligion()].from}
               </div>
               <div class="space-medium"></div>
               <div class="heading-xsmall centre text--color-sampul">
-                <span>{willData.will?.nric_name}</span>
+                <span>{myInfo.nric_name}</span>
               </div>
               <div class="space-medium"></div>
               <div class="text-size-medium centre">
                 Will ID :{' '}
-                <span id="view-certificate-will-code">
-                  {willData.will?.will_code}
-                </span>
+                <span id="view-certificate-will-code">{myInfo.will_code}</span>
               </div>
               <div class="space-xxsmall"></div>
               <div class="text-size-medium centre">
@@ -61,7 +66,7 @@ const WillCertCard = ({ willData, qrValue, cardRef }) => {
               </div>
               <div class="space-medium"></div>
               <div class="text-size-medium centre">
-                {will_settings[chekReligion()].info}
+                {will_settings[checkReligion()].info}
               </div>
               <div class="bar-divider"></div>
             </div>

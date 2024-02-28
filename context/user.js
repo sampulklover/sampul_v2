@@ -55,7 +55,9 @@ const Provider = ({ children }) => {
       return;
     }
 
-    router.push('/dashboard');
+    if (data?.user) {
+      router.push('/dashboard');
+    }
   };
 
   const normalSignup = async ({ name, email, password }) => {
@@ -88,7 +90,12 @@ const Provider = ({ children }) => {
       return;
     }
 
-    router.push('/dashboard');
+    toast.success(
+      'Registration successful, please check your email and confirm your email address to complete the registration process',
+      {
+        duration: 6000,
+      }
+    );
   };
 
   const googleLogin = async () => {
@@ -114,7 +121,8 @@ const Provider = ({ children }) => {
   const logout = async () => {
     await supabase.auth.signOut();
     setUser(null);
-    router.push('/');
+    toast.success('Sign out');
+    router.push('signin');
   };
 
   const exposed = {

@@ -15,7 +15,7 @@ const Dashboard = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ uuid: user.uuid }),
+        body: JSON.stringify({ uuid: user?.uuid }),
       });
 
       if (!response.ok) {

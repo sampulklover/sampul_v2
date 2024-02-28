@@ -19,6 +19,10 @@ const InformDeath = () => {
     isCalling: false,
     isSaving: false,
   });
+  const [belovedList, setBelovedList] = useState({
+    data: [],
+    isCalling: false,
+  });
   const [selectedImage, setSelectedImage] = useState({
     data: null,
     url: addUserImg,
@@ -26,9 +30,9 @@ const InformDeath = () => {
   });
 
   useEffect(() => {
-    if (!runEffect && user.uuid !== null) {
+    if (!runEffect && user?.uuid) {
       setRunEffect(true);
-      getInformDeath();
+      getBeloved();
     }
   }, [user, runEffect]);
 
@@ -36,6 +40,7 @@ const InformDeath = () => {
     const inputElements = {
       inform_death: {
         elements: {
+          beloved_id: document.getElementById('select-inform-death-beloved'),
           nric_name: document.getElementById('input-inform-death-nric-name'),
           nric_no: document.getElementById('input-inform-death-nric-no'),
           certification: document.getElementById(
@@ -56,6 +61,40 @@ const InformDeath = () => {
     return inputElements;
   };
 
+  const getBeloved = async () => {
+    setBelovedList({
+      data: [],
+      isCalling: true,
+    });
+
+    const { data, error } = await supabase
+      .from('beloved')
+      .select('*')
+      .eq('uuid', user?.uuid)
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      setBelovedList({
+        data: [],
+        isCalling: false,
+      });
+      toast.error(error.message);
+      return;
+    }
+
+    const modifiedData = data.map((item) => ({
+      value: item.id,
+      name: item.nric_name,
+    }));
+
+    setBelovedList({
+      data: modifiedData,
+      isCalling: false,
+    });
+
+    getInformDeath();
+  };
+
   const getInformDeath = async () => {
     setSummary({
       ...summary,
@@ -65,7 +104,7 @@ const InformDeath = () => {
     const { data, error } = await supabase
       .from('inform_death')
       .select('*')
-      .eq('uuid', user.uuid);
+      .eq('uuid', user?.uuid);
 
     if (error) {
       setSummary({
@@ -102,7 +141,7 @@ const InformDeath = () => {
     const { data: checkExist, error: errorCheckExist } = await supabase
       .from('inform_death')
       .select('*')
-      .eq('uuid', user.uuid);
+      .eq('uuid', user?.uuid);
 
     if (errorCheckExist) {
       toast.error(errorCheckExist.message);
@@ -120,11 +159,11 @@ const InformDeath = () => {
 
     switch (action) {
       case 'update':
-        query = query.update(addData).eq('uuid', user.uuid).select().single();
+        query = query.update(addData).eq('uuid', user?.uuid).select().single();
         break;
       case 'insert':
         query = query
-          .upsert({ uuid: user.uuid, ...addData })
+          .upsert({ uuid: user?.uuid, ...addData })
           .select()
           .single();
         break;
@@ -147,7 +186,7 @@ const InformDeath = () => {
     const imageInput = document.getElementById('input-inform-death-image');
 
     await replaceOrAddImage({
-      userId: user.uuid,
+      userId: user?.uuid,
       returnData,
       directory,
       imageInput,
@@ -216,6 +255,26 @@ const InformDeath = () => {
             <button type="submit" class="btn btn-primary btn-lg btn-text">
               <Loading title="Save" loading={summary.isSaving} />
             </button>
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col-lg">
+            <label for="select-inform-death-beloved" class="uui-field-label">
+              Co-Sampul <Loading loading={belovedList.isCalling} />
+            </label>
+          </div>
+          <div class="col">
+            <select
+              id="select-inform-death-beloved"
+              class="form-select"
+              required
+            >
+              {belovedList.data.map((item) => (
+                <option key={item.value} value={item.value}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
         <div class="row mb-4">

@@ -4,6 +4,7 @@ import { addUserImg } from '../constant/element';
 import { countries, maritalStatus, religions } from '../constant/enum';
 import { useUser } from '../context/user';
 import { supabase } from '../utils/supabase';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import {
   mapViewElements,
@@ -12,8 +13,9 @@ import {
 } from '../utils/helpers';
 import toast from 'react-hot-toast';
 
-const MyDetails = () => {
+const MyDetails = ({ isModal = false }) => {
   const { user, isLoading } = useUser();
+  const router = useRouter();
   const [runEffect, setRunEffect] = useState(false);
   const [summary, setSummary] = useState({
     isCalling: false,
@@ -25,7 +27,7 @@ const MyDetails = () => {
   });
 
   useEffect(() => {
-    if (!runEffect && user.uuid !== null) {
+    if (!runEffect && user?.uuid) {
       setRunEffect(true);
       getProfiles();
     }
@@ -67,7 +69,7 @@ const MyDetails = () => {
     const { data, error } = await supabase
       .from('profiles')
       .select('*')
-      .eq('uuid', user.uuid)
+      .eq('uuid', user?.uuid)
       .single();
 
     if (error) {
@@ -105,7 +107,7 @@ const MyDetails = () => {
     const { data: returnData, error } = await supabase
       .from('profiles')
       .update(addData)
-      .eq('uuid', user.uuid)
+      .eq('uuid', user?.uuid)
       .select()
       .single();
 
@@ -122,7 +124,7 @@ const MyDetails = () => {
     const imageInput = document.getElementById('input-my-details-image');
 
     await replaceOrAddImage({
-      userId: user.uuid,
+      userId: user?.uuid,
       returnData,
       directory,
       imageInput,
@@ -130,12 +132,50 @@ const MyDetails = () => {
       isUpdateByReturnId: false,
     });
 
-    toast.success('Saved successfully!');
+    toast.success('Saved successfully! reloading...');
 
     setSummary({
       ...summary,
       isSaving: false,
     });
+
+    if (isModal) {
+      $('#profile-modal')?.modal('hide');
+    }
+
+    setTimeout(() => {
+      router.reload();
+    }, 1500);
+  };
+
+  const checkView = ({ labelDiv1, inputDiv1, labelDiv2, inputDiv2 }) => {
+    if (isModal) {
+      return (
+        <div class="form-content-2 mb-3">
+          <div class="form-field-wrapper">
+            {labelDiv1}
+            {inputDiv1}
+          </div>
+          <div class="form-field-wrapper">
+            {labelDiv2}
+            {inputDiv2}
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <>
+        <div class="row mb-4">
+          <div class="col-lg">{labelDiv1}</div>
+          <div class="col">{inputDiv1}</div>
+        </div>
+        <div class="row mb-4">
+          <div class="col-lg">{labelDiv2}</div>
+          <div class="col">{inputDiv2}</div>
+        </div>
+      </>
+    );
   };
 
   return (
@@ -147,21 +187,25 @@ const MyDetails = () => {
           onSubmitForm();
         }}
       >
-        <div class="row mb-4">
-          <div class="col-lg">
-            <div class="smpl_text-sm-semibold">
-              Profile <Loading loading={summary.isCalling} />
+        {isModal ? (
+          ''
+        ) : (
+          <div class="row mb-4">
+            <div class="col-lg">
+              <div class="smpl_text-sm-semibold">
+                Profile <Loading loading={summary.isCalling} />
+              </div>
+              <div class="smpl_text-sm-regular">
+                Update your personal data here
+              </div>
             </div>
-            <div class="smpl_text-sm-regular">
-              Update your personal data here
+            <div class="col text-end">
+              <button type="submit" class="btn btn-primary btn-lg btn-text">
+                <Loading title="Save" loading={summary.isSaving} />
+              </button>
             </div>
           </div>
-          <div class="col text-end">
-            <button type="submit" class="btn btn-primary btn-lg btn-text">
-              <Loading title="Save" loading={summary.isSaving} />
-            </button>
-          </div>
-        </div>
+        )}
         <div class="row mb-4">
           <div class="col-lg">
             <label class="uui-field-label">Your photo</label>
@@ -196,73 +240,72 @@ const MyDetails = () => {
             />
           </div>
         </div>
-        <div class="row mb-4">
-          <div class="col-lg">
+
+        {checkView({
+          labelDiv1: (
             <label for="input-my-details-username" class="uui-field-label">
               Username
             </label>
-          </div>
-          <div class="col">
+          ),
+          inputDiv1: (
             <input
               type="text"
               class="form-control"
               id="input-my-details-username"
               required
             />
-          </div>
-        </div>
-        <div class="row mb-4">
-          <div class="col-lg">
+          ),
+          labelDiv2: (
             <label for="input-my-details-nric-name" class="uui-field-label">
               Name (As Per NRIC)
             </label>
-          </div>
-          <div class="col">
+          ),
+          inputDiv2: (
             <input
               type="text"
               class="form-control"
               id="input-my-details-nric-name"
               required
             />
-          </div>
-        </div>
-        <div class="row mb-4">
-          <div class="col-lg">
+          ),
+        })}
+
+        {checkView({
+          labelDiv1: (
             <label for="input-my-details-nric-no" class="uui-field-label">
               NRIC
             </label>
-          </div>
-          <div class="col">
+          ),
+          inputDiv1: (
             <input
               type="text"
               class="form-control"
               id="input-my-details-nric-no"
               required
             />
-          </div>
-        </div>
-        <div class="row mb-4">
-          <div class="col-lg">
+          ),
+          labelDiv2: (
             <label for="input-my-details-dob" class="uui-field-label">
               Date of Birth
             </label>
-          </div>
-          <div class="col">
+          ),
+          inputDiv2: (
             <input
               type="date"
               class="form-control"
               id="input-my-details-dob"
               required
             />
-          </div>
-        </div>
-        <div class="row mb-4">
-          <div class="col-lg">
+          ),
+        })}
+
+        {checkView({
+          labelDiv1: (
             <label for="input-my-details-email" class="uui-field-label">
               Email
             </label>
-          </div>
-          <div class="col">
+          ),
+          inputDiv1: (
             <input
               type="email"
               class="form-control"
@@ -270,30 +313,29 @@ const MyDetails = () => {
               required
               disabled
             />
-          </div>
-        </div>
-        <div class="row mb-4">
-          <div class="col-lg">
+          ),
+          labelDiv2: (
             <label for="input-my-details-phone-no" class="uui-field-label">
               Contact
             </label>
-          </div>
-          <div class="col">
+          ),
+          inputDiv2: (
             <input
               type="text"
               class="form-control"
               id="input-my-details-phone-no"
               required
             />
-          </div>
-        </div>
-        <div class="row mb-4">
-          <div class="col-lg">
+          ),
+        })}
+
+        {checkView({
+          labelDiv1: (
             <label for="select-my-details-religion" class="uui-field-label">
               Religion
             </label>
-          </div>
-          <div class="col">
+          ),
+          inputDiv1: (
             <select
               id="select-my-details-religion"
               required
@@ -305,18 +347,16 @@ const MyDetails = () => {
                 </option>
               ))}
             </select>
-          </div>
-        </div>
-        <div class="row mb-4">
-          <div class="col-lg">
+          ),
+          labelDiv2: (
             <label
               for="select-my-details-marital-status"
               class="uui-field-label"
             >
               Marital Status
             </label>
-          </div>
-          <div class="col">
+          ),
+          inputDiv2: (
             <select
               id="select-my-details-marital-status"
               required
@@ -328,15 +368,16 @@ const MyDetails = () => {
                 </option>
               ))}
             </select>
-          </div>
-        </div>
-        <div class="row mt-5 align-items-start">
+          ),
+        })}
+
+        <div class="row align-items-start">
           <div class="col-lg">
             <label for="input-my-details-address-1" class="uui-field-label">
               Address
             </label>
           </div>
-          <div class="col">
+          <div class={isModal ? 'mt-2' : 'col'}>
             <input
               type="text"
               class="form-control"
@@ -377,6 +418,15 @@ const MyDetails = () => {
             </select>
           </div>
         </div>
+        {isModal ? (
+          <div class="d-grid gap-2 mt-5">
+            <button type="submit" class="btn btn-primary btn-lg btn-text">
+              <Loading title="Save" loading={summary.isSaving} />
+            </button>
+          </div>
+        ) : (
+          ''
+        )}
       </form>
     </>
   );

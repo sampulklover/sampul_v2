@@ -1,9 +1,20 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { instructionsAfterDeath, servicePlatforms } from '../constant/enum';
+import {
+  instructionsAfterDeath,
+  relationships,
+  servicePlatformAccountTypes,
+  servicePlatforms,
+} from '../constant/enum';
 import Loading from './Laoding';
+import { emptyUserImg } from '../constant/element';
 
-const DigitalSummaryCard = ({ typeName, summary }) => {
+const DigitalSummaryCard = ({
+  typeName,
+  summary,
+  showBeloved = false,
+  belovedData = [],
+}) => {
   const router = useRouter();
 
   const type = {
@@ -23,6 +34,14 @@ const DigitalSummaryCard = ({ typeName, summary }) => {
       data: summary.data?.subscription_account,
       isReady: summary.isReady,
     },
+    all: {
+      title: 'Digital Subscriptions',
+      subtitle:
+        'Account where you make payment for subscription and to be terminated at the point of death.',
+      addNewBtnTitle: 'Add Digital Subscriptions',
+      data: summary.data,
+      isReady: summary.isReady,
+    },
   };
 
   if (type[typeName].isReady) {
@@ -36,9 +55,23 @@ const DigitalSummaryCard = ({ typeName, summary }) => {
                   <th scope="col">
                     <small class="smpl_text-xs-medium">Platforms</small>
                   </th>
+                  {showBeloved ? (
+                    <th scope="col">
+                      <small class="smpl_text-xs-medium">Beneficiaries</small>
+                    </th>
+                  ) : (
+                    ''
+                  )}
                   <th scope="col">
                     <small class="smpl_text-xs-medium">Value</small>
                   </th>
+                  {showBeloved ? (
+                    <th scope="col">
+                      <small class="smpl_text-xs-medium">Type</small>
+                    </th>
+                  ) : (
+                    ''
+                  )}
                   <th scope="col">
                     <small class="smpl_text-xs-medium">Instructions</small>
                   </th>
@@ -60,7 +93,26 @@ const DigitalSummaryCard = ({ typeName, summary }) => {
                   let instructions = instructionsAfterDeath().find(
                     (x) => x.value === item.instructions_after_death
                   );
+
                   const instructionsName = instructions?.name || '';
+
+                  const beloved = belovedData.find(
+                    (x) => x.id === item?.beloved_id
+                  );
+
+                  const relation = relationships().find(
+                    (x) => x.value === beloved?.relationship
+                  );
+                  const relationName = relation?.name || '';
+
+                  const belovedImg = beloved?.image_path
+                    ? `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${beloved.image_path}`
+                    : emptyUserImg;
+
+                  let accountType = servicePlatformAccountTypes().find(
+                    (y) => y.value === item.account_type
+                  );
+                  const accountTypeName = accountType?.name || '';
 
                   return (
                     <tr key={index}>
@@ -82,6 +134,28 @@ const DigitalSummaryCard = ({ typeName, summary }) => {
                           </div>
                         </div>
                       </td>
+                      {showBeloved ? (
+                        <td>
+                          <div class="custom-table-cell">
+                            <img
+                              loading="lazy"
+                              src={belovedImg}
+                              alt=""
+                              class="dp-image"
+                            />
+                            <div>
+                              <div class="smpl_text-sm-medium crop-text">
+                                <span>{beloved?.nickname}</span>
+                              </div>
+                              <div class="smpl_text-sm-regular crop-text">
+                                <span>{relationName}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      ) : (
+                        ''
+                      )}
                       <td>
                         <div class="custom-table-cell">
                           <div class="text-sm-regular-8 crop-text">
@@ -89,6 +163,19 @@ const DigitalSummaryCard = ({ typeName, summary }) => {
                           </div>
                         </div>
                       </td>
+                      {showBeloved ? (
+                        <td>
+                          <div class="custom-table-cell">
+                            <div class="badge-instructions w-inline-block">
+                              <span class="text-xs-medium crop-text">
+                                {accountTypeName}
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+                      ) : (
+                        ''
+                      )}
                       <td>
                         <div class="custom-table-cell">
                           <div class="badge-instructions w-inline-block">
@@ -146,6 +233,7 @@ const DigitalSummaryCard = ({ typeName, summary }) => {
         </>
       );
     }
+
     return (
       <>
         <div class="empty-data-card p-5">

@@ -10,6 +10,7 @@ import {
 } from '../constant/enum';
 import { deleteImage, replaceOrAddImage } from '../utils/helpers';
 import { addUserImg } from '../constant/element';
+import Link from 'next/link';
 
 const type_title = {
   co_sampul: {
@@ -21,10 +22,17 @@ const type_title = {
       responsible to ensure the proper
       managementof your assets distribution
       after your demise.`,
+    display_level: '',
   },
   future_owner: {
     title: 'Appoint your Beneficiary',
     subtitle: 'The future owner of your assets',
+    display_level: 'none',
+  },
+  guardian: {
+    title: 'Appoint your Guardian',
+    subtitle: 'The future owner of your assets',
+    display_level: 'none',
   },
 };
 
@@ -54,6 +62,10 @@ const BelovedModal = ({ keyType, category, selectedItem, refreshFunction }) => {
   });
 
   const addBeloved = async () => {
+    if (category !== 'co_sampul') {
+      document.getElementById('select-beloved-level').value = 'others';
+    }
+
     const inputElements = {
       beloved_modal: {
         nric_name: document.getElementById('input-beloved-nric-name'),
@@ -79,7 +91,7 @@ const BelovedModal = ({ keyType, category, selectedItem, refreshFunction }) => {
     const { data: returnData, error } = await supabase
       .from('beloved')
       .insert({
-        uuid: user.uuid,
+        uuid: user?.uuid,
         ...addData,
       })
       .select()
@@ -94,7 +106,7 @@ const BelovedModal = ({ keyType, category, selectedItem, refreshFunction }) => {
     const imageInput = document.getElementById('input-beloved-image');
 
     await replaceOrAddImage({
-      userId: user.uuid,
+      userId: user?.uuid,
       returnData,
       directory,
       imageInput,
@@ -110,6 +122,41 @@ const BelovedModal = ({ keyType, category, selectedItem, refreshFunction }) => {
       data: null,
       url: addUserImg,
     });
+
+    await sendInviteBeloveEmail({
+      email: inputElements.beloved_modal.email.value,
+      name: inputElements.beloved_modal.nickname.value,
+    });
+  };
+
+  const sendInviteBeloveEmail = async ({ email, name }) => {
+    try {
+      const response = await fetch('/api/email/inviteBelove', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          name: name,
+        }),
+      });
+
+      if (!response.ok) {
+        toast.error('Failed to send invitation email');
+        throw new Error('Failed to send invitation email');
+      }
+
+      toast.success(`Confirmation email has been sent to ${email}`, {
+        duration: 6000,
+      });
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.log('error', error);
+      toast.error(error.message);
+      return null;
+    }
   };
 
   const editBeloved = async () => {
@@ -140,7 +187,7 @@ const BelovedModal = ({ keyType, category, selectedItem, refreshFunction }) => {
       .update({
         ...addData,
       })
-      .eq('uuid', user.uuid)
+      .eq('uuid', user?.uuid)
       .eq('id', selectedItem.id)
       .select()
       .single();
@@ -154,7 +201,7 @@ const BelovedModal = ({ keyType, category, selectedItem, refreshFunction }) => {
     const imageInput = document.getElementById('input-beloved-image');
 
     await replaceOrAddImage({
-      userId: user.uuid,
+      userId: user?.uuid,
       returnData,
       directory,
       imageInput,
@@ -182,12 +229,12 @@ const BelovedModal = ({ keyType, category, selectedItem, refreshFunction }) => {
       const { data, error } = await supabase
         .from('beloved')
         .delete()
-        .eq('uuid', user.uuid)
+        .eq('uuid', user?.uuid)
         .eq('id', selectedItem.id);
       if (error) {
         if (error.code === '23503') {
           toast.error(
-            `The user cannot be removed as they are associated with your digital assets. Please assign the assets to someone else and try to delete again.`,
+            `The user cannot be removed as they are associated with your digital assets / inform death record. Please assign the record to someone else and try to delete again.`,
             {
               duration: 6000,
             }
@@ -221,22 +268,28 @@ const BelovedModal = ({ keyType, category, selectedItem, refreshFunction }) => {
   const onSubmitAddBeloved = async (event) => {
     event.preventDefault();
 
-    setIsLoading({
-      ...isLoading,
-      update: true,
-    });
+    const inputEmail = document.getElementById('input-beloved-email');
 
-    if (keyType == 'add') {
-      await addBeloved();
-    }
-    if (keyType == 'edit') {
-      await editBeloved();
-    }
+    if (inputEmail.value !== user.profile.email) {
+      setIsLoading({
+        ...isLoading,
+        update: true,
+      });
 
-    setIsLoading({
-      ...isLoading,
-      update: false,
-    });
+      if (keyType == 'add') {
+        await addBeloved();
+      }
+      if (keyType == 'edit') {
+        await editBeloved();
+      }
+
+      setIsLoading({
+        ...isLoading,
+        update: false,
+      });
+    } else {
+      toast.error('Please enter an email address other than your own');
+    }
   };
 
   return (
@@ -260,13 +313,13 @@ const BelovedModal = ({ keyType, category, selectedItem, refreshFunction }) => {
                     <svg
                       width="24"
                       height="24"
-                      viewbox="0 0 24 24"
+                      viewBox="0 0 24 24"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M11 3H7.8C6.11984 3 5.27976 3 4.63803 3.32698C4.07354 3.6146 3.6146 4.07354 3.32698 4.63803C3 5.27976 3 6.11984 3 7.8V16.2C3 17.8802 3 18.7202 3.32698 19.362C3.6146 19.9265 4.07354 20.3854 4.63803 20.673C5.27976 21 6.11984 21 7.8 21H16.2C17.8802 21 18.7202 21 19.362 20.673C19.9265 20.3854 20.3854 19.9265 20.673 19.362C21 18.7202 21 17.8802 21 16.2V13M12 8H16V12M15.5 3.5V2M19.4393 4.56066L20.5 3.5M20.5103 8.5H22.0103M3 13.3471C3.65194 13.4478 4.31987 13.5 5 13.5C9.38636 13.5 13.2653 11.3276 15.6197 8"
-                        stroke="currentColor"
+                        d="M19 21V15M16 18H22M12 15H8C6.13623 15 5.20435 15 4.46927 15.3045C3.48915 15.7105 2.71046 16.4892 2.30448 17.4693C2 18.2044 2 19.1362 2 21M15.5 3.29076C16.9659 3.88415 18 5.32131 18 7C18 8.67869 16.9659 10.1159 15.5 10.7092M13.5 7C13.5 9.20914 11.7091 11 9.5 11C7.29086 11 5.5 9.20914 5.5 7C5.5 4.79086 7.29086 3 9.5 3C11.7091 3 13.5 4.79086 13.5 7Z"
+                        stroke="#3118D3"
                         stroke-width="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
@@ -371,7 +424,10 @@ const BelovedModal = ({ keyType, category, selectedItem, refreshFunction }) => {
                 </div>
               </div>
               <div class="form-content-2 mb-3">
-                <div class="form-field-wrapper">
+                <div
+                  class="form-field-wrapper"
+                  style={{ display: type_title[category].display_level }}
+                >
                   <label for={`select-beloved-level`} class="uui-field-label">
                     Beloved level
                   </label>
@@ -436,6 +492,22 @@ const BelovedModal = ({ keyType, category, selectedItem, refreshFunction }) => {
                       });
                     }}
                   />
+                </div>
+              </div>
+
+              <div class="mt-3">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id="checkbox-beloved"
+                    required
+                  />
+                  <label class="form-check-label" for="flexCheckChecked">
+                    You agree to our friendly{' '}
+                    <Link href="policy">privacy policy.</Link>
+                  </label>
                 </div>
               </div>
 

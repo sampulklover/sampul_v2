@@ -19,13 +19,10 @@ import Footer from '../components/Footer';
 import Breadcrumb from '../components/Breadcrumb';
 import BelovedModal from '../components/BelovedModal';
 import { addUserImg, emptyUserImg } from '../constant/element';
+import SideBar from '../components/SideBar';
 
 const ExtraWishes = () => {
   const { user, isLoading } = useUser();
-  const [summary, setSummary] = useState({
-    data: [],
-    isReady: false,
-  });
   const [mutiselectData, setMultiSelectData] = useState({
     charity: {
       selected: [],
@@ -139,13 +136,13 @@ const ExtraWishes = () => {
   };
 
   useEffect(() => {
-    if (!runEffect && user.uuid !== null) {
+    if (!runEffect && user?.uuid) {
       setRunEffect(true);
       const getExtraWishes = async () => {
         const { data, error } = await supabase
           .from('extra_wishes')
           .select('*')
-          .eq('uuid', user.uuid);
+          .eq('uuid', user?.uuid);
 
         if (error) {
           setSummary({
@@ -160,7 +157,7 @@ const ExtraWishes = () => {
         var charityData = [];
         var waqfData = [];
 
-        if (data.lenght !== 0) {
+        if (data.length > 0) {
           var currentData = data[0];
 
           for (const key in inputElements) {
@@ -170,10 +167,10 @@ const ExtraWishes = () => {
                   inputElements[key].elements[key2].value = currentData[key2];
                 }
                 if (key2 == 'charity_bodies') {
-                  charityData = currentData[key2];
+                  charityData = currentData[key2] ? currentData[key2] : [];
                 }
                 if (key2 == 'waqf_bodies') {
-                  waqfData = currentData[key2];
+                  waqfData = currentData[key2] ? currentData[key2] : [];
                 }
               }
             }
@@ -181,11 +178,6 @@ const ExtraWishes = () => {
         }
 
         mapMultiselectList({ charityData: charityData, waqfData: waqfData });
-
-        setSummary({
-          data: data,
-          isReady: true,
-        });
       };
 
       getExtraWishes();
@@ -220,7 +212,7 @@ const ExtraWishes = () => {
     const addData = processForm(elementList()[keyName].elements, false);
     const db = supabase.from('extra_wishes');
 
-    const { data, error } = await db.select('*').eq('uuid', user.uuid);
+    const { data, error } = await db.select('*').eq('uuid', user?.uuid);
 
     if (error) {
       toast.error(error.message);
@@ -232,9 +224,9 @@ const ExtraWishes = () => {
     }
 
     if (data.length !== 0) {
-      await db.update(addData).eq('uuid', user.uuid);
+      await db.update(addData).eq('uuid', user?.uuid);
     } else {
-      await db.insert({ uuid: user.uuid, ...addData });
+      await db.insert({ uuid: user?.uuid, ...addData });
     }
 
     toast.success('Saved successfully!');
@@ -530,31 +522,33 @@ const ExtraWishes = () => {
   };
 
   return (
-    <div class="body">
-      <div class="content">
-        <Breadcrumb pageName={'Extra Wishes'} />
-        <div class="mt-4">{title()}</div>
-        <div class="row mt-4">
-          <div
-            style={{
-              display: user?.profile?.religion == 'islam' ? 'block' : 'none',
-            }}
-          >
-            {form1()}
-            {form2()}
-          </div>
-          {form3()}
-          <div
-            style={{
-              display: user?.profile?.religion == 'islam' ? 'block' : 'none',
-            }}
-          >
-            {form4()}
+    <SideBar>
+      <div class="body">
+        <div class="content">
+          <Breadcrumb pageName={'Extra Wishes'} />
+          <div class="mt-4">{title()}</div>
+          <div class="row mt-4">
+            <div
+              style={{
+                display: user?.profile?.religion == 'islam' ? 'block' : 'none',
+              }}
+            >
+              {form1()}
+              {form2()}
+            </div>
+            {form3()}
+            <div
+              style={{
+                display: user?.profile?.religion == 'islam' ? 'block' : 'none',
+              }}
+            >
+              {form4()}
+            </div>
           </div>
         </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </SideBar>
   );
 };
 

@@ -11,6 +11,7 @@ import Breadcrumb from '../components/Breadcrumb';
 import DigitalAssetsModal from '../components/DigitalAssetsModal';
 import { addUserImg } from '../constant/element';
 import DigitalAssetsCard from '../components/DigitalAssetsCard';
+import SideBar from '../components/SideBar';
 
 const DigitalAssets = () => {
   const { user, isLoading } = useUser();
@@ -33,7 +34,7 @@ const DigitalAssets = () => {
     const { data, error } = await supabase
       .from('digital_assets')
       .select('*')
-      .eq('uuid', user.uuid)
+      .eq('uuid', user?.uuid)
       .order('created_at', { ascending: false });
 
     if (error) {
@@ -55,7 +56,7 @@ const DigitalAssets = () => {
     const { data, error } = await supabase
       .from('beloved')
       .select('*')
-      .eq('uuid', user.uuid);
+      .eq('uuid', user?.uuid);
 
     if (error) {
       setBelovedList({
@@ -78,7 +79,7 @@ const DigitalAssets = () => {
   };
 
   useEffect(() => {
-    if (!runEffect && user.uuid !== null) {
+    if (!runEffect && user?.uuid) {
       setRunEffect(true);
       getDigitalAssets();
       getBeloved();
@@ -270,20 +271,22 @@ const DigitalAssets = () => {
   };
 
   return (
-    <div class="body">
-      <div class="content">
-        <Breadcrumb pageName={'Digital Assets'} />
-        <DigitalAssetsModal
-          keyType={digitalAssetsModalType.key}
-          selectedItem={digitalAssetsModalType.selectedItem}
-          refreshFunction={getDigitalAssets}
-          belovedList={belovedList.data}
-        />
-        <div class="mt-4">{title()}</div>
-        {tabSection()}
-        <Footer />
+    <SideBar>
+      <div class="body">
+        <div class="content">
+          <Breadcrumb pageName={'Digital Assets'} />
+          <DigitalAssetsModal
+            keyType={digitalAssetsModalType.key}
+            selectedItem={digitalAssetsModalType.selectedItem}
+            refreshFunction={getDigitalAssets}
+            belovedList={belovedList.data}
+          />
+          <div class="mt-4">{title()}</div>
+          {tabSection()}
+          <Footer />
+        </div>
       </div>
-    </div>
+    </SideBar>
   );
 };
 

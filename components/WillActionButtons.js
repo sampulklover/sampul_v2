@@ -29,7 +29,7 @@ const WillActionButtons = ({
       if (viewOnly) {
         return router.isReady;
       } else {
-        return router.isReady && user?.uuid !== null;
+        return router.isReady && user?.uuid;
       }
     }
 
@@ -53,16 +53,17 @@ const WillActionButtons = ({
       const { data, error } = await supabase
         .from('wills')
         .select(`*, profiles ( * )`)
-        .eq('uuid', user.uuid)
-        .single();
+        .eq('uuid', user?.uuid);
 
       if (error) {
         toast.error(error.message);
       }
 
-      if (data?.will_code) {
-        var url = `${process.env.NEXT_PUBLIC_HOST}/view-will?id=${data.will_code}`;
-        setShareUrl(url);
+      if (data.length > 0) {
+        if (data[0]?.will_code) {
+          var url = `${process.env.NEXT_PUBLIC_HOST}/view-will?id=${data[0].will_code}`;
+          setShareUrl(url);
+        }
       }
     } else {
       const will_id = router.query.id;
@@ -105,7 +106,7 @@ const WillActionButtons = ({
       var file = dataURLtoFile(asURL, `qr_code_${will_id}_${timestamp}.png`);
 
       await replaceOrAddImage({
-        userId: user.uuid,
+        userId: user?.uuid,
         returnData: data,
         directory: `/will/`,
         imageInput: {
@@ -125,7 +126,9 @@ const WillActionButtons = ({
 
   const generateQRCode = async (data) => {
     if (showQrModal) {
-      await $('#qr-code-modal')?.modal('show');
+      setTimeout(() => {
+        $('#qr-code-modal')?.modal('show');
+      }, 500);
       setTimeout(() => {
         handleGenerate(data);
       }, 1000);
@@ -149,83 +152,88 @@ const WillActionButtons = ({
   }
 
   const generateWill = async () => {
-    setButtonLoading({
-      ...buttonLoading,
-      generate: true,
-    });
+    if (user.profile.nric_name) {
+      setButtonLoading({
+        ...buttonLoading,
+        generate: true,
+      });
 
-    const updatedTime = new Date().toISOString();
+      const updatedTime = new Date().toISOString();
 
-    const updateData = {
-      last_updated: updatedTime,
-      nric_name: user.profile.nric_name,
-    };
+      const updateData = {
+        last_updated: updatedTime,
+        nric_name: user.profile.nric_name,
+      };
 
-    const addData = {
-      ...updateData,
-      will_code: generateWillId(),
-    };
+      const addData = {
+        ...updateData,
+        will_code: generateWillId(),
+      };
 
-    const { data: checkExist, error } = await supabase
-      .from('wills')
-      .select('*')
-      .eq('uuid', user.uuid)
-      .select()
-      .single();
+      const { data: checkExist, error } = await supabase
+        .from('wills')
+        .select('*')
+        .eq('uuid', user?.uuid)
+        .select();
 
-    if (error) {
+      if (error) {
+        setButtonLoading({
+          ...buttonLoading,
+          generate: false,
+        });
+        toast.error(error.message);
+      }
+
+      if (checkExist.length > 0) {
+        const { data, error } = await supabase
+          .from('wills')
+          .update({
+            ...updateData,
+          })
+          .eq('uuid', user?.uuid)
+          .select()
+          .single();
+
+        await generateQRCode(data);
+
+        if (error) {
+          setButtonLoading({
+            ...buttonLoading,
+            generate: false,
+          });
+          toast.error(error.message);
+        }
+      } else {
+        const { data, error } = await supabase
+          .from('wills')
+          .insert({
+            uuid: user?.uuid,
+            ...addData,
+          })
+          .eq('uuid', user?.uuid)
+          .select()
+          .single();
+
+        await generateQRCode(data);
+
+        if (error) {
+          setButtonLoading({
+            ...buttonLoading,
+            generate: false,
+          });
+          toast.error(error.message);
+        }
+      }
+
       setButtonLoading({
         ...buttonLoading,
         generate: false,
       });
-      toast.error(error.message);
-    }
-
-    if (checkExist) {
-      const { data, error } = await supabase
-        .from('wills')
-        .update({
-          ...updateData,
-        })
-        .eq('uuid', user.uuid)
-        .select()
-        .single();
-
-      await generateQRCode(data);
-
-      if (error) {
-        setButtonLoading({
-          ...buttonLoading,
-          generate: false,
-        });
-        toast.error(error.message);
-      }
     } else {
-      const { data, error } = await supabase
-        .from('wills')
-        .upsert({
-          uuid: user.uuid,
-          ...addData,
-        })
-        .eq('uuid', user.uuid)
-        .select()
-        .single();
-
-      await generateQRCode(data);
-
-      if (error) {
-        setButtonLoading({
-          ...buttonLoading,
-          generate: false,
-        });
-        toast.error(error.message);
-      }
+      toast.error(
+        'Complete your profile to begin generating your will. You can do this on the settings page'
+      );
     }
-
-    setButtonLoading({
-      ...buttonLoading,
-      generate: false,
-    });
   };
 
   const downloadCert = async () => {

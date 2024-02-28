@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '../utils/supabase';
 import { useUser } from '../context/user';
 import Loading from '../components/Laoding';
+import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import {
   belovedLevel,
@@ -18,48 +19,26 @@ import { addUserImg, emptyUserImg } from '../constant/element';
 import MyDetails from '../components/MyDetails';
 import Password from '../components/Password';
 import InformDeath from '../components/InformDeath';
+import Billing from '../components/Billing';
+import SideBar from '../components/SideBar';
 
 const Settings = () => {
-  const { user, isLoading } = useUser();
-  const [summary, setSummary] = useState({
-    data: [],
-    isReady: false,
-  });
-  const [isReady, setIsReady] = useState(true);
-  const [runEffect, setRunEffect] = useState(false);
-  const [belovedModalType, setBelovedModalType] = useState({
-    key: 'add',
-    selectedItem: null,
-  });
-
-  const getSettings = async () => {
-    const { data, error } = await supabase
-      .from('beloved')
-      .select('*')
-      .eq('uuid', user.uuid)
-      .order('created_at', { ascending: false });
-
-    if (error) {
-      setSummary({
-        data: null,
-        isReady: true,
-      });
-      toast.error(error.message);
-      return;
-    }
-
-    setSummary({
-      data: data,
-      isReady: true,
-    });
-  };
+  const router = useRouter();
 
   useEffect(() => {
-    if (!runEffect && user.uuid !== null) {
-      setRunEffect(true);
-      getSettings();
+    if (router.isReady && document) {
+      setTimeout(() => {
+        const activeTab = router.query.tab;
+
+        if (activeTab) {
+          const tab = document.getElementById(activeTab);
+          if (tab) {
+            tab.click();
+          }
+        }
+      }, 500);
     }
-  }, [user, runEffect]);
+  }, [router.isReady]);
 
   const title = () => {
     return (
@@ -166,7 +145,7 @@ const Settings = () => {
             role="tabpanel"
             aria-labelledby="nav-billing-tab"
           >
-            ...
+            <Billing />
           </div>
         </div>
       </div>
@@ -174,14 +153,16 @@ const Settings = () => {
   };
 
   return (
-    <div class="body">
-      <div class="content">
-        <Breadcrumb pageName={'Settings'} />
-        <div class="mt-4">{title()}</div>
-        <div class="row mt-4">{tabSection()}</div>
+    <SideBar>
+      <div class="body">
+        <div class="content">
+          <Breadcrumb pageName={'Settings'} />
+          <div class="mt-4">{title()}</div>
+          <div class="row mt-4">{tabSection()}</div>
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </SideBar>
   );
 };
 
