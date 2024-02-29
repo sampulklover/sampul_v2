@@ -1,23 +1,44 @@
 import * as React from 'react';
 
-export const inviteBelove = ({ name }) => {
+export const inviteBelove = ({
+  to_email,
+  to_nric_name,
+  to_type,
+  to_level,
+  from_name,
+  invite_uuid,
+}) => {
   return (
     <div>
-      <h1>Salam and Greetings {name},</h1>
+      <h1>Salam and Greetings {to_nric_name},</h1>
       <p>
-        We are delighted to inform you that you had been selected as a "Primary
-        Co-Sampul/Secondary Co-Sampul" for "customer name". We hope that you
-        have been briefed by "customer name" on the appointment and are ready to
-        take on the responsibilities.
+        We are delighted to inform you that you had been selected as a{' '}
+        {to_level} {to_type} for {from_name}. We hope that you have been briefed
+        by {from_name} on the appointment and are ready to take on the
+        responsibilities.
       </p>
       <p>
         Briefly, your responsibilities as a Co-Sampul is to be given the
-        information of "customer name"’s wasiat/will which contain all assets’
+        information of {from_name}’s wasiat/will which contain all assets’
         information and wishes at the point of death and assist the loved ones
-        in managing the estate in the event of death. Click HERE "link to
-        Sampul’s FAQ" for the process flow.
+        in managing the estate in the event of death. Click{' '}
+        <a href={`${process.env.NEXT_PUBLIC_HOST}`}>HERE</a> for the process
+        flow.
       </p>
-      <p>"ACCEPT (sign up page)" "REJECT (page on next slide)"</p>
+      <p>
+        <a
+          href={`${process.env.NEXT_PUBLIC_HOST}/beloved-invites?status=accepted&id=${invite_uuid}`}
+        >
+          <b>ACCEPT</b>
+        </a>
+      </p>
+      <p>
+        <a
+          href={`${process.env.NEXT_PUBLIC_HOST}/beloved-invites?status=rejected&id=${invite_uuid}`}
+        >
+          <b>REJECT</b>
+        </a>
+      </p>
       <p>
         We hope you're excited to join the mission of safekeeping asset for the
         loved ones.

@@ -35,10 +35,10 @@ const DigitalSummaryCard = ({
       isReady: summary.isReady,
     },
     all: {
-      title: 'Digital Subscriptions',
+      title: 'Digital Account',
       subtitle:
-        'Account where you make payment for subscription and to be terminated at the point of death.',
-      addNewBtnTitle: 'Add Digital Subscriptions',
+        'Accounts where you keep your assets with value and can be passed on to your beloved ones.',
+      addNewBtnTitle: 'Add Digital Accounts',
       data: summary.data,
       isReady: summary.isReady,
     },
