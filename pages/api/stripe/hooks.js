@@ -29,7 +29,8 @@ const handler = async (req, res) => {
           is_subscribed: true,
           stripe_interval: event.data.object.items.data[0].plan.interval,
           stripe_product: event.data.object.items.data[0].plan.product,
-          ref_product_key: event.data.object.items.data[0].metadata.ref_key,
+          ref_product_key:
+            event.data.object.items.data[0].plan.metadata.ref_key,
         })
         .eq('stripe_customer', event.data.object.customer);
       break;
@@ -40,7 +41,7 @@ const handler = async (req, res) => {
           is_subscribed: false,
           stripe_interval: null,
           stripe_product: null,
-          ref_product_key: 'POOO1',
+          ref_product_key: process.env.BASIC_PRODUCT_KEY,
         })
         .eq('stripe_customer', event.data.object.customer);
       break;
