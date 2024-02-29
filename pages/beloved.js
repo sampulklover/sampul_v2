@@ -600,7 +600,8 @@ const Beloved = () => {
                         )}
                       </div>
                       <div class="smpl_text-sm-regular">
-                        The future owner of your assets
+                        The caretaker of your underage kids ensuring they get
+                        the best care after you and you spoused demised
                       </div>
                     </div>
                   </div>

@@ -1,9 +1,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useUser } from '../context/user';
+import { useRouter } from 'next/router';
 
 const NavBar = () => {
   const { user } = useUser();
+  const router = useRouter();
+
   return (
     // <nav className="flex py-4 px-6 border-b border-gray-200">
     //   <Link href="/">Home</Link>
@@ -37,32 +40,52 @@ const NavBar = () => {
         <div class="collapse navbar-collapse" id="mynavbar">
           <ul class="navbar-nav ms-auto">
             {user?.uuid ? (
-              <li class="nav-item">
-                <Link href="dashboard">
-                  <button class="btn btn-primary btn-lg btn-text" type="button">
-                    Dashboard
-                  </button>
-                </Link>
-              </li>
+              <>
+                {router?.route == '/dashboard' ? (
+                  ''
+                ) : (
+                  <li class="nav-item">
+                    <Link href="dashboard">
+                      <button
+                        class="btn btn-primary btn-lg btn-text"
+                        type="button"
+                      >
+                        Dashboard
+                      </button>
+                    </Link>
+                  </li>
+                )}
+              </>
             ) : (
               <>
-                <li class="nav-item pe-2">
-                  <Link href="signin">
-                    <button class="btn btn-light btn-text btn-lg" type="button">
-                      Sign in
-                    </button>
-                  </Link>
-                </li>
-                <li class="nav-item">
-                  <Link href="signup">
-                    <button
-                      class="btn btn-primary btn-lg btn-text"
-                      type="button"
-                    >
-                      Sign up
-                    </button>
-                  </Link>
-                </li>
+                {router?.route == '/signin' ? (
+                  ''
+                ) : (
+                  <li class="nav-item pe-2">
+                    <Link href="signin">
+                      <button
+                        class="btn btn-light btn-text btn-lg"
+                        type="button"
+                      >
+                        Sign in
+                      </button>
+                    </Link>
+                  </li>
+                )}
+                {router?.route == '/signup' ? (
+                  ''
+                ) : (
+                  <li class="nav-item">
+                    <Link href="signup">
+                      <button
+                        class="btn btn-primary btn-lg btn-text"
+                        type="button"
+                      >
+                        Sign up
+                      </button>
+                    </Link>
+                  </li>
+                )}
               </>
             )}
           </ul>

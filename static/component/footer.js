@@ -35,7 +35,7 @@ function footer() {
               <div class="w-layout-grid uui-footer02_left-wrapper">
                 <a
                   id="w-node-_5bf44bd6-19a3-d974-dcf1-e2e7da6c3d44-da6c3d3c"
-                  href="#"
+                  href="/"
                   class="uui-footer02_logo-link w-inline-block"
                 >
                   <div class="uui-logo_component">
@@ -63,14 +63,8 @@ function footer() {
                 </a>
                 <div class="uui-footer02_link-list">
                   <div class="uui-footer02_link-list-heading">Product</div>
-                  <a href="#" class="uui-footer02_link w-inline-block">
-                    <div>Overview</div>
-                  </a>
-                  <a href="#" class="uui-footer02_link w-inline-block">
-                    <div>Features</div>
-                  </a>
                   <a
-                    href="solutions.html"
+                    href="solutions"
                     class="uui-footer02_link w-inline-block"
                   >
                     <div>Solutions</div>
@@ -78,14 +72,11 @@ function footer() {
                       <div>New</div>
                     </div>
                   </a>
-                  <a href="#" class="uui-footer02_link w-inline-block">
-                    <div>Tutorials</div>
-                  </a>
-                  <a href="price.html" class="uui-footer02_link w-inline-block">
+                  <a href="price" class="uui-footer02_link w-inline-block">
                     <div>Pricing</div>
                   </a>
                   <a
-                    href="resources.html"
+                    href="resources"
                     class="uui-footer02_link w-inline-block"
                   >
                     <div>Releases</div>
@@ -94,34 +85,19 @@ function footer() {
                 <div class="uui-footer02_link-list">
                   <div class="uui-footer02_link-list-heading">Company</div>
                   <a
-                    href="company.html"
+                    href="company"
                     class="uui-footer02_link w-inline-block"
                   >
                     <div>About us</div>
                   </a>
-                  <a href="#" class="uui-footer02_link w-inline-block">
-                    <div>Careers</div>
-                  </a>
                   <a
-                    href="https://www.sampul.co/post-categories/newsletter"
-                    class="uui-footer02_link w-inline-block"
-                  >
-                    <div>Press</div>
-                  </a>
-                  <a
-                    href="resources.html"
+                    href="resources"
                     class="uui-footer02_link w-inline-block"
                   >
                     <div>News</div>
                   </a>
                   <a
-                    href="https://www.sampul.co/post-categories/newsletter"
-                    class="uui-footer02_link w-inline-block"
-                  >
-                    <div>Media kit</div>
-                  </a>
-                  <a
-                    href="contact.html"
+                    href="contact"
                     class="uui-footer02_link w-inline-block"
                   >
                     <div>Contact</div>
@@ -130,37 +106,25 @@ function footer() {
                 <div class="uui-footer02_link-list">
                   <div class="uui-footer02_link-list-heading">Resources</div>
                   <a
-                    href="resources.html"
+                    href="resources"
                     class="uui-footer02_link w-inline-block"
                   >
                     <div>Blog</div>
                   </a>
                   <a
-                    href="https://www.sampul.co/post-categories/newsletter"
-                    class="uui-footer02_link w-inline-block"
-                  >
-                    <div>Newsletter</div>
-                  </a>
-                  <a
-                    href="resources.html"
+                    href="resources"
                     class="uui-footer02_link w-inline-block"
                   >
                     <div>Events</div>
                   </a>
                   <a
-                    href="resources.html"
+                    href="resources"
                     class="uui-footer02_link w-inline-block"
                   >
                     <div>Help centre</div>
                   </a>
                   <a
-                    href="resources.html"
-                    class="uui-footer02_link w-inline-block"
-                  >
-                    <div>Tutorial</div>
-                  </a>
-                  <a
-                    href="resources.html"
+                    href="resources"
                     class="uui-footer02_link w-inline-block"
                   >
                     <div>Support</div>
