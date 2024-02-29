@@ -18,11 +18,7 @@ const type_title = {
     title: 'Appoint your Co-Sampul',
     subtitle: `Co-Sampul is your trusted person for
       whom which all information in this
-      Sampul will be passed on. He/she must
-      be 18 years old and above, will be
-      responsible to ensure the proper
-      managementof your assets distribution
-      after your demise.`,
+      Sampul will be passed on`,
     display_level: '',
   },
   future_owner: {
@@ -32,7 +28,8 @@ const type_title = {
   },
   guardian: {
     title: 'Appoint your Guardian',
-    subtitle: 'The future owner of your assets',
+    subtitle:
+      'The caretaker of your underage kids ensuring they get the best care after you and you spoused demised',
     display_level: 'none',
   },
 };

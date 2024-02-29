@@ -1,8 +1,4 @@
 const formConfigs = [
-  // {
-  //   containerId: 'nav-bar-container',
-  //   formFunction: navBar(),
-  // },
   {
     containerId: 'footer-container',
     formFunction: footer(),
