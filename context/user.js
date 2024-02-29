@@ -20,13 +20,21 @@ const Provider = ({ children }) => {
       if (data?.user) {
         const { data: profile } = await supabase
           .from('profiles')
-          .select('*,  accounts (*)')
+          .select('*')
+          .eq('uuid', data.user.id)
+          .single();
+
+        const { data: account } = await supabase
+          .from('accounts')
+          .select('*, products (*)')
           .eq('uuid', data.user.id)
           .single();
 
         setUser({
           uuid: data.user.id,
           profile: profile,
+          account: account,
+          access_control: account?.products?.access_control,
         });
       }
       setIsLoading(false);

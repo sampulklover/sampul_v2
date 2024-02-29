@@ -6,10 +6,9 @@ import CheckoutButton from '../components/CheckoutButton';
 const Pricing = ({ plans }) => {
   const { user, login, isLoading } = useUser();
 
-  const showSubscribeButton = !!user && !user?.profile?.accounts?.is_subscribed;
+  const showSubscribeButton = !!user && !user?.account?.is_subscribed;
   const showCreateAccountButton = !user;
-  const showManageSubscriptionButton =
-    !!user && user?.profile?.accounts?.is_subscribed;
+  const showManageSubscriptionButton = !!user && user?.account?.is_subscribed;
 
   return (
     <div className="w-full max-w-3xl mx-auto py-16 flex justify-around">

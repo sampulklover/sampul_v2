@@ -185,6 +185,38 @@ const DigitalAssetsModal = ({
     }
   };
 
+  const checkRestriction = async () => {
+    var restricted = false;
+
+    setIsLoading({
+      ...isLoading,
+      update: true,
+    });
+
+    const { data, count } = await supabase
+      .from('digital_assets')
+      .select('*', { count: 'exact', head: true })
+      .eq('uuid', user?.uuid);
+
+    if (user.access_control?.pages.digital.asset.limited) {
+      var max = user.access_control.pages.digital.asset.maximum;
+      if (count >= max) {
+        toast.error(
+          `You can store up to ${max} digital assets. To add more, upgrade your plan.`
+        );
+        setIsLoading({
+          ...isLoading,
+          update: false,
+        });
+        restricted = true;
+      }
+    } else {
+      restricted = false;
+    }
+
+    return restricted;
+  };
+
   const onSubmitAddDigitalAssets = async (event) => {
     event.preventDefault();
 
@@ -194,7 +226,11 @@ const DigitalAssetsModal = ({
     });
 
     if (keyType == 'add') {
-      await addDigitalAssets();
+      checkRestriction().then(async (restricted) => {
+        if (restricted == false) {
+          await addDigitalAssets();
+        }
+      });
     }
     if (keyType == 'edit') {
       await editDigitalAssets();
