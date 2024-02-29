@@ -114,8 +114,6 @@ const Provider = ({ children }) => {
       toast.error(error.message);
       return;
     }
-
-    router.push('/dashboard');
   };
 
   const logout = async () => {
