@@ -40,13 +40,22 @@ const NavBar = () => {
         <div class="collapse navbar-collapse" id="mynavbar">
           <ul class="navbar-nav ms-auto">
             {user?.uuid ? (
-              <li class="nav-item">
-                <Link href="dashboard">
-                  <button class="btn btn-primary btn-lg btn-text" type="button">
-                    Dashboard
-                  </button>
-                </Link>
-              </li>
+              <>
+                {router?.route == '/dashboard' ? (
+                  ''
+                ) : (
+                  <li class="nav-item">
+                    <Link href="dashboard">
+                      <button
+                        class="btn btn-primary btn-lg btn-text"
+                        type="button"
+                      >
+                        Dashboard
+                      </button>
+                    </Link>
+                  </li>
+                )}
+              </>
             ) : (
               <>
                 {router?.route == '/signin' ? (
