@@ -11,6 +11,7 @@ import {
 import { deleteImage, replaceOrAddImage } from '../utils/helpers';
 import { addUserImg } from '../constant/element';
 import Link from 'next/link';
+import { v4 as uuidv4 } from 'uuid';
 
 const type_title = {
   co_sampul: {
@@ -49,6 +50,24 @@ const belovedTypeName = {
   },
 };
 
+const getElements = () => {
+  const inputElements = {
+    beloved_modal: {
+      nric_name: document.getElementById('input-beloved-nric-name'),
+      nric_no: document.getElementById('input-beloved-nric-no'),
+      nickname: document.getElementById('input-beloved-nickname'),
+      phone_no: document.getElementById('input-beloved-phone-no'),
+      email: document.getElementById('input-beloved-email'),
+      relationship: document.getElementById('select-beloved-relationship'),
+      type: document.getElementById('select-beloved-type'),
+      level: document.getElementById('select-beloved-level'),
+      image_path: document.getElementById('preview-beloved-image'),
+    },
+  };
+
+  return inputElements;
+};
+
 const BelovedModal = ({ keyType, category, selectedItem, refreshFunction }) => {
   const { user } = useUser();
   const [isLoading, setIsLoading] = useState({
@@ -62,83 +81,100 @@ const BelovedModal = ({ keyType, category, selectedItem, refreshFunction }) => {
   });
 
   const addBeloved = async () => {
-    if (category !== 'co_sampul') {
-      document.getElementById('select-beloved-level').value = 'others';
-    }
-
-    const inputElements = {
-      beloved_modal: {
-        nric_name: document.getElementById('input-beloved-nric-name'),
-        nric_no: document.getElementById('input-beloved-nric-no'),
-        nickname: document.getElementById('input-beloved-nickname'),
-        phone_no: document.getElementById('input-beloved-phone-no'),
-        email: document.getElementById('input-beloved-email'),
-        relationship: document.getElementById('select-beloved-relationship'),
-        type: document.getElementById('select-beloved-type'),
-        level: document.getElementById('select-beloved-level'),
-        image_path: document.getElementById('preview-beloved-image'),
-      },
-    };
-
-    const addData = {};
-
-    for (const key in inputElements.beloved_modal) {
-      if (key !== 'image_path') {
-        addData[key] = inputElements.beloved_modal[key].value;
+    if (user.profile?.nric_name) {
+      if (category !== 'co_sampul') {
+        document.getElementById('select-beloved-level').value = 'others';
       }
+
+      const addData = {};
+
+      for (const key in getElements().beloved_modal) {
+        if (key !== 'image_path') {
+          addData[key] = getElements().beloved_modal[key].value;
+        }
+      }
+
+      const { data: returnBeloved, error: errorBeloved } = await supabase
+        .from('beloved')
+        .insert({
+          uuid: user?.uuid,
+          ...addData,
+        })
+        .select()
+        .single();
+
+      if (errorBeloved) {
+        toast.error(errorBeloved.message);
+        return;
+      }
+
+      const directory = `/beloved/${returnBeloved.id}/avatar/`;
+      const imageInput = document.getElementById('input-beloved-image');
+
+      await replaceOrAddImage({
+        userId: user?.uuid,
+        returnData: returnBeloved,
+        directory,
+        imageInput,
+        dataBase: 'beloved',
+        isUpdateByReturnId: true,
+      });
+
+      const { data: returnInvite, error: errorInvite } = await supabase
+        .from('beloved_invites')
+        .insert({
+          beloved_id: returnBeloved.id,
+          uuid: returnBeloved.uuid,
+          email: returnBeloved.email,
+          invite_uuid: uuidv4(),
+        })
+        .select()
+        .single();
+
+      if (errorInvite) {
+        toast.error(errorInvite.message);
+        return;
+      }
+
+      $('#beloved-modal')?.modal('hide');
+      toast.success('Successfully submitted!');
+
+      setSelectedImage({
+        data: null,
+        url: addUserImg,
+      });
+
+      await sendInviteBeloveEmail({
+        to_email: returnBeloved.email,
+        to_nric_name: returnBeloved.nric_name,
+        to_type: beneficiaryTypes().find(
+          (obj) => obj.value === returnBeloved.type
+        ).name,
+        to_level: belovedLevel().find(
+          (obj) => obj.value === returnBeloved.level
+        ).name,
+        from_name: user.profile.nric_name,
+        invite_uuid: returnInvite.invite_uuid,
+        beloved_id: returnBeloved.id,
+      });
+
+      refreshFunction();
+    } else {
+      toast.error(
+        'Please update your profile to start adding your loved ones, which can be done in the settings page.'
+      );
     }
-
-    const { data: returnData, error } = await supabase
-      .from('beloved')
-      .insert({
-        uuid: user?.uuid,
-        ...addData,
-      })
-      .select()
-      .single();
-
-    if (error) {
-      toast.error(error.message);
-      return;
-    }
-
-    const directory = `/beloved/${returnData.id}/avatar/`;
-    const imageInput = document.getElementById('input-beloved-image');
-
-    await replaceOrAddImage({
-      userId: user?.uuid,
-      returnData,
-      directory,
-      imageInput,
-      dataBase: 'beloved',
-      isUpdateByReturnId: true,
-    });
-
-    $('#beloved-modal')?.modal('hide');
-    toast.success('Successfully submitted!');
-    refreshFunction();
-
-    setSelectedImage({
-      data: null,
-      url: addUserImg,
-    });
-
-    await sendInviteBeloveEmail({
-      email: inputElements.beloved_modal.email.value,
-      name: inputElements.beloved_modal.nickname.value,
-    });
   };
 
-  const sendInviteBeloveEmail = async ({ email, name }) => {
+  const sendInviteBeloveEmail = async (passData) => {
     try {
-      const response = await fetch('/api/email/inviteBelove', {
+      const response = await fetch('/api/beloved/email-invite', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email: email,
-          name: name,
+          ...passData,
         }),
       });
 
@@ -147,38 +183,40 @@ const BelovedModal = ({ keyType, category, selectedItem, refreshFunction }) => {
         throw new Error('Failed to send invitation email');
       }
 
-      toast.success(`Confirmation email has been sent to ${email}`, {
-        duration: 6000,
-      });
+      toast.success(
+        `Confirmation email has been sent to ${passData.to_email}`,
+        {
+          duration: 6000,
+        }
+      );
+
       const data = await response.json();
+
+      const { error } = await supabase
+        .from('beloved_invites')
+        .update({
+          invite_status: 'pending',
+        })
+        .eq('invite_uuid', passData.invite_uuid);
+
+      if (error) {
+        toast.error(error.message);
+        return;
+      }
+
       return data;
     } catch (error) {
-      console.log('error', error);
       toast.error(error.message);
       return null;
     }
   };
 
   const editBeloved = async () => {
-    const inputElements = {
-      beloved_modal: {
-        nric_name: document.getElementById('input-beloved-nric-name'),
-        nric_no: document.getElementById('input-beloved-nric-no'),
-        nickname: document.getElementById('input-beloved-nickname'),
-        phone_no: document.getElementById('input-beloved-phone-no'),
-        email: document.getElementById('input-beloved-email'),
-        relationship: document.getElementById('select-beloved-relationship'),
-        type: document.getElementById('select-beloved-type'),
-        level: document.getElementById('select-beloved-level'),
-        image_path: document.getElementById('preview-beloved-image'),
-      },
-    };
-
     const addData = {};
 
-    for (const key in inputElements.beloved_modal) {
+    for (const key in getElements().beloved_modal) {
       if (key !== 'image_path') {
-        addData[key] = inputElements.beloved_modal[key].value;
+        addData[key] = getElements().beloved_modal[key].value;
       }
     }
 

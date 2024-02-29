@@ -22,11 +22,17 @@ const WillCertCard = ({ willData, qrValue, cardRef }) => {
   };
 
   const checkReligion = () => {
-    if (willData.will?.profiles?.religion == 'islam') {
-      return 'muslim';
-    } else {
-      return 'non_muslim';
+    var display = 'muslim';
+
+    if (willData.will?.profiles?.religion) {
+      if (willData.will.profiles.religion == 'islam') {
+        display = 'muslim';
+      } else {
+        display = 'non_muslim';
+      }
     }
+
+    return display;
   };
 
   return (

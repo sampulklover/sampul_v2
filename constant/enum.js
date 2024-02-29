@@ -358,3 +358,13 @@ export const waqfBodies = () => {
 
   return options;
 };
+
+export const belovedInviteStatus = () => {
+  const options = [
+    { name: 'Pending', value: 'pending' },
+    { name: 'Accepted', value: 'accepted' },
+    { name: 'Rejected', value: 'rejected' },
+  ];
+
+  return options;
+};

@@ -193,11 +193,17 @@ const WillDetailsCard = ({ willData }) => {
   };
 
   const checkReligion = () => {
-    if (willData?.data.will?.profiles?.religion == 'islam') {
-      return 'muslim';
-    } else {
-      return 'non_muslim';
+    var display = 'muslim';
+
+    if (willData?.data?.will?.profiles?.religion) {
+      if (willData.data.will.profiles.religion == 'islam') {
+        display = 'muslim';
+      } else {
+        display = 'non_muslim';
+      }
     }
+
+    return display;
   };
 
   useEffect(() => {

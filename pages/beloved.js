@@ -5,6 +5,7 @@ import { useUser } from '../context/user';
 import Loading from '../components/Laoding';
 import toast from 'react-hot-toast';
 import {
+  belovedInviteStatus,
   belovedLevel,
   instructionsAfterDeath,
   relationships,
@@ -17,11 +18,16 @@ import Breadcrumb from '../components/Breadcrumb';
 import BelovedModal from '../components/BelovedModal';
 import { addUserImg, emptyUserImg } from '../constant/element';
 import SideBar from '../components/SideBar';
+import InviteModal from '../components/InviteModal';
 
 const Beloved = () => {
   const router = useRouter();
   const { user, isLoading } = useUser();
   const [summary, setSummary] = useState({
+    data: [],
+    isReady: false,
+  });
+  const [inviteList, setInviteList] = useState({
     data: [],
     isReady: false,
   });
@@ -32,17 +38,22 @@ const Beloved = () => {
     selectedItem: null,
     category: 'co_sampul',
   });
+  const [inviteModalType, setInviteModalType] = useState({
+    key: 'edit',
+    selectedItem: null,
+    category: 'invite',
+  });
 
   const getBeloved = async () => {
     const { data, error } = await supabase
       .from('beloved')
-      .select('*')
+      .select('*, beloved_invites (*)')
       .eq('uuid', user?.uuid)
       .order('created_at', { ascending: false });
 
     if (error) {
       setSummary({
-        data: null,
+        data: [],
         isReady: true,
       });
       toast.error(error.message);
@@ -55,10 +66,50 @@ const Beloved = () => {
     });
   };
 
+  const getInvites = async () => {
+    try {
+      const response = await fetch('/api/beloved/invite-list', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: user.profile.email,
+        }),
+      });
+
+      if (!response.ok) {
+        toast.error('Something went wrong!');
+        setInviteList({
+          data: [],
+          isReady: true,
+        });
+        return;
+      }
+
+      const { data } = await response.json();
+      setInviteList({
+        data: data,
+        isReady: true,
+      });
+    } catch (error) {
+      toast.error(error.message);
+      setInviteList({
+        data: [],
+        isReady: true,
+      });
+    }
+  };
+
+  const initFunction = () => {
+    getBeloved();
+    getInvites();
+  };
+
   useEffect(() => {
     if (!runEffect && user?.uuid) {
       setRunEffect(true);
-      getBeloved();
+      initFunction();
     }
   }, [user, runEffect]);
 
@@ -81,6 +132,15 @@ const Beloved = () => {
         <div class="border-top my-3"></div>
       </>
     );
+  };
+
+  const inviteModal = (item, category) => {
+    $('#invite-modal')?.modal('show');
+    setInviteModalType({
+      key: 'edit',
+      selectedItem: item ? item : null,
+      category: category,
+    });
   };
 
   const belovedModal = (item, category) => {
@@ -131,6 +191,18 @@ const Beloved = () => {
     }
   };
 
+  const loadingTable = ({ condition }) => {
+    if (condition == false) {
+      return (
+        <div class="my-3 text-center">
+          <Loading loading={true} />
+        </div>
+      );
+    }
+
+    return '';
+  };
+
   const belovedCard = () => {
     var coSampulData = [];
 
@@ -156,6 +228,7 @@ const Beloved = () => {
               aria-labelledby="headingOne"
               data-bs-parent="#accordion1"
             >
+              {loadingTable({ condition: summary.isReady })}
               <div class="pointer-on-hover">
                 <table class="table table-hover mb-0">
                   <tbody>
@@ -168,6 +241,14 @@ const Beloved = () => {
                         const lObject = belovedLevel().find(
                           (x) => x.value === item.level
                         );
+
+                        var status_invites = null;
+                        if (item.beloved_invites.length > 0) {
+                          status_invites = belovedInviteStatus().find(
+                            (x) =>
+                              x.value === item.beloved_invites[0].invite_status
+                          );
+                        }
 
                         const imageUrl = item.image_path
                           ? `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${item.image_path}`
@@ -199,14 +280,12 @@ const Beloved = () => {
                               </div>
 
                               <div class="beloved-tag">
-                                {item.verified ? (
+                                {status_invites ? (
                                   <div class="badge is-badge-small">
-                                    <span>Confirmed</span>
+                                    <span>{status_invites.name}</span>
                                   </div>
                                 ) : (
-                                  <div class="badge is-badge-small">
-                                    <span>Pending Confirmation</span>
-                                  </div>
+                                  <></>
                                 )}
                                 <div class="badge is-badge-small">
                                   <span>{lObject.name}</span>
@@ -292,6 +371,7 @@ const Beloved = () => {
               aria-labelledby="headingTwo"
               data-bs-parent="#accordion2"
             >
+              {loadingTable({ condition: summary.isReady })}
               <div class="pointer-on-hover">
                 <table class="table table-hover mb-0">
                   <tbody>
@@ -300,9 +380,14 @@ const Beloved = () => {
                         const rObject = relationships().find(
                           (x) => x.value === item.relationship
                         );
-                        const lObject = belovedLevel().find(
-                          (x) => x.value === item.level
-                        );
+
+                        var status_invites = null;
+                        if (item.beloved_invites.length > 0) {
+                          status_invites = belovedInviteStatus().find(
+                            (x) =>
+                              x.value === item.beloved_invites[0].invite_status
+                          );
+                        }
 
                         const imageUrl = item.image_path
                           ? `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${item.image_path}`
@@ -333,14 +418,12 @@ const Beloved = () => {
                                 </div>
                               </div>
                               <div class="beloved-tag">
-                                {item.verified ? (
+                                {status_invites ? (
                                   <div class="badge is-badge-small">
-                                    <span>Confirmed</span>
+                                    <span>{status_invites.name}</span>
                                   </div>
                                 ) : (
-                                  <div class="badge is-badge-small">
-                                    <span>Pending Confirmation</span>
-                                  </div>
+                                  <></>
                                 )}
                               </div>
                             </div>
@@ -413,6 +496,7 @@ const Beloved = () => {
               aria-labelledby="headingThree"
               data-bs-parent="#accordion3"
             >
+              {loadingTable({ condition: summary.isReady })}
               <div class="pointer-on-hover">
                 <table class="table table-hover mb-0">
                   <tbody>
@@ -421,9 +505,14 @@ const Beloved = () => {
                         const rObject = relationships().find(
                           (x) => x.value === item.relationship
                         );
-                        const lObject = belovedLevel().find(
-                          (x) => x.value === item.level
-                        );
+
+                        var status_invites = null;
+                        if (item.beloved_invites.length > 0) {
+                          status_invites = belovedInviteStatus().find(
+                            (x) =>
+                              x.value === item.beloved_invites[0].invite_status
+                          );
+                        }
 
                         const imageUrl = item.image_path
                           ? `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${item.image_path}`
@@ -454,14 +543,12 @@ const Beloved = () => {
                                 </div>
                               </div>
                               <div class="beloved-tag">
-                                {item.verified ? (
+                                {status_invites ? (
                                   <div class="badge is-badge-small">
-                                    <span>Confirmed</span>
+                                    <span>{status_invites.name}</span>
                                   </div>
                                 ) : (
-                                  <div class="badge is-badge-small">
-                                    <span>Pending Confirmation</span>
-                                  </div>
+                                  <></>
                                 )}
                               </div>
                             </div>
@@ -543,61 +630,58 @@ const Beloved = () => {
               aria-labelledby="headingFour"
               data-bs-parent="#accordion3"
             >
+              {loadingTable({ condition: inviteList.isReady })}
               <div class="pointer-on-hover">
                 <table class="table table-hover mb-0">
                   <tbody>
-                    {summary.data.map((item, index) => {
-                      if (item.type == 'guardian') {
-                        const rObject = relationships().find(
-                          (x) => x.value === item.relationship
-                        );
-                        const lObject = belovedLevel().find(
-                          (x) => x.value === item.level
-                        );
-
-                        const imageUrl = item.image_path
-                          ? `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${item.image_path}`
-                          : emptyUserImg;
-
-                        return (
-                          <tr key={index}>
-                            <div
-                              class="d-flex flex-wrap table-hover py-3 ps-3 px-3"
-                              onClick={() => {
-                                belovedModal(item, 'guardian');
-                              }}
-                            >
-                              <div class="dp-image-wrapper">
-                                <img
-                                  loading="lazy"
-                                  src={imageUrl}
-                                  alt=""
-                                  class="dp-image"
-                                />
-                              </div>
-                              <div class="flex-grow-1">
-                                <div class="smpl_text-sm-semibold crop-text">
-                                  <span>{item.nickname}</span>
-                                </div>
-                                <div class="smpl_text-sm-regular crop-text">
-                                  <span>{rObject.name}</span>
-                                </div>
-                              </div>
-                              <div class="beloved-tag">
-                                {item.verified ? (
-                                  <div class="badge is-badge-small">
-                                    <span>Confirmed</span>
-                                  </div>
-                                ) : (
-                                  <div class="badge is-badge-small">
-                                    <span>Pending Confirmation</span>
-                                  </div>
-                                )}
-                              </div>
-                            </div>
-                          </tr>
+                    {inviteList.data.map((item, index) => {
+                      var status_invites = null;
+                      if (item.invite_status.length > 0) {
+                        status_invites = belovedInviteStatus().find(
+                          (x) => x.value === item.invite_status
                         );
                       }
+
+                      const imageUrl = item.profiles.image_path
+                        ? `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${item.profiles.image_path}`
+                        : emptyUserImg;
+
+                      return (
+                        <tr key={index}>
+                          <div
+                            class="d-flex flex-wrap table-hover py-3 ps-3 px-3"
+                            onClick={() => {
+                              inviteModal(item, 'invite');
+                            }}
+                          >
+                            <div class="dp-image-wrapper">
+                              <img
+                                loading="lazy"
+                                src={imageUrl}
+                                alt=""
+                                class="dp-image"
+                              />
+                            </div>
+                            <div class="flex-grow-1">
+                              <div class="smpl_text-sm-semibold crop-text">
+                                <span>{item.profiles.username}</span>
+                              </div>
+                              <div class="smpl_text-sm-regular crop-text">
+                                <span>{item.profiles.email}</span>
+                              </div>
+                            </div>
+                            <div class="beloved-tag">
+                              {status_invites ? (
+                                <div class="badge is-badge-small">
+                                  <span>{status_invites.name}</span>
+                                </div>
+                              ) : (
+                                <></>
+                              )}
+                            </div>
+                          </div>
+                        </tr>
+                      );
                     })}
                   </tbody>
                 </table>
@@ -625,11 +709,17 @@ const Beloved = () => {
       <div class="body">
         <div class="content">
           <Breadcrumb pageName={'Beloved'} />
+          <InviteModal
+            keyType={inviteModalType.key}
+            category={inviteModalType.category}
+            selectedItem={inviteModalType.selectedItem}
+            refreshFunction={initFunction}
+          />
           <BelovedModal
             keyType={belovedModalType.key}
             category={belovedModalType.category}
             selectedItem={belovedModalType.selectedItem}
-            refreshFunction={getBeloved}
+            refreshFunction={initFunction}
           />
           <div class="mt-4">{title()}</div>
           <div class="row mt-4">

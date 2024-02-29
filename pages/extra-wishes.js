@@ -521,6 +521,20 @@ const ExtraWishes = () => {
     );
   };
 
+  const checkUiBaseReligion = () => {
+    var display = 'block';
+
+    if (user?.profile?.religion) {
+      if (user.profile.religion == 'islam') {
+        display = 'block';
+      } else {
+        display = 'none';
+      }
+    }
+
+    return display;
+  };
+
   return (
     <SideBar>
       <div class="body">
@@ -530,7 +544,7 @@ const ExtraWishes = () => {
           <div class="row mt-4">
             <div
               style={{
-                display: user?.profile?.religion == 'islam' ? 'block' : 'none',
+                display: checkUiBaseReligion(),
               }}
             >
               {form1()}
@@ -539,7 +553,7 @@ const ExtraWishes = () => {
             {form3()}
             <div
               style={{
-                display: user?.profile?.religion == 'islam' ? 'block' : 'none',
+                display: checkUiBaseReligion(),
               }}
             >
               {form4()}

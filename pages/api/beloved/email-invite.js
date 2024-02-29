@@ -12,9 +12,16 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { email, name } = req.body;
+    const {
+      to_email,
+      to_nric_name,
+      to_type,
+      to_level,
+      from_name,
+      invite_uuid,
+    } = req.body;
 
-    if (!email) {
+    if (!to_email) {
       return res.status(400).json({
         error: 'Bad Request',
         message: 'Email address is required',
@@ -23,9 +30,16 @@ export default async function handler(req, res) {
 
     const { data, error } = await resend.emails.send({
       from: process.env.FROM_EMAIL,
-      to: [email],
+      to: [to_email],
       subject: 'Co-Sampul Request',
-      react: inviteBelove({ name: name }),
+      react: inviteBelove({
+        to_email,
+        to_nric_name,
+        to_type,
+        to_level,
+        from_name,
+        invite_uuid,
+      }),
     });
 
     if (error) {
