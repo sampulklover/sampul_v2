@@ -24,7 +24,7 @@ export default async function handler(req, res) {
     if (data && data.stripe_customer) {
       const session = await stripe.billingPortal.sessions.create({
         customer: data.stripe_customer,
-        return_url: `${process.env.NEXT_PUBLIC_HOST}/success`,
+        return_url: `${process.env.NEXT_PUBLIC_HOST}/settings`,
       });
 
       res.status(200).json({ url: session.url });
