@@ -60,8 +60,8 @@ const Billing = () => {
       const data = await response.json();
 
       var myProduct = null;
-      if (user?.profile?.accounts.is_subscribed) {
-        myProduct = user.profile.accounts.stripe_product;
+      if (user?.account?.is_subscribed) {
+        myProduct = user.account.stripe_product;
       }
 
       data.plans.unshift({

@@ -31,6 +31,7 @@ const Beloved = () => {
     data: [],
     isReady: false,
   });
+
   const [isReady, setIsReady] = useState(true);
   const [runEffect, setRunEffect] = useState(false);
   const [belovedModalType, setBelovedModalType] = useState({
@@ -561,10 +562,10 @@ const Beloved = () => {
                 <div
                   class="card-copy cosampul-copy"
                   onClick={() => {
-                    if (accessAllowed()) {
-                      belovedModal(null, 'guardian');
-                    } else {
+                    if (checkRestriction()) {
                       router.push('settings?tab=nav-billing-tab');
+                    } else {
+                      belovedModal(null, 'guardian');
                     }
                   }}
                 >
@@ -593,10 +594,10 @@ const Beloved = () => {
                     <div>
                       <div class="smpl_text-sm-semibold">
                         Add your Guardian{' '}
-                        {accessAllowed() ? (
-                          ''
+                        {checkRestriction() ? (
+                          <span class="text-primary">(Upgrade your plan)</span>
                         ) : (
-                          <span class="text-primary">(Upgrade to Pro)</span>
+                          ''
                         )}
                       </div>
                       <div class="smpl_text-sm-regular">
@@ -694,15 +695,16 @@ const Beloved = () => {
     );
   };
 
-  const accessAllowed = () => {
-    if (
-      user?.profile?.accounts.is_subscribed &&
-      user?.profile?.accounts.stripe_product ==
-        process.env.NEXT_PUBLIC_STRIPE_PROFESSIONAL_PRODUCT_ID
-    ) {
-      return true;
+  const checkRestriction = () => {
+    var restricted = true;
+
+    if (user.access_control?.pages.beloved.guardian.access) {
+      restricted = false;
+    } else {
+      restricted = true;
     }
-    return false;
+
+    return restricted;
   };
 
   return (

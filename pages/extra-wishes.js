@@ -203,7 +203,24 @@ const ExtraWishes = () => {
     );
   };
 
+  const checkRestriction = (keyName) => {
+    var restricted = true;
+
+    if (user.access_control?.pages.extra_wishes[keyName].access) {
+      restricted = false;
+    } else {
+      restricted = true;
+    }
+
+    return restricted;
+  };
+
   const onSubmitForm = async ({ keyName }) => {
+    if (checkRestriction(keyName)) {
+      toast.error('You need to upgrade your plan to use this feature.');
+      return;
+    }
+
     setButtonLoading({
       ...buttonLoading,
       [keyName]: true,
