@@ -104,7 +104,9 @@ const SignUp = () => {
                   />
                   <label class="form-check-label" for="flexCheckChecked">
                     You agree to our friendly{' '}
-                    <Link href="policy">privacy policy.</Link>
+                    <Link href="policy" target="_blank">
+                      privacy policy.
+                    </Link>
                   </label>
                 </div>
               </div>

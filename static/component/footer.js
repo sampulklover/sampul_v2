@@ -151,9 +151,9 @@ function footer() {
                   © 2023 Sampul Sdn. Bhd.
                 </div>
                 <div class="w-layout-grid uui-footer02_legal-list">
-                  <a href="#" class="uui-footer02_legal-link">Terms</a>
-                  <a href="#" class="uui-footer02_legal-link">Privacy</a>
-                  <a href="#" class="uui-footer02_legal-link">Cookies</a>
+                  <a href="/policy" class="uui-footer02_legal-link">Terms</a>
+                  <a href="/policy" class="uui-footer02_legal-link">Privacy</a>
+                  <a href="/policy" class="uui-footer02_legal-link">Cookies</a>
                 </div>
               </div>
               <div class="w-layout-grid uui-footer02_social-list">

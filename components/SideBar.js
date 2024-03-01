@@ -5,10 +5,17 @@ import { addUserImg } from '../constant/element';
 import { useState } from 'react';
 import LogoutModal from './LogoutModal';
 import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 
 const SideBar = ({ children }) => {
   const router = useRouter();
   const { user, isLoading } = useUser();
+
+  // useEffect(() => {
+  //   if (isLoading == false && user == null) {
+  //     toast.error('Your session has expired. Please sign in again to continue');
+  //   }
+  // }, [user]);
 
   const pageList = [
     {
