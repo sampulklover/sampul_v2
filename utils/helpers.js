@@ -174,3 +174,7 @@ export const processForm = (elements, clearFields = false) => {
 
   return addData;
 };
+
+export const capitalize = (str) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};

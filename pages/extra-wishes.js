@@ -203,20 +203,8 @@ const ExtraWishes = () => {
     );
   };
 
-  const checkRestriction = (keyName) => {
-    var restricted = true;
-
-    if (user.access_control?.pages.extra_wishes[keyName].access) {
-      restricted = false;
-    } else {
-      restricted = true;
-    }
-
-    return restricted;
-  };
-
   const onSubmitForm = async ({ keyName }) => {
-    if (checkRestriction(keyName)) {
+    if (checkRestriction(keyName) == true) {
       toast.error('You need to upgrade your plan to use this feature.');
       return;
     }
@@ -264,6 +252,25 @@ const ExtraWishes = () => {
     });
   };
 
+  const checkRestriction = (keyName) => {
+    const access = user.access_control?.pages?.extra_wishes[keyName]?.access;
+    return access === false;
+  };
+
+  const displayUpgradePlan = (keyName) => {
+    if (checkRestriction(keyName) == true) {
+      return (
+        <Link href="/settings?tab=nav-billing-tab">
+          <div class="smpl_text-sm-semibold">
+            <span class="text-primary">(Upgrade your plan)</span>
+          </div>
+        </Link>
+      );
+    }
+
+    return <></>;
+  };
+
   const form1 = () => {
     return (
       <>
@@ -276,6 +283,7 @@ const ExtraWishes = () => {
                 Sampul's streamlined process, ensuring your spiritual
                 commitments are honored.
               </div>
+              {displayUpgradePlan('nazar')}
             </div>
           </div>
           <div class="col card">
@@ -340,6 +348,7 @@ const ExtraWishes = () => {
                 simplified process, ensuring your religious duties are met with
                 ease.
               </div>
+              {displayUpgradePlan('fidyah')}
             </div>
           </div>
           <div class="col card">
@@ -404,6 +413,7 @@ const ExtraWishes = () => {
                 estate plan with Sampul, ensuring your legacy extends to making
                 a positive impact beyond your lifetime.
               </div>
+              {displayUpgradePlan('charity')}
             </div>
           </div>
           <div class="col card">
@@ -476,6 +486,7 @@ const ExtraWishes = () => {
                 Securely allocate digital assets to support causes close to your
                 heart and leave a lasting impact on future generations.
               </div>
+              {displayUpgradePlan('waqf')}
             </div>
           </div>
           <div class="col card">
