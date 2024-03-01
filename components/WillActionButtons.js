@@ -152,7 +152,7 @@ const WillActionButtons = ({
   }
 
   const generateWill = async () => {
-    if (user.profile.nric_name) {
+    if (user?.profile?.nric_name) {
       setButtonLoading({
         ...buttonLoading,
         generate: true,

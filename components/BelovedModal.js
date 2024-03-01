@@ -530,6 +530,81 @@ const BelovedModal = ({ keyType, category, selectedItem, refreshFunction }) => {
                 </div>
               </div>
 
+              {/* <>
+                <div class="mt-4">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="checkbox-beloved-0"
+                      required
+                    />
+                    <label class="form-check-label" for="checkbox-beloved-0">
+                      <small>
+                        CO-SAMPUL IS A TRUSTED PERSON FOR WHICH MY WASIAT/WILL
+                        WITH ALL THE ASSET INFORMATION AND WISHES WILL BE PASSED
+                        ON UPON MY DEATH.
+                      </small>
+                    </label>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="checkbox-beloved-1"
+                      required
+                    />
+                    <label class="form-check-label" for="checkbox-beloved-1">
+                      <small>
+                        MY TRUSTED CO-SAMPUL WILL ONLY BE GIVEN ACCESS AFTER MY
+                        DEATH TO ASSIST MY LOVED ONES IN MANAGING THE ESTATE. I
+                        AM ALLOWED TO CHANGE MY CO-SAMPUL AT ANYTIME IF NEEDED.
+                      </small>
+                    </label>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="checkbox-beloved-2"
+                      required
+                    />
+                    <label class="form-check-label" for="checkbox-beloved-2">
+                      <small>CO-SAMPUL MUST BE 18 YEARS OLD AND ABOVE</small>
+                    </label>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="checkbox-beloved-3"
+                      required
+                    />
+                    <label class="form-check-label" for="checkbox-beloved-3">
+                      <small>
+                        I HAVE EXPLAIN ON SAMPUL AND SEEK CONSENT FROM MY
+                        APPOINTED CO-SAMPUL TO SHARE HIS/HER PERSONAL
+                        INFORMATION WITH SAMPUL. READ OUR{' '}
+                        <Link href="policy" target="_blank">PRIVACY POLICY.</Link>
+                      </small>
+                    </label>
+                  </div>
+                </div>
+              </> */}
+
               <div class="mt-3">
                 <div class="form-check">
                   <input
@@ -541,7 +616,9 @@ const BelovedModal = ({ keyType, category, selectedItem, refreshFunction }) => {
                   />
                   <label class="form-check-label" for="flexCheckChecked">
                     You agree to our friendly{' '}
-                    <Link href="policy">privacy policy.</Link>
+                    <Link href="policy" target="_blank">
+                      privacy policy.
+                    </Link>
                   </label>
                 </div>
               </div>

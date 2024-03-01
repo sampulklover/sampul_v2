@@ -698,7 +698,7 @@ const Beloved = () => {
   const checkRestriction = () => {
     var restricted = true;
 
-    if (user.access_control?.pages.beloved.guardian.access) {
+    if (user?.access_control?.pages.beloved.guardian.access) {
       restricted = false;
     } else {
       restricted = true;
