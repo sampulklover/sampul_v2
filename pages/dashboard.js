@@ -121,9 +121,11 @@ const Dashboard = () => {
         'Complete the information on your profile and get verified to generate and download your wasiat/will',
       btnTitle: 'Edit Profile',
       btnFunction: () => {
-        setTimeout(() => {
+        try {
           $('#profile-modal')?.modal('show');
-        }, 500);
+        } catch (error) {
+          toast.error('Something went wrong, please try again');
+        }
       },
       innerIcon: (
         <svg
@@ -149,9 +151,11 @@ const Dashboard = () => {
         'Co-Sampul is your trusted person for whom which all information in this Sampul will be passed on.',
       btnTitle: 'Add Co-Sampul',
       btnFunction: () => {
-        setTimeout(() => {
+        try {
           $('#beloved-modal')?.modal('show');
-        }, 500);
+        } catch (error) {
+          toast.error('Something went wrong, please try again');
+        }
       },
       innerIcon: (
         <svg
@@ -177,9 +181,11 @@ const Dashboard = () => {
         'List and register all your Digital Assets, keep track of your assets, monitor the performance of your assets and keep track of their value',
       btnTitle: 'Add Digital Asset',
       btnFunction: () => {
-        setTimeout(() => {
+        try {
           $('#digital-assets-modal')?.modal('show');
-        }, 500);
+        } catch (error) {
+          toast.error('Something went wrong, please try again');
+        }
       },
       innerIcon: (
         <svg

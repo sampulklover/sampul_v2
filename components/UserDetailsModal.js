@@ -1,0 +1,235 @@
+import React, { useState, useEffect } from 'react';
+import { supabase } from '../utils/supabase';
+import { useUser } from '../context/user';
+import Loading from './Laoding';
+import toast from 'react-hot-toast';
+import {
+  belovedLevel,
+  beneficiaryTypes,
+  relationships,
+  userRoles,
+} from '../constant/enum';
+import { deleteImage, replaceOrAddImage } from '../utils/helpers';
+import { addUserImg, emptyUserImg } from '../constant/element';
+import Link from 'next/link';
+import { v4 as uuidv4 } from 'uuid';
+
+const UserDetailsModal = ({ selectedUser, refreshFunction }) => {
+  const { user } = useUser();
+  const [isLoading, setIsLoading] = useState({
+    update: false,
+    delete: false,
+  });
+
+  const getElements = () => {
+    const inputElements = {
+      user_details: {
+        role: document.getElementById('select-user-role'),
+      },
+    };
+
+    return inputElements;
+  };
+
+  const onSubmitUserDetails = async (event) => {
+    event.preventDefault();
+
+    setIsLoading({
+      ...isLoading,
+      update: true,
+    });
+
+    const addData = {};
+
+    for (const key in getElements().user_details) {
+      if (key !== 'image_path') {
+        addData[key] = getElements().user_details[key].value;
+      }
+    }
+
+    const { data, error } = await supabase
+      .from('roles')
+      .update({
+        ...addData,
+      })
+      .eq('uuid', selectedUser.uuid);
+
+    if (error) {
+      setIsLoading({
+        ...isLoading,
+        update: false,
+      });
+      toast.error(error.message);
+      return;
+    }
+
+    try {
+      $('#user-details-modal')?.modal('hide');
+    } catch (error) {
+      toast.error('Something went wrong, please try again');
+    }
+
+    refreshFunction();
+    toast.success('Save!');
+
+    setIsLoading({
+      ...isLoading,
+      update: false,
+    });
+  };
+
+  useEffect(() => {
+    if (selectedUser) {
+      const selectRole = getElements().user_details.role;
+      selectRole.value = selectedUser.roles.role;
+    }
+  }, [selectedUser]);
+
+  return (
+    <div class="modal fade" id="user-details-modal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">User Details</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="modal-header-2 mb-3">
+              <div class="content-32">
+                <img
+                  loading="lazy"
+                  src={
+                    selectedUser?.image_path
+                      ? `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${selectedUser.image_path}`
+                      : emptyUserImg
+                  }
+                  alt=""
+                  class="avatar-8"
+                />
+                <div class="text-and-supporting-text-18">
+                  <div class="text-lg-semibold-4">{selectedUser?.username}</div>
+                  <div class="text-sm-regular-6">{selectedUser?.email}</div>
+                </div>
+              </div>
+              <div class="padding-bottom-3"></div>
+            </div>
+
+            <form onSubmit={onSubmitUserDetails}>
+              <div class="mb-3">
+                <div class="form-field-wrapper">
+                  <label
+                    for={`select-beloved-relationship`}
+                    class="uui-field-label"
+                  >
+                    User role
+                  </label>
+                  <select
+                    id="select-user-role"
+                    required=""
+                    class="form_input w-select"
+                  >
+                    {userRoles().map((item) => (
+                      <option key={item.value} value={item.value}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <label class="uui-field-label">Beloved List</label>
+
+              <div class="table-responsive" style={{ width: '100%' }}>
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">
+                        <small class="smpl_text-xs-medium">Beloved</small>
+                      </th>
+
+                      <th scope="col">
+                        <small class="smpl_text-xs-medium">Relationship</small>
+                      </th>
+
+                      <th scope="col">
+                        <small class="smpl_text-xs-medium">Type</small>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {selectedUser?.beloved.map((item, index) => {
+                      const userImg = item?.image_path
+                        ? `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${item.image_path}`
+                        : emptyUserImg;
+
+                      const rObject = relationships().find(
+                        (x) => x.value === item.relationship
+                      );
+
+                      const tObject = beneficiaryTypes().find(
+                        (x) => x.value === item.type
+                      );
+
+                      const lObject = belovedLevel().find(
+                        (x) => x.value === item.level
+                      );
+
+                      return (
+                        <tr key={index}>
+                          <td>
+                            <div class="custom-table-cell">
+                              <img
+                                loading="lazy"
+                                src={userImg}
+                                alt=""
+                                class="avatar-8"
+                              />
+                              <div>
+                                <div class="smpl_text-sm-medium crop-text">
+                                  {item.nickname}
+                                </div>
+                                <div class="smpl_text-sm-regular crop-text">
+                                  {item.email}
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="custom-table-cell">
+                              <div class="smpl_text-sm-regular crop-text">
+                                {rObject?.name}
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="custom-table-cell">
+                              <div class="smpl_text-sm-regular crop-text">
+                                {lObject?.name} {tObject?.name}
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+              <div class="d-grid gap-2 mt-5">
+                <button type="submit" class="btn btn-primary btn-lg btn-text">
+                  <Loading title="Save" loading={isLoading.update} />
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default UserDetailsModal;

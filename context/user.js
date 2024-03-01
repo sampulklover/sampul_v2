@@ -20,7 +20,7 @@ const Provider = ({ children }) => {
       if (data?.user) {
         const { data: profile } = await supabase
           .from('profiles')
-          .select('*')
+          .select('*, roles (*)')
           .eq('uuid', data.user.id)
           .single();
 
@@ -35,6 +35,7 @@ const Provider = ({ children }) => {
           profile: profile,
           account: account,
           access_control: account?.products?.access_control,
+          role: profile?.roles,
         });
       }
       setIsLoading(false);

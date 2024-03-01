@@ -368,3 +368,12 @@ export const belovedInviteStatus = () => {
 
   return options;
 };
+
+export const userRoles = () => {
+  const options = [
+    { name: 'User', value: 'user' },
+    { name: 'Admin', value: 'admin' },
+  ];
+
+  return options;
+};
