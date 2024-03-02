@@ -318,7 +318,11 @@ const WillActionButtons = ({
             if (is_completed) {
               $('#share-modal')?.modal('show');
             } else {
-              showNotCompleteToast();
+              if (router?.pathname == '/view-will') {
+                $('#share-modal')?.modal('show');
+              } else {
+                showNotCompleteToast();
+              }
             }
           }}
         >
