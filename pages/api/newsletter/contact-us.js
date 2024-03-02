@@ -12,10 +12,10 @@ export default async function handler(req, res) {
     const { name, email, message } = req.body;
     const supabase = getServiceSupabase();
 
-    if (!to_email) {
+    if (!name && !email && !message) {
       return res.status(400).json({
         error: 'Bad Request',
-        message: 'Email address is required',
+        message: 'Please complete all required fields',
       });
     }
 
