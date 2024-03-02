@@ -338,7 +338,11 @@ const WillActionButtons = ({
                 downloadCert();
               }
             } else {
-              showNotCompleteToast();
+              if (router?.pathname == '/view-will') {
+                downloadCert();
+              } else {
+                showNotCompleteToast();
+              }
             }
           }}
         >
