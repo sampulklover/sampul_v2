@@ -1,5 +1,7 @@
 const { createClient } = supabase;
 
+const STATIC_PUBLIC_HOST = 'https://sampul.co';
+
 const webInfo = {
   version: 'v1.1.6',
   parentUrl: 'https://www.sampul.co',
