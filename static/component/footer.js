@@ -246,6 +246,8 @@ function footer() {
   `;
 }
 
+const STATIC_PUBLIC_HOST = 'https://sampul.co';
+
 function newsletterFormAddAPI() {
   document
     .getElementById('add-newsletter-form')
@@ -259,36 +261,34 @@ function newsletterFormAddAPI() {
 
       var email_input = document.getElementById('input-newsletter-email');
 
-      const { data: existingEmail } = await supabaseClient
-        .from(dbName.newsletter)
-        .select('email')
-        .eq('email', email_input.value)
-        .single();
-
-      if (existingEmail) {
-        showToast(
-          'alert-toast-container',
-          'Email already subscribed!',
-          'danger'
+      try {
+        const response = await fetch(
+          `${STATIC_PUBLIC_HOST}/api/newsletter/subscribe`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              email: email_input,
+            }),
+          }
         );
-        useBtn.disabled = false;
-        useBtn.innerHTML = defaultBtnText;
-        return;
-      }
 
-      const { error } = await supabaseClient.from(dbName.newsletter).insert({
-        email: email_input.value,
-      });
+        if (!response.ok) {
+          showToast('alert-toast-container', 'Something went wrong!', 'danger');
+          useBtn.disabled = false;
+          useBtn.innerHTML = defaultBtnText;
 
-      if (error) {
-        console.error('Error', error.message);
+          return;
+        }
+
+        showToast('alert-toast-container', 'Subscribed!', 'success');
+      } catch (error) {
         showToast('alert-toast-container', error.message, 'danger');
         useBtn.disabled = false;
         useBtn.innerHTML = defaultBtnText;
-        return;
       }
-
-      showToast('alert-toast-container', 'Subscribed!', 'success');
 
       useBtn.disabled = false;
       useBtn.innerHTML = defaultBtnText;

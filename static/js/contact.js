@@ -6,6 +6,8 @@ const inputElements = {
   },
 };
 
+const STATIC_PUBLIC_HOST = 'https://sampul.co';
+
 document
   .getElementById('add-contact-us-form')
   .addEventListener('submit', async function (event) {
@@ -18,25 +20,36 @@ document
 
     const addData = processForm(inputElements.add_contact_us_form);
 
-    const { data, error } = await supabaseClient
-      .from(dbName.contact_us)
-      .insert({
-        ...addData,
+    try {
+      const response = await fetch(
+        `${STATIC_PUBLIC_HOST}/api/newsletter/contact-us`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            ...addData,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        showToast('alert-toast-container', 'Something went wrong!', 'danger');
+        handleFormResult({ error, useBtn, defaultBtnText });
+        return;
+      }
+
+      processForm(inputElements.add_contact_us_form, true);
+
+      handleFormResult({
+        useBtn,
+        defaultBtnText,
+        successText:
+          'Thank you for reaching out! your message has been successfully submitted!',
       });
-
-    if (error) {
-      console.error('Error', error.message);
+    } catch (error) {
+      showToast('alert-toast-container', error.message, 'danger');
       handleFormResult({ error, useBtn, defaultBtnText });
-      return;
     }
-
-    processForm(inputElements.add_contact_us_form, true);
-
-    handleFormResult({
-      error,
-      useBtn,
-      defaultBtnText,
-      successText:
-        'Thank you for reaching out! your message has been successfully submitted!',
-    });
   });
