@@ -502,7 +502,7 @@ const ExtraWishes = () => {
               </div>
               {mutiselectData.charity.selected.map((item, index) => {
                 return (
-                  <div class="mb-3">
+                  <div class="mb-3" key={index}>
                     <label
                       for={`input-extra-wishes-charity-${item.value}-amount`}
                       class="uui-field-label"
@@ -587,7 +587,7 @@ const ExtraWishes = () => {
               </div>
               {mutiselectData.waqf.selected.map((item, index) => {
                 return (
-                  <div class="mb-3">
+                  <div class="mb-3" key={index}>
                     <label
                       for={`input-extra-wishes-waqf-${item.value}-amount`}
                       class="uui-field-label"
