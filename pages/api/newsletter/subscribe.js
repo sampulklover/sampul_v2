@@ -21,7 +21,7 @@ export default async function handler(req, res) {
 
     const { data: existingEmail, error: existingEmailError } = await supabase
       .from('newsletter')
-      .select('email')
+      .select('*')
       .eq('email', email);
 
     if (existingEmailError) {

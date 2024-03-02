@@ -491,33 +491,3 @@ function navBar() {
 </div>
   `;
 }
-
-async function navBarAuthUpdate(
-  extraAuthElements = {},
-  extraGuestElements = {}
-) {
-  const userId = await getUserSession();
-
-  const defaultElements = {
-    auth: {
-      dashboard_header: document.getElementById('header-dashboard-btn'),
-    },
-    guest: {
-      log_in_header: document.getElementById('header-log-in-btn'),
-      sign_up_header: document.getElementById('header-sign-up-btn'),
-    },
-  };
-
-  const buttonElements = {
-    auth: { ...defaultElements.auth, ...extraAuthElements },
-    guest: { ...defaultElements.guest, ...extraGuestElements },
-  };
-
-  if (userId) {
-    toggleVisibility(buttonElements.auth, true);
-    toggleVisibility(buttonElements.guest, false);
-  } else {
-    toggleVisibility(buttonElements.auth, false);
-    toggleVisibility(buttonElements.guest, true);
-  }
-}
