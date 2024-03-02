@@ -268,7 +268,7 @@ function newsletterFormAddAPI() {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              email: email_input,
+              email: email_input.value,
             }),
           }
         );
