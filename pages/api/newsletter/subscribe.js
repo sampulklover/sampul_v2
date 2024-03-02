@@ -15,35 +15,33 @@ export default async function handler(req, res) {
     if (!email) {
       return res.status(400).json({
         error: 'Bad Request',
-        message: 'Email address is required',
+        message: 'Please complete all required fields',
       });
     }
 
-    const { data: existingEmail, error: existingEmailError } = await supabase
+    const { data, error } = await supabase
       .from('newsletter')
       .select('*')
       .eq('email', email);
 
-    if (existingEmailError) {
-      return res.status(400).json(existingEmailError);
-    }
-
-    if (existingEmail.length > 0) {
+    if (data.length > 0) {
       return res.status(400).json({
         error: 'Bad Request',
         message: 'Email already subscribed!',
       });
     }
 
-    const { data, error } = await supabase.from('newsletter').insert({
-      email: email,
-    });
+    const { data: dataInsert, error: errorInsert } = await supabase
+      .from('newsletter')
+      .insert({
+        email: email,
+      });
 
-    if (error) {
-      return res.status(400).json(existingEmailError);
+    if (errorInsert) {
+      return res.status(400).json(errorInsert);
     }
 
-    res.status(200).json(data);
+    res.status(200).json(dataInsert);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal Server Error' });

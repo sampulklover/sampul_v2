@@ -274,7 +274,8 @@ function newsletterFormAddAPI() {
         );
 
         if (!response.ok) {
-          showToast('alert-toast-container', 'Something went wrong!', 'danger');
+          const data = await response.json();
+          showToast('alert-toast-container', data.message, 'danger');
           useBtn.disabled = false;
           useBtn.innerHTML = defaultBtnText;
 
