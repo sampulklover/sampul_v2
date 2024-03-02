@@ -24,6 +24,7 @@ const Dashboard = () => {
   const [isReady, setIsReady] = useState(true);
   const [runEffect, setRunEffect] = useState(false);
   const [qrValue, setQrValue] = useState(null);
+  const [belovedCategory, setBelovedCategory] = useState('co_sampul');
 
   const initiateFunction = async () => {
     const { data: singleData, error } = await supabase
@@ -145,13 +146,13 @@ const Dashboard = () => {
         </svg>
       ),
     },
-    appoint_co_sampul: {
-      title: 'Appoit your Co-Sampul',
-      description:
-        'Co-Sampul is your trusted person for whom which all information in this Sampul will be passed on.',
-      btnTitle: 'Add Co-Sampul',
+    register_beneficiary: {
+      title: 'Register beneficiary',
+      description: 'The future owner of your assets',
+      btnTitle: 'Add Beneficiary',
       btnFunction: () => {
         try {
+          setBelovedCategory('future_owner');
           $('#beloved-modal')?.modal('show');
         } catch (error) {
           toast.error('Something went wrong, please try again');
@@ -166,7 +167,7 @@ const Dashboard = () => {
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M19 21V15M16 18H22M12 15H8C6.13623 15 5.20435 15 4.46927 15.3045C3.48915 15.7105 2.71046 16.4892 2.30448 17.4693C2 18.2044 2 19.1362 2 21M15.5 3.29076C16.9659 3.88415 18 5.32131 18 7C18 8.67869 16.9659 10.1159 15.5 10.7092M13.5 7C13.5 9.20914 11.7091 11 9.5 11C7.29086 11 5.5 9.20914 5.5 7C5.5 4.79086 7.29086 3 9.5 3C11.7091 3 13.5 4.79086 13.5 7Z"
+            d="M6 21H9M15 21H18M17.5 6.5V14.5M3 6.2L3 14.8C3 15.9201 3 16.4802 3.21799 16.908C3.40973 17.2843 3.71569 17.5903 4.09202 17.782C4.51984 18 5.07989 18 6.2 18L17.8 18C18.9201 18 19.4802 18 19.908 17.782C20.2843 17.5903 20.5903 17.2843 20.782 16.908C21 16.4802 21 15.9201 21 14.8V6.2C21 5.0799 21 4.51984 20.782 4.09202C20.5903 3.7157 20.2843 3.40974 19.908 3.21799C19.4802 3 18.9201 3 17.8 3L6.2 3C5.0799 3 4.51984 3 4.09202 3.21799C3.7157 3.40973 3.40973 3.71569 3.21799 4.09202C3 4.51984 3 5.07989 3 6.2ZM11.5 10.5C11.5 11.8807 10.3807 13 9 13C7.61929 13 6.5 11.8807 6.5 10.5C6.5 9.11929 7.61929 8 9 8C10.3807 8 11.5 9.11929 11.5 10.5Z"
             stroke="#3118D3"
             stroke-width="2"
             stroke-linecap="round"
@@ -197,6 +198,37 @@ const Dashboard = () => {
         >
           <path
             d="M6 21H9M15 21H18M17.5 6.5V14.5M3 6.2L3 14.8C3 15.9201 3 16.4802 3.21799 16.908C3.40973 17.2843 3.71569 17.5903 4.09202 17.782C4.51984 18 5.07989 18 6.2 18L17.8 18C18.9201 18 19.4802 18 19.908 17.782C20.2843 17.5903 20.5903 17.2843 20.782 16.908C21 16.4802 21 15.9201 21 14.8V6.2C21 5.0799 21 4.51984 20.782 4.09202C20.5903 3.7157 20.2843 3.40974 19.908 3.21799C19.4802 3 18.9201 3 17.8 3L6.2 3C5.0799 3 4.51984 3 4.09202 3.21799C3.7157 3.40973 3.40973 3.71569 3.21799 4.09202C3 4.51984 3 5.07989 3 6.2ZM11.5 10.5C11.5 11.8807 10.3807 13 9 13C7.61929 13 6.5 11.8807 6.5 10.5C6.5 9.11929 7.61929 8 9 8C10.3807 8 11.5 9.11929 11.5 10.5Z"
+            stroke="#3118D3"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+        </svg>
+      ),
+    },
+    appoint_co_sampul: {
+      title: 'Appoint your Co-Sampul',
+      description:
+        'Co-Sampul is your trusted person for whom which all information in this Sampul will be passed on.',
+      btnTitle: 'Add Co-Sampul',
+      btnFunction: () => {
+        try {
+          setBelovedCategory('co_sampul');
+          $('#beloved-modal')?.modal('show');
+        } catch (error) {
+          toast.error('Something went wrong, please try again');
+        }
+      },
+      innerIcon: (
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M19 21V15M16 18H22M12 15H8C6.13623 15 5.20435 15 4.46927 15.3045C3.48915 15.7105 2.71046 16.4892 2.30448 17.4693C2 18.2044 2 19.1362 2 21M15.5 3.29076C16.9659 3.88415 18 5.32131 18 7C18 8.67869 16.9659 10.1159 15.5 10.7092M13.5 7C13.5 9.20914 11.7091 11 9.5 11C7.29086 11 5.5 9.20914 5.5 7C5.5 4.79086 7.29086 3 9.5 3C11.7091 3 13.5 4.79086 13.5 7Z"
             stroke="#3118D3"
             stroke-width="2"
             stroke-linecap="round"
@@ -240,8 +272,8 @@ const Dashboard = () => {
     return (
       <>
         <div>
-          <div class="smpl_text-lg-semibold">Getting started</div>
-          <div class="row mt-md-0 mt-3">
+          <div class="smpl_text-lg-semibold mb-3">Getting started</div>
+          <div class="row mt-md-0">
             <div class="col-lg">
               <div class="list-group" id="list-tab" role="tablist">
                 <button
@@ -256,13 +288,16 @@ const Dashboard = () => {
                 </button>
                 <button
                   class="list-group-item list-group-item-action"
-                  id="list-profile-list"
+                  id="list-beneficiary-list"
                   data-bs-toggle="list"
-                  data-bs-target="#list-profile"
+                  data-bs-target="#list-beneficiary"
                   role="tab"
-                  aria-controls="list-profile"
+                  aria-controls="list-beneficiary"
                 >
-                  {numberUI({ number: 2, title: 'Appoint your Co-Sampul' })}
+                  {numberUI({
+                    number: 2,
+                    title: 'Register beneficiary',
+                  })}
                 </button>
                 <button
                   class="list-group-item list-group-item-action"
@@ -276,6 +311,16 @@ const Dashboard = () => {
                     number: 3,
                     title: 'Setup your first digital assets',
                   })}
+                </button>
+                <button
+                  class="list-group-item list-group-item-action"
+                  id="list-profile-list"
+                  data-bs-toggle="list"
+                  data-bs-target="#list-profile"
+                  role="tab"
+                  aria-controls="list-profile"
+                >
+                  {numberUI({ number: 4, title: 'Appoint your Co-Sampul' })}
                 </button>
               </div>
             </div>
@@ -291,11 +336,11 @@ const Dashboard = () => {
                 </div>
                 <div
                   class="tab-pane fade"
-                  id="list-profile"
+                  id="list-beneficiary"
                   role="tabpanel"
-                  aria-labelledby="list-profile-list"
+                  aria-labelledby="list-beneficiary-list"
                 >
-                  {actionUI({ key: 'appoint_co_sampul' })}
+                  {actionUI({ key: 'register_beneficiary' })}
                 </div>
                 <div
                   class="tab-pane fade"
@@ -304,6 +349,14 @@ const Dashboard = () => {
                   aria-labelledby="list-messages-list"
                 >
                   {actionUI({ key: 'setup_digital_assets' })}
+                </div>
+                <div
+                  class="tab-pane fade"
+                  id="list-profile"
+                  role="tabpanel"
+                  aria-labelledby="list-profile-list"
+                >
+                  {actionUI({ key: 'appoint_co_sampul' })}
                 </div>
               </div>
             </div>
@@ -605,7 +658,7 @@ const Dashboard = () => {
           <ProfileModal category={'profile'} />
           <BelovedModal
             keyType={'add'}
-            category={'co_sampul'}
+            category={belovedCategory}
             selectedItem={null}
             refreshFunction={initiateFunction}
           />
