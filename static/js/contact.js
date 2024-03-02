@@ -6,8 +6,6 @@ const inputElements = {
   },
 };
 
-const STATIC_PUBLIC_HOST = 'https://sampul.co';
-
 document
   .getElementById('add-contact-us-form')
   .addEventListener('submit', async function (event) {

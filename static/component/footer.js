@@ -246,8 +246,6 @@ function footer() {
   `;
 }
 
-const STATIC_PUBLIC_HOST = 'https://sampul.co';
-
 function newsletterFormAddAPI() {
   document
     .getElementById('add-newsletter-form')
