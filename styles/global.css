@@ -134,7 +134,7 @@
 }
 
 .nav-bg-custom {
-  background-color: #f5f6f8;
+  background-color: #ffff;
 }
 
 .nav-link-custom {
@@ -144,16 +144,17 @@
 }
 
 .nav-link:hover {
-  background-color: #f9f6ff;
+  background-color: #f9fafb;
   color: #533de9;
   border-radius: 8;
 }
 
 .nav-link-selected {
-  background-color: #533de9;
-  color: #fff;
+  background-color:  #f9fafb;
+  color: #533de9;
   border-radius: 8;
 }
+
 
 .sticky-bottom {
   position: sticky;

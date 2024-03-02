@@ -59,7 +59,7 @@ const WillActionButtons = ({
         toast.error(error.message);
       }
 
-      if (data.length > 0) {
+      if (data?.length > 0) {
         if (data[0]?.will_code) {
           var url = `${process.env.NEXT_PUBLIC_HOST}/view-will?id=${data[0].will_code}`;
           setShareUrl(url);

@@ -20,17 +20,20 @@ const type_title = {
       whom which all information in this
       Sampul will be passed on`,
     display_level: '',
+    beloved_list: belovedLevel().filter((option) => option.value !== 'others'),
   },
   future_owner: {
     title: 'Appoint your Beneficiary',
     subtitle: 'The future owner of your assets',
     display_level: 'none',
+    beloved_list: belovedLevel(),
   },
   guardian: {
     title: 'Appoint your Guardian',
     subtitle:
       'The caretaker of your underage kids ensuring they get the best care after you and you spoused demised',
     display_level: 'none',
+    beloved_list: belovedLevel(),
   },
 };
 
@@ -471,7 +474,7 @@ const BelovedModal = ({ keyType, category, selectedItem, refreshFunction }) => {
                     required=""
                     class="form_input w-select"
                   >
-                    {belovedLevel().map((item) => (
+                    {type_title[category].beloved_list.map((item) => (
                       <option key={item.value} value={item.value}>
                         {item.name}
                       </option>
