@@ -22,14 +22,13 @@ export default async function handler(req, res) {
     const { data: existingEmail, error: existingEmailError } = await supabase
       .from('newsletter')
       .select('email')
-      .eq('email', email)
-      .single();
+      .eq('email', email);
 
     if (existingEmailError) {
       return res.status(400).json(existingEmailError);
     }
 
-    if (existingEmail) {
+    if (existingEmail.length > 0) {
       return res.status(400).json({
         error: 'Bad Request',
         message: 'Email already subscribed!',
