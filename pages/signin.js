@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useUser } from '../context/user';
 import Loading from '../components/Laoding';
 import ForgotPasswordModal from '../components/ForgotPasswordModal';
+import Link from 'next/link';
 
 const SignIn = () => {
   const { normalLogin, googleLogin } = useUser();
@@ -44,7 +45,7 @@ const SignIn = () => {
   };
 
   return (
-    <div class="body">
+    <div class="body px-5">
       <ForgotPasswordModal />
       <div class="row">
         <div class="col-lg-4">
@@ -113,6 +114,12 @@ const SignIn = () => {
                 </span>
               </button>
             </div>
+            <p class="text-center mt-4">
+              Don't have an account?{' '}
+              <Link href="signup" style={{ textDecoration: 'none' }}>
+                <strong class="text-primary">Register</strong>
+              </Link>
+            </p>
           </div>
         </div>
         <div class="col-lg">

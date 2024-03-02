@@ -19,9 +19,9 @@ const InformDeath = () => {
     isCalling: false,
     isSaving: false,
   });
-  const [belovedList, setBelovedList] = useState({
+  const [inviteList, setInviteList] = useState({
     data: [],
-    isCalling: false,
+    isReady: false,
   });
   const [selectedImage, setSelectedImage] = useState({
     data: null,
@@ -32,7 +32,7 @@ const InformDeath = () => {
   useEffect(() => {
     if (!runEffect && user?.uuid) {
       setRunEffect(true);
-      getBeloved();
+      getInvites();
     }
   }, [user, runEffect]);
 
@@ -40,7 +40,9 @@ const InformDeath = () => {
     const inputElements = {
       inform_death: {
         elements: {
-          beloved_id: document.getElementById('select-inform-death-beloved'),
+          invite_user_uuid: document.getElementById(
+            'select-inform-death-invite-user-uuid'
+          ),
           nric_name: document.getElementById('input-inform-death-nric-name'),
           nric_no: document.getElementById('input-inform-death-nric-no'),
           certification: document.getElementById(
@@ -61,36 +63,40 @@ const InformDeath = () => {
     return inputElements;
   };
 
-  const getBeloved = async () => {
-    setBelovedList({
-      data: [],
-      isCalling: true,
-    });
-
-    const { data, error } = await supabase
-      .from('beloved')
-      .select('*')
-      .eq('uuid', user?.uuid)
-      .order('created_at', { ascending: false });
-
-    if (error) {
-      setBelovedList({
-        data: [],
-        isCalling: false,
+  const getInvites = async () => {
+    try {
+      const response = await fetch('/api/beloved/invite-list', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: user.profile.email,
+        }),
       });
+
+      if (!response.ok) {
+        toast.error('Something went wrong!');
+        setInviteList({
+          data: [],
+          isReady: true,
+        });
+        return;
+      }
+
+      const { data } = await response.json();
+
+      setInviteList({
+        data: data,
+        isReady: true,
+      });
+    } catch (error) {
       toast.error(error.message);
-      return;
+      setInviteList({
+        data: [],
+        isReady: true,
+      });
     }
-
-    const modifiedData = data.map((item) => ({
-      value: item.id,
-      name: item.nric_name,
-    }));
-
-    setBelovedList({
-      data: modifiedData,
-      isCalling: false,
-    });
 
     getInformDeath();
   };
@@ -153,6 +159,14 @@ const InformDeath = () => {
     }
 
     const addData = processForm(elementList().inform_death.elements, false);
+    if (addData.invite_user_uuid == 'true') {
+      toast.error('Co-Sampul is required');
+      setSummary({
+        ...summary,
+        isSaving: false,
+      });
+      return;
+    }
 
     var action = checkExist.length == 0 ? 'insert' : 'update';
     let query = supabase.from('inform_death');
@@ -251,7 +265,7 @@ const InformDeath = () => {
               Inform and update your co-sampul owner information
             </div>
           </div>
-          <div class="col text-end">
+          <div class="col text-end mt-md-0 mt-3">
             <button type="submit" class="btn btn-primary btn-lg btn-text">
               <Loading title="Save" loading={summary.isSaving} />
             </button>
@@ -259,19 +273,51 @@ const InformDeath = () => {
         </div>
         <div class="row mb-4">
           <div class="col-lg">
-            <label for="select-inform-death-beloved" class="uui-field-label">
-              Co-Sampul <Loading loading={belovedList.isCalling} />
+            <label
+              for="select-inform-death-invite-user-uuid"
+              class="uui-field-label"
+            >
+              Co-Sampul <Loading loading={!inviteList.isReady} />
             </label>
           </div>
           <div class="col">
             <select
-              id="select-inform-death-beloved"
+              id="select-inform-death-invite-user-uuid"
               class="form-select"
+              onChange={(event) => {
+                const selectedValue = event.target.value;
+                const selectedData = inviteList.data.find(
+                  (item) => item.uuid === selectedValue
+                );
+
+                if (selectedData) {
+                  const formElements = elementList().inform_death.elements;
+                  formElements.nric_name.value =
+                    selectedData.profiles?.nric_name ?? '';
+                  formElements.nric_no.value =
+                    selectedData.profiles?.nric_no ?? '';
+                  formElements.email.value = selectedData.profiles?.email ?? '';
+                  formElements.phone_no.value =
+                    selectedData.profiles?.phone_no ?? '';
+                  formElements.address_1.value =
+                    selectedData.profiles?.address_1 ?? '';
+                  formElements.address_2.value =
+                    selectedData.profiles?.address_2 ?? '';
+                  formElements.city.value = selectedData.profiles?.city ?? '';
+                  formElements.postcode.value =
+                    selectedData.profiles?.postcode ?? '';
+                  formElements.country.value =
+                    selectedData.profiles?.country ?? '';
+                }
+              }}
               required
             >
-              {belovedList.data.map((item) => (
-                <option key={item.value} value={item.value}>
-                  {item.name}
+              <option disabled selected value>
+                -- select an option --
+              </option>
+              {inviteList.data.map((item) => (
+                <option key={item.uuid} value={item.uuid}>
+                  {item.profiles?.username}
                 </option>
               ))}
             </select>

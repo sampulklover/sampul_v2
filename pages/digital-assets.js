@@ -150,7 +150,7 @@ const DigitalAssets = () => {
               Ensure no assets left behind for your loved ones
             </div>
           </div>
-          <div class="col text-end">
+          <div class="col text-md-end text-center mt-md-0 mt-3">
             <button
               type="button"
               class="btn btn-primary btn-lg btn-text"
@@ -272,7 +272,7 @@ const DigitalAssets = () => {
 
   return (
     <SideBar>
-      <div class="body">
+      <div class="body inner-body">
         <div class="content">
           <Breadcrumb pageName={'Digital Assets'} />
           <DigitalAssetsModal

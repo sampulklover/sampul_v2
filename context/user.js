@@ -56,7 +56,7 @@ const Provider = ({ children }) => {
 
     if (error) {
       if (error.message === 'Email not confirmed') {
-        let errorMessage = `Email not yet confirmed. Check your inbox for the confirmation link or <b onClick="openResendVerificationModal()" style=" text-decoration: underline; cursor: pointer;">click here to resend verification</b>.`;
+        let errorMessage = `Email not yet confirmed. Check your inbox for the confirmation link`;
         toast.error(errorMessage);
       } else {
         toast.error(error.message);

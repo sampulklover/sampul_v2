@@ -18,7 +18,7 @@ const ShareModal = ({ url, title }) => {
     if (url) {
       proceed = true;
     } else {
-      toast.error('Url not found!');
+      toast.error('Please generate your wasiat/will in order to start sharing');
       proceed = false;
     }
 

@@ -154,7 +154,7 @@ const Settings = () => {
 
   return (
     <SideBar>
-      <div class="body">
+      <div class="body inner-body">
         <div class="content">
           <Breadcrumb pageName={'Settings'} />
           <div class="mt-4">{title()}</div>

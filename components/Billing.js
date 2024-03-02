@@ -241,7 +241,7 @@ const Billing = () => {
             Manage your billing and payment details
           </div>
         </div>
-        <div class="col text-end">
+        <div class="col text-end mt-md-0 mt-3">
           <button
             type="button"
             class="btn btn-primary btn-lg btn-text"

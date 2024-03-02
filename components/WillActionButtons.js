@@ -100,27 +100,45 @@ const WillActionButtons = ({
       const html2canvas = await import('html2canvas');
 
       const result = await html2canvas.default(cardElement, options);
-      const asURL = await result.toDataURL();
 
-      const timestamp = new Date().getTime();
-      var file = dataURLtoFile(asURL, `qr_code_${will_id}_${timestamp}.png`);
+      setTimeout(async () => {
+        const asURL = result.toDataURL();
 
-      await replaceOrAddImage({
-        userId: user?.uuid,
-        returnData: data,
-        directory: `/will/`,
-        imageInput: {
-          files: [file],
-        },
-        dataBase: 'wills',
-        isUpdateByReturnId: false,
-      });
+        const timestamp = new Date().getTime();
+        var file = dataURLtoFile(asURL, `qr_code_${will_id}_${timestamp}.png`);
+        if (file) {
+          await replaceOrAddImage({
+            userId: user?.uuid,
+            returnData: data,
+            directory: `/will/`,
+            imageInput: {
+              files: [file],
+            },
+            dataBase: 'wills',
+            isUpdateByReturnId: false,
+          });
 
-      setShareUrl(url);
-      refreshFunction();
-      toast.success('Successfully generated!');
+          setShareUrl(url);
+          refreshFunction();
+          setButtonLoading({
+            ...buttonLoading,
+            generate: false,
+          });
+          toast.success('Successfully generated!');
+        } else {
+          setButtonLoading({
+            ...buttonLoading,
+            generate: false,
+          });
+          toast.error('Something went wrong, please try again');
+        }
+      }, 1000);
     } catch (error) {
-      toast.error(error.message);
+      setButtonLoading({
+        ...buttonLoading,
+        generate: false,
+      });
+      toast.error('Something went wrong, please try again');
     }
   };
 
@@ -128,53 +146,76 @@ const WillActionButtons = ({
     if (showQrModal) {
       setTimeout(() => {
         $('#qr-code-modal')?.modal('show');
+        setTimeout(() => {
+          handleGenerate(data);
+        }, 1000);
       }, 500);
-      setTimeout(() => {
-        handleGenerate(data);
-      }, 1000);
     } else {
       handleGenerate(data);
     }
   };
 
   function dataURLtoFile(dataURL, filename) {
-    var arr = dataURL.split(','),
-      mime = arr[0].match(/:(.*?);/)[1],
-      bstr = atob(arr[1]),
-      n = bstr.length,
-      u8arr = new Uint8Array(n);
+    try {
+      var arr = dataURL.split(','),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
 
-    while (n--) {
-      u8arr[n] = bstr.charCodeAt(n);
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+
+      return new File([u8arr], filename, { type: mime });
+    } catch {
+      return null;
     }
-
-    return new File([u8arr], filename, { type: mime });
   }
 
   const generateWill = async () => {
-    if (user?.profile?.nric_name) {
+    setButtonLoading({
+      ...buttonLoading,
+      generate: true,
+    });
+
+    const updatedTime = new Date().toISOString();
+
+    const updateData = {
+      last_updated: updatedTime,
+      nric_name: user.profile.nric_name,
+    };
+
+    const addData = {
+      ...updateData,
+      will_code: generateWillId(),
+    };
+
+    const { data: checkExist, error } = await supabase
+      .from('wills')
+      .select('*')
+      .eq('uuid', user?.uuid)
+      .select();
+
+    if (error) {
       setButtonLoading({
         ...buttonLoading,
-        generate: true,
+        generate: false,
       });
+      toast.error(error.message);
+    }
 
-      const updatedTime = new Date().toISOString();
-
-      const updateData = {
-        last_updated: updatedTime,
-        nric_name: user.profile.nric_name,
-      };
-
-      const addData = {
-        ...updateData,
-        will_code: generateWillId(),
-      };
-
-      const { data: checkExist, error } = await supabase
+    if (checkExist.length > 0) {
+      const { data, error } = await supabase
         .from('wills')
-        .select('*')
+        .update({
+          ...updateData,
+        })
         .eq('uuid', user?.uuid)
-        .select();
+        .select()
+        .single();
+
+      await generateQRCode(data);
 
       if (error) {
         setButtonLoading({
@@ -183,56 +224,26 @@ const WillActionButtons = ({
         });
         toast.error(error.message);
       }
-
-      if (checkExist.length > 0) {
-        const { data, error } = await supabase
-          .from('wills')
-          .update({
-            ...updateData,
-          })
-          .eq('uuid', user?.uuid)
-          .select()
-          .single();
-
-        await generateQRCode(data);
-
-        if (error) {
-          setButtonLoading({
-            ...buttonLoading,
-            generate: false,
-          });
-          toast.error(error.message);
-        }
-      } else {
-        const { data, error } = await supabase
-          .from('wills')
-          .insert({
-            uuid: user?.uuid,
-            ...addData,
-          })
-          .eq('uuid', user?.uuid)
-          .select()
-          .single();
-
-        await generateQRCode(data);
-
-        if (error) {
-          setButtonLoading({
-            ...buttonLoading,
-            generate: false,
-          });
-          toast.error(error.message);
-        }
-      }
-
-      setButtonLoading({
-        ...buttonLoading,
-        generate: false,
-      });
     } else {
-      toast.error(
-        'Complete your profile to begin generating your will. You can do this on the settings page'
-      );
+      const { data, error } = await supabase
+        .from('wills')
+        .insert({
+          uuid: user?.uuid,
+          ...addData,
+        })
+        .eq('uuid', user?.uuid)
+        .select()
+        .single();
+
+      await generateQRCode(data);
+
+      if (error) {
+        setButtonLoading({
+          ...buttonLoading,
+          generate: false,
+        });
+        toast.error(error.message);
+      }
     }
   };
 
@@ -279,15 +290,36 @@ const WillActionButtons = ({
     });
   };
 
+  const checkCompleteProfile = () => {
+    var is_completed = false;
+    if (user?.profile?.nric_name) {
+      is_completed = true;
+    } else {
+      is_completed = false;
+    }
+    return is_completed;
+  };
+
+  const showNotCompleteToast = () => {
+    toast.error(
+      'Complete your profile to begin generating your will. You can do this on the settings page'
+    );
+  };
+
   return (
     <>
       <ShareModal url={shareUrl} title="Will Certificate" />
-      <div class="text-md-right">
+      <div class="text-md-right text-center">
         <button
           type="button"
           class="btn btn-light btn-text btn-lg me-1 mb-1"
           onClick={() => {
-            $('#share-modal')?.modal('show');
+            var is_completed = checkCompleteProfile();
+            if (is_completed) {
+              $('#share-modal')?.modal('show');
+            } else {
+              showNotCompleteToast();
+            }
           }}
         >
           Share
@@ -298,10 +330,15 @@ const WillActionButtons = ({
             viewOnly ? 'btn-primary' : 'btn-light '
           } btn-text btn-lg me-1 mb-1`}
           onClick={() => {
-            if (showQrModal) {
-              router.push('will?download=true');
+            var is_completed = checkCompleteProfile();
+            if (is_completed) {
+              if (showQrModal) {
+                router.push('will?download=true');
+              } else {
+                downloadCert();
+              }
             } else {
-              downloadCert();
+              showNotCompleteToast();
             }
           }}
         >
@@ -314,7 +351,12 @@ const WillActionButtons = ({
             type="button"
             class="btn btn-primary btn-text btn-lg mb-1"
             onClick={() => {
-              generateWill();
+              var is_completed = checkCompleteProfile();
+              if (is_completed) {
+                generateWill();
+              } else {
+                showNotCompleteToast();
+              }
             }}
           >
             <Loading title="Generate Wasiat" loading={buttonLoading.generate} />

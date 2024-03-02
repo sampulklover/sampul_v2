@@ -199,7 +199,7 @@ const MyDetails = ({ isModal = false }) => {
                 Update your personal data here
               </div>
             </div>
-            <div class="col text-end">
+            <div class="col text-end mt-md-0 mt-3">
               <button type="submit" class="btn btn-primary btn-lg btn-text">
                 <Loading title="Save" loading={summary.isSaving} />
               </button>

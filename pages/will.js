@@ -125,7 +125,7 @@ const Beloved = () => {
                 : ''}
             </div>
           </div>
-          <div class="col text-end">
+          <div class="col text-md-end text-center mt-md-0 mt-3">
             <WillActionButtons
               setQrValue={setQrValue}
               cardRef={cardRef}
@@ -208,7 +208,7 @@ const Beloved = () => {
 
   return (
     <SideBar>
-      <div class="body">
+      <div class="body inner-body">
         <div class="content">
           <Breadcrumb pageName={'Wasiat/Will'} />
           <div class="mt-4">{title()}</div>

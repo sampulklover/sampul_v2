@@ -401,15 +401,18 @@ const DigitalAssetsModal = ({
                     for={`input-digital-assets-declared-value`}
                     class="uui-field-label"
                   >
-                    Declared Value (MYR)
+                    Declared Value
                   </label>
-                  <input
-                    type="number"
-                    step="0.01"
-                    class="form-control"
-                    id={`input-digital-assets-declared-value`}
-                    required
-                  />
+                  <div class="input-group">
+                    <div class="input-group-text">RM</div>
+                    <input
+                      type="number"
+                      step="0.01"
+                      class="form-control"
+                      id={`input-digital-assets-declared-value`}
+                      required
+                    />
+                  </div>
                 </div>
               </div>
 

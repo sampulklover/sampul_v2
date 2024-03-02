@@ -507,6 +507,10 @@ const Beloved = () => {
                           (x) => x.value === item.relationship
                         );
 
+                        const lObject = belovedLevel().find(
+                          (x) => x.value === item.level
+                        );
+
                         var status_invites = null;
                         if (item.beloved_invites.length > 0) {
                           status_invites = belovedInviteStatus().find(
@@ -551,6 +555,9 @@ const Beloved = () => {
                                 ) : (
                                   <></>
                                 )}
+                                <div class="badge is-badge-small">
+                                  <span>{lObject.name}</span>
+                                </div>
                               </div>
                             </div>
                           </tr>
@@ -709,7 +716,7 @@ const Beloved = () => {
 
   return (
     <SideBar>
-      <div class="body">
+      <div class="body inner-body">
         <div class="content">
           <Breadcrumb pageName={'Beloved'} />
           <InviteModal
@@ -720,7 +727,7 @@ const Beloved = () => {
           />
           <BelovedModal
             keyType={belovedModalType.key}
-            category={belovedModalType.category}
+            belovedType={belovedModalType.category}
             selectedItem={belovedModalType.selectedItem}
             refreshFunction={initFunction}
           />
