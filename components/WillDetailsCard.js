@@ -15,8 +15,8 @@ const WillDetailsCard = ({ willData }) => {
 
   const myInfo = {
     last_updated: formatTimestamp(myWill?.last_updated),
-    nric_name: myWill?.nric_name ? myWill.nric_name : '[YOUR NAME]',
-    nric_no: myProfile?.nric_no ? myProfile.nric_no : '[NRIC NO]',
+    nric_name: myWill?.nric_name ?? '[YOUR NAME]',
+    nric_no: myProfile?.nric_no ?? '[NRIC NO]',
     address: myProfile?.address_1
       ? `${myProfile?.address_1}, ${
           myProfile?.address_2
@@ -26,20 +26,36 @@ const WillDetailsCard = ({ willData }) => {
     `
       : '[ADDRESS]',
     primary_co_sampul: {
-      nric_name: belovedDetails.data?.primaryUser
-        ? belovedDetails.data.primaryUser.nric_name
-        : '[PRIMARY CO-SAMPUL NAME]',
-      nric_no: belovedDetails.data?.primaryUser
-        ? belovedDetails.data.primaryUser.nric_no
-        : '[PRIMARY CO-SAMPUL NRIC NO]',
+      nric_name:
+        belovedDetails.data?.primaryUser?.nric_name ??
+        '[PRIMARY CO-SAMPUL NAME]',
+      nric_no:
+        belovedDetails.data?.primaryUser?.nric_no ??
+        '[PRIMARY CO-SAMPUL NRIC NO]',
     },
     secondary_co_sampul: {
-      nric_name: belovedDetails.data?.secondaryUser
-        ? belovedDetails.data.secondaryUser.nric_name
-        : '[SECONDARY CO-SAMPUL NAME]',
-      nric_no: belovedDetails.data?.secondaryUser
-        ? belovedDetails.data.secondaryUser.nric_no
-        : '[SECONDARY CO-SAMPUL NRIC NO]',
+      nric_name:
+        belovedDetails.data?.secondaryUser?.nric_name ??
+        '[SECONDARY CO-SAMPUL NAME]',
+      nric_no:
+        belovedDetails.data?.secondaryUser?.nric_no ??
+        '[SECONDARY CO-SAMPUL NRIC NO]',
+    },
+    primary_guardian: {
+      nric_name:
+        belovedDetails.data?.guardianPrimaryUser?.nric_name ??
+        '[PRIMARY GUARDIAN NAME]',
+      nric_no:
+        belovedDetails.data?.guardianPrimaryUser?.nric_no ??
+        '[PRIMARY GUARDIAN NRIC NO]',
+    },
+    secondary_guardian: {
+      nric_name:
+        belovedDetails.data?.guardianSecondaryUser?.nric_name ??
+        '[SECONDARY GUARDIAN NAME]',
+      nric_no:
+        belovedDetails.data?.guardianSecondaryUser?.nric_no ??
+        '[SECONDARY GUARDIAN NRIC NO]',
     },
   };
 
@@ -81,7 +97,7 @@ const WillDetailsCard = ({ willData }) => {
         },
         {
           title: '8. Guardianship',
-          description: `If my spouse predeceases me or is unable, [Guardian Name], [IC] is appointed for my minor children, with [Guardian Name 2] [IC] as an alternate as per [Table 1]`,
+          description: `If my spouse predeceases me or is unable, ${myInfo.primary_guardian.nric_name}, ${myInfo.primary_guardian.nric_no} is appointed for my minor children, with ${myInfo.secondary_guardian.nric_name}, ${myInfo.secondary_guardian.nric_no} as an alternate as per [Table 1]`,
         },
         {
           title: '9. Signed by',
@@ -216,6 +232,8 @@ const WillDetailsCard = ({ willData }) => {
     if (willData?.data.beloved.length !== 0) {
       var primaryUser = {};
       var secondaryUser = {};
+      var guardianPrimaryUser = {};
+      var guardianSecondaryUser = {};
 
       willData?.data.beloved.map((item) => {
         if (item.type == 'co_sampul' && item.level == 'primary') {
@@ -223,6 +241,12 @@ const WillDetailsCard = ({ willData }) => {
         }
         if (item.type == 'co_sampul' && item.level == 'secondary') {
           secondaryUser = item;
+        }
+        if (item.type == 'guardian' && item.level == 'primary') {
+          guardianPrimaryUser = item;
+        }
+        if (item.type == 'guardian' && item.level == 'secondary') {
+          guardianSecondaryUser = item;
         }
       });
 
@@ -232,6 +256,8 @@ const WillDetailsCard = ({ willData }) => {
           data: {
             primaryUser: primaryUser,
             secondaryUser: secondaryUser,
+            guardianPrimaryUser: guardianPrimaryUser,
+            guardianSecondaryUser: guardianSecondaryUser,
           },
         });
       } else {

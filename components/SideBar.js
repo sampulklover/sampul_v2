@@ -287,7 +287,11 @@ const SideBar = ({ children }) => {
       page: '',
       display: true,
       action: () => {
-        $('#logout-modal')?.modal('show');
+        try {
+          $('#logout-modal')?.modal('show');
+        } catch (error) {
+          toast.error('Something went wrong, please try again');
+        }
       },
       icon: (
         <svg

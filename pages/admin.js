@@ -153,7 +153,7 @@ const Admin = () => {
 
   return (
     <SideBar>
-      <div class="body">
+      <div class="body inner-body">
         <div class="content">
           {user?.role?.role == 'admin' ? (
             <>

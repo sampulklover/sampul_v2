@@ -53,15 +53,12 @@ const Dashboard = () => {
     });
     singleData.count_digital = singleData.digital_account.length;
     singleData.count_subscription = singleData.subscription_account.length;
-    singleData.count_value_digital = singleData.digital_account.reduce(
-      (acc, val) => acc + val.declared_value_myr,
-      0
-    );
-    singleData.count_value_subscription =
-      singleData.subscription_account.reduce(
-        (acc, val) => acc + val.declared_value_myr,
-        0
-      );
+    singleData.count_value_digital = singleData.digital_account
+      .reduce((acc, val) => acc + val.declared_value_myr, 0)
+      .toLocaleString();
+    singleData.count_value_subscription = singleData.subscription_account
+      .reduce((acc, val) => acc + val.declared_value_myr, 0)
+      .toLocaleString();
 
     const modifiedBelovedData = singleData.beloved.map((item) => ({
       value: item.id,
@@ -653,12 +650,12 @@ const Dashboard = () => {
 
   return (
     <SideBar>
-      <div class="body">
+      <div class="body inner-body">
         <div class="content">
           <ProfileModal category={'profile'} />
           <BelovedModal
             keyType={'add'}
-            category={belovedCategory}
+            belovedType={belovedCategory}
             selectedItem={null}
             refreshFunction={initiateFunction}
           />

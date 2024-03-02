@@ -1,6 +1,9 @@
+import Link from 'next/link';
 import QRCode from 'react-qr-code';
+import { useRouter } from 'next/router';
 
 const QrCodeModal = ({ cardRef, qrValue }) => {
+  const router = useRouter();
   return (
     <div class="modal fade" id="qr-code-modal">
       <div class="modal-dialog modal-dialog-centered">
@@ -27,6 +30,19 @@ const QrCodeModal = ({ cardRef, qrValue }) => {
                   />
                 )}
               </div>
+              <p class="mt-3">
+                Here's the QR code that links to your wasiat/will, you can
+                access it by scanning this code or by{' '}
+                <span
+                  class="text-primary pointer-on-hover"
+                  onClick={() => {
+                    $('#qr-code-modal')?.modal('hide');
+                    router.push('/will');
+                  }}
+                >
+                  clicking here.
+                </span>
+              </p>
             </div>
           </div>
         </div>

@@ -83,7 +83,7 @@ const Beloved = () => {
                 : ''}
             </div>
           </div>
-          <div class="col text-end">
+          <div class="col text-md-end text-center mt-md-0 mt-3">
             <WillActionButtons
               setQrValue={setQrValue}
               cardRef={cardRef}

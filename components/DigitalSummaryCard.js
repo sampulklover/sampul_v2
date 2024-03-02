@@ -87,7 +87,7 @@ const DigitalSummaryCard = ({
                   const platformImg = platform?.img || '';
 
                   const declaredValue = item.declared_value_myr
-                    ? `RM ${item.declared_value_myr}`
+                    ? `RM ${item.declared_value_myr.toLocaleString()}`
                     : '';
 
                   let instructions = instructionsAfterDeath().find(

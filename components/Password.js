@@ -77,7 +77,7 @@ const Password = () => {
               Please enter your current password to change your password
             </div>
           </div>
-          <div class="col text-end">
+          <div class="col text-end mt-md-0 mt-3">
             <button type="submit" class="btn btn-primary btn-lg btn-text">
               <Loading title="Update Password" loading={summary.isSaving} />
             </button>

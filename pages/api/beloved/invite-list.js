@@ -14,7 +14,7 @@ export default async function handler(req, res) {
 
     const { data, error } = await supabase
       .from('beloved_invites')
-      .select('*,  profiles ( username, image_path, email )')
+      .select('*,  profiles ( * )')
       .eq('email', email);
 
     if (error) {

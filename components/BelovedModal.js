@@ -32,7 +32,7 @@ const type_title = {
     title: 'Appoint your Guardian',
     subtitle:
       'The caretaker of your underage kids ensuring they get the best care after you and you spoused demised',
-    display_level: 'none',
+    display_level: '',
     beloved_list: belovedLevel(),
   },
 };
@@ -68,7 +68,12 @@ const getElements = () => {
   return inputElements;
 };
 
-const BelovedModal = ({ keyType, category, selectedItem, refreshFunction }) => {
+const BelovedModal = ({
+  keyType,
+  belovedType,
+  selectedItem,
+  refreshFunction,
+}) => {
   const { user } = useUser();
   const [isLoading, setIsLoading] = useState({
     update: false,
@@ -82,9 +87,11 @@ const BelovedModal = ({ keyType, category, selectedItem, refreshFunction }) => {
 
   const addBeloved = async () => {
     if (user.profile?.nric_name) {
-      if (category !== 'co_sampul') {
+      if (belovedType !== 'co_sampul' && belovedType !== 'guardian') {
         document.getElementById('select-beloved-level').value = 'others';
       }
+
+      document.getElementById('select-beloved-type').value = belovedType;
 
       const addData = {};
 
@@ -367,10 +374,10 @@ const BelovedModal = ({ keyType, category, selectedItem, refreshFunction }) => {
                 </div>
                 <div class="text-and-supporting-text-18">
                   <div class="text-lg-semibold-4">
-                    {type_title[category].title}
+                    {type_title[belovedType].title}
                   </div>
                   <div class="text-sm-regular-6">
-                    {type_title[category].subtitle}
+                    {type_title[belovedType].subtitle}
                   </div>
                 </div>
               </div>
@@ -464,17 +471,17 @@ const BelovedModal = ({ keyType, category, selectedItem, refreshFunction }) => {
               <div class="form-content-2 mb-3">
                 <div
                   class="form-field-wrapper"
-                  style={{ display: type_title[category].display_level }}
+                  style={{ display: type_title[belovedType].display_level }}
                 >
                   <label for={`select-beloved-level`} class="uui-field-label">
-                    Beloved level
+                    Level
                   </label>
                   <select
                     id={`select-beloved-level`}
                     required=""
                     class="form_input w-select"
                   >
-                    {type_title[category].beloved_list.map((item) => (
+                    {type_title[belovedType].beloved_list.map((item) => (
                       <option key={item.value} value={item.value}>
                         {item.name}
                       </option>

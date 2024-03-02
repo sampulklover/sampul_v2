@@ -106,7 +106,7 @@ const BelovedInvites = () => {
       if (requestStatus == 'accepted') {
         status = {
           past_tense: 'Accepted!',
-          present_tense: 'approve',
+          present_tense: 'accept',
         };
       }
       if (requestStatus == 'rejected') {

@@ -45,7 +45,7 @@ const SignUp = () => {
   };
 
   return (
-    <div class="body">
+    <div class="body px-5">
       <div class="row">
         <div class="col-lg-4">
           <h2 class="uui-heading-medium-10">
@@ -135,6 +135,12 @@ const SignUp = () => {
                 </span>
               </button>
             </div>
+            <p class="text-center mt-4">
+              Already have an account?{' '}
+              <Link href="signin" style={{ textDecoration: 'none' }}>
+                <strong class="text-primary">Sign in</strong>
+              </Link>
+            </p>
           </div>
         </div>
         <div class="col-lg">

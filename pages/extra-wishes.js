@@ -130,29 +130,36 @@ const ExtraWishes = () => {
     var defaultWaqf = [];
 
     bodiesData.map((item) => {
-      newCharity.push({ label: item.name, value: item.uid });
-      charityData.map((item2) => {
-        if (item2.bodies_uid == item.uid) {
-          defaultCharity.push({
-            label: item.name,
-            value: item.uid,
-            amount: item2.amount,
-          });
-        }
-      });
+      if (item.category == 'Sadaqah, Waqaf, Zakat') {
+        newCharity.push({ label: item.name, value: item.uid });
+        charityData.map((item2) => {
+          if (item2.bodies_uid == item.uid) {
+            defaultCharity.push({
+              label: item.name,
+              value: item.uid,
+              amount: item2.amount,
+            });
+          }
+        });
+      }
     });
 
     bodiesData.map((item) => {
-      newWaqf.push({ label: item.name, value: item.uid });
-      waqfData.map((item2) => {
-        if (item2.bodies_uid == item.uid) {
-          defaultWaqf.push({
-            label: item.name,
-            value: item.uid,
-            amount: item2.amount,
-          });
-        }
-      });
+      if (
+        item.category == 'Sadaqah, Waqaf, Zakat' ||
+        item.category == 'Waqaf'
+      ) {
+        newWaqf.push({ label: item.name, value: item.uid });
+        waqfData.map((item2) => {
+          if (item2.bodies_uid == item.uid) {
+            defaultWaqf.push({
+              label: item.name,
+              value: item.uid,
+              amount: item2.amount,
+            });
+          }
+        });
+      }
     });
 
     setMultiSelectData({
@@ -300,7 +307,7 @@ const ExtraWishes = () => {
   };
 
   const checkRestriction = (keyName) => {
-    const access = user.access_control?.pages?.extra_wishes[keyName]?.access;
+    const access = user?.access_control?.pages?.extra_wishes[keyName]?.access;
     return access === false;
   };
 
@@ -363,15 +370,18 @@ const ExtraWishes = () => {
                   for="input-extra-wishes-nazar-est-cost"
                   class="uui-field-label"
                 >
-                  Estimate cost to execute the Nazar or pay Kaffarah (RM)?
+                  Estimate cost to execute the Nazar or pay Kaffarah?
                 </label>
-                <input
-                  type="number"
-                  step="0.01"
-                  class="form-control"
-                  id="input-extra-wishes-nazar-est-cost"
-                  required
-                />
+                <div class="input-group">
+                  <div class="input-group-text">RM</div>
+                  <input
+                    type="number"
+                    step="0.01"
+                    class="form-control"
+                    id="input-extra-wishes-nazar-est-cost"
+                    required
+                  />
+                </div>
               </div>
               <div class="mb-3 text-end">
                 <button type="submit" class="btn btn-primary btn-lg btn-text">
@@ -430,15 +440,18 @@ const ExtraWishes = () => {
                   for="input-extra-wishes-fidyah-amount-due"
                   class="uui-field-label"
                 >
-                  Any amount of Fidyah due (RM)?
+                  Any amount of Fidyah due?
                 </label>
-                <input
-                  type="number"
-                  step="0.01"
-                  class="form-control"
-                  id="input-extra-wishes-fidyah-amount-due"
-                  required
-                />
+                <div class="input-group">
+                  <div class="input-group-text">RM</div>
+                  <input
+                    type="number"
+                    step="0.01"
+                    class="form-control"
+                    id="input-extra-wishes-fidyah-amount-due"
+                    required
+                  />
+                </div>
               </div>
               <div class="mb-3 text-end">
                 <button type="submit" class="btn btn-primary btn-lg btn-text">
@@ -507,19 +520,26 @@ const ExtraWishes = () => {
                       for={`input-extra-wishes-charity-${item.value}-amount`}
                       class="uui-field-label"
                     >
-                      {item.label}'s asset/amount (RM)
+                      {item.label}'s asset/amount
                     </label>
-                    <input
-                      type="number"
-                      step="0.01"
-                      class="form-control"
-                      id={`input-extra-wishes-charity-${item.value}-amount`}
-                      value={item.amount}
-                      onChange={(event) =>
-                        handleAmountChange(index, event.target.value, 'charity')
-                      }
-                      required
-                    />
+                    <div class="input-group">
+                      <div class="input-group-text">RM</div>
+                      <input
+                        type="number"
+                        step="0.01"
+                        class="form-control"
+                        id={`input-extra-wishes-charity-${item.value}-amount`}
+                        value={item.amount}
+                        onChange={(event) =>
+                          handleAmountChange(
+                            index,
+                            event.target.value,
+                            'charity'
+                          )
+                        }
+                        required
+                      />
+                    </div>
                   </div>
                 );
               })}
@@ -592,19 +612,22 @@ const ExtraWishes = () => {
                       for={`input-extra-wishes-waqf-${item.value}-amount`}
                       class="uui-field-label"
                     >
-                      {item.label}'s asset/amount (RM)
+                      {item.label}'s asset/amount
                     </label>
-                    <input
-                      type="number"
-                      step="0.01"
-                      class="form-control"
-                      id={`input-extra-wishes-waqf-${item.value}-amount`}
-                      value={item.amount}
-                      onChange={(event) =>
-                        handleAmountChange(index, event.target.value, 'waqf')
-                      }
-                      required
-                    />
+                    <div class="input-group">
+                      <div class="input-group-text">RM</div>
+                      <input
+                        type="number"
+                        step="0.01"
+                        class="form-control"
+                        id={`input-extra-wishes-waqf-${item.value}-amount`}
+                        value={item.amount}
+                        onChange={(event) =>
+                          handleAmountChange(index, event.target.value, 'waqf')
+                        }
+                        required
+                      />
+                    </div>
                   </div>
                 );
               })}
@@ -727,7 +750,7 @@ const ExtraWishes = () => {
 
   return (
     <SideBar>
-      <div class="body">
+      <div class="body inner-body">
         <div class="content">
           <Breadcrumb pageName={'Extra Wishes'} />
           <div class="mt-4">{title()}</div>
