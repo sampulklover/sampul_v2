@@ -15,7 +15,7 @@ const WillActionButtons = ({
   viewOnly = false,
   refreshFunction,
 }) => {
-  const { user, isLoading } = useUser();
+  const { user } = useUser();
   const router = useRouter();
 
   const [shareUrl, setShareUrl] = useState(null);
@@ -309,10 +309,12 @@ const WillActionButtons = ({
   return (
     <>
       <ShareModal url={shareUrl} title="Will Certificate" />
-      <div class="text-md-right text-center">
+      <div class="text-md-right text-md-end text-center">
         <button
           type="button"
-          class="btn btn-light btn-text btn-lg me-1 mb-1"
+          class={`btn ${
+            router?.pathname == '/view-will' ? 'btn-primary' : 'btn-light'
+          } btn-text btn-lg me-1 mb-1`}
           onClick={() => {
             var is_completed = checkCompleteProfile();
             if (is_completed) {
@@ -328,7 +330,7 @@ const WillActionButtons = ({
         >
           Share
         </button>
-        <button
+        {/* <button
           type="button"
           class={`btn ${
             viewOnly ? 'btn-primary' : 'btn-light '
@@ -351,7 +353,7 @@ const WillActionButtons = ({
           }}
         >
           <Loading title="Download PDF" loading={buttonLoading.download} />
-        </button>
+        </button> */}
         {viewOnly ? (
           ''
         ) : (

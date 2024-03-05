@@ -14,7 +14,7 @@ import DigitalAssetsCard from '../components/DigitalAssetsCard';
 import SideBar from '../components/SideBar';
 
 const DigitalAssets = () => {
-  const { user, isLoading } = useUser();
+  const { user } = useUser();
   const [summary, setSummary] = useState({
     data: [],
     isReady: false,

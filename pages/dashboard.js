@@ -15,7 +15,7 @@ import BelovedModal from '../components/BelovedModal';
 import ProfileModal from '../components/ProfileModal';
 
 const Dashboard = () => {
-  const { user, isLoading } = useUser();
+  const { user } = useUser();
   const cardRef = useRef(null);
   const [summary, setSummary] = useState({
     data: null,
@@ -144,7 +144,7 @@ const Dashboard = () => {
       ),
     },
     register_beneficiary: {
-      title: 'Register beneficiary',
+      title: 'Register beneficiaries',
       description: 'The future owner of your assets',
       btnTitle: 'Add Beneficiary',
       btnFunction: () => {

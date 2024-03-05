@@ -15,7 +15,7 @@ function navBar() {
         ><img src="images/Logo.svg" loading="lazy" alt=""
       /></a>
     </div>
-    <div class="menu-wrapper">
+    <div class="menu-wrapper bg-white">
       <nav role="navigation" class="nav-menu w-nav-menu">
         <div class="navigation-links">
           <a

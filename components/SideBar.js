@@ -9,7 +9,7 @@ import toast from 'react-hot-toast';
 
 const SideBar = ({ children }) => {
   const router = useRouter();
-  const { user, isLoading } = useUser();
+  const { user } = useUser();
 
   // useEffect(() => {
   //   if (isLoading == false && user == null) {

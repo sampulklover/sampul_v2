@@ -2,33 +2,53 @@ import { createContext, useState, useEffect, useContext } from 'react';
 import { supabase } from '../utils/supabase';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
+import { pages } from '../constant/element';
 
 const Context = createContext();
 
 const Provider = ({ children }) => {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState({
     uuid: null,
     profile: null,
+    account: null,
+    access_control: null,
+    role: null,
+    isLoading: true,
   });
 
   useEffect(() => {
     const getUserProfile = async () => {
       const { data, error } = await supabase.auth.getUser();
 
+      if (error) {
+        setUser({
+          ...user,
+          isLoading: false,
+        });
+      }
+
       if (data?.user) {
-        const { data: profile } = await supabase
+        const { data: profile, error: errorProfile } = await supabase
           .from('profiles')
           .select('*, roles (*)')
           .eq('uuid', data.user.id)
           .single();
 
-        const { data: account } = await supabase
+        const { data: account, error: errorAccount } = await supabase
           .from('accounts')
           .select('*, products (*)')
           .eq('uuid', data.user.id)
           .single();
+
+        // if (errorProfile && errorAccount) {
+        //   setUser({
+        //     ...user,
+        //     isLoading: false,
+        //   });
+
+        //   return;
+        // }
 
         setUser({
           uuid: data.user.id,
@@ -36,9 +56,9 @@ const Provider = ({ children }) => {
           account: account,
           access_control: account?.products?.access_control,
           role: profile?.roles,
+          isLoading: false,
         });
       }
-      setIsLoading(false);
     };
 
     getUserProfile();
@@ -47,6 +67,20 @@ const Provider = ({ children }) => {
       getUserProfile();
     });
   }, []);
+
+  useEffect(() => {
+    if (user.isLoading == false && user.uuid == null) {
+      const routerPath = router.pathname;
+      const foundRoute = pages.some(
+        (page) =>
+          Object.values(page)[0].route === routerPath &&
+          Object.values(page)[0].auth
+      );
+      if (foundRoute) {
+        router.push('/signin');
+      }
+    }
+  }, [router.pathname, user.uuid, user.isLoading]);
 
   const normalLogin = async ({ email, password }) => {
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -65,7 +99,9 @@ const Provider = ({ children }) => {
     }
 
     if (data?.user) {
-      router.push('/dashboard');
+      setTimeout(() => {
+        router.push('/dashboard');
+      }, 500);
     }
   };
 
@@ -127,14 +163,21 @@ const Provider = ({ children }) => {
 
   const logout = async () => {
     await supabase.auth.signOut();
-    setUser(null);
+    setUser({
+      ...user,
+      uuid: null,
+      profile: null,
+      account: null,
+      access_control: null,
+      role: null,
+      isLoading: false,
+    });
+
     toast.success('Sign out');
-    router.push('signin');
   };
 
   const exposed = {
     user,
-    isLoading,
     normalLogin,
     googleLogin,
     normalSignup,

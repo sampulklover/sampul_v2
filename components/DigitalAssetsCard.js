@@ -66,8 +66,8 @@ const DigitalAssetsCard = ({ typeName, summary, editFunction }) => {
                           />
                         </div>
                         <div class="col">
-                          <div class="col bg-dark">
-                            <div class="bg-white d-flex justify-content-md-between justify-content-center">
+                          <div class="col">
+                            <div class="d-flex justify-content-md-between justify-content-center">
                               <div class="smpl_text-sm-semibold crop-text mt-md-0 mt-3">
                                 <span>{spObject.name}</span>
                               </div>

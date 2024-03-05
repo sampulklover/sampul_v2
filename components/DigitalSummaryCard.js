@@ -75,10 +75,17 @@ const DigitalSummaryCard = ({
                   <th scope="col">
                     <small class="smpl_text-xs-medium">Instructions</small>
                   </th>
+                  {showBeloved ? (
+                    <th scope="col">
+                      <small class="smpl_text-xs-medium">Remarks</small>
+                    </th>
+                  ) : (
+                    ''
+                  )}
                 </tr>
               </thead>
               <tbody>
-                {type[typeName].data.slice(0, 5).map((item, index) => {
+                {type[typeName].data.map((item, index) => {
                   let platform = servicePlatforms().find(
                     (x) => x.value === item.service_platform
                   );
@@ -213,6 +220,17 @@ const DigitalSummaryCard = ({
                           </div>
                         </div>
                       </td>
+                      {showBeloved ? (
+                        <td>
+                          <div class="custom-table-cell">
+                            <div class="smpl_text-sm-regular crop-text">
+                              {item.remarks}
+                            </div>
+                          </div>
+                        </td>
+                      ) : (
+                        ''
+                      )}
                     </tr>
                   );
                 })}

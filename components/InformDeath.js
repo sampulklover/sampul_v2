@@ -13,7 +13,7 @@ import {
 import toast from 'react-hot-toast';
 
 const InformDeath = () => {
-  const { user, isLoading } = useUser();
+  const { user } = useUser();
   const [runEffect, setRunEffect] = useState(false);
   const [summary, setSummary] = useState({
     isCalling: false,
@@ -48,13 +48,6 @@ const InformDeath = () => {
           certification: document.getElementById(
             'input-inform-death-certification'
           ),
-          phone_no: document.getElementById('input-inform-death-phone-no'),
-          email: document.getElementById('input-inform-death-email'),
-          address_1: document.getElementById('input-inform-death-address-1'),
-          address_2: document.getElementById('input-inform-death-address-2'),
-          city: document.getElementById('input-inform-death-city'),
-          postcode: document.getElementById('input-inform-death-postcode'),
-          country: document.getElementById('select-inform-death-country'),
           image_path: document.getElementById('preview-inform-death-image'),
         },
       },
@@ -277,7 +270,7 @@ const InformDeath = () => {
               for="select-inform-death-invite-user-uuid"
               class="uui-field-label"
             >
-              Co-Sampul <Loading loading={!inviteList.isReady} />
+              Sampul owner's <Loading loading={!inviteList.isReady} />
             </label>
           </div>
           <div class="col">
@@ -296,18 +289,6 @@ const InformDeath = () => {
                     selectedData.profiles?.nric_name ?? '';
                   formElements.nric_no.value =
                     selectedData.profiles?.nric_no ?? '';
-                  formElements.email.value = selectedData.profiles?.email ?? '';
-                  formElements.phone_no.value =
-                    selectedData.profiles?.phone_no ?? '';
-                  formElements.address_1.value =
-                    selectedData.profiles?.address_1 ?? '';
-                  formElements.address_2.value =
-                    selectedData.profiles?.address_2 ?? '';
-                  formElements.city.value = selectedData.profiles?.city ?? '';
-                  formElements.postcode.value =
-                    selectedData.profiles?.postcode ?? '';
-                  formElements.country.value =
-                    selectedData.profiles?.country ?? '';
                 }
               }}
               required
@@ -326,7 +307,7 @@ const InformDeath = () => {
         <div class="row mb-4">
           <div class="col-lg">
             <label for="input-inform-death-nric-name" class="uui-field-label">
-              Co-Sampul Name (As Per NRIC)
+              Sampul owner's Name (As Per NRIC)
             </label>
           </div>
           <div class="col">
@@ -341,7 +322,7 @@ const InformDeath = () => {
         <div class="row mb-4">
           <div class="col-lg">
             <label for="input-inform-death-nric-no" class="uui-field-label">
-              Co-Sampul NRIC
+              Sampul owner's NRIC
             </label>
           </div>
           <div class="col">
@@ -420,83 +401,6 @@ const InformDeath = () => {
               id="input-inform-death-certification"
               required
             />
-          </div>
-        </div>
-        <div class="row mb-4">
-          <div class="col-lg">
-            <label for="input-inform-death-phone-no" class="uui-field-label">
-              Co-Sampul Contact
-            </label>
-          </div>
-          <div class="col">
-            <input
-              type="text"
-              class="form-control"
-              id="input-inform-death-phone-no"
-              required
-            />
-          </div>
-        </div>
-        <div class="row mb-4">
-          <div class="col-lg">
-            <label for="input-inform-death-email" class="uui-field-label">
-              Co-Sampul Email
-            </label>
-          </div>
-          <div class="col">
-            <input
-              type="email"
-              class="form-control"
-              id="input-inform-death-email"
-              required
-            />
-          </div>
-        </div>
-        <div class="row mt-5 align-items-start">
-          <div class="col-lg">
-            <label for="input-inform-death-address-1" class="uui-field-label">
-              Co-Sampul Mailing Address
-            </label>
-          </div>
-          <div class="col">
-            <input
-              type="text"
-              class="form-control"
-              id="input-inform-death-address-1"
-              required
-              placeholder="Address 1"
-            />
-            <input
-              type="text"
-              class="form-control mt-2"
-              id="input-inform-death-address-2"
-              placeholder="Address 2"
-            />
-            <input
-              type="text"
-              class="form-control mt-2"
-              id="input-inform-death-city"
-              required
-              placeholder="City"
-            />
-            <input
-              type="text"
-              class="form-control mt-2"
-              id="input-inform-death-postcode"
-              required
-              placeholder="Postcode"
-            />
-            <select
-              id="select-inform-death-country"
-              required
-              class="form-select mt-2"
-            >
-              {countries().map((item) => (
-                <option key={item.value} value={item.value}>
-                  {item.name}
-                </option>
-              ))}
-            </select>
           </div>
         </div>
       </form>

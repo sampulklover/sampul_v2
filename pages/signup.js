@@ -49,9 +49,7 @@ const SignUp = () => {
       <div class="row">
         <div class="col-lg-4">
           <h2 class="uui-heading-medium-10">
-            <strong class="smpl-heading-large fw-semibold">
-              Sign up for early access
-            </strong>
+            <strong class="smpl-heading-large fw-semibold">Sign up</strong>
           </h2>
           <div class="uui-space-xsmall-3"></div>
           <div class="smpl-text-size-large">

@@ -140,7 +140,7 @@ function footer() {
                   ${newsletterForm()}
                   <div class="uui-text-size-small">
                     We care about your data in our
-                    <a href="#" class="uui-text-style-link">privacy policy</a>.
+                    <a href="/policy" class="uui-text-style-link">privacy policy</a>.
                   </div>
                 </div>
               </div>

@@ -13,7 +13,7 @@ import { addUserImg } from '../constant/element';
 import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid';
 
-const type_title = {
+const belovedConfig = {
   co_sampul: {
     title: 'Appoint your Co-Sampul',
     subtitle: `Co-Sampul is your trusted person for
@@ -21,19 +21,22 @@ const type_title = {
       Sampul will be passed on`,
     display_level: '',
     beloved_list: belovedLevel().filter((option) => option.value !== 'others'),
+    verifyEmail: true,
   },
   future_owner: {
     title: 'Appoint your Beneficiary',
     subtitle: 'The future owner of your assets',
     display_level: 'none',
     beloved_list: belovedLevel(),
+    verifyEmail: false,
   },
   guardian: {
     title: 'Appoint your Guardian',
     subtitle:
       'The caretaker of your underage kids ensuring they get the best care after you and you spoused demised',
     display_level: '',
-    beloved_list: belovedLevel(),
+    beloved_list: belovedLevel().filter((option) => option.value !== 'others'),
+    verifyEmail: false,
   },
 };
 
@@ -151,19 +154,21 @@ const BelovedModal = ({
         url: addUserImg,
       });
 
-      await sendInviteBeloveEmail({
-        to_email: returnBeloved.email,
-        to_nric_name: returnBeloved.nric_name,
-        to_type: beneficiaryTypes().find(
-          (obj) => obj.value === returnBeloved.type
-        ).name,
-        to_level: belovedLevel().find(
-          (obj) => obj.value === returnBeloved.level
-        ).name,
-        from_name: user.profile.nric_name,
-        invite_uuid: returnInvite.invite_uuid,
-        beloved_id: returnBeloved.id,
-      });
+      if (belovedConfig[belovedType].verifyEmail) {
+        await sendInviteBeloveEmail({
+          to_email: returnBeloved.email,
+          to_nric_name: returnBeloved.nric_name,
+          to_type: beneficiaryTypes().find(
+            (obj) => obj.value === returnBeloved.type
+          ).name,
+          to_level: belovedLevel().find(
+            (obj) => obj.value === returnBeloved.level
+          ).name,
+          from_name: user.profile.nric_name,
+          invite_uuid: returnInvite.invite_uuid,
+          beloved_id: returnBeloved.id,
+        });
+      }
 
       refreshFunction();
     } else {
@@ -374,10 +379,10 @@ const BelovedModal = ({
                 </div>
                 <div class="text-and-supporting-text-18">
                   <div class="text-lg-semibold-4">
-                    {type_title[belovedType].title}
+                    {belovedConfig[belovedType].title}
                   </div>
                   <div class="text-sm-regular-6">
-                    {type_title[belovedType].subtitle}
+                    {belovedConfig[belovedType].subtitle}
                   </div>
                 </div>
               </div>
@@ -458,7 +463,7 @@ const BelovedModal = ({
                   <select
                     id={`select-beloved-relationship`}
                     required=""
-                    class="form_input w-select"
+                    class="form-select"
                   >
                     {relationships().map((item) => (
                       <option key={item.value} value={item.value}>
@@ -471,7 +476,7 @@ const BelovedModal = ({
               <div class="form-content-2 mb-3">
                 <div
                   class="form-field-wrapper"
-                  style={{ display: type_title[belovedType].display_level }}
+                  style={{ display: belovedConfig[belovedType].display_level }}
                 >
                   <label for={`select-beloved-level`} class="uui-field-label">
                     Level
@@ -479,9 +484,9 @@ const BelovedModal = ({
                   <select
                     id={`select-beloved-level`}
                     required=""
-                    class="form_input w-select"
+                    class="form-select"
                   >
-                    {type_title[belovedType].beloved_list.map((item) => (
+                    {belovedConfig[belovedType].beloved_list.map((item) => (
                       <option key={item.value} value={item.value}>
                         {item.name}
                       </option>
@@ -495,7 +500,7 @@ const BelovedModal = ({
                   <select
                     id={`select-beloved-type`}
                     required=""
-                    class="form_input w-select"
+                    class="form-select"
                   >
                     {beneficiaryTypes().map((item) => (
                       <option key={item.value} value={item.value}>

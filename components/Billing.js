@@ -19,7 +19,7 @@ import { loadStripe } from '@stripe/stripe-js';
 const asyncStripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
 
 const Billing = () => {
-  const { user, isLoading } = useUser();
+  const { user } = useUser();
   const router = useRouter();
   const [runEffect, setRunEffect] = useState(false);
   const [summary, setSummary] = useState({
@@ -268,7 +268,7 @@ const Billing = () => {
       </div>
       {summary.data?.map((item) => (
         <>
-          {isLoading ? <Loading /> : <></>}
+          {user.isLoading ? <Loading /> : <></>}
           {item.active ? (
             <div
               class="pointer-on-hover mb-3"

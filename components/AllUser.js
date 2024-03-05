@@ -15,7 +15,7 @@ import toast from 'react-hot-toast';
 import UserDetailsModal from './UserDetailsModal';
 
 const MyDetails = ({ isModal = false }) => {
-  const { user, isLoading } = useUser();
+  const { user } = useUser();
   const router = useRouter();
   const [runEffect, setRunEffect] = useState(false);
   const [summary, setSummary] = useState({
