@@ -25,7 +25,7 @@ import AllUser from '../components/AllUser';
 
 const Admin = () => {
   const router = useRouter();
-  const { user, isLoading } = useUser();
+  const { user } = useUser();
 
   useEffect(() => {
     if (router.isReady && document) {

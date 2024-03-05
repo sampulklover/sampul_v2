@@ -22,7 +22,7 @@ import InviteModal from '../components/InviteModal';
 
 const Beloved = () => {
   const router = useRouter();
-  const { user, isLoading } = useUser();
+  const { user } = useUser();
   const [summary, setSummary] = useState({
     data: [],
     isReady: false,
@@ -300,9 +300,12 @@ const Beloved = () => {
                   </tbody>
                 </table>
                 <div
+                  style={{
+                    display: coSampulData.length < 2 ? 'block' : 'none',
+                  }}
                   class="card-copy cosampul-copy"
                   onClick={() => {
-                    if (coSampulData.length <= 2) {
+                    if (coSampulData.length < 2) {
                       belovedModal(null, 'co_sampul');
                     } else {
                       toast.error(
@@ -417,15 +420,6 @@ const Beloved = () => {
                                 <div class="smpl_text-sm-regular crop-text">
                                   <span>{rObject.name}</span>
                                 </div>
-                              </div>
-                              <div class="beloved-tag">
-                                {status_invites ? (
-                                  <div class="badge is-badge-small">
-                                    <span>{status_invites.name}</span>
-                                  </div>
-                                ) : (
-                                  <></>
-                                )}
                               </div>
                             </div>
                           </tr>
@@ -548,13 +542,6 @@ const Beloved = () => {
                                 </div>
                               </div>
                               <div class="beloved-tag">
-                                {status_invites ? (
-                                  <div class="badge is-badge-small">
-                                    <span>{status_invites.name}</span>
-                                  </div>
-                                ) : (
-                                  <></>
-                                )}
                                 <div class="badge is-badge-small">
                                   <span>{lObject.name}</span>
                                 </div>

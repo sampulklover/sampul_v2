@@ -89,10 +89,23 @@ const WillDetailsCard = ({ willData }) => {
         },
         {
           title: '7. Digital Assets Distribution',
-          description: `
-          ● Specific Beneficiaries: Certain assets are designated for specific beneficiaries or based on Faraid as per [Table 1].
-          ● Residual Estate: The rest of my digital assets not specifically mentioned are to be distributed accordingly either to specific beneficiaries or based on Faraid.
-          ● Additional Bequests: For waqaf, sedekah, charity, [Waqaf/Charitable Body] is designated as per [Table 1]`,
+          description: (
+            <div>
+              <p>
+                Specific Beneficiaries: Certain assets are designated for
+                specific beneficiaries or based on Faraid as per [Table 1].
+              </p>
+              <p>
+                Residual Estate: The rest of my digital assets not specifically
+                mentioned are to be distributed accordingly either to specific
+                beneficiaries or based on Faraid.
+              </p>
+              <p>
+                Additional Bequests: For waqaf, sedekah, charity,
+                [Waqaf/Charitable Body] is designated as per [Table 2]
+              </p>
+            </div>
+          ),
           addBreak: true,
         },
         {

@@ -48,6 +48,35 @@ const DigitalAssetsModal = ({
     url: addUserImg,
   });
 
+  const setFrequencyBasedOnType = (type) => {
+    const frequencySelect = document.getElementById(
+      'select-digital-assets-frequency'
+    );
+    if (type === 'non_subscription') {
+      const NA_frequency = servicePlatformFrequencies().find(
+        (item) => item.value === 'n_a'
+      );
+      if (NA_frequency) {
+        frequencySelect.value = NA_frequency.value;
+        frequencySelect.disabled = true;
+      } else {
+        frequencySelect.disabled = false;
+      }
+    } else {
+      frequencySelect.disabled = false;
+    }
+  };
+
+  useEffect(() => {
+    const editedType = document.getElementById('select-digital-assets-type');
+    setFrequencyBasedOnType(editedType.value);
+  }, [selectedItem]);
+
+  const handleTypeChange = (event) => {
+    const selectedType = event.target.value;
+    setFrequencyBasedOnType(selectedType);
+  };
+
   const addDigitalAssets = async () => {
     const inputElements = {
       digital_assets_modal: {
@@ -347,7 +376,7 @@ const DigitalAssetsModal = ({
                   <select
                     id={`select-digital-assets-service-platform`}
                     required=""
-                    class="form_input w-select"
+                    class="form-select"
                   >
                     {servicePlatforms().map((item) => (
                       <option key={item.value} value={item.value}>
@@ -366,7 +395,8 @@ const DigitalAssetsModal = ({
                   <select
                     id={`select-digital-assets-type`}
                     required=""
-                    class="form_input w-select"
+                    class="form-select"
+                    onChange={handleTypeChange}
                   >
                     {servicePlatformAccountTypes().map((item) => (
                       <option key={item.value} value={item.value}>
@@ -387,7 +417,7 @@ const DigitalAssetsModal = ({
                   <select
                     id={`select-digital-assets-frequency`}
                     required=""
-                    class="form_input w-select"
+                    class="form-select"
                   >
                     {servicePlatformFrequencies().map((item) => (
                       <option key={item.value} value={item.value}>
@@ -426,7 +456,7 @@ const DigitalAssetsModal = ({
                 <select
                   id={`select-digital-assets-instructions-after-death`}
                   required=""
-                  class="form_input w-select"
+                  class="form-select"
                 >
                   {instructionsAfterDeath().map((item) => (
                     <option key={item.value} value={item.value}>
@@ -446,7 +476,7 @@ const DigitalAssetsModal = ({
                 <select
                   id={`select-digital-assets-beloved`}
                   required=""
-                  class="form_input w-select"
+                  class="form-select"
                 >
                   {belovedList.map((item) => (
                     <option key={item.value} value={item.value}>

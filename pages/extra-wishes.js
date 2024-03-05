@@ -23,7 +23,7 @@ import SideBar from '../components/SideBar';
 import { Tooltip } from 'react-tooltip';
 
 const ExtraWishes = () => {
-  const { user, isLoading } = useUser();
+  const { user } = useUser();
   const [mutiselectData, setMultiSelectData] = useState({
     charity: {
       selected: [],
@@ -684,10 +684,10 @@ const ExtraWishes = () => {
               </div>
               <div class="smpl_text-sm-regular">
                 At the point of death, if you are deemed suitable for organ or
-                tissue donation by medical experts, consent from your loved ones
-                will be obtained. By agreeing to pledge as an organ donor,
-                please ensure that you have informed your loved ones on your
-                wish.
+                tissue donation by Ministry of Health medical experts, consent
+                from your loved ones will be obtained. By agreeing to pledge as
+                an organ donor, please ensure that you have informed your loved
+                ones on your wish.
               </div>
               {displayUpgradePlan('organ_donor')}
             </div>

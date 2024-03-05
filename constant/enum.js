@@ -213,7 +213,7 @@ export const physicalAccountTypes = () => {
 export const servicePlatformFrequencies = () => {
   const items = [
     { name: 'N/A', value: 'n_a' },
-    { name: 'Weekly', value: 'weekly' },
+    // { name: 'Weekly', value: 'weekly' },
     { name: 'Monthly', value: 'monthly' },
     { name: 'Yearly', value: 'yearly' },
   ];

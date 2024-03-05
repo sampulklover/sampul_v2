@@ -22,7 +22,7 @@ import WillDetailsCard from '../components/WillDetailsCard';
 import SideBar from '../components/SideBar';
 
 const Beloved = () => {
-  const { user, isLoading } = useUser();
+  const { user } = useUser();
   const cardRef = useRef(null);
 
   const [summary, setSummary] = useState({
