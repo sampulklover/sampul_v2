@@ -139,9 +139,70 @@ const Beloved = () => {
     );
   };
 
+  const belovedCat = {
+    primary_co_sampul: {
+      data: summary.data.beloved.filter(
+        (b) => b.level === 'primary' && b.type === 'co_sampul'
+      ),
+      name: 'Primary Co-Sampul',
+      isRequired: true,
+    },
+    secondary_co_sampul: {
+      data: summary.data.beloved.filter(
+        (b) => b.level === 'secondary' && b.type === 'co_sampul'
+      ),
+      name: 'Secondary Co-Sampul',
+      isRequired: true,
+    },
+    primary_guardian: {
+      data: summary.data.beloved.filter(
+        (b) => b.level === 'primary' && b.type === 'guardian'
+      ),
+      name: 'Primary Guardian',
+      isRequired: false,
+    },
+    secondary_guardian: {
+      data: summary.data.beloved.filter(
+        (b) => b.level === 'secondary' && b.type === 'guardian'
+      ),
+      name: 'secondary Guardian',
+      isRequired: false,
+    },
+  };
+
+  const disyplayInfo = () => {
+    const alerts = [];
+    Object.keys(belovedCat).forEach((category) => {
+      if (
+        belovedCat[category].data.length === 0 &&
+        belovedCat[category].isRequired
+      ) {
+        alerts.push(
+          <div key={category} className="alert alert-danger" role="alert">
+            {`${belovedCat[category].name} has not been assigned. Click `}
+            <Link href="beloved" class="alert-link">
+              here
+            </Link>
+            {` to assign.`}
+          </div>
+        );
+      }
+    });
+    return alerts;
+  };
+
   const tabSection = () => {
     return (
       <>
+        {summary.isReady ? (
+          <>
+            {disyplayInfo().map((alert, index) => (
+              <div key={index}>{alert}</div>
+            ))}
+          </>
+        ) : (
+          <></>
+        )}
         <ul
           class="nav nav-pills justify-content-center tab-background mt-3"
           id="pills-tab"

@@ -181,9 +181,85 @@ const WillActionButtons = ({
 
     const updatedTime = new Date().toISOString();
 
+    const { data: beloved, error: errorBeloved } = await supabase
+      .from('beloved')
+      .select('*')
+      .eq('uuid', user?.uuid)
+      .select();
+
+    if (errorBeloved) {
+      setButtonLoading({
+        ...buttonLoading,
+        generate: false,
+      });
+      toast.error(errorBeloved.message);
+      return;
+    }
+
+    const belovedCat = {
+      primary_co_sampul: {
+        data: beloved.filter(
+          (b) => b.level === 'primary' && b.type === 'co_sampul'
+        ),
+        name: 'Primary Co-Sampul',
+        isRequired: true,
+      },
+      secondary_co_sampul: {
+        data: beloved.filter(
+          (b) => b.level === 'secondary' && b.type === 'co_sampul'
+        ),
+        name: 'Secondary Co-Sampul',
+        isRequired: true,
+      },
+      primary_guardian: {
+        data: beloved.filter(
+          (b) => b.level === 'primary' && b.type === 'guardian'
+        ),
+        name: 'Primary Guardian',
+        isRequired: false,
+      },
+      secondary_guardian: {
+        data: beloved.filter(
+          (b) => b.level === 'secondary' && b.type === 'guardian'
+        ),
+        name: 'secondary Guardian',
+        isRequired: false,
+      },
+    };
+
+    var stopProcess = false;
+
+    Object.keys(belovedCat).forEach((category) => {
+      if (belovedCat[category].data.length === 0) {
+        if (belovedCat[category].isRequired) {
+          toast.error(
+            `Please assign your ${belovedCat[category].name} at beloved page and try again`,
+            {
+              duration: 6000,
+            }
+          );
+
+          stopProcess = true;
+        }
+      }
+    });
+
+    if (stopProcess) {
+      setButtonLoading({
+        ...buttonLoading,
+        generate: false,
+      });
+
+      return;
+    }
+
     const updateData = {
       last_updated: updatedTime,
       nric_name: user.profile.nric_name,
+      co_sampul_1: belovedCat.primary_co_sampul.data[0]?.id ?? null,
+      co_sampul_2: belovedCat.secondary_co_sampul.data[0]?.id ?? null,
+      guardian_1: belovedCat.primary_guardian.data[0]?.id ?? null,
+      guardian_2: belovedCat.secondary_guardian.data[0]?.id ?? null,
     };
 
     const addData = {
@@ -203,6 +279,7 @@ const WillActionButtons = ({
         generate: false,
       });
       toast.error(error.message);
+      return;
     }
 
     if (checkExist.length > 0) {
@@ -215,15 +292,16 @@ const WillActionButtons = ({
         .select()
         .single();
 
-      await generateQRCode(data);
-
       if (error) {
         setButtonLoading({
           ...buttonLoading,
           generate: false,
         });
         toast.error(error.message);
+        return;
       }
+
+      await generateQRCode(data);
     } else {
       const { data, error } = await supabase
         .from('wills')
@@ -235,15 +313,16 @@ const WillActionButtons = ({
         .select()
         .single();
 
-      await generateQRCode(data);
-
       if (error) {
         setButtonLoading({
           ...buttonLoading,
           generate: false,
         });
         toast.error(error.message);
+        return;
       }
+
+      await generateQRCode(data);
     }
   };
 
