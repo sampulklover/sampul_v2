@@ -227,32 +227,6 @@ const WillActionButtons = ({
       },
     };
 
-    var stopProcess = false;
-
-    Object.keys(belovedCat).forEach((category) => {
-      if (belovedCat[category].data.length === 0) {
-        if (belovedCat[category].isRequired) {
-          toast.error(
-            `Please assign your ${belovedCat[category].name} at beloved page and try again`,
-            {
-              duration: 6000,
-            }
-          );
-
-          stopProcess = true;
-        }
-      }
-    });
-
-    if (stopProcess) {
-      setButtonLoading({
-        ...buttonLoading,
-        generate: false,
-      });
-
-      return;
-    }
-
     const updateData = {
       last_updated: updatedTime,
       nric_name: user.profile.nric_name,
