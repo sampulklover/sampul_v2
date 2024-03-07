@@ -15,6 +15,7 @@ const WillCertCard = ({ willData, qrValue, cardRef }) => {
   };
 
   const myInfo = {
+    isDraft: willData.will?.is_draft,
     nric_name: willData.will?.nric_name
       ? willData.will.nric_name
       : '[YOUR NAME]',
@@ -40,7 +41,18 @@ const WillCertCard = ({ willData, qrValue, cardRef }) => {
       <div class="wasiat-cert-preview" id="certificate-container">
         <div class="wasiat-cert_content p-3">
           <div class="wasiat-cert_wrapper">
-            <div class="wasiat-cert_content-top">
+            {myInfo.isDraft == false ? (
+              <></>
+            ) : (
+              <img
+                loading="lazy"
+                src="/images/draft-rubber-stamp.png"
+                height={150}
+              ></img>
+            )}
+            <div
+              class={`wasiat-cert_content-top ${myInfo.isDraft ? 'pt-0' : ''}`}
+            >
               <img
                 loading="lazy"
                 src={`${process.env.NEXT_PUBLIC_CDNUR_IMAGE_WEBSITE}/sampul_logo.png`}
@@ -48,6 +60,7 @@ const WillCertCard = ({ willData, qrValue, cardRef }) => {
                 id="sampul-will-logo"
               ></img>
             </div>
+
             <div class="wasiat-cert_content-centre">
               <h2 class="heading-xsmall centre">
                 {will_settings[checkReligion()].title}
