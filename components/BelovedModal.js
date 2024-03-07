@@ -270,7 +270,11 @@ const BelovedModal = ({
   };
 
   const deleteBeloved = async () => {
-    if (confirm(`Are you sure you want to delete this record?`)) {
+    if (
+      confirm(
+        `Are you sure you want to delete this record?, you'll also need to regenerate your will if the user linked to it.`
+      )
+    ) {
       setIsLoading({
         ...isLoading,
         delete: true,
