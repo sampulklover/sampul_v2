@@ -709,7 +709,7 @@ const ExtraWishes = () => {
                 </label>
                 <select
                   id="select-extra-wishes-organ-donor-pledge"
-                  required=""
+                  required
                   class="form-select"
                 >
                   {[

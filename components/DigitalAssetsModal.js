@@ -43,10 +43,7 @@ const DigitalAssetsModal = ({
     delete: false,
   });
 
-  const [selectedImage, setSelectedImage] = useState({
-    data: null,
-    url: addUserImg,
-  });
+  const [newServicePlatform, setNewServicePlatform] = useState(false);
 
   const setFrequencyBasedOnType = (type) => {
     const frequencySelect = document.getElementById(
@@ -67,9 +64,72 @@ const DigitalAssetsModal = ({
     }
   };
 
+  const elementList = () => {
+    const inputElements = {
+      digital_assets_modal: {
+        elements: {
+          username: document.getElementById('input-digital-assets-username'),
+          email: document.getElementById('input-digital-assets-email'),
+          service_platform: document.getElementById(
+            'select-digital-assets-service-platform'
+          ),
+          new_service_platform_name: document.getElementById(
+            'input-digital-assets-new-service-platform-name'
+          ),
+          new_service_platform_url: document.getElementById(
+            'input-digital-assets-new-service-platform-url'
+          ),
+          account_type: document.getElementById('select-digital-assets-type'),
+          frequency: document.getElementById('select-digital-assets-frequency'),
+          declared_value_myr: document.getElementById(
+            'input-digital-assets-declared-value'
+          ),
+          instructions_after_death: document.getElementById(
+            'select-digital-assets-instructions-after-death'
+          ),
+          beloved_id: document.getElementById('select-digital-assets-beloved'),
+          remarks: document.getElementById('input-digital-assets-remarks'),
+        },
+      },
+    };
+
+    return inputElements;
+  };
+
   useEffect(() => {
     const editedType = document.getElementById('select-digital-assets-type');
     setFrequencyBasedOnType(editedType.value);
+
+    setNewServicePlatform(false);
+
+    var element = elementList().digital_assets_modal.elements;
+
+    for (const key in element) {
+      if (key == 'image_path') {
+        element[key].src = addUserImg;
+      } else {
+        element[key].value = '';
+      }
+    }
+
+    if (selectedItem) {
+      if (selectedItem?.new_service_platform_name) {
+        setNewServicePlatform(true);
+      } else {
+        setNewServicePlatform(false);
+      }
+
+      for (const key in element) {
+        element[key].value = selectedItem[key];
+
+        if (key == 'image_path') {
+          const imageUrl = selectedItem[key]
+            ? `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${selectedItem[key]}`
+            : addUserImg;
+          element.image_path.src = imageUrl;
+        }
+      }
+    }
   }, [selectedItem]);
 
   const handleTypeChange = (event) => {
@@ -78,32 +138,23 @@ const DigitalAssetsModal = ({
   };
 
   const addDigitalAssets = async () => {
-    const inputElements = {
-      digital_assets_modal: {
-        username: document.getElementById('input-digital-assets-username'),
-        email: document.getElementById('input-digital-assets-email'),
-        service_platform: document.getElementById(
-          'select-digital-assets-service-platform'
-        ),
-        account_type: document.getElementById('select-digital-assets-type'),
-        frequency: document.getElementById('select-digital-assets-frequency'),
-        declared_value_myr: document.getElementById(
-          'input-digital-assets-declared-value'
-        ),
-        instructions_after_death: document.getElementById(
-          'select-digital-assets-instructions-after-death'
-        ),
-        beloved_id: document.getElementById('select-digital-assets-beloved'),
-        remarks: document.getElementById('input-digital-assets-remarks'),
-      },
-    };
+    var element = elementList().digital_assets_modal.elements;
 
     const addData = {};
 
-    for (const key in inputElements.digital_assets_modal) {
+    for (const key in element) {
       if (key !== 'image_path') {
-        addData[key] = inputElements.digital_assets_modal[key].value;
+        addData[key] = element[key].value;
       }
+    }
+
+    if (newServicePlatform) {
+      addData.service_platform = null;
+    }
+
+    if (!newServicePlatform) {
+      addData.new_service_platform_name = null;
+      addData.new_service_platform_url = null;
     }
 
     const { data: returnData, error } = await supabase
@@ -127,31 +178,23 @@ const DigitalAssetsModal = ({
   };
 
   const editDigitalAssets = async () => {
-    const inputElements = {
-      digital_assets_modal: {
-        username: document.getElementById('input-digital-assets-username'),
-        email: document.getElementById('input-digital-assets-email'),
-        service_platform: document.getElementById(
-          'select-digital-assets-service-platform'
-        ),
-        account_type: document.getElementById('select-digital-assets-type'),
-        frequency: document.getElementById('select-digital-assets-frequency'),
-        declared_value_myr: document.getElementById(
-          'input-digital-assets-declared-value'
-        ),
-        instructions_after_death: document.getElementById(
-          'select-digital-assets-instructions-after-death'
-        ),
-        beloved_id: document.getElementById('select-digital-assets-beloved'),
-        remarks: document.getElementById('input-digital-assets-remarks'),
-      },
-    };
+    var element = elementList().digital_assets_modal.elements;
+
     const addData = {};
 
-    for (const key in inputElements.digital_assets_modal) {
+    for (const key in element) {
       if (key !== 'image_path') {
-        addData[key] = inputElements.digital_assets_modal[key].value;
+        addData[key] = element[key].value;
       }
+    }
+
+    if (newServicePlatform) {
+      addData.service_platform = null;
+    }
+
+    if (!newServicePlatform) {
+      addData.new_service_platform_name = null;
+      addData.new_service_platform_url = null;
     }
 
     const { data: returnData, error } = await supabase
@@ -365,46 +408,129 @@ const DigitalAssetsModal = ({
                   />
                 </div>
               </div>
-              <div class="form-content-2 mb-3">
-                <div class="form-field-wrapper">
-                  <label
-                    for={`select-digital-assets-service-platform`}
-                    class="uui-field-label"
-                  >
-                    Service Platform
-                  </label>
-                  <select
-                    id={`select-digital-assets-service-platform`}
-                    required=""
-                    class="form-select"
-                  >
-                    {servicePlatforms().map((item) => (
-                      <option key={item.value} value={item.value}>
-                        {item.name}
-                      </option>
-                    ))}
-                  </select>
+              <div
+                class="form-field-wrapper"
+                style={{
+                  transition: 'max-height 0.5s ease', // Use max-height for animation
+                  overflow: 'hidden',
+                  maxHeight: newServicePlatform ? '0px' : '200px',
+                }}
+              >
+                <label
+                  for={`select-digital-assets-service-platform`}
+                  class="uui-field-label"
+                >
+                  Service Platform
+                </label>
+                <select
+                  id={`select-digital-assets-service-platform`}
+                  class="form-select"
+                  required={!newServicePlatform ? true : false}
+                >
+                  {servicePlatforms().map((item) => (
+                    <option key={item.value} value={item.value}>
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {!newServicePlatform ? (
+                <div class="mb-3">
+                  <small>
+                    Can't find your Service platform?{' '}
+                    <b
+                      class="text-primary pointer-on-hover"
+                      onClick={() => {
+                        setNewServicePlatform(!newServicePlatform);
+                      }}
+                    >
+                      Add a new one.
+                    </b>
+                  </small>
                 </div>
-                <div class="form-field-wrapper">
-                  <label
-                    for={`select-digital-assets-type`}
-                    class="uui-field-label"
-                  >
-                    Type
-                  </label>
-                  <select
-                    id={`select-digital-assets-type`}
-                    required=""
-                    class="form-select"
-                    onChange={handleTypeChange}
-                  >
-                    {servicePlatformAccountTypes().map((item) => (
-                      <option key={item.value} value={item.value}>
-                        {item.name}
-                      </option>
-                    ))}
-                  </select>
+              ) : (
+                <></>
+              )}
+
+              <div
+                style={{
+                  transition: 'max-height 0.5s ease', // Use max-height for animation
+                  overflow: 'hidden',
+                  maxHeight: newServicePlatform ? '300px' : '0px',
+                }}
+              >
+                <div class="row mx-0 mb-3">
+                  <div class="col px-0">
+                    <label>New Service Platform</label>
+                  </div>
+                  <div class="col px-0 text-end">
+                    <small>
+                      <b
+                        class="text-primary pointer-on-hover"
+                        onClick={() => {
+                          setNewServicePlatform(!newServicePlatform);
+                        }}
+                      >
+                        <i class="bi bi-x-circle"></i>
+                      </b>
+                    </small>
+                  </div>
                 </div>
+
+                <div class="form-content-2 mb-3">
+                  <div class="form-field-wrapper">
+                    <label
+                      for={`input-digital-assets-new-service-platform-name`}
+                      class="uui-field-label"
+                    >
+                      Service Provider
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id={`input-digital-assets-new-service-platform-name`}
+                      required={newServicePlatform ? true : false}
+                    />
+                  </div>
+                  <div class="form-field-wrapper">
+                    <label
+                      for={`input-digital-assets-new-service-platform-url`}
+                      class="uui-field-label"
+                    >
+                      Website URL
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id={`input-digital-assets-new-service-platform-url`}
+                      required={newServicePlatform ? true : false}
+                    />
+                  </div>
+                </div>
+
+                <div class="border-bottom mb-3"></div>
+              </div>
+
+              <div class="form-field-wrapper mb-3">
+                <label
+                  for={`select-digital-assets-type`}
+                  class="uui-field-label"
+                >
+                  Type
+                </label>
+                <select
+                  id={`select-digital-assets-type`}
+                  required
+                  class="form-select"
+                  onChange={handleTypeChange}
+                >
+                  {servicePlatformAccountTypes().map((item) => (
+                    <option key={item.value} value={item.value}>
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div class="form-content-2 mb-3">
                 <div class="form-field-wrapper">
@@ -416,7 +542,7 @@ const DigitalAssetsModal = ({
                   </label>
                   <select
                     id={`select-digital-assets-frequency`}
-                    required=""
+                    required
                     class="form-select"
                   >
                     {servicePlatformFrequencies().map((item) => (
@@ -445,8 +571,7 @@ const DigitalAssetsModal = ({
                   </div>
                 </div>
               </div>
-
-              <div class="form-field-wrapper">
+              <div class="form-field-wrapper mb-3">
                 <label
                   for={`select-digital-assets-instructions-after-death`}
                   class="uui-field-label"
@@ -455,7 +580,7 @@ const DigitalAssetsModal = ({
                 </label>
                 <select
                   id={`select-digital-assets-instructions-after-death`}
-                  required=""
+                  required
                   class="form-select"
                 >
                   {instructionsAfterDeath().map((item) => (
@@ -466,7 +591,7 @@ const DigitalAssetsModal = ({
                 </select>
               </div>
 
-              <div class="form-field-wrapper mt-3">
+              <div class="form-field-wrapper mb-3">
                 <label
                   for={`select-digital-assets-beloved`}
                   class="uui-field-label"
@@ -475,7 +600,7 @@ const DigitalAssetsModal = ({
                 </label>
                 <select
                   id={`select-digital-assets-beloved`}
-                  required=""
+                  required
                   class="form-select"
                 >
                   {belovedList.map((item) => (
@@ -488,7 +613,7 @@ const DigitalAssetsModal = ({
                 {checkBeloved()}
               </div>
 
-              <div class="form-field-wrapper mt-3">
+              <div class="form-field-wrapper mb-3">
                 <label
                   for={`input-digital-assets-remarks`}
                   class="uui-field-label"
@@ -502,7 +627,7 @@ const DigitalAssetsModal = ({
                 />
               </div>
 
-              <div class="mt-3">
+              <div class="mb-3">
                 <div class="form-check">
                   <input
                     class="form-check-input"

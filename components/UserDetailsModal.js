@@ -130,7 +130,7 @@ const UserDetailsModal = ({ selectedUser, refreshFunction }) => {
                   </label>
                   <select
                     id="select-user-role"
-                    required=""
+                    required
                     class="form_input w-select"
                   >
                     {userRoles().map((item) => (

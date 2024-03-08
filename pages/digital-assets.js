@@ -93,47 +93,6 @@ const DigitalAssets = () => {
       key: item ? 'edit' : 'add',
       selectedItem: item ? item : null,
     });
-
-    const inputElements = {
-      digital_assets_modal: {
-        username: document.getElementById('input-digital-assets-username'),
-        email: document.getElementById('input-digital-assets-email'),
-        service_platform: document.getElementById(
-          'select-digital-assets-service-platform'
-        ),
-        account_type: document.getElementById('select-digital-assets-type'),
-        frequency: document.getElementById('select-digital-assets-frequency'),
-        declared_value_myr: document.getElementById(
-          'input-digital-assets-declared-value'
-        ),
-        instructions_after_death: document.getElementById(
-          'select-digital-assets-instructions-after-death'
-        ),
-        beloved_id: document.getElementById('select-digital-assets-beloved'),
-        remarks: document.getElementById('input-digital-assets-remarks'),
-      },
-    };
-
-    for (const key in inputElements.digital_assets_modal) {
-      if (key == 'image_path') {
-        inputElements.digital_assets_modal[key].src = addUserImg;
-      } else {
-        inputElements.digital_assets_modal[key].value = '';
-      }
-    }
-
-    if (item) {
-      for (const key in inputElements.digital_assets_modal) {
-        inputElements.digital_assets_modal[key].value = item[key];
-
-        if (key == 'image_path') {
-          const imageUrl = item[key]
-            ? `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${item[key]}`
-            : addUserImg;
-          inputElements.digital_assets_modal.image_path.src = imageUrl;
-        }
-      }
-    }
   };
 
   const title = () => {
@@ -221,7 +180,7 @@ const DigitalAssets = () => {
         <div
           class="tab-content mt-5"
           id="pills-tabContent"
-          style={{ 'min-height': 300 }}
+          style={{ minHeight: 300 }}
         >
           <div
             class="tab-pane fade show active"
