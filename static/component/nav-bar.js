@@ -65,7 +65,7 @@ function navBar() {
                 placeholder="Search projects…"
                 type="search"
                 id="search"
-                required=""
+                required
               /><input
                 type="submit"
                 class="search-button w-button"

@@ -90,8 +90,14 @@ const DigitalSummaryCard = ({
                     (x) => x.value === item.service_platform
                   );
 
-                  const platformName = platform?.name || '';
-                  const platformImg = platform?.img || '';
+                  const platformIdentity = {
+                    name: item?.new_service_platform_name
+                      ? item.new_service_platform_name
+                      : platform.name,
+                    icon: item?.new_service_platform_name
+                      ? '/images/Displacement-p-500.png'
+                      : platform.img,
+                  };
 
                   const declaredValue = item.declared_value_myr
                     ? `RM ${item.declared_value_myr.toLocaleString()}`
@@ -127,13 +133,13 @@ const DigitalSummaryCard = ({
                         <div class="custom-table-cell">
                           <img
                             loading="lazy"
-                            src={platformImg}
+                            src={platformIdentity.icon}
                             alt=""
                             class="avatar-8"
                           />
                           <div>
                             <div class="smpl_text-sm-medium crop-text">
-                              {platformName}
+                              {platformIdentity.name}
                             </div>
                             <div class="smpl_text-sm-regular crop-text">
                               {item.email}

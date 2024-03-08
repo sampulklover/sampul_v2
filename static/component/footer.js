@@ -7,7 +7,7 @@ function newsletterForm() {
     class="uui-form_input w-input"
     maxlength="256"
     placeholder="Enter your email"
-    required=""
+    required
   />
   <button
     type="submit"

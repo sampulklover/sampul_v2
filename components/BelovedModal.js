@@ -466,7 +466,7 @@ const BelovedModal = ({
                   </label>
                   <select
                     id={`select-beloved-relationship`}
-                    required=""
+                    required
                     class="form-select"
                   >
                     {relationships().map((item) => (
@@ -487,7 +487,7 @@ const BelovedModal = ({
                   </label>
                   <select
                     id={`select-beloved-level`}
-                    required=""
+                    required
                     class="form-select"
                   >
                     {belovedConfig[belovedType].beloved_list.map((item) => (
@@ -503,7 +503,7 @@ const BelovedModal = ({
                   </label>
                   <select
                     id={`select-beloved-type`}
-                    required=""
+                    required
                     class="form-select"
                   >
                     {beneficiaryTypes().map((item) => (

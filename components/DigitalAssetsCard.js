@@ -41,6 +41,15 @@ const DigitalAssetsCard = ({ typeName, summary, editFunction }) => {
                 (x) => x.value === item.service_platform
               );
 
+              const platform = {
+                name: item?.new_service_platform_name
+                  ? item.new_service_platform_name
+                  : spObject.name,
+                icon: item?.new_service_platform_name
+                  ? '/images/Displacement-p-500.png'
+                  : spObject.img,
+              };
+
               const iadObject = instructionsAfterDeath().find(
                 (y) => y.value === item.instructions_after_death
               );
@@ -58,7 +67,7 @@ const DigitalAssetsCard = ({ typeName, summary, editFunction }) => {
                       <div class="row">
                         <div class="col-md-3 text-center">
                           <img
-                            src={spObject.img}
+                            src={platform.icon}
                             class="rounded-circle"
                             alt="..."
                             width={40}
@@ -69,7 +78,7 @@ const DigitalAssetsCard = ({ typeName, summary, editFunction }) => {
                           <div class="col">
                             <div class="d-flex justify-content-md-between justify-content-center">
                               <div class="smpl_text-sm-semibold crop-text mt-md-0 mt-3">
-                                <span>{spObject.name}</span>
+                                <span>{platform.name}</span>
                               </div>
                               <span class="d-none d-sm-block">
                                 <div class="button-icon w-embed">
