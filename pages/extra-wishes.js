@@ -131,13 +131,14 @@ const ExtraWishes = () => {
 
     bodiesData.map((item) => {
       if (item.category == 'sadaqah_waqaf_zakat') {
-        newCharity.push({ label: item.name, value: item.id });
+        newCharity.push({ label: item.name, value: item.id, details: item });
         charityData.map((item2) => {
           if (item2.bodies_id == item.id) {
             defaultCharity.push({
               label: item.name,
               value: item.id,
               amount: item2.amount,
+              details: item,
             });
           }
         });
@@ -146,13 +147,14 @@ const ExtraWishes = () => {
 
     bodiesData.map((item) => {
       if (item.category == 'sadaqah_waqaf_zakat' || item.category == 'waqaf') {
-        newWaqf.push({ label: item.name, value: item.id });
+        newWaqf.push({ label: item.name, value: item.id, details: item });
         waqfData.map((item2) => {
           if (item2.bodies_id == item.id) {
             defaultWaqf.push({
               label: item.name,
               value: item.id,
               amount: item2.amount,
+              details: item,
             });
           }
         });
@@ -462,6 +464,22 @@ const ExtraWishes = () => {
     );
   };
 
+  const getOptionLabel = (item) => (
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <img
+        src={
+          item.details.icon
+            ? `data:image/svg+xml,${encodeURIComponent(item.details.icon)}`
+            : '/images/Displacement-p-500.png'
+        }
+        class="rounded-circle me-1"
+        width={20}
+        height={20}
+      />
+      <span class="text-truncate">{item.label}</span>
+    </div>
+  );
+
   const form3 = () => {
     return (
       <>
@@ -505,6 +523,7 @@ const ExtraWishes = () => {
                         newValues: newValues,
                       });
                     }}
+                    getOptionLabel={getOptionLabel}
                   />
                 ) : (
                   <Loading loading={true} />
@@ -596,6 +615,7 @@ const ExtraWishes = () => {
                           newValues: newValues,
                         });
                       }}
+                      getOptionLabel={getOptionLabel}
                     />
                   </>
                 ) : (
