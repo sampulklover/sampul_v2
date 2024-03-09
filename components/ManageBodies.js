@@ -1,7 +1,12 @@
 import Link from 'next/link';
 import Loading from './Laoding';
 import { addUserImg, emptyUserImg } from '../constant/element';
-import { countries, maritalStatus, religions } from '../constant/enum';
+import {
+  bodiesCategory,
+  countries,
+  maritalStatus,
+  religions,
+} from '../constant/enum';
 import { useUser } from '../context/user';
 import { supabase } from '../utils/supabase';
 import { useRouter } from 'next/router';
@@ -81,12 +86,20 @@ const ManageBodies = ({ isModal = false }) => {
           <thead>
             <tr>
               <th scope="col">
-                <small class="smpl_text-xs-medium">Body</small>
+                <small class="smpl_text-xs-medium">
+                  Body / Service Platform
+                </small>
               </th>
             </tr>
           </thead>
           <tbody>
             {summary?.data.map((item, index) => {
+              let category = bodiesCategory().find(
+                (x) => x.value === item.category
+              );
+
+              const categoryName = category?.name || '';
+
               return (
                 <tr
                   key={index}
@@ -113,7 +126,7 @@ const ManageBodies = ({ isModal = false }) => {
                           {item.name}
                         </div>
                         <div class="smpl_text-sm-regular crop-text">
-                          {item.category}
+                          {categoryName}
                         </div>
                       </div>
                     </div>
