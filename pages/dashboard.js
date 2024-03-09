@@ -25,6 +25,10 @@ const Dashboard = () => {
   const [runEffect, setRunEffect] = useState(false);
   const [qrValue, setQrValue] = useState(null);
   const [belovedCategory, setBelovedCategory] = useState('co_sampul');
+  const [bodyList, setBodyList] = useState({
+    data: [],
+    isReady: false,
+  });
 
   const initiateFunction = async () => {
     const { data: singleData, error } = await supabase
@@ -92,10 +96,39 @@ const Dashboard = () => {
     });
   };
 
+  const getBodies = async () => {
+    const { data, error } = await supabase
+      .from('bodies')
+      .select('*')
+      .neq('category', 'waqaf')
+      .neq('category', 'sadaqah_waqaf_zakat');
+
+    if (error) {
+      setBodyList({
+        data: [],
+        isReady: true,
+      });
+      toast.error(error.message);
+      return;
+    }
+
+    const modifiedData = data.map((item) => ({
+      value: item.id,
+      name: item.name,
+      details: item,
+    }));
+
+    setBodyList({
+      data: modifiedData,
+      isReady: true,
+    });
+  };
+
   useEffect(() => {
     if (!runEffect && user?.uuid) {
       setRunEffect(true);
       initiateFunction();
+      getBodies();
     }
   }, [user, runEffect]);
 
@@ -548,7 +581,11 @@ const Dashboard = () => {
                   </div>
                 </div>
               </div>
-              <DigitalSummaryCard typeName="digital" summary={summary} />
+              <DigitalSummaryCard
+                typeName="digital"
+                summary={summary}
+                bodyList={bodyList}
+              />
             </div>
             <div class="content_overview_digitalaccounts">
               <div class="card-header-2">
@@ -585,7 +622,11 @@ const Dashboard = () => {
                   </div>
                 </div>
               </div>
-              <DigitalSummaryCard typeName="subscription" summary={summary} />
+              <DigitalSummaryCard
+                typeName="subscription"
+                summary={summary}
+                bodyList={bodyList}
+              />
             </div>
           </div>
         </div>
@@ -662,11 +703,13 @@ const Dashboard = () => {
           <DigitalAssetsModal
             keyType={'add'}
             selectedItem={null}
-            belovedList={
-              summary?.data?.belovedDropdownData
+            belovedList={{
+              data: summary?.data?.belovedDropdownData
                 ? summary.data.belovedDropdownData
-                : []
-            }
+                : [],
+              isReady: summary.isReady,
+            }}
+            bodyList={bodyList}
           />
           <QrCodeModal cardRef={cardRef} qrValue={qrValue} />
           <Breadcrumb pageName={'Dashboard'} />

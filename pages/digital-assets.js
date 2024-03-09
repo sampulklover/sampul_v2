@@ -23,6 +23,10 @@ const DigitalAssets = () => {
     data: [],
     isReady: false,
   });
+  const [bodyList, setBodyList] = useState({
+    data: [],
+    isReady: false,
+  });
   const [isReady, setIsReady] = useState(true);
   const [runEffect, setRunEffect] = useState(false);
   const [digitalAssetsModalType, setDigitalAssetsModalType] = useState({
@@ -78,11 +82,40 @@ const DigitalAssets = () => {
     });
   };
 
+  const getBodies = async () => {
+    const { data, error } = await supabase
+      .from('bodies')
+      .select('*')
+      .neq('category', 'waqaf')
+      .neq('category', 'sadaqah_waqaf_zakat');
+
+    if (error) {
+      setBodyList({
+        data: [],
+        isReady: true,
+      });
+      toast.error(error.message);
+      return;
+    }
+
+    const modifiedData = data.map((item) => ({
+      value: item.id,
+      name: item.name,
+      details: item,
+    }));
+
+    setBodyList({
+      data: modifiedData,
+      isReady: true,
+    });
+  };
+
   useEffect(() => {
     if (!runEffect && user?.uuid) {
       setRunEffect(true);
       getDigitalAssets();
       getBeloved();
+      getBodies();
     }
   }, [user, runEffect]);
 
@@ -193,6 +226,7 @@ const DigitalAssets = () => {
                 typeName=""
                 summary={summary}
                 editFunction={digitalAssetsModal}
+                bodyList={bodyList}
               />
             </div>
           </div>
@@ -207,6 +241,7 @@ const DigitalAssets = () => {
                 typeName="non_subscription"
                 summary={summary}
                 editFunction={digitalAssetsModal}
+                bodyList={bodyList}
               />
             </div>
           </div>
@@ -221,6 +256,7 @@ const DigitalAssets = () => {
                 typeName="subscription"
                 summary={summary}
                 editFunction={digitalAssetsModal}
+                bodyList={bodyList}
               />
             </div>
           </div>
@@ -238,7 +274,8 @@ const DigitalAssets = () => {
             keyType={digitalAssetsModalType.key}
             selectedItem={digitalAssetsModalType.selectedItem}
             refreshFunction={getDigitalAssets}
-            belovedList={belovedList.data}
+            belovedList={belovedList}
+            bodyList={bodyList}
           />
           <div class="mt-4">{title()}</div>
           {tabSection()}
