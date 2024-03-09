@@ -3,7 +3,15 @@ import { instructionsAfterDeath, servicePlatforms } from '../constant/enum';
 import Loading from './Laoding';
 import { addUserImg } from '../constant/element';
 
-const DigitalAssetsCard = ({ typeName, summary, editFunction }) => {
+const DigitalAssetsCard = ({
+  typeName,
+  summary,
+  editFunction,
+  bodyList = {
+    data: [],
+    isReady: false,
+  },
+}) => {
   const type = {
     all: {
       title: 'No Digital Accounts found',
@@ -37,17 +45,21 @@ const DigitalAssetsCard = ({ typeName, summary, editFunction }) => {
           {summary.data
             .filter((item) => !typeName || item.account_type === typeName)
             .map((item, index) => {
-              const spObject = servicePlatforms().find(
-                (x) => x.value === item.service_platform
+              const spObject = bodyList?.data.find(
+                (x) => x.value === item.bodies_id
               );
 
               const platform = {
                 name: item?.new_service_platform_name
                   ? item.new_service_platform_name
-                  : spObject.name,
+                  : spObject?.name,
                 icon: item?.new_service_platform_name
                   ? '/images/Displacement-p-500.png'
-                  : spObject.img,
+                  : spObject?.details?.icon
+                  ? `data:image/svg+xml,${encodeURIComponent(
+                      spObject?.details?.icon
+                    )}`
+                  : '/images/Displacement-p-500.png',
               };
 
               const iadObject = instructionsAfterDeath().find(
@@ -69,7 +81,6 @@ const DigitalAssetsCard = ({ typeName, summary, editFunction }) => {
                           <img
                             src={platform.icon}
                             class="rounded-circle"
-                            alt="..."
                             width={40}
                             height={40}
                           />

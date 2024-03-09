@@ -17,11 +17,11 @@ import Breadcrumb from '../components/Breadcrumb';
 import BelovedModal from '../components/BelovedModal';
 import { addUserImg, emptyUserImg } from '../constant/element';
 import MyDetails from '../components/MyDetails';
-import Password from '../components/Password';
 import InformDeath from '../components/InformDeath';
 import Billing from '../components/Billing';
 import SideBar from '../components/SideBar';
 import AllUser from '../components/AllUser';
+import ManageBodies from '../components/ManageBodies';
 
 const Admin = () => {
   const router = useRouter();
@@ -78,18 +78,18 @@ const Admin = () => {
             >
               Users
             </button>
-            {/* <button
+            <button
               class="nav-link"
-              id="nav-password-tab"
+              id="nav-bodies-tab"
               data-bs-toggle="tab"
-              data-bs-target="#nav-password"
+              data-bs-target="#nav-bodies"
               type="button"
               role="tab"
-              aria-controls="nav-password"
+              aria-controls="nav-bodies"
               aria-selected="false"
             >
-              Password
-            </button> */}
+              Manage Bodies
+            </button>
           </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -101,14 +101,14 @@ const Admin = () => {
           >
             <AllUser />
           </div>
-          {/* <div
+          <div
             class="tab-pane fade"
-            id="nav-password"
+            id="nav-bodies"
             role="tabpanel"
-            aria-labelledby="nav-password-tab"
+            aria-labelledby="nav-bodies-tab"
           >
-            <Password />
-          </div> */}
+            <ManageBodies />
+          </div>
         </div>
       </div>
     );

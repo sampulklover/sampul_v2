@@ -377,3 +377,35 @@ export const userRoles = () => {
 
   return options;
 };
+
+export const bodiesCategory = () => {
+  const options = [
+    { name: 'Social Media', value: 'social_media' },
+    { name: 'Photos and Memories', value: 'photos_and_memories' },
+    { name: 'Content and Channel', value: 'content_and_channel' },
+    { name: 'Workplace', value: 'workplace' },
+    { name: 'Investment', value: 'investment' },
+    { name: 'Crypto', value: 'crypto' },
+    { name: 'E-Wallet & Saving', value: 'e_wallet_saving' },
+    {
+      name: 'E-Wallet & Saving, Investment',
+      value: 'e_wallet_saving_investment',
+    },
+    {
+      name: 'E-Wallet & Saving, Social Media',
+      value: 'e_wallet_saving_social_media',
+    },
+    {
+      name: 'Digital Domain',
+      value: 'digital_domain',
+    },
+    { name: 'Marketplace & Rewards', value: 'marketplace_rewards' },
+    { name: 'Sadaqah, Waqaf, Zakat', value: 'sadaqah_waqaf_zakat' },
+    { name: 'Personal Note Taking', value: 'personal_note_taking' },
+    { name: 'Entertainment', value: 'entertainment' },
+    { name: 'NFT', value: 'nft' },
+    { name: 'Waqaf', value: 'waqaf' },
+  ];
+
+  return options;
+};

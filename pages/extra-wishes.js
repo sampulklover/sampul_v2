@@ -52,7 +52,7 @@ const ExtraWishes = () => {
     var newData = [];
     mutiselectData.waqf.selected.map((item, index) => {
       newData.push({
-        bodies_uid: item.value,
+        bodies_id: item.value,
         amount: document.getElementById(
           `input-extra-wishes-waqf-${item.value}-amount`
         ).value,
@@ -65,7 +65,7 @@ const ExtraWishes = () => {
     var newData = [];
     mutiselectData.charity.selected.map((item, index) => {
       newData.push({
-        bodies_uid: item.value,
+        bodies_id: item.value,
         amount: document.getElementById(
           `input-extra-wishes-charity-${item.value}-amount`
         ).value,
@@ -130,13 +130,13 @@ const ExtraWishes = () => {
     var defaultWaqf = [];
 
     bodiesData.map((item) => {
-      if (item.category == 'Sadaqah, Waqaf, Zakat') {
-        newCharity.push({ label: item.name, value: item.uid });
+      if (item.category == 'sadaqah_waqaf_zakat') {
+        newCharity.push({ label: item.name, value: item.id });
         charityData.map((item2) => {
-          if (item2.bodies_uid == item.uid) {
+          if (item2.bodies_id == item.id) {
             defaultCharity.push({
               label: item.name,
-              value: item.uid,
+              value: item.id,
               amount: item2.amount,
             });
           }
@@ -145,16 +145,13 @@ const ExtraWishes = () => {
     });
 
     bodiesData.map((item) => {
-      if (
-        item.category == 'Sadaqah, Waqaf, Zakat' ||
-        item.category == 'Waqaf'
-      ) {
-        newWaqf.push({ label: item.name, value: item.uid });
+      if (item.category == 'sadaqah_waqaf_zakat' || item.category == 'waqaf') {
+        newWaqf.push({ label: item.name, value: item.id });
         waqfData.map((item2) => {
-          if (item2.bodies_uid == item.uid) {
+          if (item2.bodies_id == item.id) {
             defaultWaqf.push({
               label: item.name,
-              value: item.uid,
+              value: item.id,
               amount: item2.amount,
             });
           }

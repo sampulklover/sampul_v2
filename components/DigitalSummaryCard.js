@@ -14,6 +14,10 @@ const DigitalSummaryCard = ({
   summary,
   showBeloved = false,
   belovedData = [],
+  bodyList = {
+    data: [],
+    isReady: false,
+  },
 }) => {
   const router = useRouter();
 
@@ -86,17 +90,21 @@ const DigitalSummaryCard = ({
               </thead>
               <tbody>
                 {type[typeName].data.map((item, index) => {
-                  let platform = servicePlatforms().find(
-                    (x) => x.value === item.service_platform
+                  const spObject = bodyList?.data.find(
+                    (x) => x.value === item.bodies_id
                   );
 
-                  const platformIdentity = {
+                  const platform = {
                     name: item?.new_service_platform_name
                       ? item.new_service_platform_name
-                      : platform.name,
+                      : spObject?.name,
                     icon: item?.new_service_platform_name
                       ? '/images/Displacement-p-500.png'
-                      : platform.img,
+                      : spObject?.details?.icon
+                      ? `data:image/svg+xml,${encodeURIComponent(
+                          spObject?.details?.icon
+                        )}`
+                      : '/images/Displacement-p-500.png',
                   };
 
                   const declaredValue = item.declared_value_myr
@@ -133,13 +141,13 @@ const DigitalSummaryCard = ({
                         <div class="custom-table-cell">
                           <img
                             loading="lazy"
-                            src={platformIdentity.icon}
+                            src={platform.icon}
                             alt=""
                             class="avatar-8"
                           />
                           <div>
                             <div class="smpl_text-sm-medium crop-text">
-                              {platformIdentity.name}
+                              {platform.name}
                             </div>
                             <div class="smpl_text-sm-regular crop-text">
                               {item.email}

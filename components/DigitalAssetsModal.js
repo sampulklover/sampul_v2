@@ -34,7 +34,14 @@ const DigitalAssetsModal = ({
   keyType,
   selectedItem,
   refreshFunction,
-  belovedList,
+  belovedList = {
+    data: [],
+    isReady: false,
+  },
+  bodyList = {
+    data: [],
+    isReady: false,
+  },
 }) => {
   const { user } = useUser();
   const router = useRouter();
@@ -70,7 +77,7 @@ const DigitalAssetsModal = ({
         elements: {
           username: document.getElementById('input-digital-assets-username'),
           email: document.getElementById('input-digital-assets-email'),
-          service_platform: document.getElementById(
+          bodies_id: document.getElementById(
             'select-digital-assets-service-platform'
           ),
           new_service_platform_name: document.getElementById(
@@ -315,7 +322,7 @@ const DigitalAssetsModal = ({
   };
 
   const checkBeloved = () => {
-    if (belovedList.length == 0) {
+    if (belovedList.data.length == 0) {
       return (
         <div
           class="alert text-center empty-beloved-card"
@@ -420,14 +427,14 @@ const DigitalAssetsModal = ({
                   for={`select-digital-assets-service-platform`}
                   class="uui-field-label"
                 >
-                  Service Platform
+                  Service Platform <Loading loading={!bodyList.isReady} />
                 </label>
                 <select
                   id={`select-digital-assets-service-platform`}
                   class="form-select"
                   required={!newServicePlatform ? true : false}
                 >
-                  {servicePlatforms().map((item) => (
+                  {bodyList.data.map((item) => (
                     <option key={item.value} value={item.value}>
                       {item.name}
                     </option>
@@ -596,20 +603,19 @@ const DigitalAssetsModal = ({
                   for={`select-digital-assets-beloved`}
                   class="uui-field-label"
                 >
-                  Beneficiary
+                  Beneficiary <Loading loading={!belovedList.isReady} />
                 </label>
                 <select
                   id={`select-digital-assets-beloved`}
                   required
                   class="form-select"
                 >
-                  {belovedList.map((item) => (
+                  {belovedList.data.map((item) => (
                     <option key={item.value} value={item.value}>
                       {item.name}
                     </option>
                   ))}
                 </select>
-
                 {checkBeloved()}
               </div>
 
