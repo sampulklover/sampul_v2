@@ -51,6 +51,7 @@ const MyDetails = ({ isModal = false }) => {
           address_2: document.getElementById('input-my-details-address-2'),
           city: document.getElementById('input-my-details-city'),
           postcode: document.getElementById('input-my-details-postcode'),
+          state: document.getElementById('input-my-details-state'),
           country: document.getElementById('select-my-details-country'),
           image_path: document.getElementById('preview-my-details-image'),
         },
@@ -371,7 +372,7 @@ const MyDetails = ({ isModal = false }) => {
           ),
         })}
 
-        <div class="row align-items-start">
+        <div class={`${isModal ? '' : 'row'} align-items-start`}>
           <div class="col-lg">
             <label for="input-my-details-address-1" class="uui-field-label">
               Address
@@ -391,31 +392,52 @@ const MyDetails = ({ isModal = false }) => {
               id="input-my-details-address-2"
               placeholder="Address 2"
             />
-            <input
-              type="text"
-              class="form-control mt-2"
-              id="input-my-details-city"
-              required
-              placeholder="City"
-            />
-            <input
-              type="text"
-              class="form-control mt-2"
-              id="input-my-details-postcode"
-              required
-              placeholder="Postcode"
-            />
-            <select
-              id="select-my-details-country"
-              required
-              class="form-select mt-2"
-            >
-              {countries().map((item) => (
-                <option key={item.value} value={item.value}>
-                  {item.name}
-                </option>
-              ))}
-            </select>
+
+            <div class="form-content-2">
+              <div class="form-field-wrapper">
+                <input
+                  type="text"
+                  class="form-control mt-2"
+                  id="input-my-details-city"
+                  required
+                  placeholder="City"
+                />
+              </div>
+              <div class="form-field-wrapper mr-2">
+                <input
+                  type="text"
+                  class="form-control mt-2"
+                  id="input-my-details-postcode"
+                  required
+                  placeholder="Postcode"
+                />
+              </div>
+            </div>
+
+            <div class="form-content-2 mb-3">
+              <div class="form-field-wrapper">
+                <input
+                  type="text"
+                  class="form-control mt-2"
+                  id="input-my-details-state"
+                  required
+                  placeholder="State"
+                />
+              </div>
+              <div class="form-field-wrapper">
+                <select
+                  id="select-my-details-country"
+                  required
+                  class="form-select mt-2"
+                >
+                  {countries().map((item) => (
+                    <option key={item.value} value={item.value}>
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
           </div>
         </div>
         {isModal ? (

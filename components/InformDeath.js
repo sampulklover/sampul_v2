@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Loading from './Laoding';
-import { addUserImg, emptyUserImg } from '../constant/element';
+import { addFileImg, emptyUserImg } from '../constant/element';
 import { countries, maritalStatus, religions } from '../constant/enum';
 import { useUser } from '../context/user';
 import { supabase } from '../utils/supabase';
@@ -25,8 +25,9 @@ const InformDeath = () => {
   });
   const [selectedImage, setSelectedImage] = useState({
     data: null,
-    url: addUserImg,
+    url: addFileImg,
     deleted: false,
+    current_file_url: '',
   });
 
   useEffect(() => {
@@ -45,10 +46,9 @@ const InformDeath = () => {
           ),
           nric_name: document.getElementById('input-inform-death-nric-name'),
           nric_no: document.getElementById('input-inform-death-nric-no'),
-          certification: document.getElementById(
-            'input-inform-death-certification'
+          certification_id: document.getElementById(
+            'input-inform-death-certification-id'
           ),
-          image_path: document.getElementById('preview-inform-death-image'),
         },
       },
     };
@@ -123,6 +123,16 @@ const InformDeath = () => {
         target: element,
         viewOnly: false,
       });
+
+      if (mapData.image_path) {
+        setSelectedImage({
+          ...selectedImage,
+          data: null,
+          url: addFileImg,
+          deleted: false,
+          current_file_url: `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${mapData.image_path}`,
+        });
+      }
     }
 
     setSummary({
@@ -189,8 +199,10 @@ const InformDeath = () => {
       return;
     }
 
-    const directory = `/avatar/inform_death/`;
-    const imageInput = document.getElementById('input-inform-death-image');
+    const directory = `/inform_death/certificate/`;
+    const imageInput = document.getElementById(
+      'input-inform-death-certificate-file'
+    );
 
     await replaceOrAddImage({
       userId: user?.uuid,
@@ -208,36 +220,41 @@ const InformDeath = () => {
       ...summary,
       isSaving: false,
     });
+
+    getInvites();
   };
 
-  const handleDrop = (event) => {
-    event.preventDefault();
-    const file = event.dataTransfer.files[0];
-    if (file.type.startsWith('image/')) {
-      const imageURL = URL.createObjectURL(file);
-      setSelectedImage({
-        data: file,
-        url: imageURL,
-        deleted: false,
-      });
-      updateImageInput(file);
-    }
-  };
+  // const handleDrop = (event) => {
+  //   event.preventDefault();
+  //   const file = event.dataTransfer.files[0];
+  //   // if (file.type.startsWith('image/')) {
+  //   const imageURL = URL.createObjectURL(file);
+  //   setSelectedImage({
+  // ...selectedImage,
+  //     data: file,
+  //     url: imageURL,
+  //     deleted: false,
+  //   });
+  //   updateImageInput(file);
+  //   // }
+  // };
 
-  function updateImageInput(file) {
-    const imageInput = document.getElementById('input-inform-death-image');
-    const newFile = new File([file], file.name, {
-      type: file.type,
-      lastModified: file.lastModified,
-    });
-    const fileList = new DataTransfer();
-    fileList.items.add(newFile);
-    imageInput.files = fileList.files;
-  }
+  // function updateImageInput(file) {
+  //   const imageInput = document.getElementById(
+  //     'input-inform-death-certificate-file'
+  //   );
+  //   const newFile = new File([file], file.name, {
+  //     type: file.type,
+  //     lastModified: file.lastModified,
+  //   });
+  //   const fileList = new DataTransfer();
+  //   fileList.items.add(newFile);
+  //   imageInput.files = fileList.files;
+  // }
 
-  const handleDragOver = (event) => {
-    event.preventDefault();
-  };
+  // const handleDragOver = (event) => {
+  //   event.preventDefault();
+  // };
 
   return (
     <>
@@ -335,70 +352,107 @@ const InformDeath = () => {
           </div>
         </div>
 
-        <div class="row mb-4">
-          <div class="col-lg">
-            <label class="uui-field-label">Image verification</label>
+        <div class="row mb-4 align-items-start">
+          <div class="col-lg ">
+            <label class="uui-field-label">Death Certification</label>
           </div>
           <div
             class="col text-end"
-            onDrop={handleDrop}
-            onDragOver={handleDragOver}
+            // onDrop={handleDrop}
+            // onDragOver={handleDragOver}
           >
-            <span
+            {/* <span
               type="button"
               onClick={() => {
                 setSelectedImage({
                   ...selectedImage,
-                  url: addUserImg,
+                  url: addFileImg,
                   deleted: true,
                 });
                 document.getElementById('preview-inform-death-image').src =
-                  addUserImg;
+                  addFileImg;
               }}
             >
               <i class="bi bi-x"></i>
-            </span>
-            <img
+            </span> */}
+            {/* <img
               loading="lazy"
               src={selectedImage.url}
               alt=""
               class="img-thumbnail"
               id="preview-inform-death-image"
               onClick={() => {
-                document.getElementById('input-inform-death-image').click();
+                document
+                  .getElementById('input-inform-death-certificate-file')
+                  .click();
               }}
-            />
-            <input
-              type="file"
-              id="input-inform-death-image"
-              name=""
-              accept="image/*"
-              style={{ display: 'none' }}
-              onChange={(event) => {
-                let imageURL = URL.createObjectURL(event.target.files[0]);
-                setSelectedImage({
-                  data: event.target.files[0],
-                  url: imageURL,
-                  deleted: false,
-                });
-              }}
-            />
+            /> */}
+
+            <span class="pointer-on-hover d-flex mb-3">
+              {selectedImage.current_file_url && selectedImage.data == null ? (
+                <>
+                  <Link
+                    href={selectedImage.current_file_url}
+                    target="_blank"
+                    class="me-2 text-primary"
+                    style={{ 'text-decoration': 'none' }}
+                  >
+                    <i class="bi bi-file-earmark-check-fill"></i> click to view
+                    file
+                  </Link>
+                  <i
+                    class="bi bi-x"
+                    onClick={() => {
+                      document.getElementById(
+                        'input-inform-death-certificate-file'
+                      ).value = '';
+                      setSelectedImage({
+                        ...selectedImage,
+                        data: null,
+                        url: addFileImg,
+                        deleted: true,
+                        current_file_url: '',
+                      });
+                    }}
+                  ></i>
+                </>
+              ) : (
+                ''
+              )}
+            </span>
+            <div class="input-group">
+              <input
+                class="form-control"
+                type="file"
+                id="input-inform-death-certificate-file"
+                accept="application/pdf"
+                onChange={(event) => {
+                  let imageURL = URL.createObjectURL(event.target.files[0]);
+                  setSelectedImage({
+                    ...selectedImage,
+                    data: event.target.files[0],
+                    url: imageURL,
+                    deleted: false,
+                  });
+                }}
+              />
+            </div>
           </div>
         </div>
         <div class="row mb-4">
           <div class="col-lg">
             <label
-              for="input-inform-death-certification"
+              for="input-inform-death-certification-id"
               class="uui-field-label"
             >
-              Death Certification
+              Death Certification ID
             </label>
           </div>
           <div class="col">
             <input
               type="text"
               class="form-control"
-              id="input-inform-death-certification"
+              id="input-inform-death-certification-id"
               required
             />
           </div>
