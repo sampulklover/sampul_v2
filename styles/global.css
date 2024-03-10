@@ -199,6 +199,82 @@
   font-weight: 500;
   line-height: 1.5;
 }
+
+.my-badge-green {
+  height: 100%;
+  padding-left: 8px; 
+  padding-right: 8px; 
+  padding-top: 2px; 
+  padding-bottom: 2px; 
+  background: #ECFDF3; 
+  border-radius: 9999px; 
+  border: 1px #ABEFC6 solid; 
+  justify-content: flex-start; 
+  align-items: center; display: 
+  inline-flex;  
+  text-align: center; 
+  color: #067647; 
+  font-size: 12px; 
+  font-weight: 500; 
+  line-height: 18px; 
+  word-wrap: break-word
+}
+
+.my-badge-blue {
+  height: 100%;
+  padding-left: 8px; 
+  padding-right: 8px; 
+  padding-top: 2px; 
+  padding-bottom: 2px; 
+  background: #EEF4FF; 
+  border-radius: 9999px; 
+  border: 1px #C7D7FE solid; 
+  justify-content: flex-start; 
+  align-items: center; display: 
+  inline-flex;  
+  text-align: center; 
+  color: #3538CD; 
+  font-size: 12px; 
+  font-weight: 500; 
+  line-height: 18px; 
+  word-wrap: break-word
+}
+
+.my-badge-orange {
+  height: 100%;
+  padding-left: 8px; 
+  padding-right: 8px; 
+  padding-top: 2px; 
+  padding-bottom: 2px; 
+  background: #FEF6EE; 
+  border-radius: 9999px; 
+  border: 1px #F9DBAF solid; 
+  justify-content: flex-start; 
+  align-items: center; display: 
+  inline-flex;  
+  text-align: center; 
+  color: #B93815; 
+  font-size: 12px; 
+  font-weight: 500; 
+  line-height: 18px; 
+  word-wrap: break-word
+}
+
+.draft-image {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  opacity: .3;
+}
+
+@media (min-width: 768px) {
+  .draft-image {
+    margin-right: 30%; 
+  }
+}
+
 /* webflow */
 
 .uui-contact05_image {
@@ -16419,14 +16495,14 @@
   line-height: 24px;
 }
 
-.row {
+/* .row {
   width: 100%;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   justify-content: flex-start;
   align-items: center;
   display: flex;
-}
+} */
 
 .checkbox-2 {
   width: 246px;

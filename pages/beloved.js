@@ -719,7 +719,10 @@ const Beloved = () => {
             refreshFunction={initFunction}
           />
           <div class="mt-4">{title()}</div>
-          <div class="row mt-4">
+          <div
+            class="row mt-4"
+            style={{ 'align-items': 'center', display: 'flex' }}
+          >
             <div class="col-lg align-self-start">{belovedCard()}</div>
             <div class="col-lg">
               <img

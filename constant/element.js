@@ -1,4 +1,4 @@
-export const addUserImg = `https://image.pngaaa.com/291/5335291-middle.png`;
+export const addUserImg = `/images/profile_picture_of_man_in_green_shirt_and_orange_hat.png`;
 export const addFileImg = '/images/drag_drop_file.png';
 export const emptyUserImg = `https://image.pngaaa.com/291/5335291-middle.png`;
 export const bucketName = 'images';

@@ -362,11 +362,19 @@ const WillActionButtons = ({
   return (
     <>
       <ShareModal url={shareUrl} title="Will Certificate" />
-      <div class="text-md-right text-md-end text-center">
+      <div
+        class={`text-md-right ${
+          router?.pathname == '/dashboard'
+            ? 'text-md-start mt-4'
+            : 'text-md-end'
+        } text-center`}
+      >
         <button
           type="button"
           class={`btn ${
-            router?.pathname == '/view-will' ? 'btn-primary' : 'btn-light'
+            router?.pathname == '/dashboard'
+              ? 'btn-light bg-white'
+              : 'btn-light'
           } btn-text btn-lg me-1 mb-1`}
           onClick={() => {
             var is_completed = checkCompleteProfile();
@@ -382,6 +390,25 @@ const WillActionButtons = ({
           }}
         >
           Share
+          <svg
+            width="20"
+            height="21"
+            viewBox="0 0 20 21"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            class="ms-2"
+          >
+            <g id="share-04">
+              <path
+                id="Icon"
+                d="M17.5 7.62988L17.5 2.62988M17.5 2.62988H12.5M17.5 2.62988L10.8333 9.29655M8.33333 4.29655H6.5C5.09987 4.29655 4.3998 4.29655 3.86502 4.56903C3.39462 4.80872 3.01217 5.19117 2.77248 5.66157C2.5 6.19635 2.5 6.89642 2.5 8.29655V13.6299C2.5 15.03 2.5 15.7301 2.77248 16.2649C3.01217 16.7353 3.39462 17.1177 3.86502 17.3574C4.3998 17.6299 5.09987 17.6299 6.5 17.6299H11.8333C13.2335 17.6299 13.9335 17.6299 14.4683 17.3574C14.9387 17.1177 15.3212 16.7353 15.5608 16.2649C15.8333 15.7301 15.8333 15.03 15.8333 13.6299V11.7965"
+                stroke="#344054"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </g>
+          </svg>
         </button>
         {/* <button
           type="button"
@@ -423,6 +450,34 @@ const WillActionButtons = ({
             }}
           >
             <Loading title="Generate Wasiat" loading={buttonLoading.generate} />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="21"
+              viewBox="0 0 20 21"
+              fill="none"
+              class="ms-2"
+            >
+              <g clip-path="url(#clip0_158_1895)">
+                <path
+                  d="M10.8335 1.79651L3.41142 10.7031C3.12075 11.0519 2.97541 11.2263 2.97319 11.3736C2.97126 11.5016 3.02832 11.6234 3.12792 11.7039C3.2425 11.7965 3.46952 11.7965 3.92357 11.7965H10.0002L9.16688 18.4632L16.589 9.55663C16.8797 9.20782 17.025 9.03342 17.0272 8.88612C17.0292 8.75808 16.9721 8.63626 16.8725 8.55576C16.7579 8.46318 16.5309 8.46318 16.0768 8.46318H10.0002L10.8335 1.79651Z"
+                  stroke="white"
+                  stroke-width="1.66667"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_158_1895">
+                  <rect
+                    width="20"
+                    height="20"
+                    fill="white"
+                    transform="translate(0 0.129883)"
+                  />
+                </clipPath>
+              </defs>
+            </svg>
           </button>
         )}
       </div>

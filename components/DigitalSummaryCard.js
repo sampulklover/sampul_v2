@@ -115,8 +115,6 @@ const DigitalSummaryCard = ({
                     (x) => x.value === item.instructions_after_death
                   );
 
-                  const instructionsName = instructions?.name || '';
-
                   const beloved = belovedData.find(
                     (x) => x.id === item?.beloved_id
                   );
@@ -133,6 +131,7 @@ const DigitalSummaryCard = ({
                   let accountType = servicePlatformAccountTypes().find(
                     (y) => y.value === item.account_type
                   );
+
                   const accountTypeName = accountType?.name || '';
 
                   return (
@@ -199,39 +198,9 @@ const DigitalSummaryCard = ({
                       )}
                       <td>
                         <div class="custom-table-cell">
-                          <div class="badge-instructions w-inline-block">
-                            <div class="html-embed-9 w-embed">
-                              <svg
-                                width="12"
-                                height="12"
-                                viewBox="0 0 12 12"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <g clip-path="url(#clip0_5391_410258)">
-                                  <path
-                                    d="M5.24976 6.75009L10.4998 1.50009M5.31355 6.91412L6.62761 10.2931C6.74337 10.5908 6.80125 10.7396 6.88465 10.7831C6.95695 10.8208 7.04308 10.8208 7.11542 10.7832C7.19887 10.7399 7.25693 10.5911 7.37304 10.2936L10.6682 1.84969C10.773 1.5811 10.8254 1.4468 10.7968 1.36099C10.7719 1.28646 10.7134 1.22798 10.6389 1.20308C10.553 1.17441 10.4188 1.22682 10.1502 1.33164L1.70629 4.62681C1.40875 4.74292 1.25998 4.80098 1.21663 4.88443C1.17904 4.95677 1.1791 5.0429 1.21676 5.1152C1.26022 5.1986 1.40905 5.25648 1.70673 5.37224L5.08573 6.6863C5.14615 6.70979 5.17636 6.72154 5.20181 6.73969C5.22435 6.75577 5.24407 6.77549 5.26016 6.79804C5.2783 6.82348 5.29005 6.85369 5.31355 6.91412Z"
-                                    stroke="#667085"
-                                    stroke-width="1.5"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                  ></path>
-                                </g>
-                                <defs>
-                                  <clipPath id="clip0_5391_410258">
-                                    <rect
-                                      width="12"
-                                      height="12"
-                                      fill="white"
-                                    ></rect>
-                                  </clipPath>
-                                </defs>
-                              </svg>
-                            </div>
-                            <span class="text-xs-medium crop-text">
-                              {instructionsName}
-                            </span>
-                          </div>
+                          <span class={`my-badge-${instructions?.theme}`}>
+                            {instructions?.name}
+                          </span>
                         </div>
                       </td>
                       {showBeloved ? (
@@ -257,6 +226,22 @@ const DigitalSummaryCard = ({
                 <Link href="digital-assets">
                   <button type="button" class="btn btn-light btn-text">
                     <Loading title="Show All" />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="21"
+                      viewBox="0 0 20 21"
+                      fill="none"
+                      class="ms-2"
+                    >
+                      <path
+                        d="M4.1665 10.1298H15.8332M15.8332 10.1298L9.99984 4.29651M15.8332 10.1298L9.99984 15.9632"
+                        stroke="#344054"
+                        stroke-width="1.66667"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
                   </button>
                 </Link>
               </div>
