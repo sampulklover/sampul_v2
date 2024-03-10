@@ -238,9 +238,9 @@ export const declaredValues = () => {
 
 export const instructionsAfterDeath = () => {
   const options = [
-    { name: 'Faraid', value: 'faraid' },
-    { name: 'Transfer as gift', value: 'transfer_as_gift' },
-    { name: 'Terminate', value: 'terminate' },
+    { name: 'Faraid', value: 'faraid', theme: 'green' },
+    { name: 'Transfer as gift', value: 'transfer_as_gift', theme: 'blue' },
+    { name: 'Terminate', value: 'terminate', theme: 'orange' },
   ];
 
   return options;
