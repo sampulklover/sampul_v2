@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 import QRCode from 'react-qr-code';
 import { formatTimestamp } from '../utils/helpers';
 import DigitalSummaryCard from './DigitalSummaryCard';
+import AdditionalRequestTable from './AdditionalRequestTable';
 
 const WillDetailsCard = ({ willData }) => {
   const [belovedDetails, setBelovedDetails] = useState({
@@ -354,6 +355,54 @@ const WillDetailsCard = ({ willData }) => {
               }}
               showBeloved={true}
               belovedData={willData.data?.beloved}
+            />
+          </div>
+        </div>
+        <div>
+          <div class="content_overview_digital-subscribtions mt-3">
+            <div class="card-header-2">
+              <div class="content-33">
+                <div class="smpl-icon-featured-outline-large">
+                  <div class="icon-featured-medium w-embed">
+                    <svg
+                      width="24"
+                      height="24"
+                      viewbox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M8 8H8.01M4.56274 2.93726L2.93726 4.56274C2.59136 4.90864 2.4184 5.0816 2.29472 5.28343C2.18506 5.46237 2.10425 5.65746 2.05526 5.86154C2 6.09171 2 6.3363 2 6.82548L2 9.67452C2 10.1637 2 10.4083 2.05526 10.6385C2.10425 10.8425 2.18506 11.0376 2.29472 11.2166C2.4184 11.4184 2.59135 11.5914 2.93726 11.9373L10.6059 19.6059C11.7939 20.7939 12.388 21.388 13.0729 21.6105C13.6755 21.8063 14.3245 21.8063 14.927 21.6105C15.612 21.388 16.2061 20.7939 17.3941 19.6059L19.6059 17.3941C20.7939 16.2061 21.388 15.612 21.6105 14.927C21.8063 14.3245 21.8063 13.6755 21.6105 13.0729C21.388 12.388 20.7939 11.7939 19.6059 10.6059L11.9373 2.93726C11.5914 2.59136 11.4184 2.4184 11.2166 2.29472C11.0376 2.18506 10.8425 2.10425 10.6385 2.05526C10.4083 2 10.1637 2 9.67452 2L6.82548 2C6.3363 2 6.09171 2 5.86154 2.05526C5.65746 2.10425 5.46237 2.18506 5.28343 2.29472C5.0816 2.4184 4.90865 2.59135 4.56274 2.93726ZM8.5 8C8.5 8.27614 8.27614 8.5 8 8.5C7.72386 8.5 7.5 8.27614 7.5 8C7.5 7.72386 7.72386 7.5 8 7.5C8.27614 7.5 8.5 7.72386 8.5 8Z"
+                        stroke="#3118D3"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                    </svg>
+                  </div>
+                </div>
+                <div class="text-and-supporting-text-19">
+                  <div class="text-and-badge-copy">
+                    <div class="smpl_text-lg-semibold">
+                      List of Additional Bequests
+                      <span class="text-span-5">
+                        <sup class="superscript">Table-2</sup>
+                      </span>
+                    </div>
+                    <div class="smpl_text-sm-medium text-align-left">
+                      List of additional requests.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <AdditionalRequestTable
+              typeName="extra_wishes"
+              summary={{
+                data: willData.data,
+                isReady: willData.isReady,
+              }}
             />
           </div>
         </div>
