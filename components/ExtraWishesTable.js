@@ -10,7 +10,7 @@ import Loading from './Laoding';
 import { emptyUserImg } from '../constant/element';
 import { useEffect, useState } from 'react';
 
-const AdditionalRequestTable = ({ typeName, summary }) => {
+const ExtraWishesTable = ({ typeName, summary }) => {
   const router = useRouter();
   const [bodyList, setBodyList] = useState([]);
 
@@ -79,8 +79,7 @@ const AdditionalRequestTable = ({ typeName, summary }) => {
                           item.bodyData.icon
                         )}`
                       : '/images/Displacement-p-500.png',
-                    value: `RM ${item.amount.toLocaleString()}`,
-                    instruction: 'asd',
+                    value: `RM ${Number(item.amount).toLocaleString()}`,
                     category: item.category,
                   };
 
@@ -228,4 +227,4 @@ const AdditionalRequestTable = ({ typeName, summary }) => {
   );
 };
 
-export default AdditionalRequestTable;
+export default ExtraWishesTable;
