@@ -353,6 +353,10 @@ const WillDetailsCard = ({ willData }) => {
                 data: willData.data?.digitalAssets,
                 isReady: willData.isReady,
               }}
+              bodyList={{
+                data: willData.data?.bodies,
+                isReady: willData.isReady,
+              }}
               showBeloved={true}
               belovedData={willData.data?.beloved}
             />

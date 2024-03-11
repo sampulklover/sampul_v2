@@ -113,14 +113,14 @@ const Dashboard = () => {
       return;
     }
 
-    const modifiedData = data.map((item) => ({
-      value: item.id,
-      name: item.name,
-      details: item,
-    }));
+    // const modifiedData = data.map((item) => ({
+    //   value: item.id,
+    //   name: item.name,
+    //   details: item,
+    // }));
 
     setBodyList({
-      data: modifiedData,
+      data: data,
       isReady: true,
     });
   };
