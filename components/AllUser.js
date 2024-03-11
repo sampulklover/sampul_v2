@@ -14,50 +14,10 @@ import {
 import toast from 'react-hot-toast';
 import UserDetailsModal from './UserDetailsModal';
 
-const MyDetails = ({ isModal = false }) => {
-  const { user } = useUser();
-  const router = useRouter();
-  const [runEffect, setRunEffect] = useState(false);
-  const [summary, setSummary] = useState({
-    data: [],
-    isReady: false,
-  });
+const MyDetails = ({ summary, refreshFunction }) => {
   const [selectedUser, setSelectedUser] = useState({
     userDetails: null,
   });
-
-  useEffect(() => {
-    if (!runEffect && user?.uuid) {
-      setRunEffect(true);
-      getProfiles();
-    }
-  }, [user, runEffect]);
-
-  const getProfiles = async () => {
-    setSummary({
-      ...summary,
-      isReady: false,
-    });
-
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('*, accounts (*), roles (*), beloved (*)');
-
-    if (error) {
-      setSummary({
-        ...summary,
-        isReady: true,
-      });
-      toast.error(error.message);
-      return;
-    }
-
-    setSummary({
-      ...summary,
-      data: data,
-      isReady: false,
-    });
-  };
 
   const openUserModal = (item) => {
     setSelectedUser({
@@ -74,9 +34,11 @@ const MyDetails = ({ isModal = false }) => {
 
   return (
     <div class="mt-3">
+      <Loading loading={summary.isLoading} />
       <UserDetailsModal
         selectedUser={selectedUser.userDetails}
-        refreshFunction={getProfiles}
+        refreshFunction={refreshFunction}
+        summary={summary}
       />
       <div class="table-responsive" style={{ width: '100%' }}>
         <table class="table table-hover">
@@ -96,7 +58,7 @@ const MyDetails = ({ isModal = false }) => {
             </tr>
           </thead>
           <tbody>
-            {summary?.data.map((item, index) => {
+            {summary.data?.profiles.map((item, index) => {
               const userImg = item?.image_path
                 ? `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${item.image_path}`
                 : emptyUserImg;

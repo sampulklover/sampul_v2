@@ -378,6 +378,15 @@ export const userRoles = () => {
   return options;
 };
 
+export const trueFalse = () => {
+  const options = [
+    { name: 'Yes', value: true },
+    { name: 'No', value: false },
+  ];
+
+  return options;
+};
+
 export const bodiesCategory = () => {
   const options = [
     { name: 'Social Media', value: 'social_media' },

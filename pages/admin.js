@@ -27,8 +27,16 @@ const Admin = () => {
   const router = useRouter();
   const { user } = useUser();
 
+  const [summary, setSummary] = useState({
+    data: {
+      profiles: [],
+      bodies: [],
+    },
+    isLoading: false,
+  });
+
   useEffect(() => {
-    if (router.isReady && document) {
+    if (router.isLoading && document) {
       setTimeout(() => {
         const activeTab = router.query.tab;
 
@@ -40,7 +48,53 @@ const Admin = () => {
         }
       }, 500);
     }
-  }, [router.isReady]);
+  }, [router.isLoading]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    setSummary({
+      ...summary,
+      isLoading: true,
+    });
+
+    try {
+      const [profilesResult, bodiesResult] = await Promise.all([
+        supabase
+          .from('profiles')
+          .select(
+            '*, accounts (*), roles (*), beloved (*), digital_assets (*)'
+          ),
+        supabase.from('bodies').select('*').order('id', { ascending: false }),
+      ]);
+
+      if (profilesResult.error || bodiesResult.error) {
+        setSummary({
+          ...summary,
+          isLoading: false,
+        });
+        if (profilesResult.error) toast.error(profilesResult.error.message);
+        if (bodiesResult.error) toast.error(bodiesResult.error.message);
+        return;
+      }
+
+      setSummary({
+        ...summary,
+        data: {
+          profiles: profilesResult.data,
+          bodies: bodiesResult.data,
+        },
+        isLoading: false,
+      });
+    } catch (error) {
+      setSummary({
+        ...summary,
+        isLoading: false,
+      });
+    }
+  };
 
   const title = () => {
     return (
@@ -99,7 +153,7 @@ const Admin = () => {
             role="tabpanel"
             aria-labelledby="nav-users-tab"
           >
-            <AllUser />
+            <AllUser summary={summary} refreshFunction={fetchData} />
           </div>
           <div
             class="tab-pane fade"
@@ -107,7 +161,7 @@ const Admin = () => {
             role="tabpanel"
             aria-labelledby="nav-bodies-tab"
           >
-            <ManageBodies />
+            <ManageBodies summary={summary} refreshFunction={fetchData} />
           </div>
         </div>
       </div>

@@ -101,6 +101,7 @@ const Dashboard = () => {
     const { data, error } = await supabase
       .from('bodies')
       .select('*')
+      .eq('active', true)
       .neq('category', 'waqaf')
       .neq('category', 'sadaqah_waqaf_zakat');
 

@@ -19,48 +19,10 @@ import {
 import toast from 'react-hot-toast';
 import BodyDetailsModal from './BodyDetailsModal';
 
-const ManageBodies = ({ isModal = false }) => {
-  const { user } = useUser();
-  const router = useRouter();
-  const [runEffect, setRunEffect] = useState(false);
-  const [summary, setSummary] = useState({
-    data: [],
-    isReady: false,
-  });
+const ManageBodies = ({ summary, refreshFunction }) => {
   const [selectedBody, setSelectedBody] = useState({
     bodyDetails: null,
   });
-
-  useEffect(() => {
-    if (!runEffect && user?.uuid) {
-      setRunEffect(true);
-      getBodies();
-    }
-  }, [user, runEffect]);
-
-  const getBodies = async () => {
-    setSummary({
-      ...summary,
-      isReady: false,
-    });
-
-    const { data, error } = await supabase.from('bodies').select('*');
-
-    if (error) {
-      setSummary({
-        ...summary,
-        isReady: true,
-      });
-      toast.error(error.message);
-      return;
-    }
-
-    setSummary({
-      ...summary,
-      data: data,
-      isReady: false,
-    });
-  };
 
   const openBodyModal = (item) => {
     setSelectedBody({
@@ -77,11 +39,29 @@ const ManageBodies = ({ isModal = false }) => {
 
   return (
     <div class="mt-3">
+      <Loading loading={summary.isLoading} />
       <BodyDetailsModal
         selectedBody={selectedBody.bodyDetails}
-        refreshFunction={getBodies}
+        refreshFunction={refreshFunction}
       />
       <div class="table-responsive" style={{ width: '100%' }}>
+        <div class="row mb-4">
+          <div class="col-lg"></div>
+          <div class="col text-end mt-md-0 mt-3">
+            <button
+              class="btn btn-primary btn-lg btn-text"
+              onClick={() => {
+                $('#body-details-modal')?.modal('show');
+                setSelectedBody({
+                  ...selectedBody,
+                  bodyDetails: null,
+                });
+              }}
+            >
+              <span>Create New</span>
+            </button>
+          </div>
+        </div>
         <table class="table table-hover">
           <thead>
             <tr>
@@ -90,10 +70,13 @@ const ManageBodies = ({ isModal = false }) => {
                   Body / Service Platform
                 </small>
               </th>
+              <th scope="col">
+                <small class="smpl_text-xs-medium">Active</small>
+              </th>
             </tr>
           </thead>
           <tbody>
-            {summary?.data.map((item, index) => {
+            {summary.data.bodies.map((item, index) => {
               let category = bodiesCategory().find(
                 (x) => x.value === item.category
               );
@@ -128,6 +111,13 @@ const ManageBodies = ({ isModal = false }) => {
                         <div class="smpl_text-sm-regular crop-text">
                           {categoryName}
                         </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="custom-table-cell">
+                      <div class="smpl_text-sm-regular crop-text">
+                        {item.active ? 'Yes' : 'No'}
                       </div>
                     </div>
                   </td>
