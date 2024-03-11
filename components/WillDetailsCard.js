@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 import QRCode from 'react-qr-code';
 import { formatTimestamp } from '../utils/helpers';
 import DigitalSummaryCard from './DigitalSummaryCard';
-import AdditionalRequestTable from './AdditionalRequestTable';
+import ExtraWishesTable from './ExtraWishesTable';
 
 const WillDetailsCard = ({ willData }) => {
   const [belovedDetails, setBelovedDetails] = useState({
@@ -353,6 +353,10 @@ const WillDetailsCard = ({ willData }) => {
                 data: willData.data?.digitalAssets,
                 isReady: willData.isReady,
               }}
+              bodyList={{
+                data: willData.data?.bodies,
+                isReady: willData.isReady,
+              }}
               showBeloved={true}
               belovedData={willData.data?.beloved}
             />
@@ -397,7 +401,7 @@ const WillDetailsCard = ({ willData }) => {
               </div>
             </div>
 
-            <AdditionalRequestTable
+            <ExtraWishesTable
               typeName="extra_wishes"
               summary={{
                 data: willData.data,

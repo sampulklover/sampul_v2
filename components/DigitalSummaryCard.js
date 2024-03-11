@@ -91,7 +91,7 @@ const DigitalSummaryCard = ({
               <tbody>
                 {type[typeName].data.map((item, index) => {
                   const spObject = bodyList?.data.find(
-                    (x) => x.value === item.bodies_id
+                    (x) => x.id === item.bodies_id
                   );
 
                   const platform = {
@@ -100,9 +100,9 @@ const DigitalSummaryCard = ({
                       : spObject?.name,
                     icon: item?.new_service_platform_name
                       ? '/images/Displacement-p-500.png'
-                      : spObject?.details?.icon
+                      : spObject?.icon
                       ? `data:image/svg+xml,${encodeURIComponent(
-                          spObject?.details?.icon
+                          spObject?.icon
                         )}`
                       : '/images/Displacement-p-500.png',
                   };
