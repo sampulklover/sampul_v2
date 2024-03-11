@@ -26,7 +26,13 @@ const Beloved = () => {
   const cardRef = useRef(null);
 
   const [summary, setSummary] = useState({
-    data: { will: null, beloved: [], digitalAssets: [] },
+    data: {
+      will: null,
+      beloved: [],
+      digitalAssets: [],
+      extraWishes: null,
+      bodies: [],
+    },
     isReady: false,
   });
 
@@ -75,12 +81,47 @@ const Beloved = () => {
     return data;
   };
 
+  const fetchExtraWishesData = async () => {
+    const { data, error } = await supabase
+      .from('extra_wishes')
+      .select('*')
+      .eq('uuid', user?.uuid);
+
+    if (error) {
+      toast.error(error.message);
+    }
+
+    if (data.length > 0) {
+      return data[0];
+    } else {
+      return null;
+    }
+  };
+
+  const fetchBodiesData = async () => {
+    const { data, error } = await supabase.from('bodies').select('*');
+
+    if (error) {
+      toast.error(error.message);
+    }
+
+    return data;
+  };
+
   const getWill = async () => {
     try {
-      const [willData, belovedData, digitalAssetsData] = await Promise.all([
+      const [
+        willData,
+        belovedData,
+        digitalAssetsData,
+        extraWishesData,
+        bodiesData,
+      ] = await Promise.all([
         fetchWillData(),
         fetchBelovedData(),
         fetchDigitalAssetsData(),
+        fetchExtraWishesData(),
+        fetchBodiesData(),
       ]);
 
       setSummary({
@@ -88,6 +129,8 @@ const Beloved = () => {
           will: willData,
           beloved: belovedData,
           digitalAssets: digitalAssetsData,
+          extraWishes: extraWishesData,
+          bodies: bodiesData,
         },
         isReady: true,
       });
