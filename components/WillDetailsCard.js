@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import QRCode from 'react-qr-code';
+import { useUser } from '../context/user';
 import { formatTimestamp } from '../utils/helpers';
 import DigitalSummaryCard from './DigitalSummaryCard';
 import ExtraWishesTable from './ExtraWishesTable';
 
 const WillDetailsCard = ({ willData }) => {
+  const { user } = useUser();
+
   const [belovedDetails, setBelovedDetails] = useState({
     data: null,
     isLoading: false,
@@ -49,6 +52,9 @@ const WillDetailsCard = ({ willData }) => {
       nric_no:
         belovedDetails.data?.guardianPrimaryUser?.nric_no ??
         '[PRIMARY GUARDIAN NRIC NO]',
+      isExist: belovedDetails.data?.guardianPrimaryUser?.nric_name
+        ? true
+        : false,
     },
     secondary_guardian: {
       nric_name:
@@ -57,7 +63,12 @@ const WillDetailsCard = ({ willData }) => {
       nric_no:
         belovedDetails.data?.guardianSecondaryUser?.nric_no ??
         '[SECONDARY GUARDIAN NRIC NO]',
+      isExist: belovedDetails.data?.guardianSecondaryUser?.nric_name
+        ? true
+        : false,
     },
+    additional_request_view:
+      user.access_control?.pages?.will?.additional_requests?.access,
   };
 
   const will_settings = {
@@ -102,8 +113,9 @@ const WillDetailsCard = ({ willData }) => {
                 beneficiaries or based on Faraid.
               </p>
               <p>
-                Additional Bequests: For waqaf, sedekah, charity,
-                [Waqaf/Charitable Body] is designated as per [Table 2]
+                {myInfo.additional_request_view
+                  ? `Additional Requests: For waqaf, sedekah, charity, [Waqaf/Charitable Body] is designated as per [Table 2]`
+                  : 'Additional Requests: N/A'}
               </p>
             </div>
           ),
@@ -111,7 +123,10 @@ const WillDetailsCard = ({ willData }) => {
         },
         {
           title: '8. Guardianship',
-          description: `If my spouse predeceases me or is unable, ${myInfo.primary_guardian.nric_name}, ${myInfo.primary_guardian.nric_no} is appointed for my minor children, with ${myInfo.secondary_guardian.nric_name}, ${myInfo.secondary_guardian.nric_no} as an alternate as per [Table 1]`,
+          description:
+            myInfo.primary_guardian.isExist && myInfo.secondary_guardian.isExist
+              ? `If my spouse predeceases me or is unable, ${myInfo.primary_guardian.nric_name}, ${myInfo.primary_guardian.nric_no} is appointed for my minor children, with ${myInfo.secondary_guardian.nric_name}, ${myInfo.secondary_guardian.nric_no} as an alternate as per [Table 1]`
+              : 'N/A',
         },
         {
           title: '9. Signed by',

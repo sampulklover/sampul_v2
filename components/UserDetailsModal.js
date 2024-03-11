@@ -14,8 +14,7 @@ import { addUserImg, emptyUserImg } from '../constant/element';
 import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid';
 
-const UserDetailsModal = ({ selectedUser, refreshFunction }) => {
-  const { user } = useUser();
+const UserDetailsModal = ({ selectedUser, refreshFunction, summary }) => {
   const [isLoading, setIsLoading] = useState({
     update: false,
     delete: false,
@@ -87,7 +86,7 @@ const UserDetailsModal = ({ selectedUser, refreshFunction }) => {
 
   return (
     <div class="modal fade" id="user-details-modal">
-      <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">User Details</h5>
@@ -143,7 +142,6 @@ const UserDetailsModal = ({ selectedUser, refreshFunction }) => {
               </div>
 
               <label class="uui-field-label">Beloved List</label>
-
               <div class="table-responsive" style={{ width: '100%' }}>
                 <table class="table table-hover">
                   <thead>
@@ -219,6 +217,60 @@ const UserDetailsModal = ({ selectedUser, refreshFunction }) => {
                   </tbody>
                 </table>
               </div>
+
+              <label class="uui-field-label">Digital Assets List</label>
+
+              <div class="table-responsive" style={{ width: '100%' }}>
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">
+                        <small class="smpl_text-xs-medium">Platforms</small>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {selectedUser?.digital_assets.map((item, index) => {
+                      const bodies = summary.data?.bodiesData.find(
+                        (x) => x.id === item.bodies_id
+                      );
+
+                      const platform = {
+                        name: bodies?.name,
+                        website_url: bodies?.website_url,
+                        icon: bodies?.icon
+                          ? `data:image/svg+xml,${encodeURIComponent(
+                              bodies?.icon
+                            )}`
+                          : '/images/Displacement-p-500.png',
+                      };
+
+                      return (
+                        <tr key={index}>
+                          <td>
+                            <div class="custom-table-cell">
+                              <img
+                                loading="lazy"
+                                src={platform.icon}
+                                class="avatar-8"
+                              />
+                              <div>
+                                <div class="smpl_text-sm-medium crop-text">
+                                  {platform.name}
+                                </div>
+                                <div class="smpl_text-sm-regular crop-text">
+                                  {platform.website_url}
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+
               <div class="d-grid gap-2 mt-5">
                 <button type="submit" class="btn btn-primary btn-lg btn-text">
                   <Loading title="Save" loading={isLoading.update} />

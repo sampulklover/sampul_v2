@@ -99,7 +99,10 @@ const Beloved = () => {
   };
 
   const fetchBodiesData = async () => {
-    const { data, error } = await supabase.from('bodies').select('*');
+    const { data, error } = await supabase
+      .from('bodies')
+      .select('*')
+      .eq('active', true);
 
     if (error) {
       toast.error(error.message);

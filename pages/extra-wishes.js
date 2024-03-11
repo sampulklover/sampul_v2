@@ -183,7 +183,8 @@ const ExtraWishes = () => {
       const getExtraWishes = async () => {
         const { data: bodiesData, error: bodiesError } = await supabase
           .from('bodies')
-          .select('*');
+          .select('*')
+          .eq('active', true);
 
         if (bodiesError) {
           toast.error(error.message);

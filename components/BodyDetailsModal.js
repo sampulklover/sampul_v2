@@ -7,6 +7,7 @@ import {
   belovedLevel,
   beneficiaryTypes,
   bodiesCategory,
+  trueFalse,
   relationships,
   userRoles,
 } from '../constant/enum';
@@ -33,6 +34,7 @@ const BodyDetailsModal = ({ selectedBody, refreshFunction }) => {
           name: document.getElementById('input-body-name'),
           website_url: document.getElementById('input-body-website-url'),
           category: document.getElementById('select-body-category'),
+          active: document.getElementById('select-body-active'),
           icon: document.getElementById('input-body-icon'),
         },
       },
@@ -57,12 +59,15 @@ const BodyDetailsModal = ({ selectedBody, refreshFunction }) => {
       }
     }
 
+    if (selectedBody) {
+      addData.id = selectedBody.id;
+    }
+
     const { data, error } = await supabase
       .from('bodies')
-      .update({
-        ...addData,
-      })
-      .eq('id', selectedBody.id);
+      .upsert([{ ...addData }], {
+        onConflict: ['id'],
+      });
 
     if (error) {
       setIsLoading({
@@ -188,6 +193,20 @@ const BodyDetailsModal = ({ selectedBody, refreshFunction }) => {
                     Icon (SVG)
                   </label>
                   <textarea class="form-control" id="input-body-icon" />
+                </div>
+              </div>
+              <div class="mb-3">
+                <div class="form-field-wrapper">
+                  <label for="select-body-active" class="uui-field-label">
+                    Active
+                  </label>
+                  <select id={`select-body-active`} class="form-select">
+                    {trueFalse().map((item) => (
+                      <option key={item.value} value={item.value}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
               <div class="d-grid gap-2 mt-5">
