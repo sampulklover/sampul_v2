@@ -13,12 +13,30 @@ const DangerZone = () => {
     isSaving: false,
   });
 
-  const deleteAccount = async () => {
-    if (
-      confirm(
-        `Are you sure you want to delete your account? if you continue, this cannot be undone. Would you like to continue?`
-      )
-    ) {
+  const elementList = () => {
+    const inputElements = {
+      delete_account: {
+        elements: {
+          confirmation_text: document.getElementById(
+            'input-danger-zone-confirmation-text'
+          ),
+        },
+      },
+    };
+
+    return inputElements;
+  };
+
+  const CONFIRMATION_TEXT = 'delete my account';
+
+  const onSubmitForm = async () => {
+    function areConfirmationTextEqual() {
+      const elements = elementList().delete_account.elements;
+      const confirmationInput = elements.confirmation_text.value;
+      const confirmationText = CONFIRMATION_TEXT;
+      return confirmationInput === confirmationText;
+    }
+    if (areConfirmationTextEqual()) {
       setSummary({
         ...summary,
         isSaving: true,
@@ -60,12 +78,20 @@ const DangerZone = () => {
           isSaving: false,
         });
       }
+    } else {
+      toast.error('Input do not match!');
     }
   };
 
   return (
     <>
-      <div class="mt-4">
+      <form
+        class="mt-4"
+        onSubmit={(event) => {
+          event.preventDefault();
+          onSubmitForm();
+        }}
+      >
         <div class="row mb-4">
           <div class="col-lg">
             <div class="smpl_text-sm-semibold">Delete Account</div>
@@ -74,18 +100,28 @@ const DangerZone = () => {
               database. This cannot be undone.
             </div>
           </div>
-          <div class="col text-end mt-md-0 mt-3"></div>
+          <div class="col text-end mt-md-0 mt-3">
+            <button type="submit" class="btn btn-danger btn-lg btn-text">
+              <Loading title="Delete Account" loading={summary.isSaving} />
+            </button>
+          </div>
         </div>
-        <button
-          type="button"
-          class="btn btn-danger btn-lg btn-text"
-          onClick={() => {
-            deleteAccount();
-          }}
-        >
-          <Loading title="Delete Account" loading={summary.isSaving} />
-        </button>
-      </div>
+        <div class="row mb-4">
+          <div class="col-lg">
+            <label for="input-password-new-password" class="uui-field-label">
+              To delete your Sampul account please type "delete my account"
+            </label>
+          </div>
+          <div class="col">
+            <input
+              type="text"
+              class="form-control"
+              id="input-danger-zone-confirmation-text"
+              required
+            />
+          </div>
+        </div>
+      </form>
     </>
   );
 };
