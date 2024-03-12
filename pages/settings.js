@@ -21,6 +21,7 @@ import Password from '../components/Password';
 import InformDeath from '../components/InformDeath';
 import Billing from '../components/Billing';
 import SideBar from '../components/SideBar';
+import DangerZone from '../components/DangerZone';
 
 const Settings = () => {
   const router = useRouter();
@@ -112,6 +113,18 @@ const Settings = () => {
             >
               Billing
             </button>
+            <button
+              class="nav-link"
+              id="nav-danger-zone-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#nav-danger-zone"
+              type="button"
+              role="tab"
+              aria-controls="nav-danger-zone"
+              aria-selected="false"
+            >
+              Danger Zone
+            </button>
           </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -146,6 +159,14 @@ const Settings = () => {
             aria-labelledby="nav-billing-tab"
           >
             <Billing />
+          </div>
+          <div
+            class="tab-pane fade"
+            id="nav-danger-zone"
+            role="tabpanel"
+            aria-labelledby="nav-billing-tab"
+          >
+            <DangerZone />
           </div>
         </div>
       </div>
