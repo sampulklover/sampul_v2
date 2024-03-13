@@ -85,7 +85,10 @@ const Password = () => {
         </div>
         <div class="row mb-4">
           <div class="col-lg">
-            <label for="input-password-new-password" class="uui-field-label">
+            <label
+              htmlFor="input-password-new-password"
+              class="uui-field-label"
+            >
               New password
             </label>
           </div>
@@ -101,7 +104,7 @@ const Password = () => {
         <div class="row mb-4">
           <div class="col-lg">
             <label
-              for="input-password-confirm-new-password"
+              htmlFor="input-password-confirm-new-password"
               class="uui-field-label"
             >
               Confirm new password

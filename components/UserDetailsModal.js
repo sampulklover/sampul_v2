@@ -122,7 +122,7 @@ const UserDetailsModal = ({ selectedUser, refreshFunction, summary }) => {
               <div class="mb-3">
                 <div class="form-field-wrapper">
                   <label
-                    for={`select-beloved-relationship`}
+                    htmlFor={`select-beloved-relationship`}
                     class="uui-field-label"
                   >
                     User role

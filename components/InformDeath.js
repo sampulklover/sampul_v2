@@ -284,7 +284,7 @@ const InformDeath = () => {
         <div class="row mb-4">
           <div class="col-lg">
             <label
-              for="select-inform-death-invite-user-uuid"
+              htmlFor="select-inform-death-invite-user-uuid"
               class="uui-field-label"
             >
               Sampul owner's <Loading loading={!inviteList.isReady} />
@@ -323,7 +323,10 @@ const InformDeath = () => {
         </div>
         <div class="row mb-4">
           <div class="col-lg">
-            <label for="input-inform-death-nric-name" class="uui-field-label">
+            <label
+              htmlFor="input-inform-death-nric-name"
+              class="uui-field-label"
+            >
               Sampul owner's Name (As Per NRIC)
             </label>
           </div>
@@ -338,7 +341,7 @@ const InformDeath = () => {
         </div>
         <div class="row mb-4">
           <div class="col-lg">
-            <label for="input-inform-death-nric-no" class="uui-field-label">
+            <label htmlFor="input-inform-death-nric-no" class="uui-field-label">
               Sampul owner's NRIC
             </label>
           </div>
@@ -442,7 +445,7 @@ const InformDeath = () => {
         <div class="row mb-4">
           <div class="col-lg">
             <label
-              for="input-inform-death-certification-id"
+              htmlFor="input-inform-death-certification-id"
               class="uui-field-label"
             >
               Death Certification ID

@@ -61,7 +61,7 @@ const ForgotPasswordModal = () => {
             <form>
               <div class="mb-3">
                 <label
-                  for="input-forgot-password-email"
+                  htmlFor="input-forgot-password-email"
                   class="uui-field-label"
                 >
                   Email

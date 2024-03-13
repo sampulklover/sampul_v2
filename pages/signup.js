@@ -59,7 +59,7 @@ const SignUp = () => {
           <div class="mt-5">
             <form class="mb-3" onSubmit={onSubmitNormalSignup}>
               <div class="mb-3">
-                <label for="input-username" class="uui-field-label">
+                <label htmlFor="input-username" class="uui-field-label">
                   Name
                 </label>
                 <input
@@ -70,7 +70,7 @@ const SignUp = () => {
                 />
               </div>
               <div class="mb-3">
-                <label for="input-email" class="uui-field-label">
+                <label htmlFor="input-email" class="uui-field-label">
                   Email
                 </label>
                 <input
@@ -81,7 +81,7 @@ const SignUp = () => {
                 />
               </div>
               <div class="mb-3">
-                <label for="input-password" class="uui-field-label">
+                <label htmlFor="input-password" class="uui-field-label">
                   Password
                 </label>
                 <input
@@ -100,7 +100,7 @@ const SignUp = () => {
                     id="input-check-tnc"
                     required
                   />
-                  <label class="form-check-label" for="flexCheckChecked">
+                  <label class="form-check-label" htmlFor="flexCheckChecked">
                     You agree to our friendly{' '}
                     <Link href="policy" target="_blank">
                       privacy policy.

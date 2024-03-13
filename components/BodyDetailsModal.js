@@ -145,7 +145,7 @@ const BodyDetailsModal = ({ selectedBody, refreshFunction }) => {
             <form onSubmit={onSubmitBodyDetails}>
               <div class="mb-3">
                 <div class="form-field-wrapper">
-                  <label for="input-body-name" class="uui-field-label">
+                  <label htmlFor="input-body-name" class="uui-field-label">
                     Name
                   </label>
                   <input
@@ -158,7 +158,10 @@ const BodyDetailsModal = ({ selectedBody, refreshFunction }) => {
               </div>
               <div class="mb-3">
                 <div class="form-field-wrapper">
-                  <label for="input-body-website-url" class="uui-field-label">
+                  <label
+                    htmlFor="input-body-website-url"
+                    class="uui-field-label"
+                  >
                     Website URL
                   </label>
                   <input
@@ -171,7 +174,7 @@ const BodyDetailsModal = ({ selectedBody, refreshFunction }) => {
               </div>
               <div class="mb-3">
                 <div class="form-field-wrapper">
-                  <label for="select-body-category" class="uui-field-label">
+                  <label htmlFor="select-body-category" class="uui-field-label">
                     Category
                   </label>
                   <select
@@ -189,7 +192,7 @@ const BodyDetailsModal = ({ selectedBody, refreshFunction }) => {
               </div>
               <div class="mb-3">
                 <div class="form-field-wrapper">
-                  <label for="input-body-icon" class="uui-field-label">
+                  <label htmlFor="input-body-icon" class="uui-field-label">
                     Icon (SVG)
                   </label>
                   <textarea class="form-control" id="input-body-icon" />
@@ -197,7 +200,7 @@ const BodyDetailsModal = ({ selectedBody, refreshFunction }) => {
               </div>
               <div class="mb-3">
                 <div class="form-field-wrapper">
-                  <label for="select-body-active" class="uui-field-label">
+                  <label htmlFor="select-body-active" class="uui-field-label">
                     Active
                   </label>
                   <select id={`select-body-active`} class="form-select">

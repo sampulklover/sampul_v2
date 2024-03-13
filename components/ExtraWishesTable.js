@@ -146,9 +146,9 @@ const ExtraWishesTable = ({ typeName, summary }) => {
                       <path
                         d="M4.1665 10.1298H15.8332M15.8332 10.1298L9.99984 4.29651M15.8332 10.1298L9.99984 15.9632"
                         stroke="#344054"
-                        stroke-width="1.66667"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="1.66667"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                     </svg>
                   </button>
@@ -184,9 +184,9 @@ const ExtraWishesTable = ({ typeName, summary }) => {
                   <path
                     d="M43.5 43.5L39.4168 39.4167M42.3333 32.4167C42.3333 37.8935 37.8935 42.3333 32.4167 42.3333C26.9398 42.3333 22.5 37.8935 22.5 32.4167C22.5 26.9398 26.9398 22.5 32.4167 22.5C37.8935 22.5 42.3333 26.9398 42.3333 32.4167Z"
                     stroke="#3118D3"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   ></path>
                   <rect
                     x="5"
@@ -195,7 +195,7 @@ const ExtraWishesTable = ({ typeName, summary }) => {
                     height="56"
                     rx="28"
                     stroke="#DDD8FB"
-                    stroke-width="10"
+                    strokeWidth="10"
                   ></rect>
                 </svg>
               </div>

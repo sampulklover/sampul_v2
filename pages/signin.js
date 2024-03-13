@@ -59,7 +59,7 @@ const SignIn = () => {
           <div class="mt-5">
             <form class="mb-3" onSubmit={onSubmitNormalLogin}>
               <div class="mb-3">
-                <label for="input-email" class="uui-field-label">
+                <label htmlFor="input-email" class="uui-field-label">
                   Email
                 </label>
                 <input
@@ -70,7 +70,7 @@ const SignIn = () => {
                 />
               </div>
               <div class="mb-1">
-                <label for="input-password" class="uui-field-label">
+                <label htmlFor="input-password" class="uui-field-label">
                   Password
                 </label>
                 <input

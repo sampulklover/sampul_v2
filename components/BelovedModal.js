@@ -374,9 +374,9 @@ const BelovedModal = ({
                       <path
                         d="M19 21V15M16 18H22M12 15H8C6.13623 15 5.20435 15 4.46927 15.3045C3.48915 15.7105 2.71046 16.4892 2.30448 17.4693C2 18.2044 2 19.1362 2 21M15.5 3.29076C16.9659 3.88415 18 5.32131 18 7C18 8.67869 16.9659 10.1159 15.5 10.7092M13.5 7C13.5 9.20914 11.7091 11 9.5 11C7.29086 11 5.5 9.20914 5.5 7C5.5 4.79086 7.29086 3 9.5 3C11.7091 3 13.5 4.79086 13.5 7Z"
                         stroke="#3118D3"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       ></path>
                     </svg>
                   </div>
@@ -396,7 +396,7 @@ const BelovedModal = ({
               <div class="form-content-2 mb-3">
                 <div class="form-field-wrapper">
                   <label
-                    for={`input-beloved-nric-name`}
+                    htmlFor={`input-beloved-nric-name`}
                     class="uui-field-label"
                   >
                     Name (As Per NRIC)
@@ -409,7 +409,10 @@ const BelovedModal = ({
                   />
                 </div>
                 <div class="form-field-wrapper">
-                  <label for={`input-beloved-nickname`} class="uui-field-label">
+                  <label
+                    htmlFor={`input-beloved-nickname`}
+                    class="uui-field-label"
+                  >
                     Nickname
                   </label>
                   <input
@@ -423,7 +426,10 @@ const BelovedModal = ({
               </div>
               <div class="form-content-2 mb-3">
                 <div class="form-field-wrapper">
-                  <label for={`input-beloved-nric-no`} class="uui-field-label">
+                  <label
+                    htmlFor={`input-beloved-nric-no`}
+                    class="uui-field-label"
+                  >
                     NRIC
                   </label>
                   <input
@@ -434,7 +440,10 @@ const BelovedModal = ({
                   />
                 </div>
                 <div class="form-field-wrapper">
-                  <label for={`input-beloved-phone-no`} class="uui-field-label">
+                  <label
+                    htmlFor={`input-beloved-phone-no`}
+                    class="uui-field-label"
+                  >
                     Phone number
                   </label>
                   <input
@@ -447,7 +456,10 @@ const BelovedModal = ({
               </div>
               <div class="form-content-2 mb-3">
                 <div class="form-field-wrapper">
-                  <label for={`input-beloved-email`} class="uui-field-label">
+                  <label
+                    htmlFor={`input-beloved-email`}
+                    class="uui-field-label"
+                  >
                     Email
                   </label>
                   <input
@@ -459,7 +471,7 @@ const BelovedModal = ({
                 </div>
                 <div class="form-field-wrapper">
                   <label
-                    for={`select-beloved-relationship`}
+                    htmlFor={`select-beloved-relationship`}
                     class="uui-field-label"
                   >
                     Relationship
@@ -482,7 +494,10 @@ const BelovedModal = ({
                   class="form-field-wrapper"
                   style={{ display: belovedConfig[belovedType].display_level }}
                 >
-                  <label for={`select-beloved-level`} class="uui-field-label">
+                  <label
+                    htmlFor={`select-beloved-level`}
+                    class="uui-field-label"
+                  >
                     Level
                   </label>
                   <select
@@ -498,7 +513,10 @@ const BelovedModal = ({
                   </select>
                 </div>
                 <div class="form-field-wrapper" style={{ display: 'none' }}>
-                  <label for={`select-beloved-type`} class="uui-field-label">
+                  <label
+                    htmlFor={`select-beloved-type`}
+                    class="uui-field-label"
+                  >
                     Beneficiary Type
                   </label>
                   <select
@@ -559,7 +577,7 @@ const BelovedModal = ({
                       id="checkbox-beloved-0"
                       required
                     />
-                    <label class="form-check-label" for="checkbox-beloved-0">
+                    <label class="form-check-label" htmlFor="checkbox-beloved-0">
                       <small>
                         CO-SAMPUL IS A TRUSTED PERSON FOR WHICH MY WASIAT/WILL
                         WITH ALL THE ASSET INFORMATION AND WISHES WILL BE PASSED
@@ -578,7 +596,7 @@ const BelovedModal = ({
                       id="checkbox-beloved-1"
                       required
                     />
-                    <label class="form-check-label" for="checkbox-beloved-1">
+                    <label class="form-check-label" htmlFor="checkbox-beloved-1">
                       <small>
                         MY TRUSTED CO-SAMPUL WILL ONLY BE GIVEN ACCESS AFTER MY
                         DEATH TO ASSIST MY LOVED ONES IN MANAGING THE ESTATE. I
@@ -597,7 +615,7 @@ const BelovedModal = ({
                       id="checkbox-beloved-2"
                       required
                     />
-                    <label class="form-check-label" for="checkbox-beloved-2">
+                    <label class="form-check-label" htmlFor="checkbox-beloved-2">
                       <small>CO-SAMPUL MUST BE 18 YEARS OLD AND ABOVE</small>
                     </label>
                   </div>
@@ -612,7 +630,7 @@ const BelovedModal = ({
                       id="checkbox-beloved-3"
                       required
                     />
-                    <label class="form-check-label" for="checkbox-beloved-3">
+                    <label class="form-check-label" htmlFor="checkbox-beloved-3">
                       <small>
                         I HAVE EXPLAIN ON SAMPUL AND SEEK CONSENT FROM MY
                         APPOINTED CO-SAMPUL TO SHARE HIS/HER PERSONAL
@@ -633,7 +651,7 @@ const BelovedModal = ({
                     id="checkbox-beloved"
                     required
                   />
-                  <label class="form-check-label" for="flexCheckChecked">
+                  <label class="form-check-label" htmlFor="flexCheckChecked">
                     You agree to our friendly{' '}
                     <Link href="policy" target="_blank">
                       privacy policy.

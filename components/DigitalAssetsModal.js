@@ -368,16 +368,16 @@ const DigitalAssetsModal = ({
                     <svg
                       width="24"
                       height="24"
-                      viewbox="0 0 24 24"
+                      viewBox="0 0 24 24"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         d="M6 21H9M15 21H18M17.5 6.5V14.5M3 6.2L3 14.8C3 15.9201 3 16.4802 3.21799 16.908C3.40973 17.2843 3.71569 17.5903 4.09202 17.782C4.51984 18 5.07989 18 6.2 18L17.8 18C18.9201 18 19.4802 18 19.908 17.782C20.2843 17.5903 20.5903 17.2843 20.782 16.908C21 16.4802 21 15.9201 21 14.8V6.2C21 5.0799 21 4.51984 20.782 4.09202C20.5903 3.7157 20.2843 3.40974 19.908 3.21799C19.4802 3 18.9201 3 17.8 3L6.2 3C5.0799 3 4.51984 3 4.09202 3.21799C3.7157 3.40973 3.40973 3.71569 3.21799 4.09202C3 4.51984 3 5.07989 3 6.2ZM11.5 10.5C11.5 11.8807 10.3807 13 9 13C7.61929 13 6.5 11.8807 6.5 10.5C6.5 9.11929 7.61929 8 9 8C10.3807 8 11.5 9.11929 11.5 10.5Z"
                         stroke="#3118D3"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       ></path>
                     </svg>
                   </div>
@@ -395,7 +395,7 @@ const DigitalAssetsModal = ({
               <div class="form-content-2 mb-3">
                 <div class="form-field-wrapper">
                   <label
-                    for={`input-digital-assets-username`}
+                    htmlFor={`input-digital-assets-username`}
                     class="uui-field-label"
                   >
                     Username
@@ -409,7 +409,7 @@ const DigitalAssetsModal = ({
                 </div>
                 <div class="form-field-wrapper">
                   <label
-                    for={`input-digital-assets-email`}
+                    htmlFor={`input-digital-assets-email`}
                     class="uui-field-label"
                   >
                     Email
@@ -431,7 +431,7 @@ const DigitalAssetsModal = ({
                 }}
               >
                 <label
-                  for={`select-digital-assets-service-platform`}
+                  htmlFor={`select-digital-assets-service-platform`}
                   class="uui-field-label"
                 >
                   Service Platform <Loading loading={!bodyList.isReady} />
@@ -441,8 +441,8 @@ const DigitalAssetsModal = ({
                   class="form-select"
                   required={!newServicePlatform ? true : false}
                 >
-                  {bodyList.data.map((item) => (
-                    <option key={item.value} value={item.value}>
+                  {bodyList.data.map((item, index) => (
+                    <option key={index} value={item.value}>
                       {item.name}
                     </option>
                   ))}
@@ -495,7 +495,7 @@ const DigitalAssetsModal = ({
                 <div class="form-content-2 mb-3">
                   <div class="form-field-wrapper">
                     <label
-                      for={`input-digital-assets-new-service-platform-name`}
+                      htmlFor={`input-digital-assets-new-service-platform-name`}
                       class="uui-field-label"
                     >
                       Service Provider
@@ -509,7 +509,7 @@ const DigitalAssetsModal = ({
                   </div>
                   <div class="form-field-wrapper">
                     <label
-                      for={`input-digital-assets-new-service-platform-url`}
+                      htmlFor={`input-digital-assets-new-service-platform-url`}
                       class="uui-field-label"
                     >
                       Website URL
@@ -528,7 +528,7 @@ const DigitalAssetsModal = ({
 
               <div class="form-field-wrapper mb-3">
                 <label
-                  for={`select-digital-assets-type`}
+                  htmlFor={`select-digital-assets-type`}
                   class="uui-field-label"
                 >
                   Type
@@ -549,7 +549,7 @@ const DigitalAssetsModal = ({
               <div class="form-content-2 mb-3">
                 <div class="form-field-wrapper">
                   <label
-                    for={`select-digital-assets-frequency`}
+                    htmlFor={`select-digital-assets-frequency`}
                     class="uui-field-label"
                   >
                     Frequency
@@ -568,7 +568,7 @@ const DigitalAssetsModal = ({
                 </div>
                 <div class="form-field-wrapper">
                   <label
-                    for={`input-digital-assets-declared-value`}
+                    htmlFor={`input-digital-assets-declared-value`}
                     class="uui-field-label"
                   >
                     Declared Value
@@ -587,7 +587,7 @@ const DigitalAssetsModal = ({
               </div>
               <div class="form-field-wrapper mb-3">
                 <label
-                  for={`select-digital-assets-instructions-after-death`}
+                  htmlFor={`select-digital-assets-instructions-after-death`}
                   class="uui-field-label"
                 >
                   Instructions After Death
@@ -607,7 +607,7 @@ const DigitalAssetsModal = ({
 
               <div class="form-field-wrapper mb-3">
                 <label
-                  for={`select-digital-assets-beloved`}
+                  htmlFor={`select-digital-assets-beloved`}
                   class="uui-field-label"
                 >
                   Beneficiary <Loading loading={!belovedList.isReady} />
@@ -628,7 +628,7 @@ const DigitalAssetsModal = ({
 
               <div class="form-field-wrapper mb-3">
                 <label
-                  for={`input-digital-assets-remarks`}
+                  htmlFor={`input-digital-assets-remarks`}
                   class="uui-field-label"
                 >
                   Remarks
@@ -649,7 +649,7 @@ const DigitalAssetsModal = ({
                     id="checkbox-digital-assets"
                     required
                   />
-                  <label class="form-check-label" for="flexCheckChecked">
+                  <label class="form-check-label" htmlFor="flexCheckChecked">
                     You agree to our friendly{' '}
                     <Link href="policy" target="_blank">
                       privacy policy.
