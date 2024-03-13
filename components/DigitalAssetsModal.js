@@ -139,6 +139,13 @@ const DigitalAssetsModal = ({
     }
   }, [selectedItem]);
 
+  useEffect(() => {
+    if (user?.profile?.email && selectedItem == null) {
+      elementList().digital_assets_modal.elements.email.value =
+        user.profile.email;
+    }
+  }, [user?.profile?.email, selectedItem]);
+
   const handleTypeChange = (event) => {
     const selectedType = event.target.value;
     setFrequencyBasedOnType(selectedType);
@@ -156,7 +163,7 @@ const DigitalAssetsModal = ({
     }
 
     if (newServicePlatform) {
-      addData.service_platform = null;
+      addData.bodies_id = null;
     }
 
     if (!newServicePlatform) {
@@ -196,7 +203,7 @@ const DigitalAssetsModal = ({
     }
 
     if (newServicePlatform) {
-      addData.service_platform = null;
+      addData.bodies_id = null;
     }
 
     if (!newServicePlatform) {
