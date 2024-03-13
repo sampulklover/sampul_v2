@@ -244,7 +244,7 @@ const MyDetails = ({ isModal = false }) => {
 
         {checkView({
           labelDiv1: (
-            <label for="input-my-details-username" class="uui-field-label">
+            <label htmlFor="input-my-details-username" class="uui-field-label">
               Username
             </label>
           ),
@@ -257,7 +257,7 @@ const MyDetails = ({ isModal = false }) => {
             />
           ),
           labelDiv2: (
-            <label for="input-my-details-nric-name" class="uui-field-label">
+            <label htmlFor="input-my-details-nric-name" class="uui-field-label">
               Name (As Per NRIC)
             </label>
           ),
@@ -273,7 +273,7 @@ const MyDetails = ({ isModal = false }) => {
 
         {checkView({
           labelDiv1: (
-            <label for="input-my-details-nric-no" class="uui-field-label">
+            <label htmlFor="input-my-details-nric-no" class="uui-field-label">
               NRIC
             </label>
           ),
@@ -286,7 +286,7 @@ const MyDetails = ({ isModal = false }) => {
             />
           ),
           labelDiv2: (
-            <label for="input-my-details-dob" class="uui-field-label">
+            <label htmlFor="input-my-details-dob" class="uui-field-label">
               Date of Birth
             </label>
           ),
@@ -302,7 +302,7 @@ const MyDetails = ({ isModal = false }) => {
 
         {checkView({
           labelDiv1: (
-            <label for="input-my-details-email" class="uui-field-label">
+            <label htmlFor="input-my-details-email" class="uui-field-label">
               Email
             </label>
           ),
@@ -316,7 +316,7 @@ const MyDetails = ({ isModal = false }) => {
             />
           ),
           labelDiv2: (
-            <label for="input-my-details-phone-no" class="uui-field-label">
+            <label htmlFor="input-my-details-phone-no" class="uui-field-label">
               Contact
             </label>
           ),
@@ -332,7 +332,7 @@ const MyDetails = ({ isModal = false }) => {
 
         {checkView({
           labelDiv1: (
-            <label for="select-my-details-religion" class="uui-field-label">
+            <label htmlFor="select-my-details-religion" class="uui-field-label">
               Religion
             </label>
           ),
@@ -351,7 +351,7 @@ const MyDetails = ({ isModal = false }) => {
           ),
           labelDiv2: (
             <label
-              for="select-my-details-marital-status"
+              htmlFor="select-my-details-marital-status"
               class="uui-field-label"
             >
               Marital Status
@@ -374,7 +374,7 @@ const MyDetails = ({ isModal = false }) => {
 
         <div class={`${isModal ? '' : 'row'} align-items-start`}>
           <div class="col-lg">
-            <label for="input-my-details-address-1" class="uui-field-label">
+            <label htmlFor="input-my-details-address-1" class="uui-field-label">
               Address
             </label>
           </div>

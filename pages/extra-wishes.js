@@ -352,7 +352,7 @@ const ExtraWishes = () => {
             >
               <div class="mb-3">
                 <label
-                  for="input-extra-wishes-nazar-wishes"
+                  htmlFor="input-extra-wishes-nazar-wishes"
                   class="uui-field-label"
                 >
                   Wishes
@@ -367,7 +367,7 @@ const ExtraWishes = () => {
               </div>
               <div class="mb-3">
                 <label
-                  for="input-extra-wishes-nazar-est-cost"
+                  htmlFor="input-extra-wishes-nazar-est-cost"
                   class="uui-field-label"
                 >
                   Estimate cost to execute the Nazar or pay Kaffarah?
@@ -422,7 +422,7 @@ const ExtraWishes = () => {
             >
               <div class="mb-3">
                 <label
-                  for="input-extra-wishes-fidyah-fast-left-days"
+                  htmlFor="input-extra-wishes-fidyah-fast-left-days"
                   class="uui-field-label"
                 >
                   How many days have you left your fast during Ramadhan?
@@ -437,7 +437,7 @@ const ExtraWishes = () => {
               </div>
               <div class="mb-3">
                 <label
-                  for="input-extra-wishes-fidyah-amount-due"
+                  htmlFor="input-extra-wishes-fidyah-amount-due"
                   class="uui-field-label"
                 >
                   Any amount of Fidyah due?
@@ -508,7 +508,7 @@ const ExtraWishes = () => {
             >
               <div class="mb-3">
                 <label
-                  for="multiselect-extra-wishes-charity-bodies"
+                  htmlFor="multiselect-extra-wishes-charity-bodies"
                   class="uui-field-label"
                 >
                   Contribute to Charity/Sadaqah Bodies
@@ -534,7 +534,7 @@ const ExtraWishes = () => {
                 return (
                   <div class="mb-3" key={index}>
                     <label
-                      for={`input-extra-wishes-charity-${item.value}-amount`}
+                      htmlFor={`input-extra-wishes-charity-${item.value}-amount`}
                       class="uui-field-label"
                     >
                       {item.label}'s asset/amount
@@ -599,7 +599,7 @@ const ExtraWishes = () => {
             >
               <div class="mb-3">
                 <label
-                  for="multiselect-extra-wishes-waqf-foundation"
+                  htmlFor="multiselect-extra-wishes-waqf-foundation"
                   class="uui-field-label"
                 >
                   Contribute to Waqf Foundation
@@ -627,7 +627,7 @@ const ExtraWishes = () => {
                 return (
                   <div class="mb-3" key={index}>
                     <label
-                      for={`input-extra-wishes-waqf-${item.value}-amount`}
+                      htmlFor={`input-extra-wishes-waqf-${item.value}-amount`}
                       class="uui-field-label"
                     >
                       {item.label}'s asset/amount
@@ -720,7 +720,7 @@ const ExtraWishes = () => {
             >
               <div class="mb-3">
                 <label
-                  for="select-extra-wishes-organ-donor-pledge"
+                  htmlFor="select-extra-wishes-organ-donor-pledge"
                   class="uui-field-label"
                 >
                   Please select your preference regarding organ donation

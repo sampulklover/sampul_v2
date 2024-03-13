@@ -108,7 +108,10 @@ const DangerZone = () => {
         </div>
         <div class="row mb-4">
           <div class="col-lg">
-            <label for="input-password-new-password" class="uui-field-label">
+            <label
+              htmlFor="input-password-new-password"
+              class="uui-field-label"
+            >
               To delete your Sampul account please type "delete my account"
             </label>
           </div>

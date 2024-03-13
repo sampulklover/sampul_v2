@@ -47,7 +47,7 @@ const ChangePassword = () => {
           <div class="mt-5">
             <form class="mb-3" onSubmit={onSubmitUpdatePassword}>
               <div class="mb-4">
-                <label for="input-password" class="uui-field-label">
+                <label htmlFor="input-password" class="uui-field-label">
                   New Password
                 </label>
                 <input
