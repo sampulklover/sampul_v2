@@ -1,5 +1,9 @@
 import Link from 'next/link';
-import { instructionsAfterDeath, servicePlatforms } from '../constant/enum';
+import {
+  bodiesCategory,
+  instructionsAfterDeath,
+  servicePlatforms,
+} from '../constant/enum';
 import Loading from './Laoding';
 import { addUserImg } from '../constant/element';
 
@@ -49,7 +53,19 @@ const DigitalAssetsCard = ({
                 (x) => x.value === item.bodies_id
               );
 
+              var getCategoryName = () => {
+                let category = bodiesCategory().find(
+                  (x) => x.value === spObject?.details?.category
+                );
+                if (category?.name) {
+                  return category.name;
+                }
+              };
+
               const platform = {
+                category: item?.new_service_platform_name
+                  ? 'Platform'
+                  : getCategoryName(),
                 name: item?.new_service_platform_name
                   ? item.new_service_platform_name
                   : spObject?.name,
@@ -81,15 +97,17 @@ const DigitalAssetsCard = ({
                           <img
                             src={platform.icon}
                             class="rounded-circle"
-                            width={40}
-                            height={40}
+                            width={50}
+                            height={50}
                           />
                         </div>
                         <div class="col">
                           <div class="col">
                             <div class="d-flex justify-content-md-between justify-content-center">
                               <div class="smpl_text-sm-semibold crop-text mt-md-0 mt-3">
-                                <span>{platform.name}</span>
+                                <small class="text-primary">
+                                  {platform.category}
+                                </small>
                               </div>
                               <span class="d-none d-sm-block">
                                 <div class="button-icon w-embed">
@@ -111,6 +129,9 @@ const DigitalAssetsCard = ({
                                 </div>
                               </span>
                             </div>
+                          </div>
+                          <div class="col">
+                            <h5>{platform.name}</h5>
                           </div>
                           <div class="col mt-3">
                             <div class="d-flex justify-content-between">
@@ -143,7 +164,7 @@ const DigitalAssetsCard = ({
                                 </div>
                               </span>
                               <span>
-                                <div class="physicalassets_detail-wrapper">
+                                <div class="ms-1 physicalassets_detail-wrapper">
                                   <div class="uui-career07_icon-wrapper">
                                     <div class="button-icon w-embed">
                                       <svg
