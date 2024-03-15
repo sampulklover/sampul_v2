@@ -218,9 +218,9 @@ export const inviteBelove = ({
           </a>
         </div>
         {divider()}
-        {accessableLink.map((item) => {
+        {accessableLink.map((item, index) => {
           return (
-            <span style={contentStyle.bodyText}>
+            <span style={contentStyle.bodyText} key={index}>
               <a href={item.link} style={contentStyle.primaryText}>
                 <b>{item.title}</b>
               </a>{' '}
