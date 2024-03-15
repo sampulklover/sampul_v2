@@ -155,17 +155,17 @@ export const inviteBelove = ({
 
   const accessableLink = [
     {
-      title: 'Sampul process flow →',
+      title: 'Sampul process flow',
       description: 'Weekly new updates and improvements to Sampul.',
       link: process.env.NEXT_PUBLIC_HOST,
     },
     {
-      title: 'Sampul’s FAQ →',
+      title: 'Sampul’s FAQ',
       description: 'Stay up-to-date with the latest announcements and jobs.',
       link: process.env.NEXT_PUBLIC_HOST,
     },
     {
-      title: 'Why we’re building Sampul →',
+      title: 'Why we’re building Sampul',
       description:
         'There are currently RM 100 billion worth of frozen asset and unclaimed monies in our country. Our mission is to ensure no one and no asset is left behind in the estate planning process.',
       link: process.env.NEXT_PUBLIC_HOST,
@@ -218,17 +218,18 @@ export const inviteBelove = ({
           </a>
         </div>
         {divider()}
-        {accessableLink.map((item) => {
+        {accessableLink.map((item, index) => {
           return (
-            <>
+            <span style={contentStyle.bodyText} key={index}>
               <a href={item.link} style={contentStyle.primaryText}>
                 <b>{item.title}</b>
-              </a>
+              </a>{' '}
+              <span style={contentStyle.primaryText}>→</span>
               <br />
-              <span style={contentStyle.bodyText}>{item.description}</span>
+              <span>{item.description}</span>
               <br />
               <br />
-            </>
+            </span>
           );
         })}
         <span style={contentStyle.bodyText}>
