@@ -16,6 +16,7 @@ export const inviteBelove = ({
       fontWeight: '600',
       lineHeight: '44px',
       wordWrap: 'break-word',
+      marginTop: '25px',
       marginBottom: '25px',
     },
     bodyContainer: {
@@ -43,10 +44,6 @@ export const inviteBelove = ({
     },
     primaryText: {
       color: '#2F1DA9',
-    },
-    primaryLink: {
-      color: '#2F1DA9',
-      fontWeight: 600,
     },
     primaryButton: {
       display: 'inline-block',
@@ -128,12 +125,7 @@ export const inviteBelove = ({
       unsubscribeMessage: (
         <p>
           This email was sent to{' '}
-          <span style={contentStyle.primaryText}>{to_email}</span>. If you'd
-          rather not receive this kind of email, you can{' '}
-          <span style={contentStyle.primaryText}>unsubscribe</span> or{' '}
-          <span style={contentStyle.primaryText}>
-            manage your email preferences.
-          </span>
+          <span style={contentStyle.primaryText}>{to_email}</span>.
           <br />
           <br />© 2024 sampul.co
         </p>
@@ -163,12 +155,17 @@ export const inviteBelove = ({
 
   const accessableLink = [
     {
-      title: 'Sampul’s FAQ',
+      title: 'Sampul process flow →',
+      description: 'Weekly new updates and improvements to Sampul.',
+      link: process.env.NEXT_PUBLIC_HOST,
+    },
+    {
+      title: 'Sampul’s FAQ →',
       description: 'Stay up-to-date with the latest announcements and jobs.',
       link: process.env.NEXT_PUBLIC_HOST,
     },
     {
-      title: 'Why we’re building Sampul',
+      title: 'Why we’re building Sampul →',
       description:
         'There are currently RM 100 billion worth of frozen asset and unclaimed monies in our country. Our mission is to ensure no one and no asset is left behind in the estate planning process.',
       link: process.env.NEXT_PUBLIC_HOST,
@@ -194,8 +191,8 @@ export const inviteBelove = ({
       <img
         src="https://sampul.co/images/Email_sampul_background.png"
         alt="Sampul"
-        height={100}
-        width={100}
+        height="100%"
+        width="100%"
       />
       <div style={contentStyle.titleText}>
         Salam and Greetings {to_nric_name},
@@ -224,8 +221,8 @@ export const inviteBelove = ({
         {accessableLink.map((item) => {
           return (
             <>
-              <a href={item.link} style={contentStyle.primaryLink}>
-                {item.title}
+              <a href={item.link} style={contentStyle.primaryText}>
+                <b>{item.title}</b>
               </a>
               <br />
               <span style={contentStyle.bodyText}>{item.description}</span>
@@ -242,39 +239,48 @@ export const inviteBelove = ({
           {langguage.english.unsubscribeMessage}
         </span>
         <div style={contentStyle.footerContainer}>
-          <span style={{ marginRight: 'auto' }}>
+          <a
+            href={process.env.NEXT_PUBLIC_HOST}
+            style={{ marginRight: 'auto' }}
+          >
             <img
               src="https://sampul.co/images/Logo.png"
               alt="X"
-              height={50}
-              width={50}
+              height="30"
+              width="100%"
             />
-          </span>
+          </a>
           <div style={contentStyle.socialMediaContainer}>
-            <span style={{ marginRight: '10px' }}>
+            <a
+              href={process.env.NEXT_PUBLIC_TWITTER_URL}
+              style={{ marginRight: '10px' }}
+            >
               <img
-                src="https://sampul.co/images/social_icon_x.png"
+                src="https://sampul.co/images/Social_icon_x.png"
                 alt="X"
-                height={50}
-                width={50}
+                height="30"
+                width="100%"
               />
-            </span>
-            <span style={{ marginRight: '10px' }}>
+            </a>
+            <a
+              href={process.env.NEXT_PUBLIC_FACEBOOK_URL}
+              style={{ marginRight: '10px' }}
+            >
               <img
                 src="https://sampul.co/images/Social_icon_facebook.png"
                 alt="X"
-                height={50}
-                width={50}
+                height="30"
+                width="100%"
               />
-            </span>
-            <span>
+            </a>
+            <a href={process.env.NEXT_PUBLIC_INSTAGRAM_URL}>
               <img
                 src="https://sampul.co/images/Social_icon_instagram.png"
                 alt="X"
-                height={50}
-                width={50}
+                height="30"
+                width="100%"
               />
-            </span>
+            </a>
           </div>
         </div>
       </div>
