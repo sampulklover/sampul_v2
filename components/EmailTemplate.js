@@ -8,47 +8,276 @@ export const inviteBelove = ({
   from_name,
   invite_uuid,
 }) => {
+  const contentStyle = {
+    titleText: {
+      width: '100%',
+      color: '#101828',
+      fontSize: '36px',
+      fontWeight: '600',
+      lineHeight: '44px',
+      wordWrap: 'break-word',
+      marginBottom: '25px',
+    },
+    bodyContainer: {
+      paddingTop: '32px',
+      paddingBottom: '32px',
+      paddingLeft: '24px',
+      paddingRight: '24px',
+      backgroundColor: '#FFFFF',
+    },
+    bodyText: {
+      color: '#475467',
+      fontSize: '18px',
+      fontWeight: 400,
+      lineHeight: '28px',
+      wordWrap: 'break-word',
+      marginBottom: '35px',
+    },
+    footerText: {
+      color: '#475467',
+      fontSize: '17px',
+      fontWeight: 400,
+      lineHeight: '28px',
+      wordWrap: 'break-word',
+      marginBottom: '35px',
+    },
+    primaryText: {
+      color: '#2F1DA9',
+    },
+    primaryLink: {
+      color: '#2F1DA9',
+      fontWeight: 600,
+    },
+    primaryButton: {
+      display: 'inline-block',
+      padding: '0.5rem 1rem',
+      fontSize: '1.2rem',
+      fontWeight: 400,
+      lineHeight: 1.5,
+      textAlign: 'center',
+      textDecoration: 'none',
+      whiteSpace: 'nowrap',
+      verticalAlign: 'middle',
+      cursor: 'pointer',
+      border: '1px solid transparent',
+      borderRadius: '0.5rem',
+      color: '#fff',
+      backgroundColor: '#3c22e2',
+    },
+    lightButton: {
+      display: 'inline-block',
+      padding: '0.5rem 1rem',
+      fontSize: '1.2rem',
+      fontWeight: 400,
+      lineHeight: 1.5,
+      textAlign: 'center',
+      textDecoration: 'none',
+      whiteSpace: 'nowrap',
+      verticalAlign: 'middle',
+      cursor: 'pointer',
+      border: '1px solid #dee2e6', // Adjusted border color
+      borderRadius: '0.5rem',
+      color: '#333',
+      backgroundColor: '#ffff',
+      marginLeft: '10px',
+    },
+    footerContainer: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginTop: '50px',
+    },
+    socialMediaContainer: {
+      display: 'flex',
+    },
+  };
+
+  const langguage = {
+    english: {
+      body: (
+        <>
+          <p>
+            We are delighted to inform you that you had been selected as a{' '}
+            {to_level} {to_type} for{' '}
+            <span style={contentStyle.primaryText}>{from_name}.</span> We hope
+            that you have been briefed by {from_name} on the appointment and are
+            ready to take on the responsibilities.
+          </p>
+          <p>
+            Briefly, your responsibilities as a Co-Sampul is to be given the
+            information of{' '}
+            <span style={contentStyle.primaryText}>{from_name}’s</span>{' '}
+            wasiat/will which contain all assets’ information and wishes at the
+            point of death and assist the loved ones in managing the estate in
+            the event of death.
+          </p>
+        </>
+      ),
+      thanksMessage: (
+        <p>
+          Thanks for signing up. We hope you're excited to join the mission of
+          safekeeping asset for the loved ones. If you have any questions, send
+          us a message at{' '}
+          <span style={contentStyle.primaryText}>hi@sampul.com</span> or on{' '}
+          <span style={contentStyle.primaryText}>Twitter</span>. We’d love to
+          hear from you.
+          <br />
+          <br />— The Sampul team
+        </p>
+      ),
+      unsubscribeMessage: (
+        <p>
+          This email was sent to{' '}
+          <span style={contentStyle.primaryText}>{to_email}</span>. If you'd
+          rather not receive this kind of email, you can{' '}
+          <span style={contentStyle.primaryText}>unsubscribe</span> or{' '}
+          <span style={contentStyle.primaryText}>
+            manage your email preferences.
+          </span>
+          <br />
+          <br />© 2024 sampul.co
+        </p>
+      ),
+    },
+    malay: {
+      body: (
+        <div style={{ 'font-style': 'italic' }}>
+          <p>
+            Kami berbesar hati ingin memaklumkan kepada anda yang anda telah
+            dilantik oleh{' '}
+            <span style={contentStyle.primaryText}>{from_name}</span> sebagai{' '}
+            {to_level} {to_type}. Kami percaya anda telah dimaklumkan akan
+            pelantikan ini dan bersedia memikul tanggungjawab murni ini.
+          </p>
+          <p>
+            Secara ringkas, peranan Co-Sampul adalah anda akan diberikan akses
+            wasiat milik{' '}
+            <span style={contentStyle.primaryText}>{from_name}</span> yang
+            mengandungi senarai aset dan hasrat apabila berlakunya kematian dan
+            kongsikan kepada waris untuk urusan pusaka.
+          </p>
+        </div>
+      ),
+    },
+  };
+
+  const accessableLink = [
+    {
+      title: 'Sampul’s FAQ',
+      description: 'Stay up-to-date with the latest announcements and jobs.',
+      link: process.env.NEXT_PUBLIC_HOST,
+    },
+    {
+      title: 'Why we’re building Sampul',
+      description:
+        'There are currently RM 100 billion worth of frozen asset and unclaimed monies in our country. Our mission is to ensure no one and no asset is left behind in the estate planning process.',
+      link: process.env.NEXT_PUBLIC_HOST,
+    },
+  ];
+
+  const divider = () => {
+    return (
+      <div
+        style={{
+          width: '150px',
+          height: '2px',
+          background: '#EAECF0',
+          marginTop: '35px',
+          marginBottom: '35px',
+        }}
+      ></div>
+    );
+  };
+
   return (
-    <div>
-      <h1>Salam and Greetings {to_nric_name},</h1>
-      <p>
-        We are delighted to inform you that you had been selected as a{' '}
-        {to_level} {to_type} for {from_name}. We hope that you have been briefed
-        by {from_name} on the appointment and are ready to take on the
-        responsibilities.
-      </p>
-      <p>
-        Briefly, your responsibilities as a Co-Sampul is to be given the
-        information of {from_name}’s wasiat/will which contain all assets’
-        information and wishes at the point of death and assist the loved ones
-        in managing the estate in the event of death. Click{' '}
-        <a href={`${process.env.NEXT_PUBLIC_HOST}`}>HERE</a> for the process
-        flow.
-      </p>
-      <p>
-        <a
-          href={`${process.env.NEXT_PUBLIC_HOST}/beloved-invites?status=accepted&id=${invite_uuid}`}
-        >
-          <b>ACCEPT</b>
-        </a>
-      </p>
-      <p>
-        <a
-          href={`${process.env.NEXT_PUBLIC_HOST}/beloved-invites?status=rejected&id=${invite_uuid}`}
-        >
-          <b>REJECT</b>
-        </a>
-      </p>
-      <p>
-        We hope you're excited to join the mission of safekeeping asset for the
-        loved ones.
-      </p>
-      <p>
-        There are currently RM 100 billion worth of frozen asset and unclaimed
-        monies in our country. Our mission is to ensure no one and no asset is
-        left behind in the estate planning process.
-      </p>
-      <p>The Sampul team</p>
+    <div style={contentStyle.bodyContainer}>
+      <img
+        src="https://sampul.co/images/Email_sampul_background.png"
+        alt="Sampul"
+        height={100}
+        width={100}
+      />
+      <div style={contentStyle.titleText}>
+        Salam and Greetings {to_nric_name},
+      </div>
+      <div style={{ width: '100%' }}>
+        <div style={contentStyle.bodyText}>
+          {langguage.english.body}
+          {divider()}
+          {langguage.malay.body}
+        </div>
+        <div>
+          <a
+            style={contentStyle.primaryButton}
+            href={`${process.env.NEXT_PUBLIC_HOST}/beloved-invites?status=accepted&id=${invite_uuid}`}
+          >
+            Accept
+          </a>
+          <a
+            style={contentStyle.lightButton}
+            href={`${process.env.NEXT_PUBLIC_HOST}/beloved-invites?status=rejected&id=${invite_uuid}`}
+          >
+            Reject
+          </a>
+        </div>
+        {divider()}
+        {accessableLink.map((item) => {
+          return (
+            <>
+              <a href={item.link} style={contentStyle.primaryLink}>
+                {item.title}
+              </a>
+              <br />
+              <span style={contentStyle.bodyText}>{item.description}</span>
+              <br />
+              <br />
+            </>
+          );
+        })}
+        <span style={contentStyle.bodyText}>
+          {langguage.english.thanksMessage}
+          <br />
+        </span>
+        <span style={contentStyle.footerText}>
+          {langguage.english.unsubscribeMessage}
+        </span>
+        <div style={contentStyle.footerContainer}>
+          <span style={{ marginRight: 'auto' }}>
+            <img
+              src="https://sampul.co/images/Logo.png"
+              alt="X"
+              height={50}
+              width={50}
+            />
+          </span>
+          <div style={contentStyle.socialMediaContainer}>
+            <span style={{ marginRight: '10px' }}>
+              <img
+                src="https://sampul.co/images/social_icon_x.png"
+                alt="X"
+                height={50}
+                width={50}
+              />
+            </span>
+            <span style={{ marginRight: '10px' }}>
+              <img
+                src="https://sampul.co/images/Social_icon_facebook.png"
+                alt="X"
+                height={50}
+                width={50}
+              />
+            </span>
+            <span>
+              <img
+                src="https://sampul.co/images/Social_icon_instagram.png"
+                alt="X"
+                height={50}
+                width={50}
+              />
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

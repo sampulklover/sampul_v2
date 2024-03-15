@@ -44,12 +44,7 @@ const WillCertCard = ({ willData, qrValue, cardRef }) => {
             <div
               class={`wasiat-cert_content-top ${myInfo.isDraft ? 'pt-0' : ''}`}
             >
-              <img
-                loading="lazy"
-                src={`${process.env.NEXT_PUBLIC_CDNUR_IMAGE_WEBSITE}/sampul_logo.png`}
-                alt=""
-                id="sampul-will-logo"
-              ></img>
+              <img alt="image" loading="lazy" src="/images/Logo.svg"></img>
             </div>
             {myInfo.isDraft == false ? (
               <></>
