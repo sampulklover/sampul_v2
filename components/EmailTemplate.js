@@ -44,6 +44,7 @@ export const inviteBelove = ({
     },
     primaryText: {
       color: '#2F1DA9',
+      textDecoration: 'none',
     },
     primaryButton: {
       display: 'inline-block',
@@ -116,8 +117,13 @@ export const inviteBelove = ({
           safekeeping asset for the loved ones. If you have any questions, send
           us a message at{' '}
           <span style={contentStyle.primaryText}>hi@sampul.com</span> or on{' '}
-          <span style={contentStyle.primaryText}>Twitter</span>. We’d love to
-          hear from you.
+          <a
+            style={contentStyle.primaryText}
+            href={process.env.NEXT_PUBLIC_TWITTER_URL}
+          >
+            Twitter
+          </a>
+          . We’d love to hear from you.
           <br />
           <br />— The Sampul team
         </p>
@@ -246,7 +252,7 @@ export const inviteBelove = ({
           >
             <img
               src="https://sampul.co/images/Logo.png"
-              alt="X"
+              alt="Sampul"
               height="30"
               width="100%"
             />
@@ -269,7 +275,7 @@ export const inviteBelove = ({
             >
               <img
                 src="https://sampul.co/images/Social_icon_facebook.png"
-                alt="X"
+                alt="Facebook"
                 height="30"
                 width="100%"
               />
@@ -277,7 +283,7 @@ export const inviteBelove = ({
             <a href={process.env.NEXT_PUBLIC_INSTAGRAM_URL}>
               <img
                 src="https://sampul.co/images/Social_icon_instagram.png"
-                alt="X"
+                alt="Instagram"
                 height="30"
                 width="100%"
               />
