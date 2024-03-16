@@ -29,7 +29,7 @@ const NavBar = () => {
             class="d-inline-block align-text-top"
           />
         </a>
-        {/* <button
+        <button
           class="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
@@ -89,7 +89,7 @@ const NavBar = () => {
               </>
             )}
           </ul>
-        </div> */}
+        </div>
       </div>
     </nav>
   );

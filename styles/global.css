@@ -11,9 +11,6 @@
   font-family: Inter, sans-serif;
 }
 
-.btn-light {
-  border: 1px solid #dee2e6; /* Adjust the color as needed */
-}
 
 .inner-body {
   padding-left: 0rem;
@@ -29,6 +26,10 @@
 
 .pointer-on-hover {
   cursor: pointer;
+}
+
+.btn-light {
+  border: 1px solid #dee2e6; /* Adjust the color as needed */
 }
 
 .btn-primary, .btn-primary:active, .btn-primary:visited {
