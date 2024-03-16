@@ -3,6 +3,11 @@
   display: none;
 }
  
+.navbar-padding {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
 .crop-text {
   -webkit-line-clamp: 2;
   overflow : hidden;
@@ -62,6 +67,16 @@ a:hover {
   box-shadow: 0 1px 2px rgba(16, 24, 40, .05);
 }
 
-.btn-primary:hover {
-  background-color: #6842f4; /* Change the color to your desired hover color */
+.btn-light {
+  border: 1px solid #dee2e6; /* Adjust the color as needed */
 }
+
+.btn-primary, .btn-primary:active, .btn-primary:visited {
+  background-color: #533de9 !important;
+  border: 1px solid #7f56d9;
+}
+
+.btn-primary:hover {
+  background-color: #3c22e2 !important;
+}
+

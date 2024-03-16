@@ -1,6 +1,50 @@
 function navBar() {
-  return `
-  <div
+  return ` <nav
+  class="navbar sticky-top navbar-expand-sm border-bottom bg-white navbar-padding"
+>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">
+      <img
+        src="../../static/images/Logo.svg"
+        alt="image"
+        sizes="100vw"
+        style="width: 150; height: 'auto'"
+        class="d-inline-block align-text-top"
+      />
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mynavbar"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mynavbar">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item pe-2">
+          <a
+            href="signin"
+            class="btn btn-light btn-text btn-lg"
+            type="button"
+          >
+            Sign in
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            href="signup"
+            class="btn btn-primary btn-lg btn-text"
+            type="button"
+          >
+            Sign up
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div
   data-collapse="none"
   data-animation="default"
   data-duration="400"
@@ -11,18 +55,14 @@ function navBar() {
 >
   <div class="wrapper navbar-wrapper">
     <div class="left-navbar">
-      <a href="index.html" class="brand w-nav-brand"
-        ><img src="images/Logo.svg" loading="lazy" alt=""
+      <a href="/" aria-current="page" class="brand w-nav-brand w--current"
+        ><img src="../../static/images/Logo.svg" loading="lazy" alt=""
       /></a>
     </div>
     <div class="menu-wrapper bg-white">
       <nav role="navigation" class="nav-menu w-nav-menu">
         <div class="navigation-links">
-          <a
-            href="sign-in.html"
-            aria-current="page"
-            class="nav-link w-inline-block w--current"
-          >
+          <a href="signin" class="nav-link w-inline-block">
             <div class="button-text">Sign In</div>
             <div class="nav-link-hover-button"></div>
           </a>
@@ -31,11 +71,7 @@ function navBar() {
             class="uui-navbar02_menu-right"
           >
             <div class="uui-navbar02_button-wrapper">
-              <a
-                href="sign-up.html"
-                aria-current="page"
-                class="uui-button-2 w-inline-block w--current"
-              >
+              <a href="signup" class="uui-button-2 w-inline-block">
                 <div>Sign up</div>
               </a>
             </div>
@@ -82,25 +118,37 @@ function navBar() {
                 href="https://www.instagram.com/tycreated/"
                 target="_blank"
                 class="team-social-icon outline w-inline-block"
-                ><img src="images/IG.svg" loading="lazy" alt=""
+                ><img
+                  src="../../static/images/IG.svg"
+                  loading="lazy"
+                  alt=""
               /></a>
               <a
                 href="https://twitter.com/Tycreated"
                 target="_blank"
                 class="team-social-icon outline w-inline-block"
-                ><img src="images/facebook-f.svg" loading="lazy" alt=""
+                ><img
+                  src="../../static/images/facebook-f.svg"
+                  loading="lazy"
+                  alt=""
               /></a>
               <a
                 href="https://twitter.com/Tycreated"
                 target="_blank"
                 class="team-social-icon outline w-inline-block"
-                ><img src="images/linkedin.svg" loading="lazy" alt=""
+                ><img
+                  src="../../static/images/linkedin.svg"
+                  loading="lazy"
+                  alt=""
               /></a>
               <a
                 href="https://twitter.com/Tycreated"
                 target="_blank"
                 class="team-social-icon outline w-inline-block"
-                ><img src="images/YT.svg" loading="lazy" alt=""
+                ><img
+                  src="../../static/images/YT.svg"
+                  loading="lazy"
+                  alt=""
               /></a>
             </div>
           </div>
@@ -118,7 +166,7 @@ function navBar() {
             </div>
             <a
               id="w-node-f4f0ce64-1f82-9e16-20fb-882e6946b843-336b9d43"
-              href="company.html"
+              href="company"
               class="button grey-outline small w-inline-block"
             >
               <div class="button-text">About us</div>
@@ -164,7 +212,7 @@ function navBar() {
             </div>
             <a
               id="w-node-aea9f59c-b439-2797-db5e-6ba2ebbcded2-336b9d43"
-              href="projects.html"
+              href="projects"
               class="button grey-outline small w-inline-block"
             >
               <div class="button-text">View all</div>
@@ -188,7 +236,7 @@ function navBar() {
                       ></div>
                     </div>
                     <img
-                      src="images/arrow-right48x482x.svg"
+                      src="../../static/images/arrow-right48x482x.svg"
                       loading="lazy"
                       id="w-node-e8411f27-0bc9-1e9f-ead1-b785bda240e6-bda240e0"
                       alt=""
@@ -216,7 +264,7 @@ function navBar() {
             </div>
             <a
               id="w-node-_1e0f0e3b-c735-de45-d3e2-0c9fcf80a649-336b9d43"
-              href="resources.html"
+              href="resources"
               class="button grey-outline small w-inline-block"
             >
               <div class="button-text">View all</div>
@@ -237,7 +285,7 @@ function navBar() {
                       <div class="list-item-text"></div>
                     </div>
                     <img
-                      src="images/arrow-right48x482x.svg"
+                      src="../../static/images/arrow-right48x482x.svg"
                       loading="lazy"
                       id="w-node-_4541705a-de97-7f82-8818-9c9145464680-4546467a"
                       alt=""
@@ -269,7 +317,7 @@ function navBar() {
                 class="dropdown-lottie"
                 data-w-id="310e10b1-84f0-48f0-3347-482d442c2ed8"
                 data-animation-type="lottie"
-                data-src="documents/dropdown-easey.json"
+                data-src="../../static/documents/dropdown-easey.json"
                 data-loop="0"
                 data-direction="1"
                 data-autoplay="0"
@@ -305,12 +353,12 @@ function navBar() {
                 </div>
               </div>
               <a
-                href="company.html"
+                href="company"
                 class="post-list-item category-list-item w-inline-block"
               >
                 <div>About us</div>
                 <img
-                  src="images/arrow-right48x482x.svg"
+                  src="../../static/images/arrow-right48x482x.svg"
                   loading="lazy"
                   id="w-node-f6a0a796-4f1d-5758-490b-395b2a23adce-336b9d43"
                   alt=""
@@ -332,7 +380,7 @@ function navBar() {
                 class="dropdown-lottie"
                 data-w-id="26ed9205-d756-8b1d-71b5-e2d2bc505b69"
                 data-animation-type="lottie"
-                data-src="documents/dropdown-easey.json"
+                data-src="../../static/documents/dropdown-easey.json"
                 data-loop="0"
                 data-direction="1"
                 data-autoplay="0"
@@ -360,7 +408,7 @@ function navBar() {
                         ></div>
                       </div>
                       <img
-                        src="images/arrow-right48x482x.svg"
+                        src="../../static/images/arrow-right48x482x.svg"
                         loading="lazy"
                         id="w-node-e8411f27-0bc9-1e9f-ead1-b785bda240e6-bda240e0"
                         alt=""
@@ -374,12 +422,12 @@ function navBar() {
                 </div>
               </div>
               <a
-                href="projects.html"
+                href="projects"
                 class="post-list-item category-list-item w-inline-block"
               >
                 <div>View all</div>
                 <img
-                  src="images/arrow-right48x482x.svg"
+                  src="../../static/images/arrow-right48x482x.svg"
                   loading="lazy"
                   id="w-node-_169c8dac-dcf9-9d77-b5a0-6fe2bb220d51-336b9d43"
                   alt=""
@@ -401,7 +449,7 @@ function navBar() {
                 class="dropdown-lottie"
                 data-w-id="7c88412b-5653-be4c-c04b-15b269f63e7d"
                 data-animation-type="lottie"
-                data-src="documents/dropdown-easey.json"
+                data-src="../../static/documents/dropdown-easey.json"
                 data-loop="0"
                 data-direction="1"
                 data-autoplay="0"
@@ -426,7 +474,7 @@ function navBar() {
                         <div class="list-item-text"></div>
                       </div>
                       <img
-                        src="images/arrow-right48x482x.svg"
+                        src="../../static/images/arrow-right48x482x.svg"
                         loading="lazy"
                         id="w-node-_4541705a-de97-7f82-8818-9c9145464680-4546467a"
                         alt=""
@@ -440,12 +488,12 @@ function navBar() {
                 </div>
               </div>
               <a
-                href="resources.html"
+                href="resources"
                 class="post-list-item category-list-item w-inline-block"
               >
                 <div>View all</div>
                 <img
-                  src="images/arrow-right48x482x.svg"
+                  src="../../static/images/arrow-right48x482x.svg"
                   loading="lazy"
                   id="w-node-fbb98bb2-0970-908c-f9a3-aa45d34eaea4-336b9d43"
                   alt=""
@@ -460,11 +508,7 @@ function navBar() {
           class="tablet-mobile-nav-links"
         >
           <div class="navigation-links">
-            <a
-              href="sign-in.html"
-              aria-current="page"
-              class="nav-link w-inline-block w--current"
-            >
+            <a href="signin" class="nav-link w-inline-block">
               <div class="button-text">Sign In</div>
               <div class="nav-link-hover-button"></div>
             </a>
@@ -473,11 +517,7 @@ function navBar() {
               class="uui-navbar02_menu-right"
             >
               <div class="uui-navbar02_button-wrapper">
-                <a
-                  href="sign-up.html"
-                  aria-current="page"
-                  class="uui-button-2 w-inline-block w--current"
-                >
+                <a href="signup" class="uui-button-2 w-inline-block">
                   <div>Sign up</div>
                 </a>
               </div>
@@ -488,6 +528,6 @@ function navBar() {
     </div>
     <div class="mega-menu-overlay"></div>
   </div>
-</div>
+</div>           
   `;
 }

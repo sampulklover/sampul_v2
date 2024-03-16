@@ -339,7 +339,7 @@ blockquote {
   background-color: rgba(9, 11, 25, .45);
 }
 
-.navbar {
+/* .navbar {
   height: 75px;
   background-color: rgba(221, 221, 221, 0);
   justify-content: center;
@@ -352,7 +352,8 @@ blockquote {
   bottom: auto;
   left: 0%;
   right: 0%;
-}
+} 
+*/
 
 .wrapper {
   z-index: 10;
@@ -374,6 +375,7 @@ blockquote {
   padding-left: 0;
   padding-right: 0;
 }
+
 
 .nav-link {
   color: var(--dark);
@@ -428,7 +430,7 @@ blockquote {
   border: 1px rgba(243, 246, 252, 0);
   justify-content: flex-end;
   display: flex;
-}
+} 
 
 .brand {
   color: var(--dark);
