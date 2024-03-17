@@ -101,6 +101,7 @@ const DigitalAssets = () => {
 
     const modifiedData = data.map((item) => ({
       value: item.id,
+      label: item.name,
       name: item.name,
       details: item,
     }));

@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useId } from 'react';
 import { useRouter } from 'next/router';
 import { supabase } from '../utils/supabase';
 import { useUser } from '../context/user';
 import Loading from './Laoding';
 import toast from 'react-hot-toast';
+import Select, { createFilter } from 'react-select';
 import {
   belovedLevel,
   beneficiaryTypes,
@@ -51,6 +52,9 @@ const DigitalAssetsModal = ({
   });
 
   const [newServicePlatform, setNewServicePlatform] = useState(false);
+  const [arrayElements, setArrayElements] = useState({
+    bodies: null,
+  });
 
   const setFrequencyBasedOnType = (type) => {
     const frequencySelect = document.getElementById(
@@ -77,9 +81,9 @@ const DigitalAssetsModal = ({
         elements: {
           username: document.getElementById('input-digital-assets-username'),
           email: document.getElementById('input-digital-assets-email'),
-          bodies_id: document.getElementById(
-            'select-digital-assets-service-platform'
-          ),
+          // bodies_id: document.getElementById(
+          //   'select-digital-assets-service-platform'
+          // ),
           new_service_platform_name: document.getElementById(
             'input-digital-assets-new-service-platform-name'
           ),
@@ -124,6 +128,16 @@ const DigitalAssetsModal = ({
         setNewServicePlatform(true);
       } else {
         setNewServicePlatform(false);
+        if (bodyList.data.length > 0) {
+          var foundObject = bodyList.data.find(
+            (obj) => obj.value === selectedItem.bodies_id
+          );
+
+          setArrayElements((prevState) => ({
+            ...prevState,
+            bodies: foundObject,
+          }));
+        }
       }
 
       for (const key in element) {
@@ -155,6 +169,10 @@ const DigitalAssetsModal = ({
     var element = elementList().digital_assets_modal.elements;
 
     const addData = {};
+
+    if (arrayElements.bodies) {
+      addData.bodies_id = arrayElements.bodies.value;
+    }
 
     for (const key in element) {
       if (key !== 'image_path') {
@@ -200,6 +218,10 @@ const DigitalAssetsModal = ({
       if (key !== 'image_path') {
         addData[key] = element[key].value;
       }
+    }
+
+    if (arrayElements.bodies) {
+      addData.bodies_id = arrayElements.bodies.value;
     }
 
     if (newServicePlatform) {
@@ -347,6 +369,22 @@ const DigitalAssetsModal = ({
     }
   };
 
+  const getOptionLabel = (item) => (
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <img
+        src={
+          item.details.icon
+            ? `data:image/svg+xml,${encodeURIComponent(item.details.icon)}`
+            : '/images/Displacement-p-500.png'
+        }
+        class="rounded-circle me-1"
+        width={20}
+        height={20}
+      />
+      <span class="text-truncate">{item.label}</span>
+    </div>
+  );
+
   return (
     <div class="modal fade" id="digital-assets-modal">
       <div class="modal-dialog modal-dialog-centered">
@@ -426,17 +464,29 @@ const DigitalAssetsModal = ({
                 class="form-field-wrapper"
                 style={{
                   transition: 'max-height 0.5s ease', // Use max-height for animation
-                  overflow: 'hidden',
+                  overflow: newServicePlatform ? 'hidden' : '',
                   maxHeight: newServicePlatform ? '0px' : '200px',
                 }}
               >
-                <label
-                  htmlFor={`select-digital-assets-service-platform`}
-                  class="uui-field-label"
-                >
+                <label class="uui-field-label">
                   Service Platform <Loading loading={!bodyList.isReady} />
                 </label>
-                <select
+
+                <Select
+                  instanceId={useId()}
+                  value={arrayElements.bodies}
+                  options={bodyList.data}
+                  onChange={(newValues) => {
+                    setArrayElements((prevState) => ({
+                      ...prevState,
+                      bodies: newValues,
+                    }));
+                  }}
+                  // getOptionLabel={getOptionLabel}
+                  required={!newServicePlatform ? true : false}
+                />
+
+                {/* <select
                   id={`select-digital-assets-service-platform`}
                   class="form-select"
                   required={!newServicePlatform ? true : false}
@@ -446,7 +496,7 @@ const DigitalAssetsModal = ({
                       {item.name}
                     </option>
                   ))}
-                </select>
+                </select> */}
               </div>
 
               {!newServicePlatform ? (

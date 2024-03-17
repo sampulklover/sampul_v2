@@ -117,6 +117,7 @@ const Dashboard = () => {
     const modifiedData = data.map((item) => ({
       value: item.id,
       name: item.name,
+      label: item.name,
       details: item,
     }));
 
