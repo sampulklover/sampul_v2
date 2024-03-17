@@ -44,11 +44,9 @@ const Settings = () => {
   const title = () => {
     return (
       <>
-        <div class="row">
+        <div class="row text-md-start text-center">
           <div class="col-lg">
-            <div class="content-text">
-              <div class="smpl_display-sm-semibold">Settings</div>
-            </div>
+            <div class="smpl_display-sm-semibold">Settings</div>
             <div class="smpl_text-md-regular">
               Manage your account settings here
             </div>
