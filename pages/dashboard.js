@@ -417,7 +417,7 @@ const Dashboard = () => {
     image_path = 'images/like.png',
   }) => {
     return (
-      <div class="card" style={{ minHeight: 210 }}>
+      <div class="card" style={{ minHeight: 230 }}>
         <div class="row mb-4">
           <div class="col">
             <div>

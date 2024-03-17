@@ -230,8 +230,8 @@ const UserDetailsModal = ({ selectedUser, refreshFunction, summary }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {selectedUser?.digital_assets.map((item, index) => {
-                      const bodies = summary.data?.bodiesData.find(
+                    {selectedUser?.digital_assets?.map((item, index) => {
+                      const bodies = summary.data?.bodies.find(
                         (x) => x.id === item.bodies_id
                       );
 
