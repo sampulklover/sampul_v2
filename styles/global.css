@@ -21766,13 +21766,13 @@
   color: #101828;
   letter-spacing: 0;
   flex: 1;
-  align-self: flex-start;
-  align-items: center;
+  /* align-self: flex-start; */
+  /* align-items: center; */
   font-family: Inter, sans-serif;
   font-size: 18px;
   font-weight: 600;
   line-height: 28px;
-  display: flex;
+  /* display: flex; */
 }
 
 .smpl_text-lg-semibold.text-align-left {

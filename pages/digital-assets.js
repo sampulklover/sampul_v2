@@ -132,12 +132,10 @@ const DigitalAssets = () => {
   const title = () => {
     return (
       <>
-        <div class="row">
+        <div class="row text-md-start text-center">
           <div class="col-lg">
-            <div class="content-text">
-              <div class="smpl_display-sm-semibold">
-                List down your Digital Assets
-              </div>
+            <div class="smpl_display-sm-semibold">
+              List down your Digital Assets
             </div>
             <div class="smpl_text-md-regular">
               Ensure no assets left behind for your loved ones

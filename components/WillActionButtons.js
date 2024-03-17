@@ -363,7 +363,7 @@ const WillActionButtons = ({
     <>
       <ShareModal url={shareUrl} title="Will Certificate" />
       <div
-        class={`text-md-right ${
+        class={`${
           router?.pathname == '/dashboard'
             ? 'text-md-start mt-4'
             : 'text-md-end'

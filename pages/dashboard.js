@@ -138,7 +138,7 @@ const Dashboard = () => {
     return (
       <div class="div-block-43">
         <div class="smpl-icon-featured-outline-large">
-          <div class="smpl_text-lg-semibold align-center flexchild-align-centre text-color-primary700">
+          <div class="smpl_text-lg-semibold text-center flexchild-align-centre text-color-primary700">
             {number}
           </div>
         </div>
@@ -368,7 +368,7 @@ const Dashboard = () => {
                 </button>
               </div>
             </div>
-            <div class="col-md-7 col-12 mt-md-0 mt-3">
+            <div class="col-lg-7 col-12 mt-lg-0 mt-3">
               <div class="tab-content" id="nav-tabContent">
                 <div
                   class="tab-pane fade show active"
@@ -417,7 +417,7 @@ const Dashboard = () => {
     image_path = 'images/like.png',
   }) => {
     return (
-      <div class="card" style={{ minHeight: 230 }}>
+      <div class="card" style={{ minHeight: 250 }}>
         <div class="row mb-4">
           <div class="col">
             <div>
@@ -589,13 +589,13 @@ const Dashboard = () => {
   const title = () => {
     return (
       <>
-        <div class="row">
+        <div class="row text-md-start text-center">
           <div class="col-lg">
-            <div class="content-text">
-              <div class="smpl_display-sm-semibold">Welcome back,</div>
-              <div class="smpl_display-sm-semibold text-color-primary700">
+            <div class="smpl_display-sm-semibold">
+              Welcome back,{' '}
+              <span class="smpl_display-sm-semibold text-color-primary700">
                 {user?.profile?.username}
-              </div>
+              </span>
             </div>
             <div class="smpl_text-md-regular">
               Overview of secured assets in your Sampul

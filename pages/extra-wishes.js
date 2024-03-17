@@ -237,11 +237,9 @@ const ExtraWishes = () => {
   const title = () => {
     return (
       <>
-        <div class="row">
+        <div class="row text-md-start text-center">
           <div class="col-lg">
-            <div class="content-text">
-              <div class="smpl_display-sm-semibold">Extra Wishes</div>
-            </div>
+            <div class="smpl_display-sm-semibold">Extra Wishes</div>
             <div class="smpl_text-md-regular">
               Add special touches with Sampul's Extra Wishes feature.
             </div>
@@ -342,7 +340,7 @@ const ExtraWishes = () => {
               {displayUpgradePlan('nazar')}
             </div>
           </div>
-          <div class="col card">
+          <div class="col-lg col-sm-12 mt-lg-0 mt-2 card">
             <form
               class="mb-3"
               onSubmit={(event) => {
@@ -412,7 +410,7 @@ const ExtraWishes = () => {
               {displayUpgradePlan('fidyah')}
             </div>
           </div>
-          <div class="col card">
+          <div class="col-lg col-sm-12 mt-lg-0 mt-2 card">
             <form
               class="mb-3"
               onSubmit={(event) => {
@@ -498,7 +496,10 @@ const ExtraWishes = () => {
               {displayUpgradePlan('charity')}
             </div>
           </div>
-          <div class="col card">
+          <div
+            class="col-lg col-sm-12 mt-lg-0 mt-2 card"
+            style={{ width: '100%' }}
+          >
             <form
               class="mb-3"
               onSubmit={(event) => {
@@ -589,7 +590,10 @@ const ExtraWishes = () => {
               {displayUpgradePlan('waqf')}
             </div>
           </div>
-          <div class="col card">
+          <div
+            class="col-lg col-sm-12 mt-lg-0 mt-2 card"
+            style={{ width: '100%' }}
+          >
             <form
               class="mb-3"
               onSubmit={(event) => {
@@ -710,7 +714,7 @@ const ExtraWishes = () => {
               {displayUpgradePlan('organ_donor')}
             </div>
           </div>
-          <div class="col card">
+          <div class="col-lg col-sm-12 mt-lg-0 mt-2 card">
             <form
               class="mb-3"
               onSubmit={(event) => {
