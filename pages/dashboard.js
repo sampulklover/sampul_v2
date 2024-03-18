@@ -434,7 +434,7 @@ const Dashboard = () => {
   const section3 = () => {
     return (
       <>
-        <div class="smpl_section-content wf-section">
+        <div>
           <div class="table_overview">
             <div class="content_overview_digital-subscribtions">
               <div class="card-header-2">
