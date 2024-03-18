@@ -1,125 +1,16 @@
-import { useEffect, useState } from 'react';
-import { supabase } from '../utils/supabase';
-import { useUser } from '../context/user';
+import { useState } from 'react';
 import Loading from '../components/Laoding';
-import toast from 'react-hot-toast';
-import { instructionsAfterDeath, servicePlatforms } from '../constant/enum';
-import Link from 'next/link';
-import DigitalSummaryCard from '../components/DigitalSummaryCard';
 import Footer from '../components/Footer';
 import Breadcrumb from '../components/Breadcrumb';
 import DigitalAssetsModal from '../components/DigitalAssetsModal';
-import { addUserImg } from '../constant/element';
 import DigitalAssetsCard from '../components/DigitalAssetsCard';
 import SideBar from '../components/SideBar';
 
 const DigitalAssets = () => {
-  const { user } = useUser();
-  const [summary, setSummary] = useState({
-    data: [],
-    isReady: false,
-  });
-  const [belovedList, setBelovedList] = useState({
-    data: [],
-    isReady: false,
-  });
-  const [bodyList, setBodyList] = useState({
-    data: [],
-    isReady: false,
-  });
-  const [isReady, setIsReady] = useState(true);
-  const [runEffect, setRunEffect] = useState(false);
   const [digitalAssetsModalType, setDigitalAssetsModalType] = useState({
     key: 'add',
     selectedItem: null,
   });
-
-  const getDigitalAssets = async () => {
-    const { data, error } = await supabase
-      .from('digital_assets')
-      .select('*')
-      .eq('uuid', user?.uuid)
-      .order('created_at', { ascending: false });
-
-    if (error) {
-      setSummary({
-        data: [],
-        isReady: true,
-      });
-      toast.error(error.message);
-      return;
-    }
-
-    setSummary({
-      data: data,
-      isReady: true,
-    });
-  };
-
-  const getBeloved = async () => {
-    const { data, error } = await supabase
-      .from('beloved')
-      .select('*')
-      .eq('uuid', user?.uuid);
-
-    if (error) {
-      setBelovedList({
-        data: [],
-        isReady: true,
-      });
-      toast.error(error.message);
-      return;
-    }
-
-    const modifiedData = data.map((item) => ({
-      value: item.id,
-      name: item.nric_name,
-    }));
-
-    setBelovedList({
-      data: modifiedData,
-      isReady: true,
-    });
-  };
-
-  const getBodies = async () => {
-    const { data, error } = await supabase
-      .from('bodies')
-      .select('*')
-      .eq('active', true)
-      .neq('category', 'waqaf')
-      .neq('category', 'sadaqah_waqaf_zakat');
-
-    if (error) {
-      setBodyList({
-        data: [],
-        isReady: true,
-      });
-      toast.error(error.message);
-      return;
-    }
-
-    const modifiedData = data.map((item) => ({
-      value: item.id,
-      label: item.name,
-      name: item.name,
-      details: item,
-    }));
-
-    setBodyList({
-      data: modifiedData,
-      isReady: true,
-    });
-  };
-
-  useEffect(() => {
-    if (!runEffect && user?.uuid) {
-      setRunEffect(true);
-      getDigitalAssets();
-      getBeloved();
-      getBodies();
-    }
-  }, [user, runEffect]);
 
   const digitalAssetsModal = (item) => {
     $('#digital-assets-modal')?.modal('show');
@@ -224,9 +115,7 @@ const DigitalAssets = () => {
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
               <DigitalAssetsCard
                 typeName=""
-                summary={summary}
                 editFunction={digitalAssetsModal}
-                bodyList={bodyList}
               />
             </div>
           </div>
@@ -239,9 +128,7 @@ const DigitalAssets = () => {
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
               <DigitalAssetsCard
                 typeName="non_subscription"
-                summary={summary}
                 editFunction={digitalAssetsModal}
-                bodyList={bodyList}
               />
             </div>
           </div>
@@ -254,9 +141,7 @@ const DigitalAssets = () => {
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
               <DigitalAssetsCard
                 typeName="subscription"
-                summary={summary}
                 editFunction={digitalAssetsModal}
-                bodyList={bodyList}
               />
             </div>
           </div>
@@ -273,9 +158,6 @@ const DigitalAssets = () => {
           <DigitalAssetsModal
             keyType={digitalAssetsModalType.key}
             selectedItem={digitalAssetsModalType.selectedItem}
-            refreshFunction={getDigitalAssets}
-            belovedList={belovedList}
-            bodyList={bodyList}
           />
           <div class="mt-4">{title()}</div>
           {tabSection()}

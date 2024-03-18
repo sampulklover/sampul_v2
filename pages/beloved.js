@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { supabase } from '../utils/supabase';
 import { useRouter } from 'next/router';
 import { useUser } from '../context/user';
 import Loading from '../components/Laoding';
@@ -7,33 +6,21 @@ import toast from 'react-hot-toast';
 import {
   belovedInviteStatus,
   belovedLevel,
-  instructionsAfterDeath,
   relationships,
-  servicePlatforms,
 } from '../constant/enum';
-import Link from 'next/link';
-import DigitalSummaryCard from '../components/DigitalSummaryCard';
 import Footer from '../components/Footer';
 import Breadcrumb from '../components/Breadcrumb';
 import BelovedModal from '../components/BelovedModal';
 import { addUserImg, emptyUserImg } from '../constant/element';
 import SideBar from '../components/SideBar';
 import InviteModal from '../components/InviteModal';
+import { useApi } from '../context/api';
 
 const Beloved = () => {
   const router = useRouter();
   const { user } = useUser();
-  const [summary, setSummary] = useState({
-    data: [],
-    isReady: false,
-  });
-  const [inviteList, setInviteList] = useState({
-    data: [],
-    isReady: false,
-  });
+  const { contextApiData } = useApi();
 
-  const [isReady, setIsReady] = useState(true);
-  const [runEffect, setRunEffect] = useState(false);
   const [belovedModalType, setBelovedModalType] = useState({
     key: 'add',
     selectedItem: null,
@@ -44,75 +31,6 @@ const Beloved = () => {
     selectedItem: null,
     category: 'invite',
   });
-
-  const getBeloved = async () => {
-    const { data, error } = await supabase
-      .from('beloved')
-      .select('*, beloved_invites (*)')
-      .eq('uuid', user?.uuid)
-      .order('created_at', { ascending: false });
-
-    if (error) {
-      setSummary({
-        data: [],
-        isReady: true,
-      });
-      toast.error(error.message);
-      return;
-    }
-
-    setSummary({
-      data: data,
-      isReady: true,
-    });
-  };
-
-  const getInvites = async () => {
-    try {
-      const response = await fetch('/api/beloved/invite-list', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: user.profile.email,
-        }),
-      });
-
-      if (!response.ok) {
-        toast.error('Something went wrong!');
-        setInviteList({
-          data: [],
-          isReady: true,
-        });
-        return;
-      }
-
-      const { data } = await response.json();
-      setInviteList({
-        data: data,
-        isReady: true,
-      });
-    } catch (error) {
-      toast.error(error.message);
-      setInviteList({
-        data: [],
-        isReady: true,
-      });
-    }
-  };
-
-  const initFunction = () => {
-    getBeloved();
-    getInvites();
-  };
-
-  useEffect(() => {
-    if (!runEffect && user?.uuid) {
-      setRunEffect(true);
-      initFunction();
-    }
-  }, [user, runEffect]);
 
   const title = () => {
     return (
@@ -227,11 +145,11 @@ const Beloved = () => {
               aria-labelledby="headingOne"
               data-bs-parent="#accordion1"
             >
-              {loadingTable({ condition: summary.isReady })}
+              {loadingTable({ condition: !contextApiData.beloved.isLoading })}
               <div class="pointer-on-hover">
                 <table class="table table-hover mb-0">
                   <tbody>
-                    {summary.data.map((item, index) => {
+                    {contextApiData.beloved.data?.map((item, index) => {
                       if (item.type == 'co_sampul') {
                         coSampulData.push(item);
                         const rObject = relationships().find(
@@ -373,11 +291,11 @@ const Beloved = () => {
               aria-labelledby="headingTwo"
               data-bs-parent="#accordion2"
             >
-              {loadingTable({ condition: summary.isReady })}
+              {loadingTable({ condition: !contextApiData.beloved.isLoading })}
               <div class="pointer-on-hover">
                 <table class="table table-hover mb-0">
                   <tbody>
-                    {summary.data.map((item, index) => {
+                    {contextApiData.beloved.data?.map((item, index) => {
                       if (item.type == 'future_owner') {
                         const rObject = relationships().find(
                           (x) => x.value === item.relationship
@@ -489,11 +407,11 @@ const Beloved = () => {
               aria-labelledby="headingThree"
               data-bs-parent="#accordion3"
             >
-              {loadingTable({ condition: summary.isReady })}
+              {loadingTable({ condition: !contextApiData.beloved.isLoading })}
               <div class="pointer-on-hover">
                 <table class="table table-hover mb-0">
                   <tbody>
-                    {summary.data.map((item, index) => {
+                    {contextApiData.beloved.data?.map((item, index) => {
                       if (item.type == 'guardian') {
                         const rObject = relationships().find(
                           (x) => x.value === item.relationship
@@ -624,11 +542,11 @@ const Beloved = () => {
               aria-labelledby="headingFour"
               data-bs-parent="#accordion3"
             >
-              {loadingTable({ condition: inviteList.isReady })}
+              {loadingTable({ condition: !contextApiData.invites.isLoading })}
               <div class="pointer-on-hover">
                 <table class="table table-hover mb-0">
                   <tbody>
-                    {inviteList.data.map((item, index) => {
+                    {contextApiData.invites.data?.map((item, index) => {
                       var status_invites = null;
                       if (item.invite_status.length > 0) {
                         status_invites = belovedInviteStatus().find(
@@ -708,13 +626,11 @@ const Beloved = () => {
             keyType={inviteModalType.key}
             category={inviteModalType.category}
             selectedItem={inviteModalType.selectedItem}
-            refreshFunction={initFunction}
           />
           <BelovedModal
             keyType={belovedModalType.key}
             belovedType={belovedModalType.category}
             selectedItem={belovedModalType.selectedItem}
-            refreshFunction={initFunction}
           />
           <div class="mt-4">{title()}</div>
           <div

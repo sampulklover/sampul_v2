@@ -7,15 +7,16 @@ import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import ShareModal from './ShareModal';
 import Loading from './Laoding';
+import { useApi } from '../context/api';
 
 const WillActionButtons = ({
   setQrValue,
   cardRef,
   showQrModal = false,
   viewOnly = false,
-  refreshFunction,
 }) => {
   const { user } = useUser();
+  const { getWill } = useApi();
   const router = useRouter();
 
   const [shareUrl, setShareUrl] = useState(null);
@@ -119,7 +120,7 @@ const WillActionButtons = ({
           });
 
           setShareUrl(url);
-          refreshFunction();
+          getWill();
           setButtonLoading({
             ...buttonLoading,
             generate: false,

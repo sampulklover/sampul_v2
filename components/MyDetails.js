@@ -1,10 +1,8 @@
-import Link from 'next/link';
 import Loading from './Laoding';
 import { addUserImg } from '../constant/element';
 import { countries, maritalStatus, religions } from '../constant/enum';
 import { useUser } from '../context/user';
 import { supabase } from '../utils/supabase';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import {
   mapViewElements,
@@ -12,13 +10,13 @@ import {
   replaceOrAddImage,
 } from '../utils/helpers';
 import toast from 'react-hot-toast';
+import { useApi } from '../context/api';
 
 const MyDetails = ({ isModal = false }) => {
   const { user } = useUser();
-  const router = useRouter();
-  const [runEffect, setRunEffect] = useState(false);
+  const { contextApiData, getProfile } = useApi();
+
   const [summary, setSummary] = useState({
-    isCalling: false,
     isSaving: false,
   });
   const [selectedImage, setSelectedImage] = useState({
@@ -27,11 +25,16 @@ const MyDetails = ({ isModal = false }) => {
   });
 
   useEffect(() => {
-    if (!runEffect && user?.uuid) {
-      setRunEffect(true);
-      getProfiles();
+    if (contextApiData.profile.data) {
+      var element = elementList().profile.elements;
+      var mapData = contextApiData.profile.data;
+      mapViewElements({
+        source: mapData,
+        target: element,
+        viewOnly: false,
+      });
     }
-  }, [user, runEffect]);
+  }, [contextApiData.profile]);
 
   const elementList = () => {
     const inputElements = {
@@ -59,42 +62,6 @@ const MyDetails = ({ isModal = false }) => {
     };
 
     return inputElements;
-  };
-
-  const getProfiles = async () => {
-    setSummary({
-      ...summary,
-      isCalling: true,
-    });
-
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('uuid', user?.uuid)
-      .single();
-
-    if (error) {
-      setSummary({
-        ...summary,
-        isCalling: false,
-      });
-      toast.error(error.message);
-      return;
-    }
-
-    var element = elementList().profile.elements;
-    var mapData = data;
-
-    mapViewElements({
-      source: mapData,
-      target: element,
-      viewOnly: false,
-    });
-
-    setSummary({
-      ...summary,
-      isCalling: false,
-    });
   };
 
   const onSubmitForm = async () => {
@@ -145,7 +112,7 @@ const MyDetails = ({ isModal = false }) => {
     }
 
     setTimeout(() => {
-      router.reload();
+      getProfile();
     }, 1500);
   };
 
@@ -194,7 +161,7 @@ const MyDetails = ({ isModal = false }) => {
           <div class="row mb-4">
             <div class="col-lg">
               <div class="smpl_text-sm-semibold">
-                Profile <Loading loading={summary.isCalling} />
+                Profile <Loading loading={contextApiData.profile.isLoading} />
               </div>
               <div class="smpl_text-sm-regular">
                 Update your personal data here

@@ -4,22 +4,14 @@ import {
   instructionsAfterDeath,
   relationships,
   servicePlatformAccountTypes,
-  servicePlatforms,
 } from '../constant/enum';
 import Loading from './Laoding';
 import { emptyUserImg } from '../constant/element';
+import { useApi } from '../context/api';
 
-const DigitalSummaryCard = ({
-  typeName,
-  summary,
-  showBeloved = false,
-  belovedData = [],
-  bodyList = {
-    data: [],
-    isReady: false,
-  },
-}) => {
+const DigitalSummaryCard = ({ typeName, showBeloved = false }) => {
   const router = useRouter();
+  const { contextApiData } = useApi();
 
   const type = {
     digital: {
@@ -27,24 +19,28 @@ const DigitalSummaryCard = ({
       subtitle:
         'Accounts where you keep your assets with value and can be passed on to your beloved ones.',
       addNewBtnTitle: 'Add Digital Accounts',
-      data: summary.data?.digital_account,
-      isReady: summary.isReady,
+      data: contextApiData.digitalAssets.data?.filter(
+        (x) => x.account_type === 'non_subscription'
+      ),
+      isReady: !contextApiData.digitalAssets.isLoading,
     },
     subscription: {
       title: 'Digital Subscriptions',
       subtitle:
         'Account where you make payment for subscription and to be terminated at the point of death.',
       addNewBtnTitle: 'Add Digital Subscriptions',
-      data: summary.data?.subscription_account,
-      isReady: summary.isReady,
+      data: contextApiData.digitalAssets.data?.filter(
+        (x) => x.account_type === 'subscription'
+      ),
+      isReady: !contextApiData.digitalAssets.isLoading,
     },
     all: {
       title: 'Digital Account',
       subtitle:
         'Accounts where you keep your assets with value and can be passed on to your beloved ones.',
       addNewBtnTitle: 'Add Digital Accounts',
-      data: summary.data,
-      isReady: summary.isReady,
+      data: contextApiData.digitalAssets.data,
+      isReady: !contextApiData.digitalAssets.isLoading,
     },
   };
 
@@ -90,7 +86,7 @@ const DigitalSummaryCard = ({
               </thead>
               <tbody>
                 {type[typeName].data.map((item, index) => {
-                  const spObject = bodyList?.data.find(
+                  const spObject = contextApiData.bodies.data.find(
                     (x) => x.id === item.bodies_id
                   );
 
@@ -115,7 +111,7 @@ const DigitalSummaryCard = ({
                     (x) => x.value === item.instructions_after_death
                   );
 
-                  const beloved = belovedData.find(
+                  const beloved = contextApiData.beloved.data?.find(
                     (x) => x.id === item?.beloved_id
                   );
 

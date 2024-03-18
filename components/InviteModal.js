@@ -13,6 +13,7 @@ import { deleteImage, replaceOrAddImage } from '../utils/helpers';
 import { addUserImg } from '../constant/element';
 import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid';
+import { useApi } from '../context/api';
 
 const type_title = {
   invite: {
@@ -53,8 +54,9 @@ const getElements = () => {
   return inputElements;
 };
 
-const InviteModal = ({ keyType, category, selectedItem, refreshFunction }) => {
+const InviteModal = ({ keyType, category, selectedItem }) => {
   const { user } = useUser();
+  const { getInvites } = useApi();
   const [isLoading, setIsLoading] = useState({
     reject: false,
     approve: false,
@@ -159,7 +161,7 @@ const InviteModal = ({ keyType, category, selectedItem, refreshFunction }) => {
         [key]: false,
       });
       $('#invite-modal')?.modal('hide');
-      refreshFunction();
+      getInvites();
     } catch (error) {
       toast.error(error.message);
       setIsLoading({

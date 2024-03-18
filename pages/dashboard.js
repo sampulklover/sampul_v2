@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { supabase } from '../utils/supabase';
 import { useUser } from '../context/user';
 import Loading from '../components/Laoding';
 import toast from 'react-hot-toast';
-import { mapViewElements } from '../utils/helpers';
+import { formatTimestamp, mapViewElements } from '../utils/helpers';
 import DigitalSummaryCard from '../components/DigitalSummaryCard';
 import Footer from '../components/Footer';
 import Breadcrumb from '../components/Breadcrumb';
@@ -14,41 +13,26 @@ import DigitalAssetsModal from '../components/DigitalAssetsModal';
 import BelovedModal from '../components/BelovedModal';
 import ProfileModal from '../components/ProfileModal';
 import { Tooltip } from 'react-tooltip';
+import { useApi } from '../context/api';
 
 const Dashboard = () => {
   const { user } = useUser();
+  const { contextApiData } = useApi();
+
   const cardRef = useRef(null);
   const [summary, setSummary] = useState({
     data: null,
     isReady: false,
   });
-  const [isReady, setIsReady] = useState(true);
-  const [runEffect, setRunEffect] = useState(false);
+
   const [qrValue, setQrValue] = useState(null);
   const [belovedCategory, setBelovedCategory] = useState('co_sampul');
-  const [bodyList, setBodyList] = useState({
-    data: [],
-    isReady: false,
-  });
 
-  const initiateFunction = async () => {
-    const { data: singleData, error } = await supabase
-      .from('profiles')
-      .select(`*, beloved ( * ), digital_assets ( * ), wills ( * )`)
-      .eq('uuid', user?.uuid)
-      .single();
-    if (error) {
-      setSummary({
-        data: null,
-        isReady: true,
-      });
-      toast.error(error.message);
-      return;
-    }
-
+  const mapDigitalAssets = async () => {
+    const singleData = {};
     singleData.digital_account = [];
     singleData.subscription_account = [];
-    singleData.digital_assets.forEach((item) => {
+    contextApiData.digitalAssets.data.forEach((item) => {
       if (item.account_type === 'non_subscription') {
         singleData.digital_account.push(item);
       }
@@ -65,13 +49,6 @@ const Dashboard = () => {
       .reduce((acc, val) => acc + val.declared_value_myr, 0)
       .toLocaleString()}`;
 
-    const modifiedBelovedData = singleData.beloved.map((item) => ({
-      value: item.id,
-      name: item.nric_name,
-    }));
-
-    singleData.belovedDropdownData = modifiedBelovedData;
-
     const displayElements = {
       count_value_digital: document.getElementById(
         'count-value-digital-account'
@@ -81,7 +58,6 @@ const Dashboard = () => {
         'count-value-subscription-account'
       ),
       count_subscription: document.getElementById('count-subscription-account'),
-      last_updated: document.getElementById('last-updated-will'),
     };
 
     var mapData = singleData;
@@ -97,43 +73,11 @@ const Dashboard = () => {
     });
   };
 
-  const getBodies = async () => {
-    const { data, error } = await supabase
-      .from('bodies')
-      .select('*')
-      .eq('active', true)
-      .neq('category', 'waqaf')
-      .neq('category', 'sadaqah_waqaf_zakat');
-
-    if (error) {
-      setBodyList({
-        data: [],
-        isReady: true,
-      });
-      toast.error(error.message);
-      return;
-    }
-
-    const modifiedData = data.map((item) => ({
-      value: item.id,
-      name: item.name,
-      label: item.name,
-      details: item,
-    }));
-
-    setBodyList({
-      data: modifiedData,
-      isReady: true,
-    });
-  };
-
   useEffect(() => {
-    if (!runEffect && user?.uuid) {
-      setRunEffect(true);
-      initiateFunction();
-      getBodies();
+    if (contextApiData.profile.isLoading == false) {
+      mapDigitalAssets();
     }
-  }, [user, runEffect]);
+  }, [contextApiData.digitalAssets.isLoading]);
 
   const numberUI = ({ number, title }) => {
     return (
@@ -281,14 +225,6 @@ const Dashboard = () => {
   const actionUI = ({ key = 'complete_profile' }) => {
     return (
       <div class="card-body get-started-bg">
-        {/* <h5 class="card-title">
-          <div class="smpl-icon-featured-outline-large">
-            <div class="icon-featured-medium w-embed">
-              {getStartedKey[key].innerIcon}
-            </div>
-          </div>
-        </h5> */}
-
         <span class="smpl_text-lg-semibold text-align-left">
           {getStartedKey[key].title}
         </span>
@@ -518,11 +454,7 @@ const Dashboard = () => {
                   </div>
                 </div>
               </div>
-              <DigitalSummaryCard
-                typeName="digital"
-                summary={summary}
-                bodyList={bodyList}
-              />
+              <DigitalSummaryCard typeName="digital" />
             </div>
             <div class="content_overview_digitalaccounts">
               <div class="card-header-2">
@@ -541,11 +473,7 @@ const Dashboard = () => {
                   </div>
                 </div>
               </div>
-              <DigitalSummaryCard
-                typeName="subscription"
-                summary={summary}
-                bodyList={bodyList}
-              />
+              <DigitalSummaryCard typeName="subscription" />
             </div>
           </div>
         </div>
@@ -565,18 +493,16 @@ const Dashboard = () => {
                 </h3>
                 <div class="div-block-11">
                   <div class="smpl_text-md-regular">Last wasiat update :</div>
-                  <div
-                    class="smpl_text-md-regular text-color-primary700"
-                    id="last-updated-will"
-                  >
-                    -
+                  <div class="smpl_text-md-regular text-color-primary700">
+                    {contextApiData.will.data?.last_updated
+                      ? formatTimestamp(contextApiData.will.data?.last_updated)
+                      : ''}
                   </div>
                 </div>
                 <WillActionButtons
                   setQrValue={setQrValue}
                   cardRef={cardRef}
                   showQrModal={true}
-                  refreshFunction={initiateFunction}
                 />
               </div>
               <img width="300px" src="images/will_dashboard.png" />
@@ -618,19 +544,8 @@ const Dashboard = () => {
             keyType={'add'}
             belovedType={belovedCategory}
             selectedItem={null}
-            refreshFunction={initiateFunction}
           />
-          <DigitalAssetsModal
-            keyType={'add'}
-            selectedItem={null}
-            belovedList={{
-              data: summary?.data?.belovedDropdownData
-                ? summary.data.belovedDropdownData
-                : [],
-              isReady: summary.isReady,
-            }}
-            bodyList={bodyList}
-          />
+          <DigitalAssetsModal keyType={'add'} selectedItem={null} />
           <QrCodeModal cardRef={cardRef} qrValue={qrValue} />
           <Breadcrumb pageName={'Dashboard'} />
           <div class="mt-4">{title()}</div>

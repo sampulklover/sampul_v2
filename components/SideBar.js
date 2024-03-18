@@ -1,21 +1,14 @@
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useUser } from '../context/user';
 import { addUserImg } from '../constant/element';
-import { useState } from 'react';
 import LogoutModal from './LogoutModal';
-import { useEffect } from 'react';
 import toast from 'react-hot-toast';
+import { useApi } from '../context/api';
 
 const SideBar = ({ children }) => {
   const router = useRouter();
   const { user } = useUser();
-
-  // useEffect(() => {
-  //   if (isLoading == false && user == null) {
-  //     toast.error('Your session has expired. Please sign in again to continue');
-  //   }
-  // }, [user]);
+  const { contextApiData } = useApi();
 
   const pageList = [
     {
@@ -318,8 +311,8 @@ const SideBar = ({ children }) => {
                     <span class="d-flex align-items-center link-dark text-decoration-none">
                       <img
                         src={
-                          user?.profile?.image_path
-                            ? `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${user?.profile.image_path}`
+                          contextApiData.profile.data?.image_path
+                            ? `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${contextApiData.profile.data.image_path}`
                             : addUserImg
                         }
                         alt=""
@@ -328,7 +321,7 @@ const SideBar = ({ children }) => {
                         class="rounded-circle me-2"
                       />
                       <strong class="d-none d-sm-inline crop-text">
-                        {user?.profile?.username ?? '...'}
+                        {contextApiData.profile.data?.username ?? '...'}
                       </strong>
                     </span>
                   </div>
