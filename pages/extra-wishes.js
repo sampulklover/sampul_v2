@@ -526,6 +526,7 @@ const ExtraWishes = () => {
                       });
                     }}
                     getOptionLabel={getOptionLabel}
+                    getOptionValue={(option) => option.label}
                   />
                 ) : (
                   <Loading loading={true} />
@@ -621,6 +622,7 @@ const ExtraWishes = () => {
                         });
                       }}
                       getOptionLabel={getOptionLabel}
+                      getOptionValue={(option) => option.label}
                     />
                   </>
                 ) : (
