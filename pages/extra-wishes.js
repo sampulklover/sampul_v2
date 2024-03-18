@@ -16,6 +16,19 @@ const ExtraWishes = () => {
   const { user } = useUser();
   const { contextApiData, getExtraWishes } = useApi();
 
+  const useUniqueId = () => {
+    const [id, setId] = useState('');
+
+    useEffect(() => {
+      setId(`id-${Math.random().toString(36).substr(2, 9)}`);
+    }, []);
+
+    return id;
+  };
+
+  const uniqueId1 = useUniqueId();
+  const uniqueId2 = useUniqueId();
+
   const [mutiselectData, setMultiSelectData] = useState({
     charity: {
       selected: [],
@@ -450,7 +463,7 @@ const ExtraWishes = () => {
                   Contribute to Charity/Sadaqah Bodies
                 </label>
                 <Select
-                  instanceId={useId()}
+                  instanceId={uniqueId1}
                   isMulti
                   value={mutiselectData.charity.selected}
                   options={contextApiData.bodies.data
@@ -548,7 +561,7 @@ const ExtraWishes = () => {
                   Contribute to Waqf Foundation
                 </label>
                 <Select
-                  instanceId={useId()}
+                  instanceId={uniqueId2}
                   isMulti
                   value={mutiselectData.waqf.selected}
                   options={contextApiData.bodies.data
