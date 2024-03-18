@@ -1,29 +1,24 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import {
-  instructionsAfterDeath,
-  relationships,
-  servicePlatformAccountTypes,
-  servicePlatforms,
-} from '../constant/enum';
 import Loading from './Laoding';
-import { emptyUserImg } from '../constant/element';
 import { useEffect, useState } from 'react';
+import { useApi } from '../context/api';
 
-const ExtraWishesTable = ({ typeName, summary }) => {
+const ExtraWishesTable = ({ typeName }) => {
+  const { contextApiData } = useApi();
   const router = useRouter();
   const [bodyList, setBodyList] = useState([]);
 
-  const getBodiesData = () => {
+  const mapWithBodies = () => {
     const allData = [];
 
-    summary.data.bodies.map((item) => {
-      summary.data.extraWishes?.charity_bodies.map((item2) => {
+    contextApiData.bodies.data.map((item) => {
+      contextApiData.extraWishes.data?.charity_bodies?.map((item2) => {
         if (item.id == item2.bodies_id) {
           allData.push({ category: 'Charity', ...item2, bodyData: item });
         }
       });
-      summary.data.extraWishes?.waqf_bodies.map((item2) => {
+      contextApiData.extraWishes.data?.waqf_bodies?.map((item2) => {
         if (item.id == item2.bodies_id) {
           allData.push({ category: 'Waqf', ...item2, bodyData: item });
         }
@@ -34,10 +29,13 @@ const ExtraWishesTable = ({ typeName, summary }) => {
   };
 
   useEffect(() => {
-    if (summary.data.extraWishes && summary.data.bodies.length > 0) {
-      getBodiesData();
+    if (
+      contextApiData.extraWishes.data !== null &&
+      contextApiData.bodies.data.length > 0
+    ) {
+      mapWithBodies();
     }
-  }, [summary.data.extraWishes, summary.data.bodies]);
+  }, [contextApiData.extraWishes, contextApiData.bodies]);
 
   const type = {
     extra_wishes: {
@@ -45,7 +43,7 @@ const ExtraWishesTable = ({ typeName, summary }) => {
       subtitle: `Add special touches with Sampul's Extra Wishes feature.`,
       addNewBtnTitle: 'Add Extra Wishes',
       data: bodyList,
-      isReady: summary.isReady,
+      isReady: true,
       pageName: 'extra-wishes',
     },
   };

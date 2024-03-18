@@ -129,7 +129,7 @@ const Beloved = () => {
             aria-labelledby="pills-certificate-tab"
           >
             <WillCertCard
-              willData={summary.data}
+              willData={summary}
               qrValue={qrValue}
               cardRef={cardRef}
             />

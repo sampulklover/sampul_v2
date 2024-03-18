@@ -1,21 +1,10 @@
-import Link from 'next/link';
-import {
-  bodiesCategory,
-  instructionsAfterDeath,
-  servicePlatforms,
-} from '../constant/enum';
+import { bodiesCategory, instructionsAfterDeath } from '../constant/enum';
 import Loading from './Laoding';
-import { addUserImg } from '../constant/element';
+import { useApi } from '../context/api';
 
-const DigitalAssetsCard = ({
-  typeName,
-  summary,
-  editFunction,
-  bodyList = {
-    data: [],
-    isReady: false,
-  },
-}) => {
+const DigitalAssetsCard = ({ typeName, editFunction }) => {
+  const { contextApiData } = useApi();
+
   const type = {
     all: {
       title: 'No Digital Accounts found',
@@ -37,25 +26,25 @@ const DigitalAssetsCard = ({
     },
   };
 
-  if (summary.isReady) {
+  if (contextApiData.digitalAssets.isLoading == false) {
     if (
-      summary?.data.filter(
+      contextApiData.digitalAssets.data?.filter(
         (item) => !typeName || item.account_type === typeName
       ).length > 0 &&
-      summary.isReady
+      contextApiData.digitalAssets.isLoading == false
     ) {
       return (
         <>
-          {summary.data
-            .filter((item) => !typeName || item.account_type === typeName)
+          {contextApiData.digitalAssets.data
+            ?.filter((item) => !typeName || item.account_type === typeName)
             .map((item, index) => {
-              const spObject = bodyList?.data.find(
-                (x) => x.value === item.bodies_id
+              const spObject = contextApiData.bodies.data?.find(
+                (x) => x.id === item.bodies_id
               );
 
               var getCategoryName = () => {
                 let category = bodiesCategory().find(
-                  (x) => x.value === spObject?.details?.category
+                  (x) => x.value === spObject?.category
                 );
                 if (category?.name) {
                   return category.name;
@@ -71,10 +60,8 @@ const DigitalAssetsCard = ({
                   : spObject?.name,
                 icon: item?.new_service_platform_name
                   ? '/images/Displacement-p-500.png'
-                  : spObject?.details?.icon
-                  ? `data:image/svg+xml,${encodeURIComponent(
-                      spObject?.details?.icon
-                    )}`
+                  : spObject?.icon
+                  ? `data:image/svg+xml,${encodeURIComponent(spObject.icon)}`
                   : '/images/Displacement-p-500.png',
               };
 

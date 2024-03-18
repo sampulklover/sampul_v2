@@ -1,19 +1,8 @@
-import Link from 'next/link';
 import Loading from './Laoding';
-import initStripe from 'stripe';
-import { addUserImg, emptyUserImg } from '../constant/element';
-import { countries, maritalStatus, religions } from '../constant/enum';
 import { useUser } from '../context/user';
-import { supabase } from '../utils/supabase';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import {
-  mapViewElements,
-  processForm,
-  replaceOrAddImage,
-} from '../utils/helpers';
 import toast from 'react-hot-toast';
-import CheckoutButton from './CheckoutButton';
 import { loadStripe } from '@stripe/stripe-js';
 
 const asyncStripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);

@@ -8,6 +8,7 @@ import Head from 'next/head';
 import UserProvider from '../context/user';
 import NavBar from '../components/NavBar';
 import dynamic from 'next/dynamic';
+import { ApiProvider } from '../context/api';
 // import Footer from '../components/Footer';
 
 const DynamicToaster = dynamic(
@@ -36,12 +37,13 @@ export default function MyApp({ Component, pageProps }) {
         ></script>
       </Head>
       <UserProvider>
-        <DynamicToaster position="top-right" />
-        <NavBar />
-        <main className="main">
-          <Component {...pageProps} />
-        </main>
-        {/* <Footer /> */}
+        <ApiProvider>
+          <DynamicToaster position="top-right" />
+          <NavBar />
+          <main className="main">
+            <Component {...pageProps} />
+          </main>
+        </ApiProvider>
       </UserProvider>
     </>
   );

@@ -1,43 +1,30 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useId } from 'react';
 import { supabase } from '../utils/supabase';
 import { useUser } from '../context/user';
 import Loading from '../components/Laoding';
 import toast from 'react-hot-toast';
 import Select from 'react-select';
-import {
-  belovedLevel,
-  charityBodies,
-  instructionsAfterDeath,
-  relationships,
-  servicePlatforms,
-  waqfBodies,
-} from '../constant/enum';
-import { processForm } from '../utils/helpers';
+import { getOptionLabelWithIcon } from '../utils/helpers';
 import Link from 'next/link';
-import DigitalSummaryCard from '../components/DigitalSummaryCard';
 import Footer from '../components/Footer';
 import Breadcrumb from '../components/Breadcrumb';
-import BelovedModal from '../components/BelovedModal';
-import { addUserImg, emptyUserImg } from '../constant/element';
 import SideBar from '../components/SideBar';
 import { Tooltip } from 'react-tooltip';
+import { useApi } from '../context/api';
 
 const ExtraWishes = () => {
   const { user } = useUser();
+  const { contextApiData, getExtraWishes } = useApi();
+
   const [mutiselectData, setMultiSelectData] = useState({
     charity: {
       selected: [],
-      data: [],
-      isReady: false,
     },
     waqf: {
       selected: [],
-      data: [],
-      isReady: false,
     },
   });
 
-  const [bodiesList, setBodiesList] = useState([]);
   const [buttonLoading, setButtonLoading] = useState({
     nazar: false,
     fidyah: false,
@@ -45,8 +32,6 @@ const ExtraWishes = () => {
     waqf: false,
     organ_donor: false,
   });
-
-  const [runEffect, setRunEffect] = useState(false);
 
   const getWaqfBodyValue = () => {
     var newData = [];
@@ -123,40 +108,36 @@ const ExtraWishes = () => {
     return inputElements;
   };
 
-  const mapMultiselectList = ({ charityData, waqfData, bodiesData }) => {
-    var newCharity = [];
+  const mapMultiselectList = ({ charityData, waqfData }) => {
     var defaultCharity = [];
-    var newWaqf = [];
     var defaultWaqf = [];
 
-    bodiesData.map((item) => {
-      if (item.category == 'sadaqah_waqaf_zakat') {
-        newCharity.push({ label: item.name, value: item.id, details: item });
-        charityData.map((item2) => {
-          if (item2.bodies_id == item.id) {
-            defaultCharity.push({
-              label: item.name,
-              value: item.id,
-              amount: item2.amount,
-              details: item,
-            });
-          }
+    charityData.map((item) => {
+      const body = contextApiData.bodies.data?.find(
+        (x) => x.id === item.bodies_id
+      );
+
+      if (body) {
+        defaultCharity.push({
+          ...body,
+          label: body.name,
+          value: body.id,
+          amount: item.amount,
         });
       }
     });
 
-    bodiesData.map((item) => {
-      if (item.category == 'sadaqah_waqaf_zakat' || item.category == 'waqaf') {
-        newWaqf.push({ label: item.name, value: item.id, details: item });
-        waqfData.map((item2) => {
-          if (item2.bodies_id == item.id) {
-            defaultWaqf.push({
-              label: item.name,
-              value: item.id,
-              amount: item2.amount,
-              details: item,
-            });
-          }
+    waqfData.map((item) => {
+      const body = contextApiData.bodies.data?.find(
+        (x) => x.id === item.bodies_id
+      );
+
+      if (body) {
+        defaultWaqf.push({
+          ...body,
+          label: body.name,
+          value: body.id,
+          amount: item.amount,
         });
       }
     });
@@ -165,74 +146,42 @@ const ExtraWishes = () => {
       ...mutiselectData,
       charity: {
         selected: defaultCharity,
-        data: newCharity,
-        isReady: true,
       },
       waqf: {
         selected: defaultWaqf,
-        data: newWaqf,
-        isReady: true,
       },
     });
   };
 
   useEffect(() => {
-    if (!runEffect && user?.uuid) {
-      setRunEffect(true);
+    if (
+      contextApiData.extraWishes.data !== null &&
+      contextApiData.bodies.data.length > 0
+    ) {
+      var inputElements = elementList();
+      var charityData = [];
+      var waqfData = [];
 
-      const getExtraWishes = async () => {
-        const { data: bodiesData, error: bodiesError } = await supabase
-          .from('bodies')
-          .select('*')
-          .eq('active', true);
-
-        if (bodiesError) {
-          toast.error(error.message);
-          return;
-        }
-
-        const { data, error } = await supabase
-          .from('extra_wishes')
-          .select('*')
-          .eq('uuid', user?.uuid);
-
-        if (error) {
-          toast.error(error.message);
-          return;
-        }
-
-        var inputElements = elementList();
-        var charityData = [];
-        var waqfData = [];
-
-        if (data.length > 0) {
-          var currentData = data[0];
-
-          for (const key in inputElements) {
-            if (inputElements.hasOwnProperty(key)) {
-              for (const key2 in inputElements[key].elements) {
-                if (key2 == 'charity_bodies') {
-                  charityData = currentData[key2] ? currentData[key2] : [];
-                } else if (key2 == 'waqf_bodies') {
-                  waqfData = currentData[key2] ? currentData[key2] : [];
-                } else {
-                  inputElements[key].elements[key2].value = currentData[key2];
-                }
-              }
+      var currentData = contextApiData.extraWishes.data;
+      for (const key in inputElements) {
+        if (inputElements.hasOwnProperty(key)) {
+          for (const key2 in inputElements[key].elements) {
+            if (key2 == 'charity_bodies') {
+              charityData = currentData[key2] ? currentData[key2] : [];
+            } else if (key2 == 'waqf_bodies') {
+              waqfData = currentData[key2] ? currentData[key2] : [];
+            } else {
+              inputElements[key].elements[key2].value = currentData[key2];
             }
           }
         }
-
-        mapMultiselectList({
-          charityData: charityData,
-          waqfData: waqfData,
-          bodiesData: bodiesData,
-        });
-      };
-
-      getExtraWishes();
+      }
+      mapMultiselectList({
+        charityData: charityData,
+        waqfData: waqfData,
+      });
     }
-  }, [user, runEffect]);
+  }, [contextApiData.extraWishes, contextApiData.bodies]);
 
   const title = () => {
     return (
@@ -292,6 +241,8 @@ const ExtraWishes = () => {
       ...buttonLoading,
       [keyName]: false,
     });
+
+    getExtraWishes();
   };
 
   const handleChange = ({ keyName, newValues }) => {
@@ -463,22 +414,6 @@ const ExtraWishes = () => {
     );
   };
 
-  const getOptionLabel = (item) => (
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-      <img
-        src={
-          item.details.icon
-            ? `data:image/svg+xml,${encodeURIComponent(item.details.icon)}`
-            : '/images/Displacement-p-500.png'
-        }
-        class="rounded-circle me-1"
-        width={20}
-        height={20}
-      />
-      <span class="text-truncate">{item.label}</span>
-    </div>
-  );
-
   const form3 = () => {
     return (
       <>
@@ -514,23 +449,26 @@ const ExtraWishes = () => {
                 >
                   Contribute to Charity/Sadaqah Bodies
                 </label>
-                {mutiselectData.charity.isReady ? (
-                  <Select
-                    isMulti
-                    defaultValue={mutiselectData.charity.selected}
-                    options={mutiselectData.charity.data}
-                    onChange={(newValues) => {
-                      handleChange({
-                        keyName: 'charity',
-                        newValues: newValues,
-                      });
-                    }}
-                    getOptionLabel={getOptionLabel}
-                    getOptionValue={(option) => option.label}
-                  />
-                ) : (
-                  <Loading loading={true} />
-                )}
+                <Select
+                  instanceId={useId()}
+                  isMulti
+                  value={mutiselectData.charity.selected}
+                  options={contextApiData.bodies.data
+                    .filter((item) => item.category === 'sadaqah_waqaf_zakat')
+                    .map((item) => ({
+                      ...item,
+                      label: item.name,
+                      value: item.id,
+                    }))}
+                  onChange={(newValues) => {
+                    handleChange({
+                      keyName: 'charity',
+                      newValues: newValues,
+                    });
+                  }}
+                  getOptionLabel={getOptionLabelWithIcon}
+                  getOptionValue={(option) => option.label}
+                />
               </div>
               {mutiselectData.charity.selected.map((item, index) => {
                 return (
@@ -609,25 +547,30 @@ const ExtraWishes = () => {
                 >
                   Contribute to Waqf Foundation
                 </label>
-                {mutiselectData.waqf.isReady == true ? (
-                  <>
-                    <Select
-                      isMulti
-                      defaultValue={mutiselectData.waqf.selected}
-                      options={mutiselectData.waqf.data}
-                      onChange={(newValues) => {
-                        handleChange({
-                          keyName: 'waqf',
-                          newValues: newValues,
-                        });
-                      }}
-                      getOptionLabel={getOptionLabel}
-                      getOptionValue={(option) => option.label}
-                    />
-                  </>
-                ) : (
-                  <Loading loading={true} />
-                )}
+                <Select
+                  instanceId={useId()}
+                  isMulti
+                  value={mutiselectData.waqf.selected}
+                  options={contextApiData.bodies.data
+                    .filter(
+                      (item) =>
+                        item.category === 'sadaqah_waqaf_zakat' ||
+                        item.category === 'waqaf'
+                    )
+                    .map((item) => ({
+                      ...item,
+                      label: item.name,
+                      value: item.id,
+                    }))}
+                  onChange={(newValues) => {
+                    handleChange({
+                      keyName: 'waqf',
+                      newValues: newValues,
+                    });
+                  }}
+                  getOptionLabel={getOptionLabelWithIcon}
+                  getOptionValue={(option) => option.label}
+                />
               </div>
               {mutiselectData.waqf.selected.map((item, index) => {
                 return (

@@ -5,9 +5,21 @@ import { useUser } from '../context/user';
 import { formatTimestamp } from '../utils/helpers';
 import DigitalSummaryCard from './DigitalSummaryCard';
 import ExtraWishesTable from './ExtraWishesTable';
+import { useApi } from '../context/api';
 
-const WillDetailsCard = ({ willData }) => {
+const WillDetailsCard = () => {
   const { user } = useUser();
+  const { contextApiData } = useApi();
+
+  const willData = {
+    data: {
+      will: contextApiData.will.data,
+      beloved: contextApiData.beloved.data,
+      digitalAssets: contextApiData.digitalAssets.data,
+      extraWishes: contextApiData.extraWishes.data,
+      bodies: contextApiData.bodies.data,
+    },
+  };
 
   const [belovedDetails, setBelovedDetails] = useState({
     data: null,
@@ -252,10 +264,10 @@ const WillDetailsCard = ({ willData }) => {
   };
 
   useEffect(() => {
-    if (willData?.data.beloved.length > 0) {
+    if (willData.data.beloved?.length > 0) {
       checkBeloved();
     }
-  }, [willData?.data.beloved]);
+  }, [willData.data.beloved]);
 
   const checkBeloved = () => {
     if (willData?.data.beloved.length !== 0) {
@@ -361,20 +373,7 @@ const WillDetailsCard = ({ willData }) => {
                 </div>
               </div>
             </div>
-
-            <DigitalSummaryCard
-              typeName="all"
-              summary={{
-                data: willData.data?.digitalAssets,
-                isReady: willData.isReady,
-              }}
-              bodyList={{
-                data: willData.data?.bodies,
-                isReady: willData.isReady,
-              }}
-              showBeloved={true}
-              belovedData={willData.data?.beloved}
-            />
+            <DigitalSummaryCard typeName="all" showBeloved={true} />
           </div>
         </div>
         <div>
@@ -415,14 +414,7 @@ const WillDetailsCard = ({ willData }) => {
                 </div>
               </div>
             </div>
-
-            <ExtraWishesTable
-              typeName="extra_wishes"
-              summary={{
-                data: willData.data,
-                isReady: willData.isReady,
-              }}
-            />
+            <ExtraWishesTable typeName="extra_wishes" />
           </div>
         </div>
       </div>

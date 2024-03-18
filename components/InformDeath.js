@@ -11,18 +11,17 @@ import {
   replaceOrAddImage,
 } from '../utils/helpers';
 import toast from 'react-hot-toast';
+import { useApi } from '../context/api';
 
 const InformDeath = () => {
   const { user } = useUser();
-  const [runEffect, setRunEffect] = useState(false);
+  const { contextApiData, getInformDeath } = useApi();
+
   const [summary, setSummary] = useState({
     isCalling: false,
     isSaving: false,
   });
-  const [inviteList, setInviteList] = useState({
-    data: [],
-    isReady: false,
-  });
+
   const [selectedImage, setSelectedImage] = useState({
     data: null,
     url: addFileImg,
@@ -31,11 +30,27 @@ const InformDeath = () => {
   });
 
   useEffect(() => {
-    if (!runEffect && user?.uuid) {
-      setRunEffect(true);
-      getInvites();
+    if (contextApiData.informDeath.data !== null) {
+      var element = elementList().inform_death.elements;
+      var mapData = contextApiData.informDeath.data;
+
+      mapViewElements({
+        source: mapData,
+        target: element,
+        viewOnly: false,
+      });
+
+      if (mapData.image_path) {
+        setSelectedImage({
+          ...selectedImage,
+          data: null,
+          url: addFileImg,
+          deleted: false,
+          current_file_url: `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${mapData.image_path}`,
+        });
+      }
     }
-  }, [user, runEffect]);
+  }, [contextApiData.informDeath]);
 
   const elementList = () => {
     const inputElements = {
@@ -54,91 +69,6 @@ const InformDeath = () => {
     };
 
     return inputElements;
-  };
-
-  const getInvites = async () => {
-    try {
-      const response = await fetch('/api/beloved/invite-list', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: user.profile.email,
-        }),
-      });
-
-      if (!response.ok) {
-        toast.error('Something went wrong!');
-        setInviteList({
-          data: [],
-          isReady: true,
-        });
-        return;
-      }
-
-      const { data } = await response.json();
-
-      setInviteList({
-        data: data,
-        isReady: true,
-      });
-    } catch (error) {
-      toast.error(error.message);
-      setInviteList({
-        data: [],
-        isReady: true,
-      });
-    }
-
-    getInformDeath();
-  };
-
-  const getInformDeath = async () => {
-    setSummary({
-      ...summary,
-      isCalling: true,
-    });
-
-    const { data, error } = await supabase
-      .from('inform_death')
-      .select('*')
-      .eq('uuid', user?.uuid);
-
-    if (error) {
-      setSummary({
-        ...summary,
-        isCalling: false,
-      });
-      toast.error(error.message);
-      return;
-    }
-
-    if (data.length !== 0) {
-      var element = elementList().inform_death.elements;
-      var mapData = data[0];
-
-      mapViewElements({
-        source: mapData,
-        target: element,
-        viewOnly: false,
-      });
-
-      if (mapData.image_path) {
-        setSelectedImage({
-          ...selectedImage,
-          data: null,
-          url: addFileImg,
-          deleted: false,
-          current_file_url: `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${mapData.image_path}`,
-        });
-      }
-    }
-
-    setSummary({
-      ...summary,
-      isCalling: false,
-    });
   };
 
   const onSubmitForm = async () => {
@@ -221,7 +151,7 @@ const InformDeath = () => {
       isSaving: false,
     });
 
-    getInvites();
+    getInformDeath();
   };
 
   // const handleDrop = (event) => {
@@ -287,7 +217,8 @@ const InformDeath = () => {
               htmlFor="select-inform-death-invite-user-uuid"
               class="uui-field-label"
             >
-              Sampul owner's <Loading loading={!inviteList.isReady} />
+              Sampul owner's{' '}
+              <Loading loading={contextApiData.invites.isLoading} />
             </label>
           </div>
           <div class="col">
@@ -296,7 +227,7 @@ const InformDeath = () => {
               class="form-select"
               onChange={(event) => {
                 const selectedValue = event.target.value;
-                const selectedData = inviteList.data.find(
+                const selectedData = contextApiData.invites.data?.find(
                   (item) => item.uuid === selectedValue
                 );
 
@@ -313,7 +244,7 @@ const InformDeath = () => {
               <option disabled selected value>
                 -- select an option --
               </option>
-              {inviteList.data.map((item) => (
+              {contextApiData.invites.data?.map((item) => (
                 <option key={item.uuid} value={item.uuid}>
                   {item.profiles?.username}
                 </option>

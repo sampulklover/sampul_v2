@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { supabase } from '../utils/supabase';
 import { useUser } from '../context/user';
 import Loading from './Laoding';
@@ -12,6 +12,7 @@ import { deleteImage, replaceOrAddImage } from '../utils/helpers';
 import { addUserImg } from '../constant/element';
 import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid';
+import { useApi } from '../context/api';
 
 const belovedConfig = {
   co_sampul: {
@@ -71,13 +72,9 @@ const getElements = () => {
   return inputElements;
 };
 
-const BelovedModal = ({
-  keyType,
-  belovedType,
-  selectedItem,
-  refreshFunction,
-}) => {
+const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
   const { user } = useUser();
+  const { contextApiData, getBeloved } = useApi();
   const [isLoading, setIsLoading] = useState({
     update: false,
     delete: false,
@@ -89,7 +86,7 @@ const BelovedModal = ({
   });
 
   const addBeloved = async () => {
-    if (user.profile?.nric_name) {
+    if (contextApiData.profile.data?.nric_name) {
       if (belovedType !== 'co_sampul' && belovedType !== 'guardian') {
         document.getElementById('select-beloved-level').value = 'others';
       }
@@ -170,7 +167,7 @@ const BelovedModal = ({
         });
       }
 
-      refreshFunction();
+      getBeloved();
     } else {
       toast.error(
         'Please update your profile to start adding your loved ones, which can be done in the settings page.'
@@ -261,7 +258,7 @@ const BelovedModal = ({
 
     $('#beloved-modal')?.modal('hide');
     toast.success('Successfully updated!');
-    refreshFunction();
+    getBeloved();
 
     setSelectedImage({
       data: null,
@@ -310,7 +307,7 @@ const BelovedModal = ({
 
       $('#beloved-modal')?.modal('hide');
       toast.success('Successfully deleted!');
-      refreshFunction();
+      getBeloved();
 
       setIsLoading({
         ...isLoading,

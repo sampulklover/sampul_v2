@@ -4,19 +4,16 @@ import { supabase } from '../utils/supabase';
 import { useUser } from '../context/user';
 import Loading from './Laoding';
 import toast from 'react-hot-toast';
-import Select, { createFilter } from 'react-select';
+import Select from 'react-select';
 import {
-  belovedLevel,
-  beneficiaryTypes,
   instructionsAfterDeath,
-  relationships,
   servicePlatformAccountTypes,
   servicePlatformFrequencies,
-  servicePlatforms,
 } from '../constant/enum';
-import { deleteImage, replaceOrAddImage } from '../utils/helpers';
+import { deleteImage, getOptionLabelWithIcon } from '../utils/helpers';
 import { addUserImg } from '../constant/element';
 import Link from 'next/link';
+import { useApi } from '../context/api';
 
 const digitalAssetsTypeName = {
   add: {
@@ -31,20 +28,9 @@ const digitalAssetsTypeName = {
   },
 };
 
-const DigitalAssetsModal = ({
-  keyType,
-  selectedItem,
-  refreshFunction,
-  belovedList = {
-    data: [],
-    isReady: false,
-  },
-  bodyList = {
-    data: [],
-    isReady: false,
-  },
-}) => {
+const DigitalAssetsModal = ({ keyType, selectedItem }) => {
   const { user } = useUser();
+  const { contextApiData, getDigitalAssets } = useApi();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState({
     update: false,
@@ -128,14 +114,18 @@ const DigitalAssetsModal = ({
         setNewServicePlatform(true);
       } else {
         setNewServicePlatform(false);
-        if (bodyList.data.length > 0) {
-          var foundObject = bodyList.data.find(
-            (obj) => obj.value === selectedItem.bodies_id
+        if (contextApiData.bodies.data.length > 0) {
+          var foundObject = contextApiData.bodies.data.find(
+            (obj) => obj.id === selectedItem.bodies_id
           );
 
           setArrayElements((prevState) => ({
             ...prevState,
-            bodies: foundObject,
+            bodies: {
+              ...foundObject,
+              label: foundObject.name,
+              value: foundObject.id,
+            },
           }));
         }
       }
@@ -204,9 +194,8 @@ const DigitalAssetsModal = ({
 
     $('#digital-assets-modal')?.modal('hide');
     toast.success('Successfully submitted!');
-    if (refreshFunction) {
-      refreshFunction();
-    }
+
+    getDigitalAssets();
   };
 
   const editDigitalAssets = async () => {
@@ -248,9 +237,8 @@ const DigitalAssetsModal = ({
 
     $('#digital-assets-modal')?.modal('hide');
     toast.success('Successfully updated!');
-    if (refreshFunction) {
-      refreshFunction();
-    }
+
+    getDigitalAssets();
   };
 
   const deleteDigitalAssets = async () => {
@@ -282,9 +270,7 @@ const DigitalAssetsModal = ({
       $('#digital-assets-modal')?.modal('hide');
       toast.success('Successfully deleted!');
 
-      if (refreshFunction) {
-        refreshFunction();
-      }
+      getDigitalAssets();
 
       setIsLoading({
         ...isLoading,
@@ -351,7 +337,7 @@ const DigitalAssetsModal = ({
   };
 
   const checkBeloved = () => {
-    if (belovedList.data.length == 0) {
+    if (contextApiData.beloved.data?.length == 0) {
       return (
         <div
           class="alert text-center empty-beloved-card"
@@ -368,22 +354,6 @@ const DigitalAssetsModal = ({
       );
     }
   };
-
-  const getOptionLabel = (item) => (
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-      <img
-        src={
-          item.details.icon
-            ? `data:image/svg+xml,${encodeURIComponent(item.details.icon)}`
-            : '/images/Displacement-p-500.png'
-        }
-        class="rounded-circle me-1"
-        width={20}
-        height={20}
-      />
-      <span class="text-truncate">{item.label}</span>
-    </div>
-  );
 
   return (
     <div class="modal fade" id="digital-assets-modal">
@@ -469,35 +439,33 @@ const DigitalAssetsModal = ({
                 }}
               >
                 <label class="uui-field-label">
-                  Service Platform <Loading loading={!bodyList.isReady} />
+                  Service Platform{' '}
+                  <Loading loading={contextApiData.bodies.isLoading} />
                 </label>
-
                 <Select
                   instanceId={useId()}
                   value={arrayElements.bodies}
-                  options={bodyList.data}
+                  options={contextApiData.bodies.data
+                    ?.filter(
+                      (item) =>
+                        item.category !== 'sadaqah_waqaf_zakat' &&
+                        item.category !== 'waqaf'
+                    )
+                    .map((item) => ({
+                      ...item,
+                      label: item.name,
+                      value: item.id,
+                    }))}
                   onChange={(newValues) => {
                     setArrayElements((prevState) => ({
                       ...prevState,
                       bodies: newValues,
                     }));
                   }}
-                  getOptionLabel={getOptionLabel}
+                  getOptionLabel={getOptionLabelWithIcon}
                   getOptionValue={(option) => option.label}
                   required={!newServicePlatform ? true : false}
                 />
-
-                {/* <select
-                  id={`select-digital-assets-service-platform`}
-                  class="form-select"
-                  required={!newServicePlatform ? true : false}
-                >
-                  {bodyList.data.map((item, index) => (
-                    <option key={index} value={item.value}>
-                      {item.name}
-                    </option>
-                  ))}
-                </select> */}
               </div>
 
               {!newServicePlatform ? (
@@ -661,16 +629,17 @@ const DigitalAssetsModal = ({
                   htmlFor={`select-digital-assets-beloved`}
                   class="uui-field-label"
                 >
-                  Beneficiary <Loading loading={!belovedList.isReady} />
+                  Beneficiary{' '}
+                  <Loading loading={contextApiData.beloved.isLoading} />
                 </label>
                 <select
                   id={`select-digital-assets-beloved`}
                   required
                   class="form-select"
                 >
-                  {belovedList.data.map((item) => (
-                    <option key={item.value} value={item.value}>
-                      {item.name}
+                  {contextApiData.beloved.data?.map((item, index) => (
+                    <option key={index} value={item.id}>
+                      {item.nickname}
                     </option>
                   ))}
                 </select>

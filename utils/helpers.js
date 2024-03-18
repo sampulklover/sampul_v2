@@ -178,3 +178,19 @@ export const processForm = (elements, clearFields = false) => {
 export const capitalize = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
+
+export const getOptionLabelWithIcon = (item) => (
+  <div style={{ display: 'flex', alignItems: 'center' }}>
+    <img
+      src={
+        item?.icon
+          ? `data:image/svg+xml,${encodeURIComponent(item.icon)}`
+          : '/images/Displacement-p-500.png'
+      }
+      class="rounded-circle me-1"
+      width={20}
+      height={20}
+    />
+    <span class="text-truncate">{item.label}</span>
+  </div>
+);

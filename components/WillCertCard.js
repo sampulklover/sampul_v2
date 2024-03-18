@@ -10,23 +10,25 @@ const WillCertCard = ({ willData, qrValue, cardRef }) => {
     non_muslim: {
       title: 'Will & Testator for Digital Asset',
       from: 'of',
-      info: `A copy of this certificate & details of the will is stored in Sampul digital vault. For queries and info please email ${process.env.NEXT_PUBLIC_CONTACT_EMAIL}`,
+      info: `A copy of this certificate & details of the will is stored in Sampul digital vault. For queries and info please email ${process.env.NEXT_PUBLIC_CONTACT_EMAIL}`,
     },
   };
 
   const myInfo = {
-    isDraft: willData.will?.is_draft,
-    nric_name: willData.will?.nric_name
-      ? willData.will.nric_name
+    isDraft: willData.data.will?.is_draft,
+    nric_name: willData.data.will?.nric_name
+      ? willData.data.will.nric_name
       : '[YOUR NAME]',
-    will_code: willData.will?.will_code ? willData.will.will_code : '[ID]',
+    will_code: willData.data.will?.will_code
+      ? willData.data.will.will_code
+      : '[ID]',
   };
 
   const checkReligion = () => {
     var display = 'muslim';
 
-    if (willData.will?.profiles?.religion) {
-      if (willData.will.profiles.religion == 'islam') {
+    if (willData.data.will?.profiles?.religion) {
+      if (willData.data.will.profiles.religion == 'islam') {
         display = 'muslim';
       } else {
         display = 'non_muslim';
@@ -101,7 +103,7 @@ const WillCertCard = ({ willData, qrValue, cardRef }) => {
                   <img
                     width="150"
                     loading="lazy"
-                    src={`${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${willData.will?.image_path}`}
+                    src={`${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${willData.data.will?.image_path}`}
                     alt=""
                   />
                 )}
