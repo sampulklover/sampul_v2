@@ -482,7 +482,8 @@ const DigitalAssetsModal = ({
                       bodies: newValues,
                     }));
                   }}
-                  // getOptionLabel={getOptionLabel}
+                  getOptionLabel={getOptionLabel}
+                  getOptionValue={(option) => option.label}
                   required={!newServicePlatform ? true : false}
                 />
 
