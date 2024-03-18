@@ -21,6 +21,7 @@ const belovedConfig = {
       whom which all information in this
       Sampul will be passed on`,
     display_level: '',
+    level_required: true,
     beloved_list: belovedLevel().filter((option) => option.value !== 'others'),
     verifyEmail: true,
   },
@@ -28,6 +29,7 @@ const belovedConfig = {
     title: 'Appoint your Beneficiary',
     subtitle: 'The future owner of your assets',
     display_level: 'none',
+    level_required: false,
     beloved_list: belovedLevel(),
     verifyEmail: false,
   },
@@ -36,6 +38,7 @@ const belovedConfig = {
     subtitle:
       'The caretaker of your underage kids ensuring they get the best care after you and you spoused demised',
     display_level: '',
+    level_required: false,
     beloved_list: belovedLevel().filter((option) => option.value !== 'others'),
     verifyEmail: false,
   },
@@ -499,7 +502,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                   </label>
                   <select
                     id={`select-beloved-level`}
-                    required
+                    required={belovedConfig[belovedType].level_required}
                     class="form-select"
                   >
                     {belovedConfig[belovedType].beloved_list.map((item) => (
@@ -550,7 +553,6 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                   <input
                     type="file"
                     id="input-beloved-image"
-                    name=""
                     accept="image/*"
                     style={{ display: 'none' }}
                     onChange={(event) => {
