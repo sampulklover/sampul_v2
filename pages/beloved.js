@@ -122,6 +122,7 @@ const Beloved = () => {
 
   const belovedCard = () => {
     var coSampulData = [];
+    var guardianData = [];
 
     return (
       <>
@@ -413,6 +414,8 @@ const Beloved = () => {
                   <tbody>
                     {contextApiData.beloved.data?.map((item, index) => {
                       if (item.type == 'guardian') {
+                        guardianData.push(item);
+
                         const rObject = relationships().find(
                           (x) => x.value === item.relationship
                         );
@@ -471,6 +474,9 @@ const Beloved = () => {
                 </table>
                 <div
                   class="card-copy cosampul-copy"
+                  style={{
+                    display: guardianData.length < 2 ? 'block' : 'none',
+                  }}
                   onClick={() => {
                     if (checkRestriction()) {
                       router.push('settings?tab=nav-billing-tab');
