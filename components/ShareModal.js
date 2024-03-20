@@ -1,15 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { supabase } from '../utils/supabase';
-import { useUser } from '../context/user';
-import Loading from './Laoding';
 import toast from 'react-hot-toast';
-import {
-  belovedLevel,
-  beneficiaryTypes,
-  relationships,
-} from '../constant/enum';
-import { deleteImage, replaceOrAddImage } from '../utils/helpers';
-import { addUserImg } from '../constant/element';
 
 const ShareModal = ({ url, title }) => {
   const checkUrl = () => {

@@ -1,8 +1,6 @@
 import Link from 'next/link';
 import Loading from './Laoding';
-import { addFileImg, emptyUserImg } from '../constant/element';
-import { countries, maritalStatus, religions } from '../constant/enum';
-import { useUser } from '../context/user';
+import { addFileImg } from '../constant/element';
 import { supabase } from '../utils/supabase';
 import { useEffect, useState } from 'react';
 import {

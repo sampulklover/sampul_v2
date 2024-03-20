@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../utils/supabase';
-import { useUser } from '../context/user';
 import Loading from './Laoding';
 import toast from 'react-hot-toast';
 import {
@@ -9,10 +8,7 @@ import {
   relationships,
   userRoles,
 } from '../constant/enum';
-import { deleteImage, replaceOrAddImage } from '../utils/helpers';
-import { addUserImg, emptyUserImg } from '../constant/element';
-import Link from 'next/link';
-import { v4 as uuidv4 } from 'uuid';
+import { emptyUserImg } from '../constant/element';
 
 const UserDetailsModal = ({ selectedUser, refreshFunction, summary }) => {
   const [isLoading, setIsLoading] = useState({

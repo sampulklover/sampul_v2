@@ -1,24 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../utils/supabase';
-import { useUser } from '../context/user';
 import Loading from './Laoding';
 import toast from 'react-hot-toast';
-import {
-  belovedLevel,
-  beneficiaryTypes,
-  bodiesCategory,
-  trueFalse,
-  relationships,
-  userRoles,
-} from '../constant/enum';
-import {
-  deleteImage,
-  mapViewElements,
-  replaceOrAddImage,
-} from '../utils/helpers';
-import { addUserImg, emptyUserImg } from '../constant/element';
-import Link from 'next/link';
-import { v4 as uuidv4 } from 'uuid';
+import { bodiesCategory, trueFalse } from '../constant/enum';
+import { mapViewElements } from '../utils/helpers';
 
 const BodyDetailsModal = ({ selectedBody, refreshFunction }) => {
   const [isLoading, setIsLoading] = useState({

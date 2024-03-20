@@ -1,7 +1,6 @@
 import Loading from './Laoding';
 import { addUserImg } from '../constant/element';
 import { countries, maritalStatus, religions } from '../constant/enum';
-import { useUser } from '../context/user';
 import { supabase } from '../utils/supabase';
 import { useEffect, useState } from 'react';
 import {
@@ -99,7 +98,7 @@ const MyDetails = ({ isModal = false }) => {
       isUpdateByReturnId: false,
     });
 
-    toast.success('Saved!');
+    toast.success('Saved successfully!');
 
     setSummary({
       ...summary,

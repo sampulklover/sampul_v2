@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import { useUser } from '../context/user';
 import { addUserImg } from '../constant/element';
 import LogoutModal from './LogoutModal';
 import toast from 'react-hot-toast';

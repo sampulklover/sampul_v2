@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { supabase } from '../utils/supabase';
-import { useUser } from '../context/user';
 import Loading from './Laoding';
 import toast from 'react-hot-toast';
 import {
