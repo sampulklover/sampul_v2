@@ -1,21 +1,6 @@
-import Link from 'next/link';
 import Loading from './Laoding';
-import { addUserImg, emptyUserImg } from '../constant/element';
-import {
-  bodiesCategory,
-  countries,
-  maritalStatus,
-  religions,
-} from '../constant/enum';
-import { useUser } from '../context/user';
-import { supabase } from '../utils/supabase';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import {
-  mapViewElements,
-  processForm,
-  replaceOrAddImage,
-} from '../utils/helpers';
+import { bodiesCategory } from '../constant/enum';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import BodyDetailsModal from './BodyDetailsModal';
 

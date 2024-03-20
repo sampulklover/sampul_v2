@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { useUser } from '../context/user';
 import { useRouter } from 'next/router';
 import { useApi } from '../context/api';
 

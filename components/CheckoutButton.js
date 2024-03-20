@@ -1,5 +1,4 @@
 import { loadStripe } from '@stripe/stripe-js';
-import { useUser } from '../context/user';
 import { useApi } from '../context/api';
 
 const asyncStripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);

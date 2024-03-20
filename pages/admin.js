@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../utils/supabase';
-import { useUser } from '../context/user';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import Link from 'next/link';

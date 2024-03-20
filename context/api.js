@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
 import { useEffect } from 'react';
-import { useUser } from './user';
 import {
   getAccountApi,
   getBelovedApi,
@@ -547,6 +546,10 @@ export const ApiProvider = ({ children }) => {
   useEffect(() => {
     if (contextApiData.user.data !== null) {
       getAllApi();
+
+      // supabase.auth.onAuthStateChange(() => {
+      //   getAllApi();
+      //  });
     }
   }, [contextApiData.user.data]);
 

@@ -1,10 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { supabase } from '../utils/supabase';
 import Loading from './Laoding';
-import { processForm } from '../utils/helpers';
 import toast from 'react-hot-toast';
-import { useUser } from '../context/user';
 import { useApi } from '../context/api';
 
 const DangerZone = () => {

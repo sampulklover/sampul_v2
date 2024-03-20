@@ -1,24 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { supabase } from '../utils/supabase';
-import { useUser } from '../context/user';
-import Loading from '../components/Laoding';
 import toast from 'react-hot-toast';
-import {
-  belovedLevel,
-  instructionsAfterDeath,
-  relationships,
-  servicePlatforms,
-} from '../constant/enum';
-import { formatTimestamp } from '../utils/helpers';
 import Link from 'next/link';
-import DigitalSummaryCard from '../components/DigitalSummaryCard';
 import Footer from '../components/Footer';
-import Breadcrumb from '../components/Breadcrumb';
-import BelovedModal from '../components/BelovedModal';
-import { addUserImg, emptyUserImg } from '../constant/element';
 import { useRouter } from 'next/router';
-import WillActionButtons from '../components/WillActionButtons';
-import WillCertCard from '../components/WillCertCard';
 
 const BelovedInvites = () => {
   const cardRef = useRef(null);

@@ -5,7 +5,6 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../styles/global.css';
 import { useEffect } from 'react';
 import Head from 'next/head';
-import UserProvider from '../context/user';
 import NavBar from '../components/NavBar';
 import dynamic from 'next/dynamic';
 import { ApiProvider } from '../context/api';
@@ -36,15 +35,13 @@ export default function MyApp({ Component, pageProps }) {
           crossOrigin="anonymous"
         ></script>
       </Head>
-      <UserProvider>
-        <ApiProvider>
-          <DynamicToaster position="top-right" />
-          <NavBar />
-          <main className="main">
-            <Component {...pageProps} />
-          </main>
-        </ApiProvider>
-      </UserProvider>
+      <ApiProvider>
+        <DynamicToaster position="top-right" />
+        <NavBar />
+        <main className="main">
+          <Component {...pageProps} />
+        </main>
+      </ApiProvider>
     </>
   );
 }
