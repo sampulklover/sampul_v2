@@ -1,10 +1,11 @@
 import { loadStripe } from '@stripe/stripe-js';
 import { useUser } from '../context/user';
+import { useApi } from '../context/api';
 
 const asyncStripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
 
 const CheckoutButton = ({ price_id = '' }) => {
-  const { user } = useUser();
+  const { contextApiData } = useApi();
 
   const getStripeCustomer = async () => {
     try {
@@ -13,7 +14,10 @@ const CheckoutButton = ({ price_id = '' }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: user.profile.email, uuid: user?.uuid }),
+        body: JSON.stringify({
+          email: user.profile.email,
+          uuid: contextApiData.user.data?.id,
+        }),
       });
 
       if (!response.ok) {

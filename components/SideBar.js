@@ -7,7 +7,6 @@ import { useApi } from '../context/api';
 
 const SideBar = ({ children }) => {
   const router = useRouter();
-  const { user } = useUser();
   const { contextApiData } = useApi();
 
   const pageList = [
@@ -151,7 +150,7 @@ const SideBar = ({ children }) => {
     {
       title: 'Admin',
       page: 'admin',
-      display: user?.role?.role == 'admin' ? true : false,
+      display: contextApiData.role.data?.role == 'admin' ? true : false,
       action: () => {
         router.push('admin');
       },

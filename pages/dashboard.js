@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { useUser } from '../context/user';
 import Loading from '../components/Laoding';
 import toast from 'react-hot-toast';
 import { formatTimestamp, mapViewElements } from '../utils/helpers';
@@ -16,7 +15,6 @@ import { Tooltip } from 'react-tooltip';
 import { useApi } from '../context/api';
 
 const Dashboard = () => {
-  const { user } = useUser();
   const { contextApiData } = useApi();
 
   const cardRef = useRef(null);
@@ -521,7 +519,7 @@ const Dashboard = () => {
             <div class="smpl_display-sm-semibold">
               Welcome back,{' '}
               <span class="smpl_display-sm-semibold text-color-primary700">
-                {user?.profile?.username}
+                {contextApiData.profile.data?.username}
               </span>
             </div>
             <div class="smpl_text-md-regular">

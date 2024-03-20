@@ -1,6 +1,5 @@
-import { useEffect, useState, useId } from 'react';
+import { useEffect, useState } from 'react';
 import { supabase } from '../utils/supabase';
-import { useUser } from '../context/user';
 import Loading from '../components/Laoding';
 import toast from 'react-hot-toast';
 import Select from 'react-select';
@@ -13,7 +12,6 @@ import { Tooltip } from 'react-tooltip';
 import { useApi } from '../context/api';
 
 const ExtraWishes = () => {
-  const { user } = useUser();
   const { contextApiData, getExtraWishes } = useApi();
 
   const useUniqueId = () => {
@@ -231,7 +229,9 @@ const ExtraWishes = () => {
 
     const db = supabase.from('extra_wishes');
 
-    const { data, error } = await db.select('*').eq('uuid', user?.uuid);
+    const { data, error } = await db
+      .select('*')
+      .eq('uuid', contextApiData.user.data?.id);
 
     if (error) {
       toast.error(error.message);
@@ -243,9 +243,9 @@ const ExtraWishes = () => {
     }
 
     if (data.length !== 0) {
-      await db.update(addData).eq('uuid', user?.uuid);
+      await db.update(addData).eq('uuid', contextApiData.user.data?.id);
     } else {
-      await db.insert({ uuid: user?.uuid, ...addData });
+      await db.insert({ uuid: contextApiData.user.data?.id, ...addData });
     }
 
     toast.success('Saved successfully!');
@@ -269,7 +269,9 @@ const ExtraWishes = () => {
   };
 
   const checkRestriction = (keyName) => {
-    const access = user?.access_control?.pages?.extra_wishes[keyName]?.access;
+    const access =
+      contextApiData.account.data?.products?.access_control?.pages
+        ?.extra_wishes[keyName]?.access;
     return access === false;
   };
 
@@ -717,8 +719,8 @@ const ExtraWishes = () => {
   const checkUiBaseReligion = () => {
     var display = 'block';
 
-    if (user?.profile?.religion) {
-      if (user.profile.religion == 'islam') {
+    if (contextApiData.profile.data?.religion) {
+      if (contextApiData.profile.data.religion == 'islam') {
         display = 'block';
       } else {
         display = 'none';

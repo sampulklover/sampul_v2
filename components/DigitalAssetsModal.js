@@ -29,7 +29,6 @@ const digitalAssetsTypeName = {
 };
 
 const DigitalAssetsModal = ({ keyType, selectedItem }) => {
-  const { user } = useUser();
   const { contextApiData, getDigitalAssets } = useApi();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState({
@@ -144,11 +143,11 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
   }, [selectedItem]);
 
   useEffect(() => {
-    if (user?.profile?.email && selectedItem == null) {
+    if (contextApiData.profile.data?.email && selectedItem == null) {
       elementList().digital_assets_modal.elements.email.value =
-        user.profile.email;
+        contextApiData.profile.data?.email;
     }
-  }, [user?.profile?.email, selectedItem]);
+  }, [contextApiData.profile.data?.email, selectedItem]);
 
   const handleTypeChange = (event) => {
     const selectedType = event.target.value;
@@ -182,7 +181,7 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
     const { data: returnData, error } = await supabase
       .from('digital_assets')
       .insert({
-        uuid: user?.uuid,
+        uuid: contextApiData.user.data?.id,
         ...addData,
       })
       .select();
@@ -227,7 +226,7 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
       .update({
         ...addData,
       })
-      .eq('uuid', user?.uuid)
+      .eq('uuid', contextApiData.user.data?.id)
       .eq('id', selectedItem.id);
 
     if (error) {
@@ -251,7 +250,7 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
       const { data, error } = await supabase
         .from('digital_assets')
         .delete()
-        .eq('uuid', user?.uuid)
+        .eq('uuid', contextApiData.user.data?.id)
         .eq('id', selectedItem.id);
 
       if (error) {
@@ -290,10 +289,15 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
     const { data, count } = await supabase
       .from('digital_assets')
       .select('*', { count: 'exact', head: true })
-      .eq('uuid', user?.uuid);
+      .eq('uuid', contextApiData.user.data?.id);
 
-    if (user.access_control?.pages.digital.asset.limited) {
-      var max = user.access_control.pages.digital.asset.maximum;
+    if (
+      contextApiData.account.data?.products?.access_control?.pages.digital.asset
+        .limited
+    ) {
+      var max =
+        contextApiData.account.data?.products.access_control.pages.digital.asset
+          .maximum;
       if (count >= max) {
         toast.error(
           `You can store up to ${max} digital assets. To add more, upgrade your plan.`

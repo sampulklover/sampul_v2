@@ -1,13 +1,9 @@
-import { useState, useEffect } from 'react';
-import { supabase } from '../utils/supabase';
+import { useState } from 'react';
 import Loading from './Laoding';
-import toast from 'react-hot-toast';
-import { useRouter } from 'next/router';
-import { useUser } from '../context/user';
+import { useApi } from '../context/api';
 
 const LogoutModal = () => {
-  const router = useRouter();
-  const { logout } = useUser();
+  const { logout } = useApi();
   const [isLoading, setIsLoading] = useState({
     is_logout: false,
   });

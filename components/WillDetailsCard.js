@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import QRCode from 'react-qr-code';
-import { useUser } from '../context/user';
 import { formatTimestamp } from '../utils/helpers';
 import DigitalSummaryCard from './DigitalSummaryCard';
 import ExtraWishesTable from './ExtraWishesTable';
 import { useApi } from '../context/api';
 
 const WillDetailsCard = () => {
-  const { user } = useUser();
   const { contextApiData } = useApi();
 
   const willData = {
@@ -80,7 +77,8 @@ const WillDetailsCard = () => {
         : false,
     },
     additional_request_view:
-      user.access_control?.pages?.will?.additional_requests?.access,
+      contextApiData.account.data?.products?.access_control?.pages?.will
+        ?.additional_requests?.access,
   };
 
   const will_settings = {

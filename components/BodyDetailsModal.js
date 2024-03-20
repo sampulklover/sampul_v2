@@ -21,7 +21,6 @@ import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid';
 
 const BodyDetailsModal = ({ selectedBody, refreshFunction }) => {
-  const { user } = useUser();
   const [isLoading, setIsLoading] = useState({
     update: false,
     delete: false,

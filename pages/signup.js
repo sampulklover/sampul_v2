@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { useUser } from '../context/user';
 import Loading from '../components/Laoding';
 import Link from 'next/link';
+import { useApi } from '../context/api';
 
 const SignUp = () => {
-  const { normalSignup, googleLogin } = useUser();
+  const { normalSignup, googleLogin } = useApi();
   const [isLoading, setIsLoading] = useState({
     normal_signup: false,
     google_login: false,

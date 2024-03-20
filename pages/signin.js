@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { useUser } from '../context/user';
 import Loading from '../components/Laoding';
 import ForgotPasswordModal from '../components/ForgotPasswordModal';
 import Link from 'next/link';
+import { useApi } from '../context/api';
 
 const SignIn = () => {
-  const { normalLogin, googleLogin } = useUser();
+  const { normalLogin, googleLogin } = useApi();
   const [isLoading, setIsLoading] = useState({
     normal_login: false,
     google_login: false,

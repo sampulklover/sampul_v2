@@ -14,7 +14,6 @@ import toast from 'react-hot-toast';
 import { useApi } from '../context/api';
 
 const InformDeath = () => {
-  const { user } = useUser();
   const { contextApiData, getInformDeath } = useApi();
 
   const [summary, setSummary] = useState({
@@ -80,7 +79,7 @@ const InformDeath = () => {
     const { data: checkExist, error: errorCheckExist } = await supabase
       .from('inform_death')
       .select('*')
-      .eq('uuid', user?.uuid);
+      .eq('uuid', contextApiData.user.data?.id);
 
     if (errorCheckExist) {
       toast.error(errorCheckExist.message);
@@ -106,11 +105,15 @@ const InformDeath = () => {
 
     switch (action) {
       case 'update':
-        query = query.update(addData).eq('uuid', user?.uuid).select().single();
+        query = query
+          .update(addData)
+          .eq('uuid', contextApiData.user.data?.id)
+          .select()
+          .single();
         break;
       case 'insert':
         query = query
-          .upsert({ uuid: user?.uuid, ...addData })
+          .upsert({ uuid: contextApiData.user.data?.id, ...addData })
           .select()
           .single();
         break;
@@ -135,7 +138,7 @@ const InformDeath = () => {
     );
 
     await replaceOrAddImage({
-      userId: user?.uuid,
+      userId: contextApiData.user.data?.id,
       returnData,
       directory,
       imageInput,
