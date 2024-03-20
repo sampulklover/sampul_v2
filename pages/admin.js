@@ -1,31 +1,19 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../utils/supabase';
 import { useUser } from '../context/user';
-import Loading from '../components/Laoding';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
-import {
-  belovedLevel,
-  instructionsAfterDeath,
-  relationships,
-  servicePlatforms,
-} from '../constant/enum';
 import Link from 'next/link';
-import DigitalSummaryCard from '../components/DigitalSummaryCard';
 import Footer from '../components/Footer';
 import Breadcrumb from '../components/Breadcrumb';
-import BelovedModal from '../components/BelovedModal';
-import { addUserImg, emptyUserImg } from '../constant/element';
-import MyDetails from '../components/MyDetails';
-import InformDeath from '../components/InformDeath';
-import Billing from '../components/Billing';
 import SideBar from '../components/SideBar';
 import AllUser from '../components/AllUser';
 import ManageBodies from '../components/ManageBodies';
+import { useApi } from '../context/api';
 
 const Admin = () => {
+  const { contextApiData } = useApi();
   const router = useRouter();
-  const { user } = useUser();
 
   const [summary, setSummary] = useState({
     data: {
@@ -207,7 +195,7 @@ const Admin = () => {
     <SideBar>
       <div class="body inner-body">
         <div class="content">
-          {user?.role?.role == 'admin' ? (
+          {contextApiData.role.data?.role == 'admin' ? (
             <>
               <Breadcrumb pageName={'Admin'} />
               <div class="mt-4">{title()}</div>

@@ -55,7 +55,6 @@ const getElements = () => {
 };
 
 const InviteModal = ({ keyType, category, selectedItem }) => {
-  const { user } = useUser();
   const { getInvites } = useApi();
   const [isLoading, setIsLoading] = useState({
     reject: false,

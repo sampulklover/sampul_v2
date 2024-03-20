@@ -13,7 +13,6 @@ import toast from 'react-hot-toast';
 import { useApi } from '../context/api';
 
 const MyDetails = ({ isModal = false }) => {
-  const { user } = useUser();
   const { contextApiData, getProfile } = useApi();
 
   const [summary, setSummary] = useState({
@@ -75,7 +74,7 @@ const MyDetails = ({ isModal = false }) => {
     const { data: returnData, error } = await supabase
       .from('profiles')
       .update(addData)
-      .eq('uuid', user?.uuid)
+      .eq('uuid', contextApiData.user.data?.id)
       .select()
       .single();
 
@@ -92,7 +91,7 @@ const MyDetails = ({ isModal = false }) => {
     const imageInput = document.getElementById('input-my-details-image');
 
     await replaceOrAddImage({
-      userId: user?.uuid,
+      userId: contextApiData.user.data?.id,
       returnData,
       directory,
       imageInput,
@@ -100,7 +99,7 @@ const MyDetails = ({ isModal = false }) => {
       isUpdateByReturnId: false,
     });
 
-    toast.success('Saved successfully! reloading...');
+    toast.success('Saved!');
 
     setSummary({
       ...summary,

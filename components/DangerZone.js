@@ -5,9 +5,11 @@ import Loading from './Laoding';
 import { processForm } from '../utils/helpers';
 import toast from 'react-hot-toast';
 import { useUser } from '../context/user';
+import { useApi } from '../context/api';
 
 const DangerZone = () => {
-  const { user } = useUser();
+  const { contextApiData } = useApi();
+
   const router = useRouter();
   const [summary, setSummary] = useState({
     isSaving: false,
@@ -48,7 +50,7 @@ const DangerZone = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ uuid: user?.uuid }),
+          body: JSON.stringify({ uuid: contextApiData.user.data?.id }),
         });
 
         if (!response.ok) {

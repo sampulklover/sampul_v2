@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useUser } from '../context/user';
 import Loading from '../components/Laoding';
 import toast from 'react-hot-toast';
 import {
@@ -17,9 +16,8 @@ import InviteModal from '../components/InviteModal';
 import { useApi } from '../context/api';
 
 const Beloved = () => {
-  const router = useRouter();
-  const { user } = useUser();
   const { contextApiData } = useApi();
+  const router = useRouter();
 
   const [belovedModalType, setBelovedModalType] = useState({
     key: 'add',
@@ -614,7 +612,10 @@ const Beloved = () => {
   const checkRestriction = () => {
     var restricted = true;
 
-    if (user?.access_control?.pages.beloved.guardian.access) {
+    if (
+      contextApiData.account.data?.products?.access_control?.pages.beloved
+        .guardian.access
+    ) {
       restricted = false;
     } else {
       restricted = true;

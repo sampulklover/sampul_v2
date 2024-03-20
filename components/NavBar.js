@@ -2,9 +2,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useUser } from '../context/user';
 import { useRouter } from 'next/router';
+import { useApi } from '../context/api';
 
 const NavBar = () => {
-  const { user } = useUser();
+  const { contextApiData } = useApi();
   const router = useRouter();
 
   return (
@@ -37,9 +38,10 @@ const NavBar = () => {
         >
           <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="mynavbar">
           <ul class="navbar-nav ms-auto">
-            {user?.uuid ? (
+            {contextApiData.user.data?.id ? (
               <>
                 {router?.route == '/dashboard' ? (
                   ''

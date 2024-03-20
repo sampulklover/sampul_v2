@@ -76,7 +76,6 @@ const getElements = () => {
 };
 
 const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
-  const { user } = useUser();
   const { contextApiData, getBeloved } = useApi();
   const [isLoading, setIsLoading] = useState({
     update: false,
@@ -107,7 +106,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
       const { data: returnBeloved, error: errorBeloved } = await supabase
         .from('beloved')
         .insert({
-          uuid: user?.uuid,
+          uuid: contextApiData.user.data?.id,
           ...addData,
         })
         .select()
@@ -122,7 +121,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
       const imageInput = document.getElementById('input-beloved-image');
 
       await replaceOrAddImage({
-        userId: user?.uuid,
+        userId: contextApiData.user.data?.id,
         returnData: returnBeloved,
         directory,
         imageInput,
@@ -164,7 +163,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
           to_level: belovedLevel().find(
             (obj) => obj.value === returnBeloved.level
           ).name,
-          from_name: user.profile.nric_name,
+          from_name: contextApiData.profile.data?.nric_name,
           invite_uuid: returnInvite.invite_uuid,
           beloved_id: returnBeloved.id,
         });
@@ -237,7 +236,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
       .update({
         ...addData,
       })
-      .eq('uuid', user?.uuid)
+      .eq('uuid', contextApiData.user.data?.id)
       .eq('id', selectedItem.id)
       .select()
       .single();
@@ -251,7 +250,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
     const imageInput = document.getElementById('input-beloved-image');
 
     await replaceOrAddImage({
-      userId: user?.uuid,
+      userId: contextApiData.user.data?.id,
       returnData,
       directory,
       imageInput,
@@ -283,7 +282,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
       const { data, error } = await supabase
         .from('beloved')
         .delete()
-        .eq('uuid', user?.uuid)
+        .eq('uuid', contextApiData.user.data?.id)
         .eq('id', selectedItem.id);
       if (error) {
         if (error.code === '23503') {
@@ -324,7 +323,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
 
     const inputEmail = document.getElementById('input-beloved-email');
 
-    if (inputEmail.value !== user.profile.email) {
+    if (inputEmail.value !== contextApiData.profile.data?.email) {
       setIsLoading({
         ...isLoading,
         update: true,

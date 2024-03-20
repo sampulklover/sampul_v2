@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { useUser } from '../context/user';
 import { supabase } from '../utils/supabase';
 import { jsPDF } from 'jspdf';
 import { replaceOrAddImage } from '../utils/helpers';
@@ -15,8 +14,7 @@ const WillActionButtons = ({
   showQrModal = false,
   viewOnly = false,
 }) => {
-  const { user } = useUser();
-  const { getWill } = useApi();
+  const { contextApiData, getWill } = useApi();
   const router = useRouter();
 
   const [shareUrl, setShareUrl] = useState(null);
@@ -30,14 +28,14 @@ const WillActionButtons = ({
       if (viewOnly) {
         return router.isReady;
       } else {
-        return router.isReady && user?.uuid;
+        return router.isReady && contextApiData.user.data?.id;
       }
     }
 
     if (shouldRunReadyFunction()) {
       readyFunction();
     }
-  }, [router.isReady, user, viewOnly]);
+  }, [router.isReady, contextApiData.user.data, viewOnly]);
 
   const readyFunction = () => {
     fetchWillData();
@@ -54,7 +52,7 @@ const WillActionButtons = ({
       const { data, error } = await supabase
         .from('wills')
         .select(`*, profiles ( * )`)
-        .eq('uuid', user?.uuid);
+        .eq('uuid', contextApiData.user.data?.id);
 
       if (error) {
         toast.error(error.message);
@@ -96,6 +94,7 @@ const WillActionButtons = ({
     await setQrValue(url);
 
     const cardElement = cardRef.current;
+
     if (!cardElement) return;
     try {
       const html2canvas = await import('html2canvas');
@@ -107,9 +106,10 @@ const WillActionButtons = ({
 
         const timestamp = new Date().getTime();
         var file = dataURLtoFile(asURL, `qr_code_${will_id}_${timestamp}.png`);
+
         if (file) {
           await replaceOrAddImage({
-            userId: user?.uuid,
+            userId: contextApiData.user.data?.id,
             returnData: data,
             directory: `/will/`,
             imageInput: {
@@ -125,6 +125,7 @@ const WillActionButtons = ({
             ...buttonLoading,
             generate: false,
           });
+
           toast.success('Successfully generated!');
         } else {
           setButtonLoading({
@@ -185,7 +186,7 @@ const WillActionButtons = ({
     const { data: beloved, error: errorBeloved } = await supabase
       .from('beloved')
       .select('*')
-      .eq('uuid', user?.uuid)
+      .eq('uuid', contextApiData.user.data?.id)
       .select();
 
     if (errorBeloved) {
@@ -230,7 +231,7 @@ const WillActionButtons = ({
 
     const updateData = {
       last_updated: updatedTime,
-      nric_name: user.profile.nric_name,
+      nric_name: contextApiData.profile.data?.nric_name,
       co_sampul_1: belovedCat.primary_co_sampul.data[0]?.id ?? null,
       co_sampul_2: belovedCat.secondary_co_sampul.data[0]?.id ?? null,
       guardian_1: belovedCat.primary_guardian.data[0]?.id ?? null,
@@ -245,7 +246,7 @@ const WillActionButtons = ({
     const { data: checkExist, error } = await supabase
       .from('wills')
       .select('*')
-      .eq('uuid', user?.uuid)
+      .eq('uuid', contextApiData.user.data?.id)
       .select();
 
     if (error) {
@@ -263,7 +264,7 @@ const WillActionButtons = ({
         .update({
           ...updateData,
         })
-        .eq('uuid', user?.uuid)
+        .eq('uuid', contextApiData.user.data?.id)
         .select()
         .single();
 
@@ -281,10 +282,10 @@ const WillActionButtons = ({
       const { data, error } = await supabase
         .from('wills')
         .insert({
-          uuid: user?.uuid,
+          uuid: contextApiData.user.data?.id,
           ...addData,
         })
-        .eq('uuid', user?.uuid)
+        .eq('uuid', contextApiData.user.data?.id)
         .select()
         .single();
 
@@ -346,7 +347,7 @@ const WillActionButtons = ({
 
   const checkCompleteProfile = () => {
     var is_completed = false;
-    if (user?.profile?.nric_name) {
+    if (contextApiData.profile.data?.nric_name) {
       is_completed = true;
     } else {
       is_completed = false;

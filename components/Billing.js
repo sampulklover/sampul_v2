@@ -1,14 +1,14 @@
 import Loading from './Laoding';
-import { useUser } from '../context/user';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import { loadStripe } from '@stripe/stripe-js';
+import { useApi } from '../context/api';
 
 const asyncStripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
 
 const Billing = () => {
-  const { user } = useUser();
+  const { contextApiData } = useApi();
   const router = useRouter();
   const [runEffect, setRunEffect] = useState(false);
   const [summary, setSummary] = useState({
@@ -20,11 +20,10 @@ const Billing = () => {
   });
 
   useEffect(() => {
-    if (!runEffect && user?.uuid) {
-      setRunEffect(true);
+    if (contextApiData.account.data !== null) {
       getStripePrices();
     }
-  }, [user, runEffect]);
+  }, [contextApiData.account.data]);
 
   const defaultProductId = 'default';
 
@@ -49,8 +48,9 @@ const Billing = () => {
       const data = await response.json();
 
       var myProduct = null;
-      if (user?.account?.is_subscribed) {
-        myProduct = user.account.stripe_product;
+
+      if (contextApiData.account.data?.is_subscribed) {
+        myProduct = contextApiData.account.data?.stripe_product;
       }
 
       data.plans.unshift({
@@ -86,7 +86,10 @@ const Billing = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: user.profile.email, uuid: user?.uuid }),
+        body: JSON.stringify({
+          email: contextApiData.profile.data?.email,
+          uuid: contextApiData.user.data?.id,
+        }),
       });
 
       if (!response.ok) {
@@ -180,7 +183,7 @@ const Billing = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ uuid: user?.uuid }),
+        body: JSON.stringify({ uuid: contextApiData.user.data?.id }),
       });
 
       if (!response.ok) {
@@ -257,7 +260,7 @@ const Billing = () => {
       </div>
       {summary.data?.map((item) => (
         <>
-          {user.isLoading ? <Loading /> : <></>}
+          {contextApiData.user.isLoading ? <Loading /> : <></>}
           {item.active ? (
             <div
               class="pointer-on-hover mb-3"
