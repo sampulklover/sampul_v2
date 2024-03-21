@@ -43,11 +43,7 @@ const Beloved = () => {
             </div>
           </div>
           <div class="col text-md-end text-center mt-md-0 mt-3">
-            <WillActionButtons
-              setQrValue={setQrValue}
-              cardRef={cardRef}
-              viewOnly={false}
-            />
+            <WillActionButtons viewOnly={false} />
           </div>
         </div>
         <div class="border-top my-3"></div>
@@ -168,8 +164,6 @@ const Beloved = () => {
                   bodies: contextApiData.bodies.data,
                 },
               }}
-              qrValue={qrValue}
-              cardRef={cardRef}
             />
           </div>
           <div

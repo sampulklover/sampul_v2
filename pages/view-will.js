@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { supabase } from '../utils/supabase';
 import toast from 'react-hot-toast';
 import { formatTimestamp } from '../utils/helpers';
@@ -8,15 +8,12 @@ import WillActionButtons from '../components/WillActionButtons';
 import WillCertCard from '../components/WillCertCard';
 
 const Beloved = () => {
-  const cardRef = useRef(null);
   const router = useRouter();
 
   const [summary, setSummary] = useState({
     data: { will: null },
     isReady: false,
   });
-  const [isReady, setIsReady] = useState(true);
-  const [qrValue, setQrValue] = useState(null);
 
   const fetchWillData = async () => {
     const willId = router.query.id;
@@ -69,11 +66,7 @@ const Beloved = () => {
             </div>
           </div>
           <div class="col text-md-end text-center mt-md-0 mt-3">
-            <WillActionButtons
-              setQrValue={setQrValue}
-              cardRef={cardRef}
-              viewOnly={true}
-            />
+            <WillActionButtons viewOnly={true} />
           </div>
         </div>
         <div class="border-top my-3"></div>
@@ -115,11 +108,7 @@ const Beloved = () => {
             role="tabpanel"
             aria-labelledby="pills-certificate-tab"
           >
-            <WillCertCard
-              willData={summary}
-              qrValue={qrValue}
-              cardRef={cardRef}
-            />
+            <WillCertCard willData={summary} />
           </div>
           <div
             class="tab-pane fade"
