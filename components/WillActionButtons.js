@@ -1,19 +1,13 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { supabase } from '../utils/supabase';
 import { jsPDF } from 'jspdf';
-import { replaceOrAddImage } from '../utils/helpers';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import ShareModal from './ShareModal';
 import Loading from './Laoding';
 import { useApi } from '../context/api';
 
-const WillActionButtons = ({
-  setQrValue,
-  cardRef,
-  showQrModal = false,
-  viewOnly = false,
-}) => {
+const WillActionButtons = ({ viewOnly = false }) => {
   const { contextApiData, getWill } = useApi();
   const router = useRouter();
 
@@ -71,13 +65,6 @@ const WillActionButtons = ({
     }
   };
 
-  const options = {
-    allowTaint: true,
-    useCORS: true,
-    backgroundColor: 'rgba(0,0,0,0)',
-    removeContainer: true,
-  };
-
   const generateWillId = () => {
     const currentYear = new Date().getFullYear();
     const randomDigits = Math.floor(Math.random() * 10000000000);
@@ -87,93 +74,6 @@ const WillActionButtons = ({
 
     return randomId;
   };
-
-  const handleGenerate = async (data) => {
-    var will_id = data.will_code;
-    var url = `${process.env.NEXT_PUBLIC_HOST}/view-will?id=${will_id}`;
-    await setQrValue(url);
-
-    const cardElement = cardRef.current;
-
-    if (!cardElement) return;
-    try {
-      const html2canvas = await import('html2canvas');
-
-      const result = await html2canvas.default(cardElement, options);
-
-      setTimeout(async () => {
-        const asURL = result.toDataURL();
-
-        const timestamp = new Date().getTime();
-        var file = dataURLtoFile(asURL, `qr_code_${will_id}_${timestamp}.png`);
-
-        if (file) {
-          await replaceOrAddImage({
-            userId: contextApiData.user.data?.id,
-            returnData: data,
-            directory: `/will/`,
-            imageInput: {
-              files: [file],
-            },
-            dataBase: 'wills',
-            isUpdateByReturnId: false,
-          });
-
-          setShareUrl(url);
-          getWill();
-          setButtonLoading({
-            ...buttonLoading,
-            generate: false,
-          });
-
-          toast.success('Successfully generated!');
-        } else {
-          setButtonLoading({
-            ...buttonLoading,
-            generate: false,
-          });
-          toast.error('Something went wrong, please try again');
-        }
-      }, 1000);
-    } catch (error) {
-      setButtonLoading({
-        ...buttonLoading,
-        generate: false,
-      });
-      toast.error('Something went wrong, please try again');
-    }
-  };
-
-  const generateQRCode = async (data) => {
-    if (showQrModal) {
-      setTimeout(() => {
-        $('#qr-code-modal')?.modal('show');
-        setTimeout(() => {
-          handleGenerate(data);
-        }, 1000);
-      }, 500);
-    } else {
-      handleGenerate(data);
-    }
-  };
-
-  function dataURLtoFile(dataURL, filename) {
-    try {
-      var arr = dataURL.split(','),
-        mime = arr[0].match(/:(.*?);/)[1],
-        bstr = atob(arr[1]),
-        n = bstr.length,
-        u8arr = new Uint8Array(n);
-
-      while (n--) {
-        u8arr[n] = bstr.charCodeAt(n);
-      }
-
-      return new File([u8arr], filename, { type: mime });
-    } catch {
-      return null;
-    }
-  }
 
   const generateWill = async () => {
     setButtonLoading({
@@ -277,7 +177,12 @@ const WillActionButtons = ({
         return;
       }
 
-      await generateQRCode(data);
+      toast.success('Successfully generated!');
+      setButtonLoading({
+        ...buttonLoading,
+        generate: false,
+      });
+      getWill();
     } else {
       const { data, error } = await supabase
         .from('wills')
@@ -298,7 +203,12 @@ const WillActionButtons = ({
         return;
       }
 
-      await generateQRCode(data);
+      toast.success('Successfully generated!');
+      setButtonLoading({
+        ...buttonLoading,
+        generate: false,
+      });
+      getWill();
     }
   };
 

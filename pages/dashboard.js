@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Loading from '../components/Laoding';
 import toast from 'react-hot-toast';
 import { formatTimestamp, mapViewElements } from '../utils/helpers';
@@ -6,7 +6,6 @@ import DigitalSummaryCard from '../components/DigitalSummaryCard';
 import Footer from '../components/Footer';
 import Breadcrumb from '../components/Breadcrumb';
 import WillActionButtons from '../components/WillActionButtons';
-import QrCodeModal from '../components/QrCodeModal';
 import SideBar from '../components/SideBar';
 import DigitalAssetsModal from '../components/DigitalAssetsModal';
 import BelovedModal from '../components/BelovedModal';
@@ -17,7 +16,6 @@ import { useApi } from '../context/api';
 const Dashboard = () => {
   const { contextApiData } = useApi();
 
-  const cardRef = useRef(null);
   const [summary, setSummary] = useState({
     data: null,
     isReady: false,
@@ -497,11 +495,7 @@ const Dashboard = () => {
                       : ''}
                   </div>
                 </div>
-                <WillActionButtons
-                  setQrValue={setQrValue}
-                  cardRef={cardRef}
-                  showQrModal={true}
-                />
+                <WillActionButtons />
               </div>
               <img width="300px" src="images/will_dashboard.png" />
             </div>
@@ -544,7 +538,6 @@ const Dashboard = () => {
             selectedItem={null}
           />
           <DigitalAssetsModal keyType={'add'} selectedItem={null} />
-          <QrCodeModal cardRef={cardRef} qrValue={qrValue} />
           <Breadcrumb pageName={'Dashboard'} />
           <div class="mt-4">{title()}</div>
           <div class="mt-4">{section1()}</div>

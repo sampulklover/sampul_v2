@@ -1,6 +1,6 @@
 import QRCode from 'react-qr-code';
 
-const WillCertCard = ({ willData, qrValue, cardRef }) => {
+const WillCertCard = ({ willData }) => {
   const will_settings = {
     muslim: {
       title: 'Wasiat',
@@ -22,6 +22,9 @@ const WillCertCard = ({ willData, qrValue, cardRef }) => {
     will_code: willData.data.will?.will_code
       ? willData.data.will.will_code
       : '[ID]',
+    qrValue: willData.data.will?.will_code
+      ? `${process.env.NEXT_PUBLIC_HOST}/view-will?id=${willData.data.will.will_code}`
+      : null,
   };
 
   const checkReligion = () => {
@@ -90,24 +93,25 @@ const WillCertCard = ({ willData, qrValue, cardRef }) => {
               <div class="bar-divider"></div>
             </div>
             <div class="wasiat-cert_content-bottom">
-              <div ref={cardRef}>
-                {qrValue !== null ? (
-                  <QRCode
-                    title="Sampul"
-                    value={qrValue}
-                    bgColor={'#FFFFFF'}
-                    fgColor={'#000000'}
-                    size={150}
-                  />
-                ) : (
-                  <img
-                    width="150"
-                    loading="lazy"
-                    src={`${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${willData.data.will?.image_path}`}
-                    alt=""
-                  />
-                )}
-              </div>
+              {myInfo.qrValue !== null ? (
+                <QRCode
+                  title="Sampul"
+                  value={myInfo.qrValue}
+                  bgColor={'#FFFFFF'}
+                  fgColor={'#000000'}
+                  size={150}
+                  onClick={() => {
+                    window.open(myInfo.qrValue, '_blank');
+                  }}
+                />
+              ) : (
+                <img
+                  width="150"
+                  loading="lazy"
+                  src={`${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${willData.data.will?.image_path}`}
+                  alt=""
+                />
+              )}
               <div class="wasiat-cert_content-centre">
                 <div class="space-xxsmall"></div>
                 <div class="text-size-medium centre">Powered by Sampul</div>
