@@ -397,20 +397,21 @@ const Dashboard = () => {
             {summaryValueCard({
               title: 'Digital Accounts Value',
               id_of_value: 'count-value-digital-account',
-              tooltip_html: '<div>How much value of my Digital Account?</div>',
+              tooltip_html:
+                '<div>How much total value of my Digital Account?</div>',
             })}
 
             {summaryValueCard({
               title: 'Digital Accounts',
               id_of_value: 'count-digital-account',
-              tooltip_html: '<div>How many Digital Account that I have??</div>',
+              tooltip_html: '<div>How many Digital Account that I have?</div>',
             })}
 
             {summaryValueCard({
               title: 'Digital Subscriptions Value',
               id_of_value: 'count-value-subscription-account',
               tooltip_html:
-                '<div>How much value of my Digital Subscriptions Account?</div>',
+                '<div>How much total value of my Digital Subscriptions Account?</div>',
               image_path: 'images/like_pink.png',
             })}
 
