@@ -1,4 +1,3 @@
-import { useRef, useState } from 'react';
 import { formatTimestamp } from '../utils/helpers';
 import Link from 'next/link';
 import Footer from '../components/Footer';
