@@ -11,6 +11,7 @@ import { useApi } from '../context/api';
 
 const Beloved = () => {
   const { contextApiData } = useApi();
+  const cardRef = useRef(null);
 
   const summary = {
     data: {
@@ -21,6 +22,8 @@ const Beloved = () => {
       bodies: contextApiData.bodies.data,
     },
   };
+
+  const [qrValue, setQrValue] = useState(null);
 
   const title = () => {
     return (
@@ -48,68 +51,44 @@ const Beloved = () => {
     );
   };
 
-  const belovedData = contextApiData.beloved.data;
-
   const belovedCat = {
     primary_co_sampul: {
-      data: belovedData.find(
+      data: summary.data.beloved?.filter(
         (b) => b.level === 'primary' && b.type === 'co_sampul'
       ),
       name: 'Primary Co-Sampul',
       isRequired: true,
-      inviteStatus: belovedData.find(
-        (b) => b.level === 'primary' && b.type === 'co_sampul'
-      )?.beloved_invites[0]?.invite_status,
     },
     secondary_co_sampul: {
-      data: belovedData.find(
+      data: summary.data.beloved?.filter(
         (b) => b.level === 'secondary' && b.type === 'co_sampul'
       ),
       name: 'Secondary Co-Sampul',
       isRequired: true,
-      inviteStatus: belovedData.find(
-        (b) => b.level === 'secondary' && b.type === 'co_sampul'
-      )?.beloved_invites[0]?.invite_status,
     },
     primary_guardian: {
-      data: belovedData.find(
+      data: summary.data.beloved?.filter(
         (b) => b.level === 'primary' && b.type === 'guardian'
       ),
       name: 'Primary Guardian',
       isRequired: false,
     },
     secondary_guardian: {
-      data: belovedData.find(
+      data: summary.data.beloved?.filter(
         (b) => b.level === 'secondary' && b.type === 'guardian'
       ),
-      name: 'Secondary Guardian',
+      name: 'secondary Guardian',
       isRequired: false,
     },
   };
 
-  const displayStatusInfo = {
-    pending: (
-      <span>
-        is still <b>pending</b>
-      </span>
-    ),
-    rejected: (
-      <span>
-        has been <b>rejected</b>
-      </span>
-    ),
-    null: (
-      <span>
-        is still <b>pending</b>
-      </span>
-    ),
-  };
-
   const disyplayInfo = () => {
     const alerts = [];
-
     Object.keys(belovedCat).forEach((category) => {
-      if (!belovedCat[category].data && belovedCat[category].isRequired) {
+      if (
+        belovedCat[category].data?.length === 0 &&
+        belovedCat[category].isRequired
+      ) {
         alerts.push(
           <div key={category} className="alert alert-danger" role="alert">
             {`${belovedCat[category].name} has not been assigned. Click `}
@@ -117,21 +96,6 @@ const Beloved = () => {
               here
             </Link>
             {` to assign.`}
-          </div>
-        );
-      }
-
-      if (
-        belovedCat[category].data &&
-        belovedCat[category].isRequired &&
-        belovedCat[category].inviteStatus !== 'accepted'
-      ) {
-        alerts.push(
-          <div key={category} className="alert alert-danger" role="alert">
-            {`Your request for `}
-            <b>{belovedCat[category].data.nickname}</b>
-            {`'s approval to be your ${belovedCat[category].name} `}{' '}
-            {displayStatusInfo[belovedCat[category].inviteStatus]}.
           </div>
         );
       }
