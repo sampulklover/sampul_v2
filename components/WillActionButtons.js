@@ -82,41 +82,49 @@ const WillActionButtons = ({ viewOnly = false }) => {
     });
 
     const updatedTime = new Date().toISOString();
-    const belovedData = contextApiData.beloved.data;
+
+    const { data: beloved, error: errorBeloved } = await supabase
+      .from('beloved')
+      .select('*')
+      .eq('uuid', contextApiData.user.data?.id)
+      .select();
+
+    if (errorBeloved) {
+      setButtonLoading({
+        ...buttonLoading,
+        generate: false,
+      });
+      toast.error(errorBeloved.message);
+      return;
+    }
 
     const belovedCat = {
       primary_co_sampul: {
-        data: belovedData.find(
+        data: beloved.filter(
           (b) => b.level === 'primary' && b.type === 'co_sampul'
         ),
         name: 'Primary Co-Sampul',
         isRequired: true,
-        inviteStatus: belovedData.find(
-          (b) => b.level === 'primary' && b.type === 'co_sampul'
-        )?.beloved_invites[0]?.invite_status,
       },
       secondary_co_sampul: {
-        data: belovedData.find(
+        data: beloved.filter(
           (b) => b.level === 'secondary' && b.type === 'co_sampul'
         ),
         name: 'Secondary Co-Sampul',
         isRequired: true,
-        inviteStatus: belovedData.find(
-          (b) => b.level === 'secondary' && b.type === 'co_sampul'
-        )?.beloved_invites[0]?.invite_status,
       },
       primary_guardian: {
-        data: belovedData.find(
+        data: beloved.filter(
           (b) => b.level === 'primary' && b.type === 'guardian'
         ),
         name: 'Primary Guardian',
         isRequired: false,
       },
       secondary_guardian: {
-        data: belovedData.find(
+        data: beloved.filter(
           (b) => b.level === 'secondary' && b.type === 'guardian'
         ),
-        name: 'Secondary Guardian',
+        name: 'secondary Guardian',
         isRequired: false,
       },
     };
@@ -124,25 +132,11 @@ const WillActionButtons = ({ viewOnly = false }) => {
     const updateData = {
       last_updated: updatedTime,
       nric_name: contextApiData.profile.data?.nric_name,
-      co_sampul_1: belovedCat.primary_co_sampul.data?.id ?? null,
-      co_sampul_2: belovedCat.secondary_co_sampul.data?.id ?? null,
-      guardian_1: belovedCat.primary_guardian.data?.id ?? null,
-      guardian_2: belovedCat.secondary_guardian.data?.id ?? null,
+      co_sampul_1: belovedCat.primary_co_sampul.data[0]?.id ?? null,
+      co_sampul_2: belovedCat.secondary_co_sampul.data[0]?.id ?? null,
+      guardian_1: belovedCat.primary_guardian.data[0]?.id ?? null,
+      guardian_2: belovedCat.secondary_guardian.data[0]?.id ?? null,
     };
-
-    // const approval = {
-    //   co_sampul_1_approved: belovedCat.primary_co_sampul.inviteStatus,
-    //   co_sampul_2_approved: belovedCat.secondary_co_sampul.inviteStatus,
-    // };
-
-    //   if(updateData.co_sampul_1 !== null || updateData.co_sampul_2 !== null){
-    //   if (
-    //     approval.co_sampul_1_approved == 'accepted' ||
-    //     approval.co_sampul_2_approved == 'accepted'
-    //   ) {
-    //     console.log('isApprove', isApprove);
-    //   }
-    // }
 
     const addData = {
       ...updateData,
