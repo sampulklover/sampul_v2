@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Loading from '../components/Laoding';
 import toast from 'react-hot-toast';
