@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Loading from '../components/Laoding';
 import toast from 'react-hot-toast';
@@ -552,7 +552,7 @@ const Beloved = () => {
                   <tbody>
                     {contextApiData.invites.data?.map((item, index) => {
                       var status_invites = null;
-                      if (item.invite_status.length > 0) {
+                      if (item.invite_status?.length > 0) {
                         status_invites = belovedInviteStatus().find(
                           (x) => x.value === item.invite_status
                         );
