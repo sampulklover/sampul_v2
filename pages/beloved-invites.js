@@ -5,7 +5,6 @@ import Footer from '../components/Footer';
 import { useRouter } from 'next/router';
 
 const BelovedInvites = () => {
-  const cardRef = useRef(null);
   const router = useRouter();
 
   const [summary, setSummary] = useState({

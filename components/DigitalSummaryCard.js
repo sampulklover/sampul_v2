@@ -115,10 +115,10 @@ const DigitalSummaryCard = ({ typeName, showBeloved = false }) => {
                     (x) => x.id === item?.beloved_id
                   );
 
-                  const relation = relationships().find(
-                    (x) => x.value === beloved?.relationship
-                  );
-                  const relationName = relation?.name || '';
+                  // const relation = relationships().find(
+                  //   (x) => x.value === beloved?.relationship
+                  // );
+                  // const relationName = relation?.name || '';
 
                   const belovedImg = beloved?.image_path
                     ? `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${beloved.image_path}`
@@ -161,10 +161,12 @@ const DigitalSummaryCard = ({ typeName, showBeloved = false }) => {
                             />
                             <div>
                               <div class="smpl_text-sm-medium crop-text">
-                                <span>{beloved?.nickname}</span>
+                                <span>{beloved?.name}</span>
                               </div>
                               <div class="smpl_text-sm-regular crop-text">
-                                <span>{relationName}</span>
+                                <span>
+                                  {beloved?.email ? beloved.email : '-'}
+                                </span>
                               </div>
                             </div>
                           </div>

@@ -146,9 +146,9 @@ const UserDetailsModal = ({ selectedUser, refreshFunction, summary }) => {
                         <small class="smpl_text-xs-medium">Beloved</small>
                       </th>
 
-                      <th scope="col">
+                      {/* <th scope="col">
                         <small class="smpl_text-xs-medium">Relationship</small>
-                      </th>
+                      </th> */}
 
                       <th scope="col">
                         <small class="smpl_text-xs-medium">Type</small>
@@ -161,9 +161,9 @@ const UserDetailsModal = ({ selectedUser, refreshFunction, summary }) => {
                         ? `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${item.image_path}`
                         : emptyUserImg;
 
-                      const rObject = relationships().find(
-                        (x) => x.value === item.relationship
-                      );
+                      // const rObject = relationships().find(
+                      //   (x) => x.value === item.relationship
+                      // );
 
                       const tObject = beneficiaryTypes().find(
                         (x) => x.value === item.type
@@ -185,7 +185,7 @@ const UserDetailsModal = ({ selectedUser, refreshFunction, summary }) => {
                               />
                               <div>
                                 <div class="smpl_text-sm-medium crop-text">
-                                  {item.nickname}
+                                  {item.name}
                                 </div>
                                 <div class="smpl_text-sm-regular crop-text">
                                   {item.email}
@@ -193,13 +193,13 @@ const UserDetailsModal = ({ selectedUser, refreshFunction, summary }) => {
                               </div>
                             </div>
                           </td>
-                          <td>
+                          {/* <td>
                             <div class="custom-table-cell">
                               <div class="smpl_text-sm-regular crop-text">
                                 {rObject?.name}
                               </div>
                             </div>
-                          </td>
+                          </td> */}
                           <td>
                             <div class="custom-table-cell">
                               <div class="smpl_text-sm-regular crop-text">
