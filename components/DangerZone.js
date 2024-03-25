@@ -100,7 +100,7 @@ const DangerZone = () => {
             </div>
           </div>
           <div class="col text-end mt-md-0 mt-3">
-            <button type="submit" class="btn btn-danger btn-lg btn-text">
+            <button type="submit" class="btn btn-danger btn-text">
               <Loading title="Delete Account" loading={summary.isSaving} />
             </button>
           </div>

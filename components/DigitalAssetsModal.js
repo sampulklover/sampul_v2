@@ -682,7 +682,7 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
               </div>
 
               <div class="d-grid gap-2 mt-5">
-                <button type="submit" class="btn btn-primary btn-lg btn-text">
+                <button type="submit" class="btn btn-primary btn-text">
                   <Loading
                     title={digitalAssetsTypeName[keyType].button_title}
                     loading={isLoading.update}
@@ -691,7 +691,7 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                 {digitalAssetsTypeName[keyType].allow_delete ? (
                   <button
                     type="button"
-                    class="btn btn-light btn-lg btn-text"
+                    class="btn btn-light btn-text"
                     onClick={deleteDigitalAssets}
                   >
                     <Loading title="Delete" loading={isLoading.delete} />

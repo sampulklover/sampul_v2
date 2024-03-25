@@ -78,7 +78,7 @@ const Password = () => {
             </div>
           </div>
           <div class="col text-end mt-md-0 mt-3">
-            <button type="submit" class="btn btn-primary btn-lg btn-text">
+            <button type="submit" class="btn btn-primary btn-text">
               <Loading title="Update Password" loading={summary.isSaving} />
             </button>
           </div>

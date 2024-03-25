@@ -47,10 +47,7 @@ const NavBar = () => {
                 ) : (
                   <li class="nav-item">
                     <Link href="dashboard">
-                      <button
-                        class="btn btn-primary btn-lg btn-text"
-                        type="button"
-                      >
+                      <button class="btn btn-primary btn-text" type="button">
                         Dashboard
                       </button>
                     </Link>
@@ -64,10 +61,7 @@ const NavBar = () => {
                 ) : (
                   <li class="nav-item pe-2">
                     <Link href="signin">
-                      <button
-                        class="btn btn-light btn-text btn-lg"
-                        type="button"
-                      >
+                      <button class="btn btn-light btn-text" type="button">
                         Sign in
                       </button>
                     </Link>
@@ -78,10 +72,7 @@ const NavBar = () => {
                 ) : (
                   <li class="nav-item">
                     <Link href="signup">
-                      <button
-                        class="btn btn-primary btn-lg btn-text"
-                        type="button"
-                      >
+                      <button class="btn btn-primary btn-text" type="button">
                         Sign up
                       </button>
                     </Link>

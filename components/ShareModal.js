@@ -87,7 +87,7 @@ const ShareModal = ({ url, title }) => {
               <div class="col-sm-auto">
                 <button
                   type="button"
-                  class="btn btn-light btn-text btn-lg me-1"
+                  class="btn btn-light btn-text me-1"
                   onClick={() => {
                     facebookShare();
                   }}
@@ -121,7 +121,7 @@ const ShareModal = ({ url, title }) => {
                   </span>
                 </button>
                 <button
-                  class="btn btn-light btn-text btn-lg me-1"
+                  class="btn btn-light btn-text me-1"
                   id="share-twitter-btn"
                   onClick={() => {
                     twitterShare();
@@ -148,7 +148,7 @@ const ShareModal = ({ url, title }) => {
                   </span>
                 </button>
                 <button
-                  class="btn btn-light btn-text btn-lg me-1"
+                  class="btn btn-light btn-text me-1"
                   onClick={() => {
                     linkedInShare();
                   }}
@@ -181,7 +181,7 @@ const ShareModal = ({ url, title }) => {
                 <div class="row">
                   <div class="col">
                     <button
-                      class="btn btn-light btn-text btn-lg w-100"
+                      class="btn btn-light btn-text w-100"
                       onClick={() => {
                         copyLink();
                       }}

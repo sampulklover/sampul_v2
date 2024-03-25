@@ -52,6 +52,13 @@ a:hover {
   display: flex;
 }
 
+.btn-text {
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  padding: .625rem 1.125rem;
+  border-radius: .5rem;
+}
+
 .pointer-on-hover {
   cursor: pointer;
 }

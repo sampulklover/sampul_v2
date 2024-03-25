@@ -58,13 +58,13 @@ const ChangePassword = () => {
                 />
               </div>
               <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary btn-lg btn-text">
+                <button type="submit" class="btn btn-primary btn-text">
                   <Loading title="Update" loading={isLoading.new_password} />
                 </button>
               </div>
             </form>
             <div class="d-grid gap-2">
-              <Link href="signin" class="btn btn-light btn-lg btn-text">
+              <Link href="signin" class="btn btn-light btn-text">
                 <span class="ms-3">
                   <i class="bi bi-arrow-left"></i> Back to Sign in
                 </span>

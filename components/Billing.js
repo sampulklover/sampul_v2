@@ -236,7 +236,7 @@ const Billing = () => {
         <div class="col text-end mt-md-0 mt-3">
           <button
             type="button"
-            class="btn btn-primary btn-lg btn-text"
+            class="btn btn-primary btn-text"
             onClick={() => {
               if (summary.selectedProductId == defaultProductId) {
                 toast.error(

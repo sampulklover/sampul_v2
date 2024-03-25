@@ -348,7 +348,7 @@ const ExtraWishes = () => {
                 </div>
               </div>
               <div class="mb-3 text-end">
-                <button type="submit" class="btn btn-primary btn-lg btn-text">
+                <button type="submit" class="btn btn-primary btn-text">
                   <Loading title="Save" loading={buttonLoading.nazar} />
                 </button>
               </div>
@@ -418,7 +418,7 @@ const ExtraWishes = () => {
                 </div>
               </div>
               <div class="mb-3 text-end">
-                <button type="submit" class="btn btn-primary btn-lg btn-text">
+                <button type="submit" class="btn btn-primary btn-text">
                   <Loading title="Save" loading={buttonLoading.fidyah} />
                 </button>
               </div>
@@ -516,7 +516,7 @@ const ExtraWishes = () => {
                 );
               })}
               <div class="mb-3 text-end">
-                <button type="submit" class="btn btn-primary btn-lg btn-text">
+                <button type="submit" class="btn btn-primary btn-text">
                   <Loading title="Save" loading={buttonLoading.charity} />
                 </button>
               </div>
@@ -614,7 +614,7 @@ const ExtraWishes = () => {
                 );
               })}
               <div class="mb-3 text-end">
-                <button type="submit" class="btn btn-primary btn-lg btn-text">
+                <button type="submit" class="btn btn-primary btn-text">
                   <Loading title="Save" loading={buttonLoading.waqf} />
                 </button>
               </div>
@@ -705,7 +705,7 @@ const ExtraWishes = () => {
                 </select>
               </div>
               <div class="mb-3 text-end">
-                <button type="submit" class="btn btn-primary btn-lg btn-text">
+                <button type="submit" class="btn btn-primary btn-text">
                   <Loading title="Save" loading={buttonLoading.organ_donor} />
                 </button>
               </div>
