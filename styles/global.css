@@ -11,6 +11,12 @@
   font-family: Inter, sans-serif;
 }
 
+.btn-text {
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  padding: .625rem 1.125rem;
+  border-radius: .5rem;
+}
 
 .inner-body {
   padding-left: 0rem;

@@ -36,7 +36,7 @@ const DigitalAssets = () => {
           <div class="col text-md-end text-center mt-md-0 mt-3">
             <button
               type="button"
-              class="btn btn-primary btn-lg btn-text"
+              class="btn btn-primary btn-text"
               onClick={() => {
                 digitalAssetsModal(null);
               }}

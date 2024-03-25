@@ -34,7 +34,7 @@ const ManageBodies = ({ summary, refreshFunction }) => {
           <div class="col-lg"></div>
           <div class="col text-end mt-md-0 mt-3">
             <button
-              class="btn btn-primary btn-lg btn-text"
+              class="btn btn-primary btn-text"
               onClick={() => {
                 $('#body-details-modal')?.modal('show');
                 setSelectedBody({

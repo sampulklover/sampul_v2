@@ -46,7 +46,7 @@ const LogoutModal = () => {
             <div class="d-grid gap-2">
               <button
                 type="submit"
-                class="btn btn-primary btn-lg btn-text"
+                class="btn btn-primary btn-text"
                 onClick={onClickLogout}
               >
                 <Loading title="Sign out" loading={isLoading.is_logout} />

@@ -255,7 +255,7 @@ const InviteModal = ({ keyType, category, selectedItem }) => {
               {selectedItem?.invite_status == 'accepted' ? (
                 <button
                   type="button"
-                  class="btn btn-primary btn-lg btn-text"
+                  class="btn btn-primary btn-text"
                   onClick={buttonConfig.approve.action}
                 >
                   <Loading
@@ -266,7 +266,7 @@ const InviteModal = ({ keyType, category, selectedItem }) => {
               ) : (
                 <button
                   type="submit"
-                  class="btn btn-primary btn-lg btn-text"
+                  class="btn btn-primary btn-text"
                   onClick={buttonConfig.reject.action}
                 >
                   <Loading

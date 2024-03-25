@@ -658,7 +658,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
               </div>
 
               <div class="d-grid gap-2 mt-5">
-                <button type="submit" class="btn btn-primary btn-lg btn-text">
+                <button type="submit" class="btn btn-primary btn-text">
                   <Loading
                     title={belovedTypeName[keyType].button_title}
                     loading={isLoading.update}
@@ -667,7 +667,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                 {belovedTypeName[keyType].allow_delete ? (
                   <button
                     type="button"
-                    class="btn btn-light btn-lg btn-text"
+                    class="btn btn-light btn-text"
                     onClick={deleteBeloved}
                   >
                     <Loading title="Delete" loading={isLoading.delete} />

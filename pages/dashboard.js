@@ -233,7 +233,7 @@ const Dashboard = () => {
           <div class="col-md col-sm-12  mt-auto">
             <button
               type="button"
-              class="btn btn-primary btn-text btn-lg"
+              class="btn btn-primary btn-text"
               onClick={getStartedKey[key].btnFunction}
             >
               <Loading title={getStartedKey[key].btnTitle} />

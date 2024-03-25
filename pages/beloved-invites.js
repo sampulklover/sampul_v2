@@ -171,7 +171,7 @@ const BelovedInvites = () => {
           </div>
           <div class="mt-4">
             <Link href="/">
-              <button type="button" class="btn btn-primary btn-text btn-lg">
+              <button type="button" class="btn btn-primary btn-text">
                 <span>Visit Sampul</span>
               </button>
             </Link>

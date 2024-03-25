@@ -180,7 +180,7 @@ const Admin = () => {
           </div>
           <div class="mt-4">
             <Link href="dashboard">
-              <button type="button" class="btn btn-primary btn-text btn-lg">
+              <button type="button" class="btn btn-primary btn-text">
                 <i class="bi bi-arrow-left"></i> Back to dashboard
               </button>
             </Link>

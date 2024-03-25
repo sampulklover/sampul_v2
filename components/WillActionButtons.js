@@ -293,7 +293,7 @@ const WillActionButtons = ({ viewOnly = false }) => {
             router?.pathname == '/dashboard'
               ? 'btn-light bg-white'
               : 'btn-light'
-          } btn-text btn-lg me-1 mb-1`}
+          } btn-text me-1 mb-1`}
           onClick={() => {
             var is_completed = checkCompleteProfile();
             if (is_completed) {
@@ -332,7 +332,7 @@ const WillActionButtons = ({ viewOnly = false }) => {
           type="button"
           class={`btn ${
             viewOnly ? 'btn-primary' : 'btn-light '
-          } btn-text btn-lg me-1 mb-1`}
+          } btn-text me-1 mb-1`}
           onClick={() => {
             var is_completed = checkCompleteProfile();
             if (is_completed) {
@@ -357,7 +357,7 @@ const WillActionButtons = ({ viewOnly = false }) => {
         ) : (
           <button
             type="button"
-            class="btn btn-primary btn-text btn-lg mb-1"
+            class="btn btn-primary btn-text mb-1"
             onClick={() => {
               var is_completed = checkCompleteProfile();
               if (is_completed) {

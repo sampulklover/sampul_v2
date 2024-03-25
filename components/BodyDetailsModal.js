@@ -197,7 +197,7 @@ const BodyDetailsModal = ({ selectedBody, refreshFunction }) => {
                 </div>
               </div>
               <div class="d-grid gap-2 mt-5">
-                <button type="submit" class="btn btn-primary btn-lg btn-text">
+                <button type="submit" class="btn btn-primary btn-text">
                   <Loading title="Save" loading={isLoading.update} />
                 </button>
               </div>

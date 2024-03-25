@@ -76,7 +76,7 @@ const ForgotPasswordModal = () => {
               <div class="d-grid gap-2">
                 <button
                   type="submit"
-                  class="btn btn-primary btn-lg btn-text"
+                  class="btn btn-primary btn-text"
                   onClick={onClickForgotPassword}
                 >
                   <Loading title="Send" loading={isLoading.send_recovery} />

@@ -109,7 +109,7 @@ const SignUp = () => {
                 </div>
               </div>
               <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary btn-lg btn-text">
+                <button type="submit" class="btn btn-primary btn-text">
                   <Loading title="Sign up" loading={isLoading.normal_signup} />
                 </button>
               </div>
@@ -117,7 +117,7 @@ const SignUp = () => {
             <div class="d-grid gap-2">
               <button
                 type="button"
-                class="btn btn-light btn-lg btn-text"
+                class="btn btn-light btn-text"
                 onClick={onClickGoogleLogin}
               >
                 <img
