@@ -59,12 +59,11 @@ const belovedTypeName = {
 const getElements = () => {
   const inputElements = {
     beloved_modal: {
-      nric_name: document.getElementById('input-beloved-nric-name'),
-      nric_no: document.getElementById('input-beloved-nric-no'),
-      nickname: document.getElementById('input-beloved-nickname'),
-      phone_no: document.getElementById('input-beloved-phone-no'),
+      name: document.getElementById('input-beloved-name'),
+      // nric_no: document.getElementById('input-beloved-nric-no'),
+      // phone_no: document.getElementById('input-beloved-phone-no'),
       email: document.getElementById('input-beloved-email'),
-      relationship: document.getElementById('select-beloved-relationship'),
+      // relationship: document.getElementById('select-beloved-relationship'),
       type: document.getElementById('select-beloved-type'),
       level: document.getElementById('select-beloved-level'),
       image_path: document.getElementById('preview-beloved-image'),
@@ -153,19 +152,21 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
       });
 
       if (belovedConfig[belovedType].verifyEmail) {
-        await sendInviteBeloveEmail({
-          to_email: returnBeloved.email,
-          to_nric_name: returnBeloved.nric_name,
-          to_type: beneficiaryTypes().find(
-            (obj) => obj.value === returnBeloved.type
-          ).name,
-          to_level: belovedLevel().find(
-            (obj) => obj.value === returnBeloved.level
-          ).name,
-          from_name: contextApiData.profile.data?.nric_name,
-          invite_uuid: returnInvite.invite_uuid,
-          beloved_id: returnBeloved.id,
-        });
+        if (returnBeloved?.email) {
+          await sendInviteBeloveEmail({
+            to_email: returnBeloved.email,
+            to_name: returnBeloved.name,
+            to_type: beneficiaryTypes().find(
+              (obj) => obj.value === returnBeloved.type
+            ).name,
+            to_level: belovedLevel().find(
+              (obj) => obj.value === returnBeloved.level
+            ).name,
+            from_name: contextApiData.profile.data?.nric_name,
+            invite_uuid: returnInvite.invite_uuid,
+            beloved_id: returnBeloved.id,
+          });
+        }
       }
 
       getBeloved();
@@ -391,38 +392,19 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
               <div class="padding-bottom-3"></div>
             </div>
             <form onSubmit={onSubmitAddBeloved}>
-              <div class="form-content-2 mb-3">
-                <div class="form-field-wrapper">
-                  <label
-                    htmlFor={`input-beloved-nric-name`}
-                    class="uui-field-label"
-                  >
-                    Name (As Per NRIC)
-                  </label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id={`input-beloved-nric-name`}
-                    required
-                  />
-                </div>
-                <div class="form-field-wrapper">
-                  <label
-                    htmlFor={`input-beloved-nickname`}
-                    class="uui-field-label"
-                  >
-                    Nickname
-                  </label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id={`input-beloved-nickname`}
-                    placeholder="e.g. Along, Angah, Acik"
-                    required
-                  />
-                </div>
+              <div class="form-field-wrapper mb-3">
+                <label htmlFor={`input-beloved-name`} class="uui-field-label">
+                  Name/Nickname
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id={`input-beloved-name`}
+                  placeholder="e.g. Along, Angah, Acik"
+                  required
+                />
               </div>
-              <div class="form-content-2 mb-3">
+              {/* <div class="form-content-2 mb-3">
                 <div class="form-field-wrapper">
                   <label
                     htmlFor={`input-beloved-nric-no`}
@@ -451,43 +433,18 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                     required
                   />
                 </div>
+              </div> */}
+              <div class="form-field-wrapper mb-3">
+                <label htmlFor={`input-beloved-email`} class="uui-field-label">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id={`input-beloved-email`}
+                />
               </div>
-              <div class="form-content-2 mb-3">
-                <div class="form-field-wrapper">
-                  <label
-                    htmlFor={`input-beloved-email`}
-                    class="uui-field-label"
-                  >
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    class="form-control"
-                    id={`input-beloved-email`}
-                    required
-                  />
-                </div>
-                <div class="form-field-wrapper">
-                  <label
-                    htmlFor={`select-beloved-relationship`}
-                    class="uui-field-label"
-                  >
-                    Relationship
-                  </label>
-                  <select
-                    id={`select-beloved-relationship`}
-                    required
-                    class="form-select"
-                  >
-                    {relationships().map((item) => (
-                      <option key={item.value} value={item.value}>
-                        {item.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-              <div class="form-content-2 mb-3">
+              <div class="mb-3">
                 <div
                   class="form-field-wrapper"
                   style={{ display: belovedConfig[belovedType].display_level }}
@@ -510,6 +467,27 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                     ))}
                   </select>
                 </div>
+                {/* <div class="form-field-wrapper">
+                  <label
+                    htmlFor={`select-beloved-relationship`}
+                    class="uui-field-label"
+                  >
+                    Relationship
+                  </label>
+                  <select
+                    id={`select-beloved-relationship`}
+                    required
+                    class="form-select"
+                  >
+                    {relationships().map((item) => (
+                      <option key={item.value} value={item.value}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
+                </div> */}
+              </div>
+              <div class="form-content-2 mb-3">
                 <div class="form-field-wrapper" style={{ display: 'none' }}>
                   <label
                     htmlFor={`select-beloved-type`}

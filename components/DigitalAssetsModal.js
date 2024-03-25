@@ -642,7 +642,7 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                 >
                   {contextApiData.beloved.data?.map((item, index) => (
                     <option key={index} value={item.id}>
-                      {item.nickname}
+                      {item.name}
                     </option>
                   ))}
                 </select>

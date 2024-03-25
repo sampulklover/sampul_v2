@@ -39,42 +39,49 @@ const WillDetailsCard = () => {
     `
       : '[ADDRESS]',
     primary_co_sampul: {
-      nric_name:
-        belovedDetails.data?.primaryUser?.nric_name ??
-        '[PRIMARY CO-SAMPUL NAME]',
-      nric_no:
-        belovedDetails.data?.primaryUser?.nric_no ??
-        '[PRIMARY CO-SAMPUL NRIC NO]',
+      name:
+        belovedDetails.data?.primaryUser?.name ??
+        '[PRIMARY CO-SAMPUL NAME/NICKNAME]',
+      // nric_no:
+      //   belovedDetails.data?.primaryUser?.nric_no ??
+      //   '[PRIMARY CO-SAMPUL NRIC NO]',
+      email:
+        belovedDetails.data?.primaryUser?.email ?? '[PRIMARY CO-SAMPUL EMAIL]',
     },
     secondary_co_sampul: {
-      nric_name:
-        belovedDetails.data?.secondaryUser?.nric_name ??
-        '[SECONDARY CO-SAMPUL NAME]',
-      nric_no:
-        belovedDetails.data?.secondaryUser?.nric_no ??
-        '[SECONDARY CO-SAMPUL NRIC NO]',
+      name:
+        belovedDetails.data?.secondaryUser?.name ??
+        '[SECONDARY CO-SAMPUL NAME/NICKNAME]',
+      // nric_no:
+      //   belovedDetails.data?.secondaryUser?.nric_no ??
+      //   '[SECONDARY CO-SAMPUL NRIC NO]',
+      email:
+        belovedDetails.data?.secondaryUser?.email ??
+        '[SECONDARY CO-SAMPUL EMAIL]',
     },
     primary_guardian: {
-      nric_name:
-        belovedDetails.data?.guardianPrimaryUser?.nric_name ??
+      name:
+        belovedDetails.data?.guardianPrimaryUser?.name ??
         '[PRIMARY GUARDIAN NAME]',
-      nric_no:
-        belovedDetails.data?.guardianPrimaryUser?.nric_no ??
-        '[PRIMARY GUARDIAN NRIC NO]',
-      isExist: belovedDetails.data?.guardianPrimaryUser?.nric_name
-        ? true
-        : false,
+      // nric_no:
+      //   belovedDetails.data?.guardianPrimaryUser?.nric_no ??
+      //   '[PRIMARY GUARDIAN NRIC NO]',
+      email:
+        belovedDetails.data?.guardianPrimaryUser?.email ??
+        '[PRIMARY GUARDIAN EMAIL]',
+      isExist: belovedDetails.data?.guardianPrimaryUser?.name ? true : false,
     },
     secondary_guardian: {
-      nric_name:
-        belovedDetails.data?.guardianSecondaryUser?.nric_name ??
+      name:
+        belovedDetails.data?.guardianSecondaryUser?.name ??
         '[SECONDARY GUARDIAN NAME]',
-      nric_no:
-        belovedDetails.data?.guardianSecondaryUser?.nric_no ??
-        '[SECONDARY GUARDIAN NRIC NO]',
-      isExist: belovedDetails.data?.guardianSecondaryUser?.nric_name
-        ? true
-        : false,
+      // nric_no:
+      //   belovedDetails.data?.guardianSecondaryUser?.nric_no ??
+      //   '[SECONDARY GUARDIAN NRIC NO]',
+      email:
+        belovedDetails.data?.guardianSecondaryUser?.email ??
+        '[SECONDARY GUARDIAN EMAIL]',
+      isExist: belovedDetails.data?.guardianSecondaryUser?.name ? true : false,
     },
     additional_request_view:
       contextApiData.account.data?.products?.access_control?.pages?.will
@@ -103,11 +110,11 @@ const WillDetailsCard = () => {
         },
         {
           title: '5. Main Co-Sampul',
-          description: `${myInfo.primary_co_sampul.nric_name}, ${myInfo.primary_co_sampul.nric_no} is appointed to safekeep and deliver this wasiat of my digital assets to my beneficiaries.`,
+          description: `${myInfo.primary_co_sampul.name}, ${myInfo.primary_co_sampul.email} is appointed to safekeep and deliver this wasiat of my digital assets to my beneficiaries.`,
         },
         {
           title: '6. Substitute Co-Sampul',
-          description: `If necessary, ${myInfo.secondary_co_sampul.nric_name}, ${myInfo.secondary_co_sampul.nric_no} will act as Substitute Co-Sampul.`,
+          description: `If necessary, ${myInfo.secondary_co_sampul.name}, ${myInfo.secondary_co_sampul.email} will act as Substitute Co-Sampul.`,
         },
         {
           title: '7. Digital Assets Distribution',
@@ -135,7 +142,7 @@ const WillDetailsCard = () => {
           title: '8. Guardianship',
           description:
             myInfo.primary_guardian.isExist && myInfo.secondary_guardian.isExist
-              ? `If my spouse predeceases me or is unable, ${myInfo.primary_guardian.nric_name}, ${myInfo.primary_guardian.nric_no} is appointed for my minor children, with ${myInfo.secondary_guardian.nric_name}, ${myInfo.secondary_guardian.nric_no} as an alternate as per [Table 1]`
+              ? `If my spouse predeceases me or is unable, ${myInfo.primary_guardian.name}, ${myInfo.primary_guardian.email} is appointed for my minor children, with ${myInfo.secondary_guardian.name}, ${myInfo.secondary_guardian.email} as an alternate as per [Table 1]`
               : 'N/A',
         },
         {
@@ -187,11 +194,11 @@ const WillDetailsCard = () => {
         },
         {
           title: '3. Main Co-Sampul',
-          description: `${myInfo.primary_co_sampul.nric_name}, ${myInfo.primary_co_sampul.nric_no} is appointed to safekeep and deliver this Will and Testament of  my digital assets to my beneficiaries.`,
+          description: `${myInfo.primary_co_sampul.name}, ${myInfo.primary_co_sampul.email} is appointed to safekeep and deliver this Will and Testament of  my digital assets to my beneficiaries.`,
         },
         {
           title: '4. Substitute Co-Sampul',
-          description: `If necessary, ${myInfo.secondary_co_sampul.nric_name}, ${myInfo.secondary_co_sampul.nric_no} will act as Substitute Co-Sampul.`,
+          description: `If necessary, ${myInfo.secondary_co_sampul.name}, ${myInfo.secondary_co_sampul.email} will act as Substitute Co-Sampul.`,
         },
         {
           title: '5. Digital Assets Distribution',

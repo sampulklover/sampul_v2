@@ -68,12 +68,11 @@ const Beloved = () => {
 
     const inputElements = {
       beloved_modal: {
-        nric_name: document.getElementById('input-beloved-nric-name'),
-        nric_no: document.getElementById('input-beloved-nric-no'),
-        nickname: document.getElementById('input-beloved-nickname'),
-        phone_no: document.getElementById('input-beloved-phone-no'),
+        name: document.getElementById('input-beloved-name'),
+        // nric_no: document.getElementById('input-beloved-nric-no'),
+        // phone_no: document.getElementById('input-beloved-phone-no'),
         email: document.getElementById('input-beloved-email'),
-        relationship: document.getElementById('select-beloved-relationship'),
+        // relationship: document.getElementById('select-beloved-relationship'),
         type: document.getElementById('select-beloved-type'),
         level: document.getElementById('select-beloved-level'),
         image_path: document.getElementById('preview-beloved-image'),
@@ -151,9 +150,9 @@ const Beloved = () => {
                     {contextApiData.beloved.data?.map((item, index) => {
                       if (item.type == 'co_sampul') {
                         coSampulData.push(item);
-                        const rObject = relationships().find(
-                          (x) => x.value === item.relationship
-                        );
+                        // const rObject = relationships().find(
+                        //   (x) => x.value === item.relationship
+                        // );
                         const lObject = belovedLevel().find(
                           (x) => x.value === item.level
                         );
@@ -188,10 +187,10 @@ const Beloved = () => {
                               </div>
                               <div class="flex-grow-1">
                                 <div class="smpl_text-sm-semibold crop-text">
-                                  <span>{item.nickname}</span>
+                                  <span>{item.name}</span>
                                 </div>
                                 <div class="smpl_text-sm-regular crop-text">
-                                  <span>{rObject.name}</span>
+                                  <span>{item?.email ? item.email : '-'}</span>
                                 </div>
                               </div>
 
@@ -296,9 +295,9 @@ const Beloved = () => {
                   <tbody>
                     {contextApiData.beloved.data?.map((item, index) => {
                       if (item.type == 'future_owner') {
-                        const rObject = relationships().find(
-                          (x) => x.value === item.relationship
-                        );
+                        // const rObject = relationships().find(
+                        //   (x) => x.value === item.relationship
+                        // );
 
                         var status_invites = null;
                         if (item.beloved_invites.length > 0) {
@@ -330,10 +329,10 @@ const Beloved = () => {
                               </div>
                               <div class="flex-grow-1">
                                 <div class="smpl_text-sm-semibold crop-text">
-                                  <span>{item.nickname}</span>
+                                  <span>{item.name}</span>
                                 </div>
                                 <div class="smpl_text-sm-regular crop-text">
-                                  <span>{rObject.name}</span>
+                                  <span>{item?.email ? item.email : '-'}</span>
                                 </div>
                               </div>
                             </div>
@@ -414,9 +413,9 @@ const Beloved = () => {
                       if (item.type == 'guardian') {
                         guardianData.push(item);
 
-                        const rObject = relationships().find(
-                          (x) => x.value === item.relationship
-                        );
+                        // const rObject = relationships().find(
+                        //   (x) => x.value === item.relationship
+                        // );
 
                         const lObject = belovedLevel().find(
                           (x) => x.value === item.level
@@ -452,10 +451,10 @@ const Beloved = () => {
                               </div>
                               <div class="flex-grow-1">
                                 <div class="smpl_text-sm-semibold crop-text">
-                                  <span>{item.nickname}</span>
+                                  <span>{item.name}</span>
                                 </div>
                                 <div class="smpl_text-sm-regular crop-text">
-                                  <span>{rObject.name}</span>
+                                  <span>{item?.email ? item.email : '-'}</span>
                                 </div>
                               </div>
                               <div class="beloved-tag">

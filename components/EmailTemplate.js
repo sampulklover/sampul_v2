@@ -2,7 +2,7 @@ import * as React from 'react';
 
 export const inviteBelove = ({
   to_email,
-  to_nric_name,
+  to_name,
   to_type,
   to_level,
   from_name,
@@ -200,9 +200,7 @@ export const inviteBelove = ({
         height="100%"
         width="100%"
       />
-      <div style={contentStyle.titleText}>
-        Salam and Greetings {to_nric_name},
-      </div>
+      <div style={contentStyle.titleText}>Salam and Greetings {to_name},</div>
       <div style={{ width: '100%' }}>
         <div style={contentStyle.bodyText}>
           {langguage.english.body}

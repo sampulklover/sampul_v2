@@ -128,7 +128,7 @@ const Beloved = () => {
         alerts.push(
           <div key={category} className="alert alert-danger" role="alert">
             {`Your request for `}
-            <b>{belovedCat[category].data.nickname}</b>
+            <b>{belovedCat[category].data.name}</b>
             {`'s approval to be your ${belovedCat[category].name} `}{' '}
             {displayStatusInfo[belovedCat[category].inviteStatus]}.
           </div>

@@ -12,14 +12,8 @@ export default async function handler(req, res) {
   }
 
   try {
-    const {
-      to_email,
-      to_nric_name,
-      to_type,
-      to_level,
-      from_name,
-      invite_uuid,
-    } = req.body;
+    const { to_email, to_name, to_type, to_level, from_name, invite_uuid } =
+      req.body;
 
     if (!to_email) {
       return res.status(400).json({
@@ -34,7 +28,7 @@ export default async function handler(req, res) {
       subject: 'Co-Sampul Request',
       react: inviteBelove({
         to_email,
-        to_nric_name,
+        to_name,
         to_type,
         to_level,
         from_name,
