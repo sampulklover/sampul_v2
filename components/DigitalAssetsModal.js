@@ -19,11 +19,13 @@ const digitalAssetsTypeName = {
     key: 'add',
     button_title: 'Submit',
     allow_delete: false,
+    show_create_more: true,
   },
   edit: {
     key: 'edit',
     button_title: 'Update',
     allow_delete: true,
+    show_create_more: false,
   },
 };
 
@@ -35,6 +37,10 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
     delete: false,
   });
 
+  const [createMore, setCreateMore] = useState({
+    status: false,
+    animated: false,
+  });
   const [newServicePlatform, setNewServicePlatform] = useState(false);
   const [arrayElements, setArrayElements] = useState({
     bodies: null,
@@ -187,11 +193,46 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
 
     if (error) {
       toast.error(error.message);
+      setIsLoading({
+        ...isLoading,
+        update: false,
+      });
       return;
     }
 
-    $('#digital-assets-modal')?.modal('hide');
     toast.success('Successfully submitted!');
+
+    if (createMore.status == true) {
+      setCreateMore((prev) => ({
+        ...prev,
+        animated: true,
+      }));
+      setTimeout(() => {
+        setCreateMore((prev) => ({
+          ...prev,
+          animated: false,
+        }));
+      }, 1000);
+    } else {
+      $('#digital-assets-modal')?.modal('hide');
+    }
+
+    setIsLoading({
+      ...isLoading,
+      update: false,
+    });
+
+    var element = elementList().digital_assets_modal.elements;
+
+    for (const key in element) {
+      if (key == 'image_path') {
+        element[key].src = addUserImg;
+      } else if (key == 'email') {
+        // not clear
+      } else {
+        element[key].value = '';
+      }
+    }
 
     getDigitalAssets();
   };
@@ -230,12 +271,20 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
 
     if (error) {
       toast.error(error.message);
+      setIsLoading({
+        ...isLoading,
+        update: false,
+      });
       return;
     }
 
     $('#digital-assets-modal')?.modal('hide');
     toast.success('Successfully updated!');
 
+    setIsLoading({
+      ...isLoading,
+      update: false,
+    });
     getDigitalAssets();
   };
 
@@ -326,17 +375,17 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
       checkRestriction().then(async (restricted) => {
         if (restricted == false) {
           await addDigitalAssets();
+        } else {
+          setIsLoading({
+            ...isLoading,
+            update: false,
+          });
         }
       });
     }
     if (keyType == 'edit') {
       await editDigitalAssets();
     }
-
-    setIsLoading({
-      ...isLoading,
-      update: false,
-    });
   };
 
   const checkBeloved = () => {
@@ -360,7 +409,11 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
 
   return (
     <div class="modal fade" id="digital-assets-modal">
-      <div class="modal-dialog modal-dialog-centered">
+      <div
+        class={`modal-dialog modal-dialog-centered ${
+          createMore.animated ? 'pulse-modal' : ''
+        }`}
+      >
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Digital Assets</h5>
@@ -681,24 +734,53 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                 </div>
               </div>
 
-              <div class="d-grid gap-2 mt-5">
-                <button type="submit" class="btn btn-primary btn-text">
-                  <Loading
-                    title={digitalAssetsTypeName[keyType].button_title}
-                    loading={isLoading.update}
-                  />
-                </button>
-                {digitalAssetsTypeName[keyType].allow_delete ? (
-                  <button
-                    type="button"
-                    class="btn btn-light btn-text"
-                    onClick={deleteDigitalAssets}
-                  >
-                    <Loading title="Delete" loading={isLoading.delete} />
-                  </button>
+              <div class="mt-5">
+                {digitalAssetsTypeName[keyType].show_create_more ? (
+                  <div className="form-field-wrapper mb-3">
+                    <div className="form-check form-switch">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        role="switch"
+                        id="checkbox-digital-assets-create-more"
+                        checked={createMore.status}
+                        onChange={(e) =>
+                          setCreateMore((prev) => ({
+                            ...prev,
+                            status: e.target.checked,
+                          }))
+                        }
+                      />
+                      <label
+                        className="form-check-label small"
+                        htmlFor="checkbox-digital-assets-create-more"
+                      >
+                        Create More
+                      </label>
+                    </div>
+                  </div>
                 ) : (
-                  ''
+                  <></>
                 )}
+                <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-primary btn-text">
+                    <Loading
+                      title={digitalAssetsTypeName[keyType].button_title}
+                      loading={isLoading.update}
+                    />
+                  </button>
+                  {digitalAssetsTypeName[keyType].allow_delete ? (
+                    <button
+                      type="button"
+                      class="btn btn-light btn-text"
+                      onClick={deleteDigitalAssets}
+                    >
+                      <Loading title="Delete" loading={isLoading.delete} />
+                    </button>
+                  ) : (
+                    ''
+                  )}
+                </div>
               </div>
             </form>
           </div>
