@@ -27,10 +27,10 @@ const DigitalAssets = () => {
         <div class="row text-md-start text-center">
           <div class="col-lg">
             <div class="smpl_display-sm-semibold">
-              List down your Digital Assets
+              List down your Digital Assets & Expenses
             </div>
             <div class="smpl_text-md-regular">
-              Ensure no assets left behind for your loved ones
+              Ensure no asset is left behind for your loved ones
             </div>
           </div>
           <div class="col text-md-end text-center mt-md-0 mt-3">
@@ -41,7 +41,7 @@ const DigitalAssets = () => {
                 digitalAssetsModal(null);
               }}
             >
-              <Loading title="Add Digital Assets" loading={false} />
+              <Loading title="Add Digital Assets & Expenses" loading={false} />
             </button>
           </div>
         </div>
@@ -154,7 +154,7 @@ const DigitalAssets = () => {
     <SideBar>
       <div class="body inner-body">
         <div class="content">
-          <Breadcrumb pageName={'Digital Assets'} />
+          <Breadcrumb pageName={'Digital Assets & Expenses'} />
           <DigitalAssetsModal
             keyType={digitalAssetsModalType.key}
             selectedItem={digitalAssetsModalType.selectedItem}

@@ -69,7 +69,7 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
     const inputElements = {
       digital_assets_modal: {
         elements: {
-          username: document.getElementById('input-digital-assets-username'),
+          // username: document.getElementById('input-digital-assets-username'),
           email: document.getElementById('input-digital-assets-email'),
           // bodies_id: document.getElementById(
           //   'select-digital-assets-service-platform'
@@ -416,7 +416,7 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
       >
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Digital Assets</h5>
+            <h5 class="modal-title">Digital Assets & Expenses</h5>
             <button
               type="button"
               class="btn-close"
@@ -449,15 +449,15 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                 <div class="text-and-supporting-text-18">
                   <div class="text-lg-semibold-4">Account Details</div>
                   <div class="text-sm-regular-6">
-                    Ensure no assets will be left behind for your loved ones.
+                    Help us to ensure no asset is left behind for your loved one
+                    by filling out this form:
                   </div>
                 </div>
               </div>
               <div class="padding-bottom-3"></div>
             </div>
             <form onSubmit={onSubmitAddDigitalAssets}>
-              <div class="form-content-2 mb-3">
-                <div class="form-field-wrapper">
+              {/* <div class="form-field-wrapper">
                   <label
                     htmlFor={`input-digital-assets-username`}
                     class="uui-field-label"
@@ -470,21 +470,20 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                     id={`input-digital-assets-username`}
                     required
                   />
-                </div>
-                <div class="form-field-wrapper">
-                  <label
-                    htmlFor={`input-digital-assets-email`}
-                    class="uui-field-label"
-                  >
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    class="form-control"
-                    id={`input-digital-assets-email`}
-                    required
-                  />
-                </div>
+                </div> */}
+              <div class="form-field-wrapper mb-3">
+                <label
+                  htmlFor={`input-digital-assets-email`}
+                  class="uui-field-label"
+                >
+                  Email
+                </label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id={`input-digital-assets-email`}
+                  required
+                />
               </div>
               <div
                 class="form-field-wrapper"
@@ -495,7 +494,7 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                 }}
               >
                 <label class="uui-field-label">
-                  Service Platform{' '}
+                  Platform Account{' '}
                   <Loading loading={contextApiData.bodies.isLoading} />
                 </label>
                 <Select
@@ -523,11 +522,10 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                   required={!newServicePlatform ? true : false}
                 />
               </div>
-
               {!newServicePlatform ? (
                 <div class="mb-3">
                   <small>
-                    Can't find your Service platform?{' '}
+                    Can't find your Platform Account?{' '}
                     <b
                       class="text-primary pointer-on-hover"
                       onClick={() => {
@@ -541,7 +539,6 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
               ) : (
                 <></>
               )}
-
               <div
                 style={{
                   transition: 'max-height 0.5s ease', // Use max-height for animation
@@ -551,7 +548,7 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
               >
                 <div class="row mx-0 mb-3">
                   <div class="col px-0">
-                    <label>New Service Platform</label>
+                    <label>New Platform Account</label>
                   </div>
                   <div class="col px-0 text-end">
                     <small>
@@ -566,7 +563,6 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                     </small>
                   </div>
                 </div>
-
                 <div class="form-content-2 mb-3">
                   <div class="form-field-wrapper">
                     <label
@@ -597,16 +593,14 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                     />
                   </div>
                 </div>
-
                 <div class="border-bottom mb-3"></div>
               </div>
-
               <div class="form-field-wrapper mb-3">
                 <label
                   htmlFor={`select-digital-assets-type`}
                   class="uui-field-label"
                 >
-                  Type
+                  Is this a subscription account?
                 </label>
                 <select
                   id={`select-digital-assets-type`}
@@ -616,48 +610,46 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                 >
                   {servicePlatformAccountTypes().map((item) => (
                     <option key={item.value} value={item.value}>
+                      {item.opName}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div class="form-field-wrapper mb-3">
+                <label
+                  htmlFor={`select-digital-assets-frequency`}
+                  class="uui-field-label"
+                >
+                  How often do you pay?
+                </label>
+                <select
+                  id={`select-digital-assets-frequency`}
+                  required
+                  class="form-select"
+                >
+                  {servicePlatformFrequencies().map((item) => (
+                    <option key={item.value} value={item.value}>
                       {item.name}
                     </option>
                   ))}
                 </select>
               </div>
-              <div class="form-content-2 mb-3">
-                <div class="form-field-wrapper">
-                  <label
-                    htmlFor={`select-digital-assets-frequency`}
-                    class="uui-field-label"
-                  >
-                    Frequency
-                  </label>
-                  <select
-                    id={`select-digital-assets-frequency`}
+              <div class="form-field-wrapper mb-3">
+                <label
+                  htmlFor={`input-digital-assets-declared-value`}
+                  class="uui-field-label"
+                >
+                  What’s the estimate value of the account?
+                </label>
+                <div class="input-group">
+                  <div class="input-group-text">RM</div>
+                  <input
+                    type="number"
+                    step="0.01"
+                    class="form-control"
+                    id={`input-digital-assets-declared-value`}
                     required
-                    class="form-select"
-                  >
-                    {servicePlatformFrequencies().map((item) => (
-                      <option key={item.value} value={item.value}>
-                        {item.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div class="form-field-wrapper">
-                  <label
-                    htmlFor={`input-digital-assets-declared-value`}
-                    class="uui-field-label"
-                  >
-                    Declared Value
-                  </label>
-                  <div class="input-group">
-                    <div class="input-group-text">RM</div>
-                    <input
-                      type="number"
-                      step="0.01"
-                      class="form-control"
-                      id={`input-digital-assets-declared-value`}
-                      required
-                    />
-                  </div>
+                  />
                 </div>
               </div>
               <div class="form-field-wrapper mb-3">
@@ -665,7 +657,7 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                   htmlFor={`select-digital-assets-instructions-after-death`}
                   class="uui-field-label"
                 >
-                  Instructions After Death
+                  What should we do with your account in the event of death?
                 </label>
                 <select
                   id={`select-digital-assets-instructions-after-death`}
@@ -674,7 +666,7 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                 >
                   {instructionsAfterDeath().map((item) => (
                     <option key={item.value} value={item.value}>
-                      {item.name}
+                      {item.opName}
                     </option>
                   ))}
                 </select>
@@ -685,7 +677,7 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                   htmlFor={`select-digital-assets-beloved`}
                   class="uui-field-label"
                 >
-                  Beneficiary{' '}
+                  Who will inherit this account?{' '}
                   <Loading loading={contextApiData.beloved.isLoading} />
                 </label>
                 <select
@@ -707,12 +699,12 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                   htmlFor={`input-digital-assets-remarks`}
                   class="uui-field-label"
                 >
-                  Remarks
+                  Anything else we should know?
                 </label>
                 <textarea
                   class="form-control"
                   id={`input-digital-assets-remarks`}
-                  placeholder="Type your message..."
+                  placeholder="E.g. Please download all pictures before terminate."
                 />
               </div>
 

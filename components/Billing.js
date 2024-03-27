@@ -55,7 +55,8 @@ const Billing = () => {
 
       data.plans.unshift({
         active: true,
-        description: 'Free to use',
+        description:
+          'Ideal for young, financially responsible individuals seeking to commence comprehensive financial planning.',
         interval: 'lifetime',
         name: 'Free plan',
         price: 0,

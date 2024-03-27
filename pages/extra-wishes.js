@@ -296,7 +296,26 @@ const ExtraWishes = () => {
           <div class="col">
             <div>
               <div class="text-sm-medium-6">
-                <b>Nazar/Kaffarah</b>
+                <b
+                  data-tooltip-id="my-tooltip-nazar"
+                  data-tooltip-html="<div>
+                  Info: Nazar is a vow made to Allah to perform certain actions if certain conditions <br/> 
+                  are met. For example: “I wish to go for Umrah if I got a son.” Umrah is compulsory <br/>
+                  if a son was borned and if he/she does not have the chance to do it while still alive,<br/>
+                  his/her beneficiaries are obliged to do it on behalf and the expenses can be taken from <br/>
+                  one’s estate. If the beneficiaries are unable to perform the nazar, they may opt <br/> for a Kaffarah.</div>"
+                >
+                  Nazar/Kaffarah <i class="bi bi-info-circle"></i>
+                </b>
+                <Tooltip
+                  id="my-tooltip-nazar"
+                  place="bottom"
+                  style={{
+                    backgroundColor: 'black',
+                    color: 'white',
+                    'border-radius': '10px',
+                  }}
+                />
               </div>
               <div class="smpl_text-sm-regular">
                 Fullfill your vows or compensatory actions with ease through
@@ -319,12 +338,13 @@ const ExtraWishes = () => {
                   htmlFor="input-extra-wishes-nazar-wishes"
                   class="uui-field-label"
                 >
-                  Wishes
+                  Any Nazar/Kaffarah that you are afraid you may not be able to
+                  complete during your lifetime?
                 </label>
                 <textarea
                   class="form-control"
                   id="input-extra-wishes-nazar-wishes"
-                  placeholder="Type your wishes..."
+                  placeholder="I wish to go for Umrah if I got a son."
                   required
                   rows="5"
                 />
@@ -366,7 +386,23 @@ const ExtraWishes = () => {
           <div class="col">
             <div>
               <div class="text-sm-medium-6">
-                <b>Fidyah</b>
+                <b
+                  data-tooltip-id="my-tooltip-fidyah"
+                  data-tooltip-html="<div>
+                  Info: When someone cannot fast in Ramadhan and got no chance to make up the lost<br/> 
+                  days afterwards, then their beneficiaries may pay (Fidyah) taken from the estate.</div>"
+                >
+                  Fidyah <i class="bi bi-info-circle"></i>
+                </b>
+                <Tooltip
+                  id="my-tooltip-fidyah"
+                  place="bottom"
+                  style={{
+                    backgroundColor: 'black',
+                    color: 'white',
+                    'border-radius': '10px',
+                  }}
+                />
               </div>
               <div class="smpl_text-sm-regular">
                 Fulfill your fidyah obligations effortlessly with Sampul's

@@ -15,30 +15,30 @@ const DigitalSummaryCard = ({ typeName, showBeloved = false }) => {
 
   const type = {
     digital: {
-      title: 'No Digital Accounts found',
+      title: 'No Digital Assets found',
       subtitle:
         'Accounts where you keep your assets with value and can be passed on to your beloved ones.',
-      addNewBtnTitle: 'Add Digital Accounts',
+      addNewBtnTitle: 'Add Digital Assets',
       data: contextApiData.digitalAssets.data?.filter(
         (x) => x.account_type === 'non_subscription'
       ),
       isReady: !contextApiData.digitalAssets.isLoading,
     },
     subscription: {
-      title: 'Digital Subscriptions',
+      title: 'Digital Expenses',
       subtitle:
         'Account where you make payment for subscription and to be terminated at the point of death.',
-      addNewBtnTitle: 'Add Digital Subscriptions',
+      addNewBtnTitle: 'Add Digital Expenses',
       data: contextApiData.digitalAssets.data?.filter(
         (x) => x.account_type === 'subscription'
       ),
       isReady: !contextApiData.digitalAssets.isLoading,
     },
     all: {
-      title: 'Digital Account',
+      title: 'Digital Assets',
       subtitle:
         'Accounts where you keep your assets with value and can be passed on to your beloved ones.',
-      addNewBtnTitle: 'Add Digital Accounts',
+      addNewBtnTitle: 'Add Digital Assets',
       data: contextApiData.digitalAssets.data,
       isReady: !contextApiData.digitalAssets.isLoading,
     },

@@ -193,8 +193,8 @@ export const maritalStatus = () => {
 
 export const servicePlatformAccountTypes = () => {
   const items = [
-    { name: 'Non-Subscription', value: 'non_subscription' },
-    { name: 'Subscription', value: 'subscription' },
+    { name: 'Non-Subscription', opName: 'No', value: 'non_subscription' },
+    { name: 'Subscription', opName: 'Yes', value: 'subscription' },
   ];
 
   return items;
@@ -238,9 +238,25 @@ export const declaredValues = () => {
 
 export const instructionsAfterDeath = () => {
   const options = [
-    { name: 'Faraid', value: 'faraid', theme: 'green' },
-    { name: 'Transfer as gift', value: 'transfer_as_gift', theme: 'blue' },
-    { name: 'Terminate', value: 'terminate', theme: 'orange' },
+    {
+      name: 'Faraid',
+      opName:
+        'My beneficiary to liquidate the account and proceeds to be distributed as per Faraid',
+      value: 'faraid',
+      theme: 'green',
+    },
+    {
+      name: 'Transfer as gift',
+      opName: 'Pass this account to be used by my beneficiary',
+      value: 'transfer_as_gift',
+      theme: 'blue',
+    },
+    {
+      name: 'Terminate',
+      opName: 'Account to be terminated',
+      value: 'terminate',
+      theme: 'orange',
+    },
   ];
 
   return options;
