@@ -92,6 +92,12 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
     var element = getElements().beloved_modal;
     element.name.value = '';
     element.email.value = '';
+    element.image_path.value = '';
+    setSelectedImage({
+      data: null,
+      url: addUserImg,
+    });
+    document.getElementById('input-beloved-image').value = '';
   };
 
   const addBeloved = async () => {
@@ -303,11 +309,14 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
         delete: true,
       });
 
-      const { data, error } = await supabase
+      const { data: returnData, error } = await supabase
         .from('beloved')
         .delete()
         .eq('uuid', contextApiData.user.data?.id)
-        .eq('id', selectedItem.id);
+        .eq('id', selectedItem.id)
+        .select()
+        .single();
+
       if (error) {
         if (error.code === '23503') {
           toast.error(
@@ -327,8 +336,9 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
 
         return;
       }
+
       await deleteImage({
-        returnData: selectedItem,
+        returnData: returnData,
       });
 
       $('#beloved-modal')?.modal('hide');
@@ -560,11 +570,19 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                     accept="image/*"
                     style={{ display: 'none' }}
                     onChange={(event) => {
-                      let imageURL = URL.createObjectURL(event.target.files[0]);
-                      setSelectedImage({
-                        data: event.target.files[0],
-                        url: imageURL,
-                      });
+                      try {
+                        let imageURL = URL.createObjectURL(
+                          event.target.files[0]
+                        );
+                        if (imageURL) {
+                          setSelectedImage({
+                            data: event.target.files[0],
+                            url: imageURL,
+                          });
+                        }
+                      } catch {
+                        console.log('Cancelled');
+                      }
                     }}
                   />
                 </div>
