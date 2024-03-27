@@ -762,6 +762,7 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                 ) : (
                   <></>
                 )}
+
                 <div class="d-grid gap-2">
                   <button type="submit" class="btn btn-primary btn-text">
                     <Loading

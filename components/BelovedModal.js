@@ -44,11 +44,13 @@ const belovedTypeName = {
     key: 'add',
     button_title: 'Submit',
     allow_delete: false,
+    show_create_more: true,
   },
   edit: {
     key: 'edit',
     button_title: 'Update',
     allow_delete: true,
+    show_create_more: false,
   },
 };
 
@@ -76,10 +78,21 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
     delete: false,
   });
 
+  const [createMore, setCreateMore] = useState({
+    status: false,
+    animated: false,
+  });
+
   const [selectedImage, setSelectedImage] = useState({
     data: null,
     url: addUserImg,
   });
+
+  const clearForms = () => {
+    var element = getElements().beloved_modal;
+    element.name.value = '';
+    element.email.value = '';
+  };
 
   const addBeloved = async () => {
     if (contextApiData.profile.data?.nric_name) {
@@ -139,8 +152,22 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
         return;
       }
 
-      $('#beloved-modal')?.modal('hide');
       toast.success('Successfully submitted!');
+
+      if (createMore.status == true && belovedType == 'future_owner') {
+        setCreateMore((prev) => ({
+          ...prev,
+          animated: true,
+        }));
+        setTimeout(() => {
+          setCreateMore((prev) => ({
+            ...prev,
+            animated: false,
+          }));
+        }, 1000);
+      } else {
+        $('#beloved-modal')?.modal('hide');
+      }
 
       setSelectedImage({
         data: null,
@@ -165,6 +192,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
         }
       }
 
+      clearForms();
       getBeloved();
     } else {
       toast.error(
@@ -343,7 +371,11 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
 
   return (
     <div class="modal fade" id="beloved-modal">
-      <div class="modal-dialog modal-dialog-centered">
+      <div
+        class={`modal-dialog modal-dialog-centered ${
+          createMore.animated ? 'pulse-modal' : ''
+        }`}
+      >
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Beloved</h5>
@@ -631,7 +663,38 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                 </div>
               </div>
 
-              <div class="d-grid gap-2 mt-5">
+              <div class="mt-5">
+                {belovedTypeName[keyType].show_create_more &&
+                belovedType == 'future_owner' ? (
+                  <div className="form-field-wrapper mb-3">
+                    <div className="form-check form-switch">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        role="switch"
+                        id="checkbox-beloved-create-more"
+                        checked={createMore.status}
+                        onChange={(e) =>
+                          setCreateMore((prev) => ({
+                            ...prev,
+                            status: e.target.checked,
+                          }))
+                        }
+                      />
+                      <label
+                        className="form-check-label small"
+                        htmlFor="checkbox-beloved-create-more"
+                      >
+                        Create More
+                      </label>
+                    </div>
+                  </div>
+                ) : (
+                  <></>
+                )}
+              </div>
+
+              <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-primary btn-text">
                   <Loading
                     title={belovedTypeName[keyType].button_title}
