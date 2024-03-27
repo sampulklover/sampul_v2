@@ -95,7 +95,7 @@ const Settings = () => {
               aria-controls="nav-billing"
               aria-selected="false"
             >
-              Billing
+              Billing (TEST)
             </button>
             <button
               class="nav-link"

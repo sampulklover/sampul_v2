@@ -118,7 +118,7 @@ const Dashboard = () => {
           ></path>
         </svg>
       ),
-      image: <img width="180px" src="images/task_management.png" />,
+      image: <img width="130px" src="images/monochrome_disk.png" />,
     },
     register_beneficiary: {
       title: 'Register beneficiaries',
@@ -149,9 +149,7 @@ const Dashboard = () => {
           ></path>
         </svg>
       ),
-      image: (
-        <img width="100px" src="images/joyful_people_show_victory_hand.png" />
-      ),
+      image: <img width="130px" src="images/glass_liquid_swirly_sphere.png" />,
     },
     setup_digital_assets: {
       title: 'Setup your first digital assets',
@@ -182,7 +180,9 @@ const Dashboard = () => {
           ></path>
         </svg>
       ),
-      image: <img width="120px" src="images/iphone_nft_blockchain.png" />,
+      image: (
+        <img width="130px" src="images/three_deformed_transparent_lenses.png" />
+      ),
     },
     appoint_co_sampul: {
       title: 'Appoint your Co-Sampul',
@@ -214,7 +214,7 @@ const Dashboard = () => {
           ></path>
         </svg>
       ),
-      image: <img width="180px" src="images/couple_walks_with_baby.png" />,
+      image: <img width="130px" src="images/blue_ribbed_sphere.png" />,
     },
   };
 
@@ -350,14 +350,12 @@ const Dashboard = () => {
     image_path = 'images/like.png',
   }) => {
     return (
-      <div class="card" style={{ minHeight: 250 }}>
+      <div class="card" style={{ minHeight: 200 }}>
         <div class="row mb-4">
-          <div class="col">
-            <div>
-              <img width="40px" src={image_path} />
-            </div>
+          <div class="col-9">
+            <div class="smpl_text-lg-semibold">{title}</div>
           </div>
-          <div class="col text-end">
+          <div class="col-3 text-end">
             <b
               data-tooltip-id={`my-tooltip-1-${id_of_value}`}
               data-tooltip-html={tooltip_html}
@@ -378,7 +376,6 @@ const Dashboard = () => {
         </div>
 
         <div class="heading-and-number">
-          <div class="smpl_text-lg-semibold">{title}</div>
           <div class="number-and-badge">
             <div class="h2 text-truncate">
               <span id={id_of_value}>0</span>
@@ -395,31 +392,31 @@ const Dashboard = () => {
         <div class="smpl_section-content wf-section">
           <div class="metric-group">
             {summaryValueCard({
-              title: 'Digital Accounts Value',
+              title: 'Total Digital Asset',
               id_of_value: 'count-value-digital-account',
               tooltip_html:
-                '<div>How much total value of my Digital Account?</div>',
+                '<div>How much total value of my Digital Asset?</div>',
             })}
 
             {summaryValueCard({
-              title: 'Digital Accounts',
+              title: 'Digital Assets',
               id_of_value: 'count-digital-account',
-              tooltip_html: '<div>How many Digital Account that I have?</div>',
+              tooltip_html: '<div>How many Digital Asset that I have?</div>',
             })}
 
             {summaryValueCard({
-              title: 'Digital Subscriptions Value',
+              title: 'Total Digital Expenses',
               id_of_value: 'count-value-subscription-account',
               tooltip_html:
-                '<div>How much total value of my Digital Subscriptions Account?</div>',
+                '<div>How much total value of my Digital Expenses Account?</div>',
               image_path: 'images/like_pink.png',
             })}
 
             {summaryValueCard({
-              title: 'Digital Subscriptions',
+              title: 'Digital Expenses',
               id_of_value: 'count-subscription-account',
               tooltip_html:
-                '<div>How many Digital Subscriptions Account that I have?</div>',
+                '<div>How many Digital Expenses Account that I have?</div>',
               image_path: 'images/like_pink.png',
             })}
           </div>
@@ -438,11 +435,11 @@ const Dashboard = () => {
                 <div class="content-33">
                   <img
                     width="50px"
-                    src="images/pink_loading_sign_on_green_square.png"
+                    src="images/floating_monochrome_pie_chart.png"
                   />
                   <div class="text-and-supporting-text-19">
                     <div class="text-and-badge-copy">
-                      <div class="smpl_text-lg-semibold">Digital Accounts</div>
+                      <div class="smpl_text-lg-semibold">Digital Assets</div>
                       <div class="smpl_text-sm-medium text-align-left">
                         Accounts where you keep your assets with value and can
                         be passed on to your beloved ones.
@@ -456,12 +453,10 @@ const Dashboard = () => {
             <div class="content_overview_digitalaccounts">
               <div class="card-header-2">
                 <div class="content-33">
-                  <img width="50px" src="images/pink_play_button.png" />
+                  <img width="50px" src="images/monochrome_pie_chart.png" />
                   <div class="text-and-supporting-text-19">
                     <div class="text-and-badge-copy">
-                      <div class="smpl_text-lg-semibold">
-                        Digital Subscriptions
-                      </div>
+                      <div class="smpl_text-lg-semibold">Digital Expenses</div>
                       <div class="smpl_text-sm-medium text-align-left">
                         Account where you make payment for subscription and to
                         be terminated at the point of death.
