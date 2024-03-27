@@ -135,18 +135,20 @@ export const deleteImage = async (options) => {
       return;
     }
 
-    const { data: data2, error: error2 } = await supabase
-      .from(dataBase)
-      .update({
-        image_path: null,
-      })
-      .eq('uuid', userId)
-      .eq('id', returnData.id);
+    if (userId && returnData?.id) {
+      const { data: data2, error: error2 } = await supabase
+        .from(dataBase)
+        .update({
+          image_path: null,
+        })
+        .eq('uuid', userId)
+        .eq('id', returnData.id);
 
-    if (error2) {
-      toast.error(error2.message);
-      isSuccess = false;
-      return;
+      if (error2) {
+        toast.error(error2.message);
+        isSuccess = false;
+        return;
+      }
     }
 
     isSuccess = true;

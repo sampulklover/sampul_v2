@@ -197,11 +197,17 @@ const MyDetails = ({ isModal = false }) => {
               accept="image/*"
               style={{ display: 'none' }}
               onChange={(event) => {
-                let imageURL = URL.createObjectURL(event.target.files[0]);
-                setSelectedImage({
-                  data: event.target.files[0],
-                  url: imageURL,
-                });
+                try {
+                  let imageURL = URL.createObjectURL(event.target.files[0]);
+                  if (imageURL) {
+                    setSelectedImage({
+                      data: event.target.files[0],
+                      url: imageURL,
+                    });
+                  }
+                } catch {
+                  console.log('Cancelled');
+                }
               }}
             />
           </div>
