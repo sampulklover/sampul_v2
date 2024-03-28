@@ -34,7 +34,10 @@ export default function MyApp({ Component, pageProps }) {
           property="og:description"
           content="Safekeep Digital Asset - Simple and Hassle-Free Way to pass on your digital asset to your loved ones  — entirely online."
         />
-        <meta property="og:image" content="https://sampul.co/images/Logo.svg" />
+        <meta
+          property="og:image"
+          content="https://sampul.co/images/og_facebook_post_1200_x_630_p.png"
+        />
         <meta property="og:url" content="https://sampul.co" />
         <meta property="og:type" content="website" />
         <script
