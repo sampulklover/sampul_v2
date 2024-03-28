@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import WillActionButtons from '../components/WillActionButtons';
 import WillCertCard from '../components/WillCertCard';
 
-const ViewVill = () => {
+const ViewWill = () => {
   const router = useRouter();
 
   const [summary, setSummary] = useState({
@@ -133,4 +133,4 @@ const ViewVill = () => {
   );
 };
 
-export default ViewVill;
+export default ViewWill;
