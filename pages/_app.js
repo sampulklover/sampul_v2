@@ -32,7 +32,7 @@ export default function MyApp({ Component, pageProps }) {
         <meta property="og:title" content="Sampul" />
         <meta
           property="og:description"
-          content="Safekeep Digital Asset - Simple and Hassle-Free Way to pass on your digital asset to your loved ones  — entirely online."
+          content="Safekeep Digital Asset - Simple and Hassle-Free Way to pass on your digital asset to your loved ones — entirely online."
         />
         <meta
           property="og:image"
