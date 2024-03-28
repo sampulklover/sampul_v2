@@ -1,6 +1,6 @@
-export const addUserImg = `/images/profile_picture_of_man_in_green_shirt_and_orange_hat.png`;
+export const addUserImg = `/images/default_avatar.png`;
 export const addFileImg = '/images/drag_drop_file.png';
-export const emptyUserImg = `/images/profile_picture_of_man_in_green_shirt_and_orange_hat.png`;
+export const emptyUserImg = `/images/default_avatar.png`;
 export const bucketName = 'images';
 export const pages = [
   {
