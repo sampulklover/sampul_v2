@@ -28,6 +28,15 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
+        <title>Sampul</title>
+        <meta property="og:title" content="Sampul" />
+        <meta
+          property="og:description"
+          content="Safekeep Digital Asset - Simple and Hassle-Free Way to pass on your digital asset to your loved ones  — entirely online."
+        />
+        <meta property="og:image" content="https://sampul.co/images/Logo.svg" />
+        <meta property="og:url" content="https://sampul.co" />
+        <meta property="og:type" content="website" />
         <script
           src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=651503a226dcd604df8a350d"
           type="text/javascript"
