@@ -41,9 +41,18 @@ const Dashboard = () => {
     singleData.count_value_digital = `RM ${singleData.digital_account
       .reduce((acc, val) => acc + val.declared_value_myr, 0)
       .toLocaleString()}`;
-    singleData.count_value_subscription = `RM ${singleData.subscription_account
-      .reduce((acc, val) => acc + val.declared_value_myr, 0)
-      .toLocaleString()}`;
+
+    const totalSubValue = singleData.subscription_account
+      .reduce((acc, val) => {
+        const valueToAdd =
+          val.frequency === 'yearly'
+            ? val.declared_value_myr * 1
+            : val.declared_value_myr * 12;
+        return acc + valueToAdd;
+      }, 0)
+      .toLocaleString();
+
+    singleData.count_value_subscription = `RM ${totalSubValue}`;
 
     const displayElements = {
       count_value_digital: document.getElementById(
@@ -408,7 +417,7 @@ const Dashboard = () => {
               title: 'Total Digital Expenses',
               id_of_value: 'count-value-subscription-account',
               tooltip_html:
-                '<div>How much total value of my Digital Expenses Account?</div>',
+                '<div>How much total value of my Digital Expenses Account per annum?</div>',
               image_path: 'images/like_pink.png',
             })}
 
@@ -459,7 +468,7 @@ const Dashboard = () => {
                       <div class="smpl_text-lg-semibold">Digital Expenses</div>
                       <div class="smpl_text-sm-medium text-align-left">
                         Account where you make payment for subscription and to
-                        be terminated at the point of death.
+                        be terminated or transferred at the point of death.
                       </div>
                     </div>
                   </div>

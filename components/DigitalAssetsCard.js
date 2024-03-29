@@ -21,7 +21,7 @@ const DigitalAssetsCard = ({ typeName, editFunction }) => {
     subscription: {
       title: 'Digital Subscriptions',
       subtitle:
-        'Account where you make payment for subscription and to be terminated at the point of death.',
+        'Account where you make payment for subscription and to be terminated or transferred at the point of death.',
       addNewBtnTitle: 'Add Digital Assets',
     },
   };

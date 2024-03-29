@@ -29,33 +29,20 @@ const NavBar = () => {
             class="d-inline-block align-text-top"
           />
         </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#mynavbar"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="mynavbar">
-          <ul class="navbar-nav ms-auto">
-            {contextApiData.user.data?.id ? (
-              <>
-                {router?.route == '/dashboard' ? (
-                  ''
-                ) : (
-                  <li class="nav-item">
-                    <Link href="dashboard">
-                      <button class="btn btn-primary btn-text" type="button">
-                        Dashboard
-                      </button>
-                    </Link>
-                  </li>
-                )}
-              </>
-            ) : (
-              <>
+        {contextApiData.user.data?.id ? (
+          <></>
+        ) : (
+          <>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#mynavbar"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mynavbar">
+              <ul class="navbar-nav ms-auto">
                 {router?.route == '/signin' ? (
                   ''
                 ) : (
@@ -78,10 +65,10 @@ const NavBar = () => {
                     </Link>
                   </li>
                 )}
-              </>
-            )}
-          </ul>
-        </div>
+              </ul>
+            </div>
+          </>
+        )}
       </div>
     </nav>
   );

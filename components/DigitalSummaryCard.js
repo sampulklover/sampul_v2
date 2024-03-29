@@ -27,7 +27,7 @@ const DigitalSummaryCard = ({ typeName, showBeloved = false }) => {
     subscription: {
       title: 'Digital Expenses',
       subtitle:
-        'Account where you make payment for subscription and to be terminated at the point of death.',
+        'Account where you make payment for subscription and to be terminated or transferred at the point of death.',
       addNewBtnTitle: 'Add Digital Expenses',
       data: contextApiData.digitalAssets.data?.filter(
         (x) => x.account_type === 'subscription'
