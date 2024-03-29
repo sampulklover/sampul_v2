@@ -141,9 +141,10 @@ const WillDetailsCard = () => {
         {
           title: '8. Guardianship',
           description:
-            myInfo.primary_guardian.isExist && myInfo.secondary_guardian.isExist
-              ? `If my spouse predeceases me or is unable, ${myInfo.primary_guardian.name}, ${myInfo.primary_guardian.email} is appointed for my minor children, with ${myInfo.secondary_guardian.name}, ${myInfo.secondary_guardian.email} as an alternate.`
-              : 'N/A',
+            myInfo.primary_guardian.isExist == false &&
+            myInfo.secondary_guardian.isExist == false
+              ? 'N/A'
+              : `If my spouse predeceases me or is unable, ${myInfo.primary_guardian.name}, ${myInfo.primary_guardian.email} is appointed for my minor children, with ${myInfo.secondary_guardian.name}, ${myInfo.secondary_guardian.email} as an alternate.`,
         },
         {
           title: '9. Signed by',
