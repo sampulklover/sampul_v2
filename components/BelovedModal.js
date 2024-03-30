@@ -9,51 +9,6 @@ import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid';
 import { useApi } from '../context/api';
 
-const belovedConfig = {
-  co_sampul: {
-    title: 'Appoint your Co-Sampul',
-    subtitle: `Co-Sampul is your trusted person for
-      whom which all information in this
-      Sampul will be passed on`,
-    display_level: '',
-    level_required: true,
-    beloved_list: belovedLevel().filter((option) => option.value !== 'others'),
-    verifyEmail: true,
-  },
-  future_owner: {
-    title: 'Appoint your Beneficiary',
-    subtitle: 'The future owner of your assets',
-    display_level: 'none',
-    level_required: false,
-    beloved_list: belovedLevel(),
-    verifyEmail: false,
-  },
-  guardian: {
-    title: 'Appoint your Guardian',
-    subtitle:
-      'The caretaker of your underage kids ensuring they get the best care after you and you spoused demised',
-    display_level: '',
-    level_required: false,
-    beloved_list: belovedLevel().filter((option) => option.value !== 'others'),
-    verifyEmail: false,
-  },
-};
-
-const belovedTypeName = {
-  add: {
-    key: 'add',
-    button_title: 'Submit',
-    allow_delete: false,
-    show_create_more: true,
-  },
-  edit: {
-    key: 'edit',
-    button_title: 'Update',
-    allow_delete: true,
-    show_create_more: false,
-  },
-};
-
 const getElements = () => {
   const inputElements = {
     beloved_modal: {
@@ -73,6 +28,7 @@ const getElements = () => {
 
 const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
   const { contextApiData, getBeloved } = useApi();
+
   const [isLoading, setIsLoading] = useState({
     update: false,
     delete: false,
@@ -87,6 +43,67 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
     data: null,
     url: addUserImg,
   });
+
+  const belovedConfig = {
+    co_sampul: {
+      title: 'Appoint your Co-Sampul',
+      subtitle: `Co-Sampul is your trusted person for
+      whom which all information in this
+      Sampul will be passed on`,
+      display_level: '',
+      level_required: true,
+      beloved_list: belovedLevel().filter(
+        (option) => option.value !== 'others'
+      ),
+      verifyEmail: true,
+      max_create_more: 2,
+      current_user: contextApiData.beloved.data?.filter(
+        (option) => option.type == 'co_sampul'
+      ),
+    },
+    future_owner: {
+      title: 'Appoint your Beneficiary',
+      subtitle: 'The future owner of your assets',
+      display_level: 'none',
+      level_required: false,
+      beloved_list: belovedLevel(),
+      verifyEmail: false,
+      max_create_more: 1000,
+      current_user: contextApiData.beloved.data?.filter(
+        (option) => option.type == 'future_owner'
+      ),
+    },
+    guardian: {
+      title: 'Appoint your Guardian',
+      subtitle:
+        'The caretaker of your underage kids ensuring they get the best care after you and you spoused demised',
+      display_level: '',
+      level_required: false,
+      beloved_list: belovedLevel().filter(
+        (option) => option.value !== 'others'
+      ),
+      verifyEmail: false,
+      max_create_more: 2,
+      current_user: contextApiData.beloved.data?.filter(
+        (option) => option.type == 'guardian'
+      ),
+    },
+  };
+
+  const belovedTypeName = {
+    add: {
+      key: 'add',
+      button_title: 'Submit',
+      allow_delete: false,
+      show_create_more: true,
+    },
+    edit: {
+      key: 'edit',
+      button_title: 'Update',
+      allow_delete: true,
+      show_create_more: false,
+    },
+  };
 
   const clearForms = () => {
     var element = getElements().beloved_modal;
@@ -160,7 +177,11 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
 
       toast.success('Successfully submitted!');
 
-      if (createMore.status == true && belovedType == 'future_owner') {
+      if (
+        createMore.status == true &&
+        belovedConfig[belovedType].current_user?.length + 1 !==
+          belovedConfig[belovedType].max_create_more
+      ) {
         setCreateMore((prev) => ({
           ...prev,
           animated: true,
@@ -680,10 +701,10 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                   </label>
                 </div>
               </div>
-
               <div class="mt-5">
                 {belovedTypeName[keyType].show_create_more &&
-                belovedType == 'future_owner' ? (
+                belovedConfig[belovedType].current_user?.length + 1 !==
+                  belovedConfig[belovedType].max_create_more ? (
                   <div className="form-field-wrapper mb-3">
                     <div className="form-check form-switch">
                       <input
