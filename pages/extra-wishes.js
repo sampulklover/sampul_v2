@@ -731,8 +731,8 @@ const ExtraWishes = () => {
                   class="form-select"
                 >
                   {[
-                    { name: 'Agree', value: true },
                     { name: 'Disagree', value: false },
+                    { name: 'Agree', value: true },
                   ].map((item) => (
                     <option key={item.value} value={item.value}>
                       {item.name}
