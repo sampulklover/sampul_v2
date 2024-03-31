@@ -12,7 +12,7 @@ import toast from 'react-hot-toast';
 import { useApi } from '../context/api';
 
 const MyDetails = ({ isModal = false }) => {
-  const { contextApiData, getProfile } = useApi();
+  const { contextApiData, getProfile, getWill } = useApi();
 
   const [summary, setSummary] = useState({
     isSaving: false,
@@ -111,6 +111,7 @@ const MyDetails = ({ isModal = false }) => {
 
     setTimeout(() => {
       getProfile();
+      getWill();
     }, 1500);
   };
 

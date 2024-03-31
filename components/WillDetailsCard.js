@@ -23,8 +23,9 @@ const WillDetailsCard = () => {
     isLoading: false,
   });
 
-  const myWill = willData?.data?.will;
-  const myProfile = willData?.data?.will?.profiles;
+  const myWill = willData.data.will;
+  const myProfile = willData.data.will?.profiles;
+  const myExtraWishes = willData.data.extraWishes;
 
   const myInfo = {
     last_updated: formatTimestamp(myWill?.last_updated),
@@ -86,101 +87,157 @@ const WillDetailsCard = () => {
     additional_request_view:
       contextApiData.account.data?.products?.access_control?.pages?.will
         ?.additional_requests?.access,
+    extra_wishes: {
+      nazar: {
+        title: myExtraWishes?.nazar_wishes ?? '-',
+        amount: `RM ${
+          myExtraWishes?.nazar_est_cost_myr
+            ? myExtraWishes.nazar_est_cost_myr
+            : 0
+        }`,
+      },
+      fidyah: {
+        dayLeft: myExtraWishes?.fidyah_fast_left_days
+          ? myExtraWishes?.fidyah_fast_left_days
+          : 0,
+        amount: `RM ${
+          myExtraWishes?.fidyah_amout_due_myr
+            ? myExtraWishes.fidyah_amout_due_myr
+            : 0
+        }`,
+      },
+      organDonor: {
+        agree: myExtraWishes?.organ_donor_pledge ? true : false,
+      },
+    },
   };
 
   const will_settings = {
     muslim: {
-      title: 'WASIAT FOR MY DIGITAL ASSETS',
+      title: 'WASIAT ASET DIGITAL SAYA',
       info: [
         {
-          title: '1. Introduction',
-          description: `In the name of Allah, the Most Gracious, the Most Merciful, I, ${myInfo.nric_name}, holding NRIC ${myInfo.nric_no}, residing at ${myInfo.address}, declare this document as my last wasiat, focused on managing my digital assets.`,
+          title: '1. Mukaddimah',
+          description: `Dengan nama Allah, Yang Maha Pengasih, Lagi Maha Penyayang, saya, ${myInfo.nric_name}, memegang NRIC ${myInfo.nric_no}, bermastautin di ${myInfo.address}, mengisytiharkan dokumen ini sebagai wasiat terakhir saya, memberi tumpuan kepada pengurusan aset digital saya.`,
         },
         {
-          title: '2. Declaration',
-          description: `Acknowledging my Muslim faith, I am of sound mind to declare this my final wasiat for my digital assets, written on ${myInfo.last_updated}.`,
+          title: '2. Pengisytiharan',
+          description: `Mengakui kepercayaan Islam saya, saya berazam untuk mengisytiharkan wasiat terakhir saya untuk aset digital saya, yang ditulis pada ${myInfo.last_updated}.`,
         },
         {
-          title: '3. Request',
-          description: `I urge my family to uphold piety towards Allah S.W.T and fulfill His commands. Upon my passing, my estate must be carefully managed according to Islamic principles. I request my estate as a priority is used to handle funeral expenses and settle debts to Allah S.W.T and humans, including Zakat and other religious obligations as per [Table 1].`,
+          title: '3. Permintaan',
+          description: `Saya menyeru keluarga saya untuk menegakkan ketaqwaan kepada Allah S.W.T dan menunaikan perintah-Nya. Apabila saya meninggal dunia, harta saya hendaklah diuruskan dengan teliti mengikut prinsip Islam. Saya memohon harta pusaka saya sebagai keutamaan digunakan untuk mengendalikan perbelanjaan pengebumian dan menyelesaikan hutang kepada Allah S.W.T dan manusia, termasuk Zakat dan kewajipan agama lain seperti [Jadual 1].`,
         },
         {
-          title: '4. Cancellation',
-          description: `This document supersedes all prior wasiats on digital assets`,
+          title: '4. Pembatalan',
+          description: `Dokumen ini menggantikan semua wasiat terdahulu pada aset digital.`,
         },
         {
-          title: '5. Main Co-Sampul',
-          description: `${myInfo.primary_co_sampul.name}, ${myInfo.primary_co_sampul.email} is appointed to safekeep and deliver this wasiat of my digital assets to my beneficiaries.`,
+          title: '5. Co-Sampul Utama',
+          description: `${myInfo.primary_co_sampul.name}, ${myInfo.primary_co_sampul.email} dilantik untuk menyimpan dan menyampaikan wasiat aset digital saya ini kepada waris saya.`,
         },
         {
-          title: '6. Substitute Co-Sampul',
-          description: `If necessary, ${myInfo.secondary_co_sampul.name}, ${myInfo.secondary_co_sampul.email} will act as Substitute Co-Sampul.`,
+          title: '6. Co-Sampul Ganti',
+          description: `Jika perlu, ${myInfo.secondary_co_sampul.name}, ${myInfo.secondary_co_sampul.email} akan bertindak sebagai Co-Sampul Ganti.`,
         },
         {
-          title: '7. Digital Assets Distribution',
+          title: '7. Pengagihan Aset Digital',
           description: (
             <div>
               <p>
-                Specific Beneficiaries: Certain assets are designated for
-                specific beneficiaries or based on Faraid as per [Table 1].
+                Penerima Khusus: Aset tertentu ditetapkan untuk penerima
+                tertentu atau berdasarkan Faraid seperti di [Jadual 1].
               </p>
               <p>
-                Residual Estate: The rest of my digital assets not specifically
-                mentioned are to be distributed accordingly either to specific
-                beneficiaries or based on Faraid.
+                Baki Harta: Selebihnya aset digital saya yang tidak dinyatakan
+                secara khusus akan diagihkan sewajarnya sama ada kepada penerima
+                tertentu atau berdasarkan Faraid.
               </p>
               <p>
                 {myInfo.additional_request_view
-                  ? `Additional Requests: For waqaf, sedekah, charity, [Waqaf/Charitable Body] is designated as per [Table 2]`
-                  : 'Additional Requests: N/A'}
+                  ? `Wasiat Tambahan: Untuk waqaf, sedekah, sedekah, [Waqaf/Badan Amal] ditetapkan mengikut [Jadual 2]`
+                  : 'Wasiat Tambahan: N/A'}
+              </p>
+              <p>
+                Nazar/Kaffarah/Fidyah: Saya berharap waris tersayang saya akan
+                menyempurnakan Nazar/Kaffarah/Fidyah saya yang berbaki yang
+                tidak sempat saya sempurnakan ketika hidup dan diambil daripada
+                harta pusaka saya seperti berikut:
+                <ul>
+                  <li>
+                    Nazar/Kaffarah: {myInfo.extra_wishes.nazar.title}
+                    <br />
+                    Anggaran Kos: {myInfo.extra_wishes.nazar.amount}
+                  </li>
+                  <li>
+                    Fidyah: {myInfo.extra_wishes.fidyah.dayLeft} hari Anggaran
+                    <br />
+                    Kos: {myInfo.extra_wishes.fidyah.amount}
+                  </li>
+                  <li>
+                    Derma Organ: Saya dengan ini{' '}
+                    {myInfo.extra_wishes.organDonor.agree
+                      ? 'bersetuju'
+                      : 'tidak bersetuju'}{' '}
+                    sebagai penderma organ.
+                  </li>
+                </ul>
               </p>
             </div>
           ),
           addBreak: true,
         },
         {
-          title: '8. Guardianship',
+          title: '8. Penjagaan Anak',
           description:
             myInfo.primary_guardian.isExist == false &&
             myInfo.secondary_guardian.isExist == false
               ? 'N/A'
-              : `If my spouse predeceases me or is unable, ${myInfo.primary_guardian.name}, ${myInfo.primary_guardian.email} is appointed for my minor children, with ${myInfo.secondary_guardian.name}, ${myInfo.secondary_guardian.email} as an alternate.`,
+              : `Jika pasangan saya meninggal dunia sebelum saya atau tidak berkemampuan, ${myInfo.primary_guardian.name}, ${myInfo.primary_guardian.email} dilantik untuk anak-anak saya yang masih di bawah umur, dengan ${myInfo.secondary_guardian.name}, ${myInfo.secondary_guardian.email} sebagai pengganti.`,
         },
         {
-          title: '9. Signed by',
+          title: '9. Ditandatangani oleh',
           description: `${myInfo.nric_name},
           ${myInfo.nric_no}
-          on ${myInfo.last_updated}`,
+          pada ${myInfo.last_updated}`,
           addBreak: true,
         },
         {
-          title: '10.	Witnesses',
+          title: '10.	Saksi',
           description: (
             <div>
-              <strong>Signed by</strong>
+              <strong>Ditandatangani oleh</strong>
               <br />
               Muhammad Arham Munir Merican bin Amir Feisal Merican
               <br />
               931011875001
               <br />
-              Founder, SAMPUL
+              Pengasas, SAMPUL
               <br />
-              on {myInfo.last_updated}
+              pada {myInfo.last_updated}
               <br />
               <br />
               <strong>Signed by</strong>
               <br />
-              Farhan Hamid
+              Mohamad Farhan Bin Che Hamid
               <br />
-              930000020000
+              930705036339
               <br />
-              Co-Founder, SAMPUL
+              Pengasas Bersama, SAMPUL
               <br />
-              on {myInfo.last_updated}
+              pada {myInfo.last_updated}
             </div>
           ),
         },
       ],
+      table: {
+        table_1: {
+          title: 'Jadual 1',
+        },
+        table_2: {
+          title: 'Jadual 2',
+        },
+      },
     },
     non_muslim: {
       title: 'LAST WILL AND TESTAMENT FOR DIGITAL ASSETS',
@@ -203,11 +260,27 @@ const WillDetailsCard = () => {
         },
         {
           title: '5. Digital Assets Distribution',
-          description: `
-          ● Specific Bequests: Certain assets are designated for specific beneficiaries as per [Table 1].
-          ● Residual Estate: The rest of my digital assets not specifically mentioned are to be distributed accordingly.
-          ● Additional Bequests: For charity, [Charitable Body] is designated as per [Table 1]`,
-          addBreak: true,
+          description: (
+            <div>
+              <p>
+                Specific Bequests: Certain assets are designated for specific
+                beneficiaries as per [Table 1].
+              </p>
+              <p>
+                Residual Estate: The rest of my digital assets not specifically
+                mentioned are to be distributed accordingly.
+              </p>
+              <p>
+                Additional Bequests: For charity, [Charitable Body] is
+                designated as per [Table 2]
+              </p>
+              <p>
+                Organ Donation: I hereby{' '}
+                {myInfo.extra_wishes.organDonor.agree ? 'Agree' : 'Disagree'} to
+                donate my organ at the point of demise.
+              </p>
+            </div>
+          ),
         },
         {
           title: '6. Guardianship',
@@ -241,9 +314,9 @@ const WillDetailsCard = () => {
               <br />
               <strong>Signed by</strong>
               <br />
-              Farhan Hamid
+              Mohamad Farhan Bin Che Hamid
               <br />
-              930000020000
+              930705036339
               <br />
               Co-Founder, SAMPUL
               <br />
@@ -252,6 +325,14 @@ const WillDetailsCard = () => {
           ),
         },
       ],
+      table: {
+        table_1: {
+          title: 'Table 1',
+        },
+        table_2: {
+          title: 'Table 2',
+        },
+      },
     },
   };
 
@@ -369,7 +450,9 @@ const WillDetailsCard = () => {
                     <div class="smpl_text-lg-semibold">
                       List of Digital Assets
                       <span class="text-span-5">
-                        <sup class="superscript">Table-1</sup>
+                        <sup class="superscript">
+                          {will_settings[checkReligion()].table.table_1.title}
+                        </sup>
                       </span>
                     </div>
                     <div class="smpl_text-sm-medium text-align-left">
@@ -410,7 +493,9 @@ const WillDetailsCard = () => {
                     <div class="smpl_text-lg-semibold">
                       List of Additional Bequests
                       <span class="text-span-5">
-                        <sup class="superscript">Table-2</sup>
+                        <sup class="superscript">
+                          {will_settings[checkReligion()].table.table_2.title}
+                        </sup>
                       </span>
                     </div>
                     <div class="smpl_text-sm-medium text-align-left">
