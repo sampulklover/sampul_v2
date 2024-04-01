@@ -12,6 +12,8 @@ const DigitalAssets = () => {
     selectedItem: null,
   });
 
+  const [searchInput, setSearchInput] = useState('');
+
   const digitalAssetsModal = (item) => {
     $('#digital-assets-modal')?.modal('show');
 
@@ -43,6 +45,19 @@ const DigitalAssets = () => {
             >
               <Loading title="Add Digital Assets & Expenses" loading={false} />
             </button>
+            <div class="d-flex justify-content-md-end justify-content-center mt-2">
+              <input
+                value={searchInput}
+                onChange={(e) => {
+                  setSearchInput(e.target.value);
+                }}
+                class="form-control"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+                style={{ 'max-width': '250px' }}
+              />
+            </div>
           </div>
         </div>
         <div class="border-top my-3"></div>
@@ -116,6 +131,7 @@ const DigitalAssets = () => {
               <DigitalAssetsCard
                 typeName=""
                 editFunction={digitalAssetsModal}
+                searchInput={searchInput}
               />
             </div>
           </div>
@@ -129,6 +145,7 @@ const DigitalAssets = () => {
               <DigitalAssetsCard
                 typeName="non_subscription"
                 editFunction={digitalAssetsModal}
+                searchInput={searchInput}
               />
             </div>
           </div>
@@ -142,6 +159,7 @@ const DigitalAssets = () => {
               <DigitalAssetsCard
                 typeName="subscription"
                 editFunction={digitalAssetsModal}
+                searchInput={searchInput}
               />
             </div>
           </div>

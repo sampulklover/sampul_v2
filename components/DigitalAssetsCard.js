@@ -2,7 +2,7 @@ import { bodiesCategory, instructionsAfterDeath } from '../constant/enum';
 import Loading from './Laoding';
 import { useApi } from '../context/api';
 
-const DigitalAssetsCard = ({ typeName, editFunction }) => {
+const DigitalAssetsCard = ({ typeName, editFunction, searchInput = '' }) => {
   const { contextApiData } = useApi();
 
   const type = {
@@ -37,6 +37,25 @@ const DigitalAssetsCard = ({ typeName, editFunction }) => {
         <>
           {contextApiData.digitalAssets.data
             ?.filter((item) => !typeName || item.account_type === typeName)
+            .filter((item) => {
+              const spObject = contextApiData.bodies.data?.find(
+                (x) => x.id === item.bodies_id
+              );
+
+              if (searchInput) {
+                return (
+                  spObject &&
+                  (spObject.name
+                    .toLowerCase()
+                    .includes(searchInput.toLowerCase()) ||
+                    spObject.category
+                      .toLowerCase()
+                      .includes(searchInput.toLowerCase()))
+                );
+              } else {
+                return spObject;
+              }
+            })
             .map((item, index) => {
               const spObject = contextApiData.bodies.data?.find(
                 (x) => x.id === item.bodies_id
