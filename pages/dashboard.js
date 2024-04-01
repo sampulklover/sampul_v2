@@ -378,7 +378,7 @@ const Dashboard = () => {
                 backgroundColor: 'black',
                 color: 'white',
                 'border-radius': '10px',
-                'z-index': '100000',
+                'z-index': '10',
               }}
             />
           </div>

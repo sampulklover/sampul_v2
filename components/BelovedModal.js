@@ -7,6 +7,7 @@ import { deleteImage, replaceOrAddImage } from '../utils/helpers';
 import { addUserImg } from '../constant/element';
 import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid';
+import { Tooltip } from 'react-tooltip';
 import { useApi } from '../context/api';
 
 const getElements = () => {
@@ -60,6 +61,9 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
       current_user: contextApiData.beloved.data?.filter(
         (option) => option.type == 'co_sampul'
       ),
+      level_info_tooltip_content: `<div>
+      <p>When you create a will and appoint an Primary Co-Sampul, you should also appoint an alternate Co-Sampul ( Secondary Co-Sampul).</p>
+      <p>Secondary Co-Sampul will take over the Primary Co-Sampul duties if your Primary Co-Sampul dies, is unable to act as Co-Sampul , or decides he or she does not wish to be the Co-Sampul. The appointed Primary Co-Sampul does not have to consult the Secondary Co-Sampul. Secondary Co-Sampul is only named in the will to fill in for the appointed Primary Co-Sampul if required.</p></div>`,
     },
     future_owner: {
       title: 'Appoint your Beneficiary',
@@ -87,6 +91,8 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
       current_user: contextApiData.beloved.data?.filter(
         (option) => option.type == 'guardian'
       ),
+      level_info_tooltip_content:
+        'When you create a will and appoint an Primary Guardian, you should also appoint an alternate Guardian. The alternate Guardian will take over the Primary Guardian duties if your Primary Guardian dies, is unable to act as guardian, or decides he or she does not wish to be the Co-Sampul',
     },
   };
 
@@ -512,7 +518,32 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                     htmlFor={`select-beloved-level`}
                     class="uui-field-label"
                   >
-                    Level
+                    <span
+                      data-tooltip-id="my-tooltip-level"
+                      data-tooltip-html={
+                        belovedConfig[belovedType]?.level_info_tooltip_content
+                      }
+                    >
+                      Level{' '}
+                      {belovedConfig[belovedType]
+                        ?.level_info_tooltip_content ? (
+                        <i class="bi bi-info-circle"></i>
+                      ) : (
+                        ''
+                      )}
+                    </span>
+                    <Tooltip
+                      id="my-tooltip-level"
+                      place="bottom"
+                      style={{
+                        textAlign: 'justify',
+                        maxWidth: '300px',
+                        backgroundColor: 'black',
+                        color: 'white',
+                        'border-radius': '10px',
+                        'z-index': '10',
+                      }}
+                    />
                   </label>
                   <select
                     id={`select-beloved-level`}

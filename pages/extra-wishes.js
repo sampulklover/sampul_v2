@@ -298,12 +298,21 @@ const ExtraWishes = () => {
               <div class="text-sm-medium-6">
                 <b
                   data-tooltip-id="my-tooltip-nazar"
-                  data-tooltip-html="<div>
-                  Info: Nazar is a vow made to Allah to perform certain actions if certain conditions <br/> 
-                  are met. For example: “I wish to go for Umrah if I got a son.” Umrah is compulsory <br/>
-                  if a son was borned and if he/she does not have the chance to do it while still alive,<br/>
-                  his/her beneficiaries are obliged to do it on behalf and the expenses can be taken from <br/>
-                  one’s estate. If the beneficiaries are unable to perform the nazar, they may opt <br/> for a Kaffarah.</div>"
+                  data-tooltip-html="
+                    <div>
+                      <p>
+                        Info: Nazar is a vow made to Allah to perform certain
+                        actions if certain conditions are met. For example: “I
+                        wish to go for Umrah if I got a son.” Umrah is
+                        compulsory if a son was borned and if he/she does not
+                        have the chance to do it while still alive, his/her
+                        beneficiaries are obliged to do it on behalf and the
+                        expenses can be taken from one’s estate. If the
+                        beneficiaries are unable to perform the nazar, they may
+                        opt for a Kaffarah.
+                      </p>
+                    </div>
+                  "
                 >
                   Nazar/Kaffarah <i class="bi bi-info-circle"></i>
                 </b>
@@ -311,9 +320,12 @@ const ExtraWishes = () => {
                   id="my-tooltip-nazar"
                   place="bottom"
                   style={{
+                    textAlign: 'justify',
+                    maxWidth: '300px',
                     backgroundColor: 'black',
                     color: 'white',
                     'border-radius': '10px',
+                    'z-index': '10',
                   }}
                 />
               </div>
@@ -388,9 +400,15 @@ const ExtraWishes = () => {
               <div class="text-sm-medium-6">
                 <b
                   data-tooltip-id="my-tooltip-fidyah"
-                  data-tooltip-html="<div>
-                  Info: When someone cannot fast in Ramadhan and got no chance to make up the lost<br/> 
-                  days afterwards, then their beneficiaries may pay (Fidyah) taken from the estate.</div>"
+                  data-tooltip-html="
+                    <div>
+                      <p>
+                        Info: When someone cannot fast in Ramadhan and got no
+                        chance to make up the lost days afterwards, then their
+                        beneficiaries may pay (Fidyah) taken from the estate.
+                      </p>
+                    </div>
+                  "
                 >
                   Fidyah <i class="bi bi-info-circle"></i>
                 </b>
@@ -398,9 +416,12 @@ const ExtraWishes = () => {
                   id="my-tooltip-fidyah"
                   place="bottom"
                   style={{
+                    textAlign: 'justify',
+                    maxWidth: '300px',
                     backgroundColor: 'black',
                     color: 'white',
                     'border-radius': '10px',
+                    'z-index': '10',
                   }}
                 />
               </div>
@@ -682,11 +703,17 @@ const ExtraWishes = () => {
               <div class="text-sm-medium-6">
                 <b
                   data-tooltip-id="my-tooltip-1"
-                  data-tooltip-html="<div>
-                  Info: For Muslims, the National Fatwa Council (Majlis Fatwa Kebangsaan)<br/>
-                  in June 1970 has decided that it is permissible to donate organs with the<br/>
-                  condition it is used to save life where there are no other alternatives<br/>
-                  and not used for business dealings.</div>"
+                  data-tooltip-html="
+                    <div>
+                      <p>
+                        Info: For Muslims, the National Fatwa Council (Majlis
+                        Fatwa Kebangsaan) in June 1970 has decided that it is
+                        permissible to donate organs with the condition it is
+                        used to save life where there are no other alternatives
+                        and not used for business dealings.
+                      </p>
+                    </div>
+                  "
                 >
                   Organ Donor Pledge <i class="bi bi-info-circle"></i>
                 </b>
@@ -694,9 +721,12 @@ const ExtraWishes = () => {
                   id="my-tooltip-1"
                   place="bottom"
                   style={{
+                    textAlign: 'justify',
+                    maxWidth: '300px',
                     backgroundColor: 'black',
                     color: 'white',
                     'border-radius': '10px',
+                    'z-index': '10',
                   }}
                 />
               </div>
