@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Loading from '../components/Laoding';
 import Footer from '../components/Footer';
 import Breadcrumb from '../components/Breadcrumb';
@@ -13,6 +13,19 @@ const DigitalAssets = () => {
   });
 
   const [searchInput, setSearchInput] = useState('');
+  const [filteredValue, setFilteredValue] = useState('');
+
+  useEffect(() => {
+    const delayTimer = setTimeout(() => {
+      setFilteredValue(searchInput);
+    }, 500);
+
+    return () => clearTimeout(delayTimer);
+  }, [searchInput]);
+
+  const handleInputChange = (e) => {
+    setSearchInput(e.target.value);
+  };
 
   const digitalAssetsModal = (item) => {
     $('#digital-assets-modal')?.modal('show');
@@ -48,14 +61,12 @@ const DigitalAssets = () => {
             <div class="d-flex justify-content-md-end justify-content-center mt-2">
               <input
                 value={searchInput}
-                onChange={(e) => {
-                  setSearchInput(e.target.value);
-                }}
+                onChange={handleInputChange}
                 class="form-control"
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
-                style={{ 'max-width': '250px' }}
+                style={{ 'max-width': '275px' }}
               />
             </div>
           </div>
@@ -131,7 +142,7 @@ const DigitalAssets = () => {
               <DigitalAssetsCard
                 typeName=""
                 editFunction={digitalAssetsModal}
-                searchInput={searchInput}
+                searchInput={filteredValue}
               />
             </div>
           </div>
@@ -145,7 +156,7 @@ const DigitalAssets = () => {
               <DigitalAssetsCard
                 typeName="non_subscription"
                 editFunction={digitalAssetsModal}
-                searchInput={searchInput}
+                searchInput={filteredValue}
               />
             </div>
           </div>
@@ -159,7 +170,7 @@ const DigitalAssets = () => {
               <DigitalAssetsCard
                 typeName="subscription"
                 editFunction={digitalAssetsModal}
-                searchInput={searchInput}
+                searchInput={filteredValue}
               />
             </div>
           </div>

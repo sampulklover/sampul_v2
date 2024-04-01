@@ -41,6 +41,7 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
     status: false,
     animated: false,
   });
+
   const [newServicePlatform, setNewServicePlatform] = useState(false);
   const [arrayElements, setArrayElements] = useState({
     bodies: null,
