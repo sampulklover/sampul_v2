@@ -3,6 +3,7 @@ import Loading from '../components/Laoding';
 import ForgotPasswordModal from '../components/ForgotPasswordModal';
 import Link from 'next/link';
 import { useApi } from '../context/api';
+import * as Sentry from '@sentry/nextjs';
 
 const SignIn = () => {
   const { normalLogin, googleLogin } = useApi();
@@ -18,10 +19,14 @@ const SignIn = () => {
       normal_login: true,
     });
 
-    await normalLogin({
-      email: document.getElementById('input-email').value,
-      password: document.getElementById('input-password').value,
-    });
+    try {
+      await normalLogin({
+        email: document.getElementById('input-email').value,
+        password: document.getElementById('input-password').value,
+      });
+    } catch (error) {
+      Sentry.captureException(error);
+    }
 
     setIsLoading({
       ...isLoading,
@@ -36,7 +41,11 @@ const SignIn = () => {
       google_login: true,
     });
 
-    await googleLogin();
+    try {
+      await googleLogin();
+    } catch (error) {
+      Sentry.captureException(error);
+    }
 
     setIsLoading({
       ...isLoading,

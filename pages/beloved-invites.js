@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 import Link from 'next/link';
 import Footer from '../components/Footer';
 import { useRouter } from 'next/router';
+import * as Sentry from '@sentry/nextjs';
 
 const BelovedInvites = () => {
   const router = useRouter();
@@ -59,6 +60,7 @@ const BelovedInvites = () => {
           isReady: true,
           statusKey: 'error',
         });
+        Sentry.captureException(error);
       }
     } else {
       toast.error('Something went wrong!');

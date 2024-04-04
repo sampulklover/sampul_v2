@@ -12,6 +12,7 @@ import BelovedModal from '../components/BelovedModal';
 import ProfileModal from '../components/ProfileModal';
 import { Tooltip } from 'react-tooltip';
 import { useApi } from '../context/api';
+import * as Sentry from '@sentry/nextjs';
 
 const Dashboard = () => {
   const { contextApiData } = useApi();
@@ -108,6 +109,7 @@ const Dashboard = () => {
           $('#profile-modal')?.modal('show');
         } catch (error) {
           toast.error('Something went wrong, please try again');
+          Sentry.captureException(error);
         }
       },
       innerIcon: (
@@ -139,6 +141,7 @@ const Dashboard = () => {
           $('#beloved-modal')?.modal('show');
         } catch (error) {
           toast.error('Something went wrong, please try again');
+          Sentry.captureException(error);
         }
       },
       innerIcon: (
@@ -170,6 +173,7 @@ const Dashboard = () => {
           $('#digital-assets-modal')?.modal('show');
         } catch (error) {
           toast.error('Something went wrong, please try again');
+          Sentry.captureException(error);
         }
       },
       innerIcon: (
@@ -204,6 +208,7 @@ const Dashboard = () => {
           $('#beloved-modal')?.modal('show');
         } catch (error) {
           toast.error('Something went wrong, please try again');
+          Sentry.captureException(error);
         }
       },
       innerIcon: (
