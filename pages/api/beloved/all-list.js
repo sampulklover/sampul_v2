@@ -9,22 +9,21 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { invite_uuid, invite_status, invited_uuid } = req.body;
+    const { uuid } = req.body;
     const supabase = getServiceSupabase();
 
     const { data, error } = await supabase
-      .from('beloved_invites')
-      .update({
-        invite_status: invite_status,
-        invited_uuid: invited_uuid,
-      })
-      .eq('invite_uuid', invite_uuid);
+      .from('beloved')
+      .select(
+        '*, beloved_invites (*, invited_profile:profiles!public_beloved_invites_invited_uuid_fkey(*))'
+      )
+      .eq('uuid', uuid);
 
     if (error) {
       return res.status(400).json(error);
     }
 
-    return res.status(200).json({ data: data });
+    res.status(200).json({ data: data });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal Server Error' });

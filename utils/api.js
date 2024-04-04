@@ -106,15 +106,21 @@ export const getDigitalAssetsApi = async (postData) => {
 
 export const getBelovedApi = async (postData) => {
   try {
-    const { data, error } = await supabase
-      .from('beloved')
-      .select('*, beloved_invites (*)')
-      .eq('uuid', postData.uuid)
-      .order('created_at', { ascending: false });
+    const response = await fetch('/api/beloved/all-list', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        uuid: postData.uuid,
+      }),
+    });
 
-    if (error) {
+    if (!response.ok) {
       throw error;
     }
+
+    const { data } = await response.json();
 
     return data;
   } catch (error) {

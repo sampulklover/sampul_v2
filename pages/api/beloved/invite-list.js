@@ -14,7 +14,7 @@ export default async function handler(req, res) {
 
     const { data, error } = await supabase
       .from('beloved_invites')
-      .select('*,  profiles ( * )')
+      .select('*, profiles:profiles!public_beloved_invites_uuid_fkey(*)')
       .eq('email', email);
 
     if (error) {

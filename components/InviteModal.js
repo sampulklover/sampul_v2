@@ -49,7 +49,7 @@ const getElements = () => {
 };
 
 const InviteModal = ({ keyType, category, selectedItem }) => {
-  const { getInvites } = useApi();
+  const { contextApiData, getInvites } = useApi();
   const [isLoading, setIsLoading] = useState({
     reject: false,
     approve: false,
@@ -135,6 +135,7 @@ const InviteModal = ({ keyType, category, selectedItem }) => {
         body: JSON.stringify({
           invite_uuid: selectedItem.invite_uuid,
           invite_status: status,
+          invited_uuid: contextApiData.user.data?.id,
         }),
       });
 
@@ -169,16 +170,43 @@ const InviteModal = ({ keyType, category, selectedItem }) => {
       title: 'Reject',
       loading: isLoading.approve,
       action: () => {
-        updateStatus('approve', 'rejected');
+        var is_completed = checkCompleteProfile();
+        if (is_completed) {
+          updateStatus('approve', 'rejected');
+        } else {
+          toast.error(
+            'To reject the invitation, you must first complete your profile. You can do this on the settings page.'
+          );
+        }
       },
     },
     reject: {
       title: 'Accept',
       loading: isLoading.reject,
       action: () => {
-        updateStatus('reject', 'accepted');
+        var is_completed = checkCompleteProfile();
+        if (is_completed) {
+          updateStatus('reject', 'accepted');
+        } else {
+          toast.error(
+            'To accept the invitation, you must first complete your profile. You can do this on the settings page.'
+          );
+        }
       },
     },
+  };
+
+  const checkCompleteProfile = () => {
+    var is_completed = false;
+    if (
+      contextApiData.profile.data?.nric_name &&
+      contextApiData.profile.data?.nric_no
+    ) {
+      is_completed = true;
+    } else {
+      is_completed = false;
+    }
+    return is_completed;
   };
 
   return (
@@ -255,7 +283,9 @@ const InviteModal = ({ keyType, category, selectedItem }) => {
               {selectedItem?.invite_status == 'accepted' ? (
                 <button
                   type="button"
-                  class="btn btn-primary btn-text"
+                  class={`btn ${
+                    checkCompleteProfile() ? 'btn-primary' : 'btn-secondary'
+                  } btn-text`}
                   onClick={buttonConfig.approve.action}
                 >
                   <Loading
@@ -266,7 +296,9 @@ const InviteModal = ({ keyType, category, selectedItem }) => {
               ) : (
                 <button
                   type="submit"
-                  class="btn btn-primary btn-text"
+                  class={`btn ${
+                    checkCompleteProfile() ? 'btn-primary' : 'btn-secondary'
+                  } btn-text`}
                   onClick={buttonConfig.reject.action}
                 >
                   <Loading
