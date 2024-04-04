@@ -260,7 +260,7 @@ const WillDetailsCard = () => {
         },
         {
           title: '3. Main Co-Sampul',
-          description: `${myInfo.primary_co_sampul.name}, ${myInfo.primary_co_sampul.nric_no}, is appointed to safekeep and deliver this Will and Testament of  my digital assets to my beneficiaries.`,
+          description: `${myInfo.primary_co_sampul.name}, ${myInfo.primary_co_sampul.nric_no} is appointed to safekeep and deliver this Will and Testament of  my digital assets to my beneficiaries.`,
         },
         {
           title: '4. Substitute Co-Sampul',
