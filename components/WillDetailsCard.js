@@ -43,9 +43,9 @@ const WillDetailsCard = () => {
       name:
         belovedDetails.data?.primaryUser?.name ??
         '[PRIMARY CO-SAMPUL NAME/NICKNAME]',
-      // nric_no:
-      //   belovedDetails.data?.primaryUser?.nric_no ??
-      //   '[PRIMARY CO-SAMPUL NRIC NO]',
+      nric_no:
+        belovedDetails?.data?.primaryUser?.beloved_invites?.[0]?.invited_profile
+          ?.nric_no || '[PRIMARY CO-SAMPUL NRIC NO]',
       email:
         belovedDetails.data?.primaryUser?.email ?? '[PRIMARY CO-SAMPUL EMAIL]',
     },
@@ -53,9 +53,9 @@ const WillDetailsCard = () => {
       name:
         belovedDetails.data?.secondaryUser?.name ??
         '[SECONDARY CO-SAMPUL NAME/NICKNAME]',
-      // nric_no:
-      //   belovedDetails.data?.secondaryUser?.nric_no ??
-      //   '[SECONDARY CO-SAMPUL NRIC NO]',
+      nric_no:
+        belovedDetails?.data?.secondaryUser?.beloved_invites?.[0]
+          ?.invited_profile?.nric_no || '[SECONDARY CO-SAMPUL NRIC NO]',
       email:
         belovedDetails.data?.secondaryUser?.email ??
         '[SECONDARY CO-SAMPUL EMAIL]',
@@ -134,11 +134,11 @@ const WillDetailsCard = () => {
         },
         {
           title: '5. Co-Sampul Utama',
-          description: `${myInfo.primary_co_sampul.name}, ${myInfo.primary_co_sampul.email} dilantik untuk menyimpan dan menyampaikan wasiat aset digital saya ini kepada waris saya.`,
+          description: `${myInfo.primary_co_sampul.name}, ${myInfo.primary_co_sampul.nric_no}, ${myInfo.primary_co_sampul.email} dilantik untuk menyimpan dan menyampaikan wasiat aset digital saya ini kepada waris saya.`,
         },
         {
           title: '6. Co-Sampul Ganti',
-          description: `Jika perlu, ${myInfo.secondary_co_sampul.name}, ${myInfo.secondary_co_sampul.email} akan bertindak sebagai Co-Sampul Ganti.`,
+          description: `Jika perlu, ${myInfo.secondary_co_sampul.name}, ${myInfo.secondary_co_sampul.nric_no}, ${myInfo.secondary_co_sampul.email} akan bertindak sebagai Co-Sampul Ganti.`,
         },
         {
           title: '7. Pengagihan Aset Digital',
@@ -260,11 +260,11 @@ const WillDetailsCard = () => {
         },
         {
           title: '3. Main Co-Sampul',
-          description: `${myInfo.primary_co_sampul.name}, ${myInfo.primary_co_sampul.email} is appointed to safekeep and deliver this Will and Testament of  my digital assets to my beneficiaries.`,
+          description: `${myInfo.primary_co_sampul.name}, ${myInfo.primary_co_sampul.nric_no}, ${myInfo.primary_co_sampul.email} is appointed to safekeep and deliver this Will and Testament of  my digital assets to my beneficiaries.`,
         },
         {
           title: '4. Substitute Co-Sampul',
-          description: `If necessary, ${myInfo.secondary_co_sampul.name}, ${myInfo.secondary_co_sampul.email} will act as Substitute Co-Sampul.`,
+          description: `If necessary, ${myInfo.secondary_co_sampul.name}, ${myInfo.secondary_co_sampul.nric_no}, ${myInfo.secondary_co_sampul.email} will act as Substitute Co-Sampul.`,
         },
         {
           title: '5. Digital Assets Distribution',

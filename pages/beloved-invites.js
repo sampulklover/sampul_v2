@@ -34,6 +34,7 @@ const BelovedInvites = () => {
           body: JSON.stringify({
             invite_uuid: belovedUUID,
             invite_status: requestStatus,
+            invited_uuid: null,
           }),
         });
 

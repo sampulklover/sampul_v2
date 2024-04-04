@@ -271,7 +271,9 @@ export const ApiProvider = ({ children }) => {
     }));
 
     try {
-      const data = await getBelovedApi({ uuid: contextApiData.user.data.id });
+      const data = await getBelovedApi({
+        uuid: contextApiData.user.data.id,
+      });
 
       setContextApiData((prevData) => ({
         ...prevData,
@@ -306,6 +308,7 @@ export const ApiProvider = ({ children }) => {
       const data = await getInvitesApi({
         email: contextApiData.user.data.email,
       });
+
       setContextApiData((prevData) => ({
         ...prevData,
         invites: {

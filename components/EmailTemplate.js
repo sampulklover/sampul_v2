@@ -210,6 +210,12 @@ export const inviteBelove = ({
         <div>
           <a
             style={contentStyle.primaryButton}
+            href={`${process.env.NEXT_PUBLIC_HOST}/signin`}
+          >
+            Proceed to Sampul for Acceptance/Rejection
+          </a>
+          {/* <a
+            style={contentStyle.primaryButton}
             href={`${process.env.NEXT_PUBLIC_HOST}/beloved-invites?status=accepted&id=${invite_uuid}`}
           >
             Accept
@@ -219,7 +225,7 @@ export const inviteBelove = ({
             href={`${process.env.NEXT_PUBLIC_HOST}/beloved-invites?status=rejected&id=${invite_uuid}`}
           >
             Reject
-          </a>
+          </a> */}
         </div>
         {divider()}
         {accessableLink.map((item, index) => {
