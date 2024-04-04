@@ -126,7 +126,7 @@ const WillDetailsCard = () => {
         },
         {
           title: '3. Permintaan',
-          description: `Saya menyeru keluarga saya untuk menegakkan ketaqwaan kepada Allah S.W.T dan menunaikan perintah-Nya. Apabila saya meninggal dunia, harta saya hendaklah diuruskan dengan teliti mengikut prinsip Islam. Saya memohon harta pusaka saya sebagai keutamaan digunakan untuk mengendalikan perbelanjaan pengebumian dan menyelesaikan hutang kepada Allah S.W.T dan manusia, termasuk Zakat dan kewajipan agama lain seperti [Jadual 1].`,
+          description: `Saya menyeru keluarga saya untuk menegakkan ketaqwaan kepada Allah S.W.T dan menunaikan perintah-Nya. Apabila saya meninggal dunia, harta saya hendaklah diuruskan dengan teliti mengikut prinsip Islam. Saya memohon harta pusaka saya sebagai keutamaan digunakan untuk mengendalikan perbelanjaan pengebumian dan menyelesaikan hutang kepada Allah S.W.T dan manusia, termasuk Zakat dan kewajipan agama lain.`,
         },
         {
           title: '4. Pembatalan',
@@ -158,6 +158,14 @@ const WillDetailsCard = () => {
                   ? `Wasiat Tambahan: Untuk waqaf, sedekah, sedekah, [Waqaf/Badan Amal] ditetapkan mengikut [Jadual 2]`
                   : 'Wasiat Tambahan: N/A'}
               </p>
+            </div>
+          ),
+          addBreak: true,
+        },
+        {
+          title: '8. Nazar/Kaffarah/Fidyah & Derma Organ',
+          description: (
+            <div>
               <p>
                 Nazar/Kaffarah/Fidyah: Saya berharap waris tersayang saya akan
                 menyempurnakan Nazar/Kaffarah/Fidyah saya yang berbaki yang
@@ -188,7 +196,7 @@ const WillDetailsCard = () => {
           addBreak: true,
         },
         {
-          title: '8. Penjagaan Anak',
+          title: '9. Penjagaan Anak',
           description:
             myInfo.primary_guardian.isExist == false &&
             myInfo.secondary_guardian.isExist == false
@@ -196,14 +204,14 @@ const WillDetailsCard = () => {
               : `Jika pasangan saya meninggal dunia sebelum saya atau tidak berkemampuan, ${myInfo.primary_guardian.name}, ${myInfo.primary_guardian.email} dilantik untuk anak-anak saya yang masih di bawah umur, dengan ${myInfo.secondary_guardian.name}, ${myInfo.secondary_guardian.email} sebagai pengganti.`,
         },
         {
-          title: '9. Ditandatangani oleh',
+          title: '10. Ditandatangani oleh',
           description: `${myInfo.nric_name},
           ${myInfo.nric_no}
           pada ${myInfo.last_updated}`,
           addBreak: true,
         },
         {
-          title: '10.	Saksi',
+          title: '11.	Saksi',
           description: (
             <div>
               <strong>Ditandatangani oleh</strong>
@@ -217,7 +225,7 @@ const WillDetailsCard = () => {
               pada {myInfo.last_updated}
               <br />
               <br />
-              <strong>Signed by</strong>
+              <strong>Disaksikan oleh</strong>
               <br />
               Mohamad Farhan Bin Che Hamid
               <br />

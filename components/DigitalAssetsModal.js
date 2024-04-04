@@ -678,7 +678,7 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                   htmlFor={`select-digital-assets-beloved`}
                   class="uui-field-label"
                 >
-                  Who will inherit this account?{' '}
+                  Who will manage the account?{' '}
                   <Loading loading={contextApiData.beloved.isLoading} />
                 </label>
                 <select

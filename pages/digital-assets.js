@@ -109,7 +109,7 @@ const DigitalAssets = () => {
               aria-controls="pills-non-subscription"
               aria-selected="false"
             >
-              Non-Subscription
+              Assets
             </button>
           </li>
           <li class="nav-item" role="presentation">
@@ -123,7 +123,7 @@ const DigitalAssets = () => {
               aria-controls="pills-subscription"
               aria-selected="false"
             >
-              Subscription
+              Expenses
             </button>
           </li>
         </ul>
