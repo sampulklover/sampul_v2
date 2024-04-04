@@ -17,6 +17,7 @@ import { useRouter } from 'next/router';
 import { supabase } from '../utils/supabase';
 import toast from 'react-hot-toast';
 import { pages } from '../constant/element';
+import * as Sentry from '@sentry/nextjs';
 
 const ApiContext = createContext();
 
@@ -103,6 +104,7 @@ export const ApiProvider = ({ children }) => {
           isLoading: false,
         },
       }));
+      Sentry.captureException(error);
       return null;
     }
   };
@@ -133,6 +135,7 @@ export const ApiProvider = ({ children }) => {
           isLoading: false,
         },
       }));
+      Sentry.captureException(error);
     }
   };
 
@@ -162,6 +165,7 @@ export const ApiProvider = ({ children }) => {
           isLoading: false,
         },
       }));
+      Sentry.captureException(error);
     }
   };
 
@@ -191,6 +195,7 @@ export const ApiProvider = ({ children }) => {
           isLoading: false,
         },
       }));
+      Sentry.captureException(error);
     }
   };
 
@@ -220,6 +225,7 @@ export const ApiProvider = ({ children }) => {
           isLoading: false,
         },
       }));
+      Sentry.captureException(error);
     }
   };
 
@@ -251,6 +257,7 @@ export const ApiProvider = ({ children }) => {
           isLoading: false,
         },
       }));
+      Sentry.captureException(error);
     }
   };
 
@@ -282,6 +289,7 @@ export const ApiProvider = ({ children }) => {
           isLoading: false,
         },
       }));
+      Sentry.captureException(error);
     }
   };
 
@@ -314,6 +322,7 @@ export const ApiProvider = ({ children }) => {
           isLoading: false,
         },
       }));
+      Sentry.captureException(error);
     }
   };
 
@@ -346,6 +355,7 @@ export const ApiProvider = ({ children }) => {
           isLoading: false,
         },
       }));
+      Sentry.captureException(error);
     }
   };
 
@@ -376,6 +386,7 @@ export const ApiProvider = ({ children }) => {
           isLoading: false,
         },
       }));
+      Sentry.captureException(error);
     }
   };
 
@@ -408,6 +419,7 @@ export const ApiProvider = ({ children }) => {
           isLoading: false,
         },
       }));
+      Sentry.captureException(error);
     }
   };
 

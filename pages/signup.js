@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Loading from '../components/Laoding';
 import Link from 'next/link';
 import { useApi } from '../context/api';
+import * as Sentry from '@sentry/nextjs';
 
 const SignUp = () => {
   const { normalSignup, googleLogin } = useApi();
@@ -17,11 +18,15 @@ const SignUp = () => {
       normal_signup: true,
     });
 
-    await normalSignup({
-      name: document.getElementById('input-name').value,
-      email: document.getElementById('input-email').value,
-      password: document.getElementById('input-password').value,
-    });
+    try {
+      await normalSignup({
+        name: document.getElementById('input-name').value,
+        email: document.getElementById('input-email').value,
+        password: document.getElementById('input-password').value,
+      });
+    } catch (error) {
+      Sentry.captureException(error);
+    }
 
     setIsLoading({
       ...isLoading,
@@ -36,7 +41,11 @@ const SignUp = () => {
       google_login: true,
     });
 
-    await googleLogin();
+    try {
+      await googleLogin();
+    } catch (error) {
+      Sentry.captureException(error);
+    }
 
     setIsLoading({
       ...isLoading,

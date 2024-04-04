@@ -9,6 +9,7 @@ import SideBar from '../components/SideBar';
 import AllUser from '../components/AllUser';
 import ManageBodies from '../components/ManageBodies';
 import { useApi } from '../context/api';
+import * as Sentry from '@sentry/nextjs';
 
 const Admin = () => {
   const { contextApiData } = useApi();
@@ -80,6 +81,7 @@ const Admin = () => {
         ...summary,
         isLoading: false,
       });
+      Sentry.captureException(error);
     }
   };
 
