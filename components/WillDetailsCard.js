@@ -214,7 +214,7 @@ const WillDetailsCard = () => {
           title: '11.	Saksi',
           description: (
             <div>
-              <strong>Ditandatangani oleh</strong>
+              <strong>Disaksikan oleh</strong>
               <br />
               Muhammad Arham Munir Merican bin Amir Feisal Merican
               <br />
@@ -227,9 +227,9 @@ const WillDetailsCard = () => {
               <br />
               <strong>Disaksikan oleh</strong>
               <br />
-              Mohamad Farhan Bin Che Hamid
+              Mohammad Aiman bin Sulaiman
               <br />
-              930705036339
+              871013875003
               <br />
               Pengasas Bersama, SAMPUL
               <br />
