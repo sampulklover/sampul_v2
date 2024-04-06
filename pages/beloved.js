@@ -66,11 +66,18 @@ const Beloved = () => {
       category: category,
     });
 
+    // Note: if you make changes into beloved_modal elements, do apply same changes into the BelovedModal.js page.
     const inputElements = {
       beloved_modal: {
         name: document.getElementById('input-beloved-name'),
         // nric_no: document.getElementById('input-beloved-nric-no'),
-        // phone_no: document.getElementById('input-beloved-phone-no'),
+        phone_no: document.getElementById('input-beloved-phone-no'),
+        address_1: document.getElementById('input-beloved-address-1'),
+        address_2: document.getElementById('input-beloved-address-2'),
+        city: document.getElementById('input-beloved-city'),
+        postcode: document.getElementById('input-beloved-postcode'),
+        state: document.getElementById('input-beloved-state'),
+        country: document.getElementById('select-beloved-country'),
         email: document.getElementById('input-beloved-email'),
         // relationship: document.getElementById('select-beloved-relationship'),
         type: document.getElementById('select-beloved-type'),
