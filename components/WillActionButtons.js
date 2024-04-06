@@ -6,12 +6,15 @@ import toast from 'react-hot-toast';
 import ShareModal from './ShareModal';
 import Loading from './Laoding';
 import { useApi } from '../context/api';
+import Lottie from 'react-lottie';
+import successWillAnimationData from '../public/animation/lottie_will_success_generated.json';
 
 const WillActionButtons = ({ viewOnly = false }) => {
   const { contextApiData, getWill } = useApi();
   const router = useRouter();
 
   const [shareUrl, setShareUrl] = useState(null);
+  const [showAnimation, setShowAnimation] = useState(false);
   const [buttonLoading, setButtonLoading] = useState({
     generate: false,
     download: false,
@@ -73,6 +76,10 @@ const WillActionButtons = ({ viewOnly = false }) => {
       .padStart(10, '0')}`;
 
     return randomId;
+  };
+
+  const onAnimationComplete = () => {
+    setShowAnimation(false);
   };
 
   const generateWill = async () => {
@@ -183,12 +190,15 @@ const WillActionButtons = ({ viewOnly = false }) => {
         return;
       }
 
-      toast.success('Successfully generated!');
+      toast.success('Successfully generated!', {
+        duration: 5000,
+      });
       setButtonLoading({
         ...buttonLoading,
         generate: false,
       });
       getWill();
+      setShowAnimation(true);
     } else {
       const { data, error } = await supabase
         .from('wills')
@@ -209,12 +219,15 @@ const WillActionButtons = ({ viewOnly = false }) => {
         return;
       }
 
-      toast.success('Successfully generated!');
+      toast.success('Successfully generated!', {
+        duration: 5000,
+      });
       setButtonLoading({
         ...buttonLoading,
         generate: false,
       });
       getWill();
+      setShowAnimation(true);
     }
   };
 
@@ -279,6 +292,41 @@ const WillActionButtons = ({ viewOnly = false }) => {
 
   return (
     <>
+      {showAnimation && (
+        <div
+          style={{
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '50%',
+            height: '50%',
+            maxWidth: '400px',
+            maxHeight: '400px',
+            zIndex: 10,
+          }}
+        >
+          <Lottie
+            options={{
+              loop: false,
+              autoplay: true,
+              animationData: successWillAnimationData,
+              rendererSettings: {
+                preserveAspectRatio: 'xMidYMid slice',
+              },
+            }}
+            height="100%"
+            width="100%"
+            eventListeners={[
+              {
+                eventName: 'complete',
+                callback: onAnimationComplete,
+              },
+            ]}
+          />
+        </div>
+      )}
+
       <ShareModal url={shareUrl} title="Will Certificate" />
       <div
         class={`${

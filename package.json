@@ -25,6 +25,7 @@
     "react-bootstrap": "^2.10.1",
     "react-dom": "^18",
     "react-hot-toast": "^2.4.1",
+    "react-lottie": "^1.2.4",
     "react-qr-code": "^2.0.12",
     "react-select": "^5.8.0",
     "react-tooltip": "^5.26.3",
