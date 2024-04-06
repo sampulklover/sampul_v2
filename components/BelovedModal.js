@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { supabase } from '../utils/supabase';
 import Loading from './Laoding';
 import toast from 'react-hot-toast';
-import { belovedLevel, beneficiaryTypes } from '../constant/enum';
+import { belovedLevel, beneficiaryTypes, countries } from '../constant/enum';
 import { deleteImage, replaceOrAddImage } from '../utils/helpers';
 import { addUserImg } from '../constant/element';
 import Link from 'next/link';
@@ -11,11 +11,19 @@ import { Tooltip } from 'react-tooltip';
 import { useApi } from '../context/api';
 
 const getElements = () => {
+  // Note: if you make changes into beloved_modal elements, do apply same changes into the beloved.js page.
+  // Note: align also with clearForms() function
   const inputElements = {
     beloved_modal: {
       name: document.getElementById('input-beloved-name'),
       // nric_no: document.getElementById('input-beloved-nric-no'),
-      // phone_no: document.getElementById('input-beloved-phone-no'),
+      phone_no: document.getElementById('input-beloved-phone-no'),
+      address_1: document.getElementById('input-beloved-address-1'),
+      address_2: document.getElementById('input-beloved-address-2'),
+      city: document.getElementById('input-beloved-city'),
+      postcode: document.getElementById('input-beloved-postcode'),
+      state: document.getElementById('input-beloved-state'),
+      country: document.getElementById('select-beloved-country'),
       email: document.getElementById('input-beloved-email'),
       // relationship: document.getElementById('select-beloved-relationship'),
       type: document.getElementById('select-beloved-type'),
@@ -52,6 +60,9 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
       whom which all information in this
       Sampul will be passed on`,
       display_level: '',
+      display_phone_number: 'none',
+      phone_number_required: false,
+      display_address: 'none',
       level_required: true,
       beloved_list: belovedLevel().filter(
         (option) => option.value !== 'others'
@@ -69,6 +80,9 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
       title: 'Appoint your Beneficiary',
       subtitle: 'The future owner of your assets',
       display_level: 'none',
+      display_phone_number: '',
+      phone_number_required: true,
+      display_address: '',
       level_required: false,
       beloved_list: belovedLevel(),
       verifyEmail: false,
@@ -82,7 +96,10 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
       subtitle:
         'The caretaker of your underage kids ensuring they get the best care after you and you spoused demised',
       display_level: '',
-      level_required: false,
+      display_phone_number: '',
+      phone_number_required: true,
+      display_address: '',
+      level_required: true,
       beloved_list: belovedLevel().filter(
         (option) => option.value !== 'others'
       ),
@@ -113,14 +130,27 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
 
   const clearForms = () => {
     var element = getElements().beloved_modal;
-    element.name.value = '';
-    element.email.value = '';
-    element.image_path.value = '';
-    setSelectedImage({
-      data: null,
-      url: addUserImg,
-    });
-    document.getElementById('input-beloved-image').value = '';
+
+    try {
+      element.name.value = '';
+      element.phone_no.value = '';
+      element.address_1.value = '';
+      element.address_2.value = '';
+      element.city.value = '';
+      element.postcode.value = '';
+      element.state.value = '';
+      element.country.value = '';
+      element.email.value = '';
+
+      element.image_path.value = '';
+      setSelectedImage({
+        data: null,
+        url: addUserImg,
+      });
+      document.getElementById('input-beloved-image').value = '';
+    } catch {
+      console.log('Unable to clear forms');
+    }
   };
 
   const addBeloved = async () => {
@@ -137,6 +167,10 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
         if (key !== 'image_path') {
           addData[key] = getElements().beloved_modal[key].value;
         }
+      }
+
+      if (addData?.country == '') {
+        addData.country = null;
       }
 
       const { data: returnBeloved, error: errorBeloved } = await supabase
@@ -286,6 +320,10 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
       if (key !== 'image_path') {
         addData[key] = getElements().beloved_modal[key].value;
       }
+    }
+
+    if (addData?.country == '') {
+      addData.country = null;
     }
 
     const { data: returnData, error } = await supabase
@@ -469,8 +507,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                   required
                 />
               </div>
-              {/* <div class="form-content-2 mb-3">
-                <div class="form-field-wrapper">
+              {/* <div class="form-field-wrapper">
                   <label
                     htmlFor={`input-beloved-nric-no`}
                     class="uui-field-label"
@@ -484,21 +521,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                     required
                   />
                 </div>
-                <div class="form-field-wrapper">
-                  <label
-                    htmlFor={`input-beloved-phone-no`}
-                    class="uui-field-label"
-                  >
-                    Phone number
-                  </label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id={`input-beloved-phone-no`}
-                    required
-                  />
-                </div>
-              </div> */}
+                 */}
               <div class="form-field-wrapper mb-3">
                 <label htmlFor={`input-beloved-email`} class="uui-field-label">
                   Email
@@ -508,6 +531,92 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                   class="form-control"
                   id={`input-beloved-email`}
                 />
+              </div>
+              <div
+                class="form-field-wrapper mb-3"
+                style={{
+                  display: belovedConfig[belovedType].display_phone_number,
+                }}
+              >
+                <label
+                  htmlFor={`input-beloved-phone-no`}
+                  class="uui-field-label"
+                >
+                  Phone number
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id={`input-beloved-phone-no`}
+                  required={belovedConfig[belovedType].phone_number_required}
+                />
+              </div>
+              <div
+                class="form-field-wrapper mb-3"
+                style={{
+                  display: belovedConfig[belovedType].display_address,
+                }}
+              >
+                <label
+                  htmlFor="input-beloved-address-1"
+                  class="uui-field-label"
+                >
+                  Address
+                </label>
+                <div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="input-beloved-address-1"
+                    placeholder="Address 1"
+                  />
+                  <input
+                    type="text"
+                    class="form-control mt-2"
+                    id="input-beloved-address-2"
+                    placeholder="Address 2"
+                  />
+                  <div class="form-content-2">
+                    <div class="form-field-wrapper">
+                      <input
+                        type="text"
+                        class="form-control mt-2"
+                        id="input-beloved-city"
+                        placeholder="City"
+                      />
+                    </div>
+                    <div class="form-field-wrapper mr-2">
+                      <input
+                        type="text"
+                        class="form-control mt-2"
+                        id="input-beloved-postcode"
+                        placeholder="Postcode"
+                      />
+                    </div>
+                  </div>
+                  <div class="form-content-2 mb-3">
+                    <div class="form-field-wrapper">
+                      <input
+                        type="text"
+                        class="form-control mt-2"
+                        id="input-beloved-state"
+                        placeholder="State"
+                      />
+                    </div>
+                    <div class="form-field-wrapper">
+                      <select
+                        id="select-beloved-country"
+                        class="form-select mt-2"
+                      >
+                        {countries().map((item) => (
+                          <option key={item.value} value={item.value}>
+                            {item.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div class="mb-3">
                 <div
