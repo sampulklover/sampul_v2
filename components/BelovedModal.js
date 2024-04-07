@@ -64,6 +64,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
       phone_number_required: false,
       display_address: 'none',
       level_required: true,
+      email_required: true,
       beloved_list: belovedLevel().filter(
         (option) => option.value !== 'others'
       ),
@@ -84,6 +85,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
       phone_number_required: true,
       display_address: '',
       level_required: false,
+      email_required: false,
       beloved_list: belovedLevel(),
       verifyEmail: false,
       max_create_more: 1000,
@@ -100,6 +102,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
       phone_number_required: true,
       display_address: '',
       level_required: true,
+      email_required: true,
       beloved_list: belovedLevel().filter(
         (option) => option.value !== 'others'
       ),
@@ -530,6 +533,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                   type="email"
                   class="form-control"
                   id={`input-beloved-email`}
+                  required={belovedConfig[belovedType].email_required}
                 />
               </div>
               <div
