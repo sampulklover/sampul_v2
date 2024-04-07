@@ -13,6 +13,12 @@ import ProfileModal from '../components/ProfileModal';
 import { Tooltip } from 'react-tooltip';
 import { useApi } from '../context/api';
 import * as Sentry from '@sentry/nextjs';
+import {
+  belovedInviteStatus,
+  belovedLevel,
+  beneficiaryTypes,
+} from '../constant/enum';
+import InviteModal from '../components/InviteModal';
 
 const Dashboard = () => {
   const { contextApiData } = useApi();
@@ -21,9 +27,22 @@ const Dashboard = () => {
     data: null,
     isReady: false,
   });
+  const [inviteModalType, setInviteModalType] = useState({
+    key: 'edit',
+    selectedItem: null,
+    category: 'invite',
+  });
 
-  const [qrValue, setQrValue] = useState(null);
   const [belovedCategory, setBelovedCategory] = useState('co_sampul');
+
+  const inviteModal = (item, category) => {
+    $('#invite-modal')?.modal('show');
+    setInviteModalType({
+      key: 'edit',
+      selectedItem: item ? item : null,
+      category: category,
+    });
+  };
 
   const mapDigitalAssets = async () => {
     const singleData = {};
@@ -537,6 +556,30 @@ const Dashboard = () => {
     );
   };
 
+  const invitedNotification = () => {
+    const alerts = [];
+
+    contextApiData.invites.data?.map((item, index) => {
+      if (item?.invite_status == 'pending') {
+        alerts.push(
+          <div key={index} className="alert alert-warning" role="alert">
+            You have a notification from {item?.profiles?.nric_name}.{' '}
+            <span
+              class="pointer-on-hover"
+              onClick={() => {
+                inviteModal(item, 'invite');
+              }}
+            >
+              <b>Click to view</b>
+            </span>
+          </div>
+        );
+      }
+    });
+
+    return alerts;
+  };
+
   return (
     <SideBar>
       <div class="body inner-body">
@@ -547,9 +590,15 @@ const Dashboard = () => {
             belovedType={belovedCategory}
             selectedItem={null}
           />
+          <InviteModal
+            keyType={inviteModalType.key}
+            category={inviteModalType.category}
+            selectedItem={inviteModalType.selectedItem}
+          />
           <DigitalAssetsModal keyType={'add'} selectedItem={null} />
           <Breadcrumb pageName={'Dashboard'} />
           <div class="mt-4">{title()}</div>
+          {invitedNotification()}
           <div class="mt-4">{section1()}</div>
           <div class="mt-4">{section2()}</div>
           <div class="mt-4">{section3()}</div>
