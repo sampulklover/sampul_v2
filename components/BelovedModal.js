@@ -102,7 +102,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
       phone_number_required: true,
       display_address: '',
       level_required: true,
-      email_required: true,
+      email_required: false,
       beloved_list: belovedLevel().filter(
         (option) => option.value !== 'others'
       ),

@@ -41,8 +41,8 @@ const WillDetailsCard = () => {
       : '[ADDRESS]',
     primary_co_sampul: {
       name:
-        belovedDetails.data?.primaryUser?.name ??
-        '[PRIMARY CO-SAMPUL NAME/NICKNAME]',
+        belovedDetails?.data?.primaryUser?.beloved_invites?.[0]?.invited_profile
+          ?.nric_name || '[PRIMARY CO-SAMPUL NAME/NICKNAME]',
       nric_no:
         belovedDetails?.data?.primaryUser?.beloved_invites?.[0]?.invited_profile
           ?.nric_no || '[PRIMARY CO-SAMPUL NRIC NO]',
@@ -51,8 +51,8 @@ const WillDetailsCard = () => {
     },
     secondary_co_sampul: {
       name:
-        belovedDetails.data?.secondaryUser?.name ??
-        '[SECONDARY CO-SAMPUL NAME/NICKNAME]',
+        belovedDetails?.data?.secondaryUser?.beloved_invites?.[0]
+          ?.invited_profile?.nric_name || '[SECONDARY CO-SAMPUL NAME/NICKNAME]',
       nric_no:
         belovedDetails?.data?.secondaryUser?.beloved_invites?.[0]
           ?.invited_profile?.nric_no || '[SECONDARY CO-SAMPUL NRIC NO]',
