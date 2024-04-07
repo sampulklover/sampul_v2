@@ -201,7 +201,7 @@ const WillDetailsCard = () => {
             myInfo.primary_guardian.isExist == false &&
             myInfo.secondary_guardian.isExist == false
               ? 'N/A'
-              : `Jika pasangan saya meninggal dunia sebelum saya atau tidak berkemampuan, ${myInfo.primary_guardian.name}, ${myInfo.primary_guardian.email} dilantik untuk anak-anak saya yang masih di bawah umur, dengan ${myInfo.secondary_guardian.name}, ${myInfo.secondary_guardian.email} sebagai pengganti.`,
+              : `Jika pasangan saya meninggal dunia sebelum saya atau tidak berkemampuan, ${myInfo.primary_guardian.name}, beralamatkan email ${myInfo.primary_guardian.email} dilantik untuk anak-anak saya yang masih di bawah umur, dengan ${myInfo.secondary_guardian.name}, beralamatkan email ${myInfo.secondary_guardian.email} sebagai pengganti.`,
         },
         {
           title: '10. Ditandatangani oleh',
