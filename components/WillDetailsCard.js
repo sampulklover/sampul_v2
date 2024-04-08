@@ -167,10 +167,10 @@ const WillDetailsCard = () => {
           description: (
             <div>
               <p>
-                Nazar/Kaffarah/Fidyah: Saya berharap waris tersayang saya akan
-                menyempurnakan Nazar/Kaffarah/Fidyah saya yang berbaki yang
-                tidak sempat saya sempurnakan ketika hidup dan diambil daripada
-                harta pusaka saya seperti berikut:
+                Saya berharap waris tersayang saya akan menyempurnakan
+                Nazar/Kaffarah/Fidyah saya yang berbaki yang tidak sempat saya
+                sempurnakan ketika hidup dan diambil daripada harta pusaka saya
+                seperti berikut:
                 <ul>
                   <li>
                     Nazar/Kaffarah: {myInfo.extra_wishes.nazar.title}
