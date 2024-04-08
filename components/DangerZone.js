@@ -3,6 +3,9 @@ import { useRouter } from 'next/router';
 import Loading from './Laoding';
 import toast from 'react-hot-toast';
 import { useApi } from '../context/api';
+import { bucketName } from '../constant/element';
+import { supabase } from '../utils/supabase';
+import { deleteMyStorage } from '../utils/helpers';
 
 const DangerZone = () => {
   const { contextApiData } = useApi();
@@ -59,6 +62,10 @@ const DangerZone = () => {
           });
           return;
         }
+
+        deleteMyStorage({
+          userId: contextApiData.user.data?.id,
+        });
 
         toast.success('Deleted successfully!');
 
