@@ -157,6 +157,30 @@ export const deleteImage = async (options) => {
   return isSuccess;
 };
 
+export const deleteMyStorage = async (options) => {
+  const { userId } = options;
+
+  const { data, error } = await supabase.storage
+    .from(bucketName)
+    .list(`${userId}/`, {
+      recursive: true,
+    });
+
+  if (error) {
+    toast.error(error.message);
+  }
+
+  for (const file of data) {
+    const { error: deleteError } = await supabase.storage
+      .from(bucketName)
+      .remove([`${userId}/${file?.name}`]);
+
+    if (deleteError) {
+      toast.error(deleteError.message);
+    }
+  }
+};
+
 export const processForm = (elements, clearFields = false) => {
   const addData = {};
 
