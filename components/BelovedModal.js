@@ -36,7 +36,7 @@ const getElements = () => {
 };
 
 const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
-  const { contextApiData, getBeloved } = useApi();
+  const { contextApiData, getBeloved, getDigitalAssets } = useApi();
 
   const [isLoading, setIsLoading] = useState({
     update: false,
@@ -369,7 +369,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
   const deleteBeloved = async () => {
     if (
       confirm(
-        `Are you sure you want to delete this record?, you'll also need to regenerate your will if the user linked to it.`
+        `Confirm deletion? this action will permanently remove user's information and linked digital assets. Please remember to regenerate your wasiat/will afterwards.`
       )
     ) {
       setIsLoading({
@@ -388,7 +388,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
       if (error) {
         if (error.code === '23503') {
           toast.error(
-            `The user cannot be removed as they are associated with your digital assets / inform death record. Please assign the record to someone else and try to delete again.`,
+            `The user cannot be removed as they are associated with your inform death record. Please assign the record to someone else and try to delete again.`,
             {
               duration: 6000,
             }
@@ -412,6 +412,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
       $('#beloved-modal')?.modal('hide');
       toast.success('Successfully deleted!');
       getBeloved();
+      getDigitalAssets();
 
       setIsLoading({
         ...isLoading,
