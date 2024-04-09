@@ -8,12 +8,7 @@ export default async function handler(req, res) {
     });
   }
 
-  //   const payload = req.body;
-  //   console.log(payload);
-  //   res.status(200);
-
   try {
-    //   const { uuid } = req.body;
     const payload = req.body;
 
     const supabase = getServiceSupabase();
@@ -21,7 +16,7 @@ export default async function handler(req, res) {
     const { data, error } = await supabase
       .from('beloved_invites')
       .update({
-        email_status: 'TEST',
+        email_status: payload.type,
       })
       .eq('email_resend_id', '46d54d9b-a4db-4df2-b2db-a801dd0196dc');
 
