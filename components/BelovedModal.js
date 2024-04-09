@@ -301,6 +301,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
         .from('beloved_invites')
         .update({
           invite_status: 'pending',
+          email_resend_id: data?.id ? data.id : null,
         })
         .eq('invite_uuid', passData.invite_uuid);
 

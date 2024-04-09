@@ -8,28 +8,30 @@ export default async function handler(req, res) {
     });
   }
 
-  const payload = req.body;
-  console.log(payload);
-  res.status(200);
+  //   const payload = req.body;
+  //   console.log(payload);
+  //   res.status(200);
 
-  //   try {
-  //     const { uuid } = req.body;
-  //     const supabase = getServiceSupabase();
+  try {
+    //   const { uuid } = req.body;
+    const payload = req.body;
 
-  //     const { data, error } = await supabase
-  //       .from('beloved')
-  //       .select(
-  //         '*, beloved_invites (*, invited_profile:profiles!public_beloved_invites_invited_uuid_fkey(*))'
-  //       )
-  //       .eq('uuid', uuid);
+    const supabase = getServiceSupabase();
 
-  //     if (error) {
-  //       return res.status(400).json(error);
-  //     }
+    const { data, error } = await supabase
+      .from('beloved_invites')
+      .update({
+        email_status: payload,
+      })
+      .eq('email_resend_id', '46d54d9b-a4db-4df2-b2db-a801dd0196dc');
 
-  //     res.status(200).json({ data: data });
-  //   } catch (err) {
-  //     console.error(err);
-  //     res.status(500).json({ error: 'Internal Server Error' });
-  //   }
+    if (error) {
+      return res.status(400).json(error);
+    }
+
+    res.status(200).json({ data: data });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 }
