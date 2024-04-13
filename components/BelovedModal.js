@@ -53,6 +53,139 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
     url: addUserImg,
   });
 
+  const resendEmail = async () => {
+    const returnBeloved = selectedItem;
+    const returnInvite = selectedItem.beloved_invites[0];
+
+    if (belovedConfig[belovedType].verifyEmail) {
+      if (returnBeloved?.email) {
+        await sendInviteBeloveEmail({
+          to_email: returnBeloved.email,
+          to_name: returnBeloved.name,
+          to_type: beneficiaryTypes().find(
+            (obj) => obj.value === returnBeloved.type
+          ).name,
+          to_level: belovedLevel().find(
+            (obj) => obj.value === returnBeloved.level
+          ).name,
+          from_name: contextApiData.profile.data?.nric_name,
+          invite_uuid: returnInvite.invite_uuid,
+          beloved_id: returnBeloved.id,
+        });
+
+        $('#beloved-modal')?.modal('hide');
+        setTimeout(() => {
+          clearForms();
+          getBeloved();
+        }, 3000);
+      }
+    }
+  };
+
+  const checkEmailStatus = () => {
+    const resendEmailEventTypes = {
+      'email.sent': {
+        title: 'Email successfully sent',
+        description:
+          'The API request was successful and Resend will attempt to deliver the message to the recipient’s mail server.',
+
+        view: (
+          <span style={{ color: 'red' }}>
+            Email not delivered.{' '}
+            <span
+              class="text-primary pointer-on-hover"
+              onClick={() => {
+                var element = getElements().beloved_modal;
+
+                if (
+                  element.email.value ===
+                  selectedItem?.beloved_invites[0]?.email
+                ) {
+                  resendEmail();
+                } else {
+                  toast.error(
+                    `To update the current record, please click the 'update' button.`
+                  );
+                }
+              }}
+            >
+              Click to resend
+            </span>
+          </span>
+        ),
+      },
+      'email.delivered': {
+        title: 'Email successfully delivered',
+        description:
+          'Resend successfully delivered the email to the recipient’s mail server.',
+
+        view: (
+          <span style={{ color: 'green' }}>Email successfully delivered</span>
+        ),
+      },
+      // 'email.delivered_delayed': {
+      //   title: 'Delayed',
+      //   description:
+      //     'The email couldn’t be delivered to the recipient’s mail server because a temporary issue occurred. Delivery delays can occur, for example, when the recipient’s inbox is full, or when the receiving email server experiences a transient issue.',
+      // },
+      // 'email.complained': {
+      //   title: 'Marked as spam',
+      //   description:
+      //     'The email was successfully delivered to the recipient’s mail server, but the recipient marked it as spam.',
+      // },
+      'email.bounced': {
+        title: 'Failed to send email',
+        description:
+          'The recipient’s mail server permanently rejected the email.',
+        view: (
+          <span style={{ color: 'red' }}>
+            Failed to send email.{' '}
+            <span
+              class="text-primary pointer-on-hover"
+              onClick={() => {
+                var element = getElements().beloved_modal;
+
+                if (
+                  element.email.value ===
+                  selectedItem?.beloved_invites[0]?.email
+                ) {
+                  resendEmail();
+                } else {
+                  toast.error(
+                    `To update the current record, please click the 'update' button.`
+                  );
+                }
+              }}
+            >
+              Click to resend
+            </span>
+          </span>
+        ),
+      },
+      // 'email.opened': {
+      //   title: 'Email Opened',
+      //   description: 'The recipient’s opened the email.',
+      // },
+      // 'email.clicked': {
+      //   title: 'Email Clicked',
+      //   description: 'The recipient’s clicked on an email link.',
+      // },
+    };
+
+    var email_status_invites = '';
+    if (selectedItem?.beloved_invites?.length !== 0) {
+      if (selectedItem?.beloved_invites[0]?.email_status) {
+        email_status_invites =
+          resendEmailEventTypes[selectedItem.beloved_invites[0]?.email_status]
+            ?.view || '';
+      } else {
+        email_status_invites = '';
+      }
+    }
+
+    return email_status_invites;
+  };
+
   const belovedConfig = {
     co_sampul: {
       title: 'Appoint your Co-Sampul',
@@ -73,6 +206,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
       current_user: contextApiData.beloved.data?.filter(
         (option) => option.type == 'co_sampul'
       ),
+      email_status: checkEmailStatus(),
       level_info_tooltip_content: `<div>
       <p>When you create a will and appoint an Primary Co-Sampul, you should also appoint an alternate Co-Sampul ( Secondary Co-Sampul).</p>
       <p>Secondary Co-Sampul will take over the Primary Co-Sampul duties if your Primary Co-Sampul dies, is unable to act as Co-Sampul , or decides he or she does not wish to be the Co-Sampul. The appointed Primary Co-Sampul does not have to consult the Secondary Co-Sampul. Secondary Co-Sampul is only named in the will to fill in for the appointed Primary Co-Sampul if required.</p></div>`,
@@ -262,8 +396,10 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
         }
       }
 
-      clearForms();
-      getBeloved();
+      setTimeout(() => {
+        clearForms();
+        getBeloved();
+      }, 3000);
     } else {
       toast.error(
         'Please update your profile to start adding your loved ones, which can be done in the settings page.'
@@ -302,6 +438,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
         .update({
           invite_status: 'pending',
           email_resend_id: data?.id ? data.id : null,
+          invited_uuid: null,
         })
         .eq('invite_uuid', passData.invite_uuid);
 
@@ -357,9 +494,45 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
       isUpdateByReturnId: true,
     });
 
+    if (belovedConfig[belovedType].verifyEmail) {
+      var element = getElements().beloved_modal;
+
+      if (element.email.value !== selectedItem?.beloved_invites[0]?.email) {
+        const { data: returnInvite, error: errorInvite } = await supabase
+          .from('beloved_invites')
+          .update({
+            email: returnData.email,
+          })
+          .eq('id', selectedItem?.beloved_invites[0]?.id)
+          .select()
+          .single();
+
+        var returnBeloved = returnData;
+
+        if (returnBeloved?.email) {
+          await sendInviteBeloveEmail({
+            to_email: returnBeloved.email,
+            to_name: returnBeloved.name,
+            to_type: beneficiaryTypes().find(
+              (obj) => obj.value === returnBeloved.type
+            ).name,
+            to_level: belovedLevel().find(
+              (obj) => obj.value === returnBeloved.level
+            ).name,
+            from_name: contextApiData.profile.data?.nric_name,
+            invite_uuid: returnInvite.invite_uuid,
+            beloved_id: returnBeloved.id,
+          });
+        }
+      }
+    }
+
     $('#beloved-modal')?.modal('hide');
     toast.success('Successfully updated!');
-    getBeloved();
+
+    setTimeout(() => {
+      getBeloved();
+    }, 3000);
 
     setSelectedImage({
       data: null,
@@ -412,6 +585,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
 
       $('#beloved-modal')?.modal('hide');
       toast.success('Successfully deleted!');
+
       getBeloved();
       getDigitalAssets();
 
@@ -537,6 +711,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                   id={`input-beloved-email`}
                   required={belovedConfig[belovedType].email_required}
                 />
+                <small>{belovedConfig[belovedType].email_status}</small>
               </div>
               <div
                 class="form-field-wrapper mb-3"

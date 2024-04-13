@@ -165,6 +165,7 @@ const Beloved = () => {
                         );
 
                         var status_invites = null;
+
                         if (item.beloved_invites.length > 0) {
                           status_invites = belovedInviteStatus().find(
                             (x) =>
