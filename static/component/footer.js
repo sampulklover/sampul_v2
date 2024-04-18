@@ -24,7 +24,7 @@ function footer() {
   return `
   <div
   data-w-id="5bf44bd6-19a3-d974-dcf1-e2e7da6c3d3c"
-  class="section no-bottom-padding clip"
+  class="section no-bottom-padding clip bg-white"
 >
   <div class="wrapper-corner">
     <footer class="uui-footer02_component">
