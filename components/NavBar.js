@@ -16,7 +16,7 @@ const NavBar = () => {
     //   </Link>
     //   {!!user && <Link href="/dashboard">Dashboard</Link>}
     // </nav>
-    <nav class="navbar sticky-top navbar-expand-sm border-bottom bg-white navbar-padding">
+    <nav class="navbar sticky-top navbar-expand-sm border-bottom bg-white navbar-padding py-3">
       <div class="container-fluid">
         <a class="navbar-brand" href="/">
           <Image
