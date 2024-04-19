@@ -11,7 +11,11 @@ export const getUserApi = async () => {
 
     return data;
   } catch (error) {
-    toast.error(error.message);
+    if (error.status == 403) {
+      toast.error('Please sign in again to continue');
+    } else {
+      toast.error(error.message);
+    }
   }
 };
 
