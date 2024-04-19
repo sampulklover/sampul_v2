@@ -13,10 +13,14 @@ const SignUp = () => {
 
   const onSubmitNormalSignup = async (event) => {
     event.preventDefault();
+
     setIsLoading({
       ...isLoading,
       normal_signup: true,
     });
+
+    const signUpBtn = document.getElementById('btn-normal-sign-up');
+    signUpBtn.disabled = true;
 
     try {
       await normalSignup({
@@ -26,12 +30,15 @@ const SignUp = () => {
       });
     } catch (error) {
       Sentry.captureException(error);
+    } finally {
+      setTimeout(() => {
+        signUpBtn.disabled = false;
+        setIsLoading({
+          ...isLoading,
+          normal_signup: false,
+        });
+      }, 5000);
     }
-
-    setIsLoading({
-      ...isLoading,
-      normal_signup: false,
-    });
   };
 
   const onClickGoogleLogin = async (event) => {
@@ -118,7 +125,11 @@ const SignUp = () => {
                 </div>
               </div>
               <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary btn-text">
+                <button
+                  type="submit"
+                  class="btn btn-primary btn-text"
+                  id="btn-normal-sign-up"
+                >
                   <Loading title="Sign up" loading={isLoading.normal_signup} />
                 </button>
               </div>
