@@ -198,6 +198,7 @@ const WillActionButtons = ({ viewOnly = false }) => {
         generate: false,
       });
       getWill();
+      fetchWillData();
       setShowAnimation(true);
     } else {
       const { data, error } = await supabase
@@ -227,6 +228,7 @@ const WillActionButtons = ({ viewOnly = false }) => {
         generate: false,
       });
       getWill();
+      fetchWillData();
       setShowAnimation(true);
     }
   };
