@@ -311,6 +311,12 @@
   }
 }
 
+.no-line {
+  text-decoration: none;
+  color: grey
+}
+
+
 /* webflow */
 
 .uui-contact05_image {
