@@ -19,6 +19,7 @@ import {
   beneficiaryTypes,
 } from '../constant/enum';
 import InviteModal from '../components/InviteModal';
+import IntroModal from '../components/IntroModal';
 
 const Dashboard = () => {
   const { contextApiData } = useApi();
@@ -98,9 +99,25 @@ const Dashboard = () => {
     });
   };
 
+  const checkCompleteProfile = () => {
+    var is_completed = false;
+    if (contextApiData.profile.data?.nric_name) {
+      is_completed = true;
+    } else {
+      is_completed = false;
+    }
+    return is_completed;
+  };
+
   useEffect(() => {
     if (contextApiData.profile.isLoading == false) {
       mapDigitalAssets();
+
+      if (checkCompleteProfile() == false) {
+        setTimeout(() => {
+          $('#intro-modal')?.modal('show');
+        }, 2000);
+      }
     }
   }, [contextApiData.digitalAssets.isLoading]);
 
@@ -584,6 +601,7 @@ const Dashboard = () => {
     <SideBar>
       <div class="body inner-body">
         <div class="content">
+          <IntroModal />
           <ProfileModal category={'profile'} />
           <BelovedModal
             keyType={'add'}

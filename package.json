@@ -29,6 +29,7 @@
     "react-qr-code": "^2.0.12",
     "react-select": "^5.8.0",
     "react-tooltip": "^5.26.3",
+    "react-youtube": "^10.1.0",
     "resend": "^3.2.0",
     "stripe": "^14.16.0",
     "uuid": "^9.0.1"
