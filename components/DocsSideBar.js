@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 
 const DocsSideBar = ({ children, selectedMenu, setSelectedMenu }) => {
-  const router = useRouter();
+  // const router = useRouter();
 
   const pageList = [
     {
