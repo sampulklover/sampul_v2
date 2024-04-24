@@ -2000,6 +2000,18 @@ blockquote {
   background-image: url('../../images/Space006.jpeg');
 }
 
+/* added */
+.hero-background-image.wave-background {
+  background-image: url('../../images/sampul-wave-bg.png');
+}
+
+.cloth-background {
+  background-image: url('../../images/sampul-cloth-bg.png');
+  background-position: center; 
+  background-size: cover; 
+}
+/* end */
+
 .hero-background-image._404-background {
   background-image: url('../../images/Cloth_01.png');
   background-position: 50%;

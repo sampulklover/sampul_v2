@@ -430,6 +430,12 @@ export const bodiesCategory = () => {
     { name: 'Entertainment', value: 'entertainment' },
     { name: 'NFT', value: 'nft' },
     { name: 'Waqaf', value: 'waqaf' },
+    { name: 'Finance', value: 'finance' },
+    { name: 'Productivities', value: 'productivities' },
+    { name: 'Tools & Business', value: 'tools_and_business' },
+    { name: 'Restaurants & delivery', value: 'restaurants_and_delivery' },
+    { name: 'Shopping', value: 'shopping' },
+    { name: 'Travel', value: 'travel' },
   ];
 
   return options;

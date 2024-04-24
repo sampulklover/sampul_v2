@@ -1,80 +1,13 @@
 import { useEffect, useState } from 'react';
 import DocsSideBar from '../components/DocsSideBar';
+import { docsContent } from '../constant/docs-content';
 
 const Docs = () => {
-  const [selectedMenu, setSelectedMenu] = useState('home');
+  const [selectedMenu, setSelectedMenu] = useState('About Us');
+  const [selectedSubMenu, setSelectedSubMenu] = useState('About Us');
 
-  const docConfig = [
-    {
-      menu: 'home',
-      title: 'What is Sampul',
-      links: [
-        {
-          title: 'What is Sampul',
-          href: '#what-is-Sampul',
-        },
-        {
-          title: 'Why use Sampul',
-          href: '#why-use-Sampul',
-        },
-      ],
-      content: [
-        {
-          title: 'Introduction',
-          content: (
-            <>
-              <p>
-                Sampul is Malaysia's first digital wasiat for digital asset app,
-                designed to protect and manage your digital assets, like online
-                accounts and cryptocurrencies, with ease. By creating a digital
-                wasiat or will, Sampul ensures your digital legacy is passed on
-                according to your wishes, safeguarding your digital treasures
-                for future generations. It's a smart choice for Malaysians
-                looking to secure their digital footprint and preserve their
-                online presence, ensuring no asset is left behind
-              </p>
-            </>
-          ),
-        },
-        {
-          title: 'Why use Sampul',
-          content: (
-            <>
-              <p>
-                Sampul is key for Malaysians to safeguard digital wealth, aiming
-                to secure digital assets like cryptocurrencies and e-wallets for
-                future generations. It addresses the challenge of RM 100 billion
-                in unclaimed assets and frozen monies, extending concern into
-                the digital realm. Sampul's digital wasiat/will creation ensures
-                your digital assets are managed as you desire, brings clarity to
-                your beneficiarys, simplifies digital asset transfer, and
-                preserves your online legacy, offering peace of mind in the
-                digital age.
-              </p>
-              <ul>
-                <li>Ensuring your digital assets are managed as you wish.</li>
-                <li>
-                  Providing clarity to your loved ones about your online
-                  accounts.
-                </li>
-                <li>
-                  Simplifying the process of accessing and transferring digital
-                  assets.
-                </li>
-                <li>
-                  Preserving your online presence and memories for future
-                  generations.
-                </li>
-              </ul>
-            </>
-          ),
-        },
-      ],
-    },
-  ];
-
-  const selectedSection = docConfig.find(
-    (section) => section.menu === selectedMenu
+  const selectedSection = docsContent.find(
+    (section) => section.mainTitle === selectedMenu
   );
 
   return (
@@ -82,14 +15,19 @@ const Docs = () => {
       <DocsSideBar
         selectedMenu={selectedMenu}
         setSelectedMenu={setSelectedMenu}
+        selectedSubMenu={selectedSubMenu}
+        setSelectedSubMenu={setSelectedSubMenu}
       >
         <div class="row mt-3">
           <div class="col-lg">
+            <h2 class="mb-2 uui-heading-medium">
+              {selectedSection?.mainTitle}
+            </h2>
             {selectedSection &&
               selectedSection.content.map((item, index) => (
                 <div key={index}>
-                  <h1 id={item.title.toLowerCase()}>{item.title}</h1>
-                  <div>{item.content}</div>
+                  <h3 id={item.id}>{item.title}</h3>
+                  <div class="uui-text-size-large">{item.content}</div>
                 </div>
               ))}
           </div>
@@ -100,9 +38,9 @@ const Docs = () => {
             <nav class="table-content-text">
               <ul>
                 {selectedSection &&
-                  selectedSection.links.map((item, index) => (
+                  selectedSection.content.map((item, index) => (
                     <li key={index}>
-                      <a href={item.href} class="no-line">
+                      <a href={`#${item.id}`} class="no-line">
                         {item.title}
                       </a>
                     </li>

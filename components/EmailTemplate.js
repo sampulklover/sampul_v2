@@ -116,7 +116,10 @@ export const inviteBelove = ({
           Thanks for signing up. We hope you're excited to join the mission of
           safekeeping asset for the loved ones. If you have any questions, send
           us a message at{' '}
-          <span style={contentStyle.primaryText}>hi@sampul.com</span> or on{' '}
+          <span style={contentStyle.primaryText}>
+            {process.env.NEXT_PUBLIC_CONTACT_EMAIL}
+          </span>{' '}
+          or on{' '}
           <a
             style={contentStyle.primaryText}
             href={process.env.NEXT_PUBLIC_TWITTER_URL}
