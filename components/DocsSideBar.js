@@ -224,7 +224,7 @@ const DocsSideBar = ({
 
   return (
     <>
-      <div
+      {/* <div
         class="offcanvas offcanvas-start w-25"
         tabindex="-1"
         id="offcanvas"
@@ -342,7 +342,7 @@ const DocsSideBar = ({
             Content..
           </div>
         </div>
-      </div>
+      </div> */}
       <div class="container-fluid">
         <div class="row flex-nowrap">
           <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 align-self-start align-self-stretch nav-bg-custom">
@@ -353,7 +353,7 @@ const DocsSideBar = ({
               >
                 {pageList.map((item, index) => {
                   return (
-                    <>
+                    <div key={index}>
                       <li class="w-100 mb-2">
                         <div
                           class={`pointer-on-hover w-100 rounded ${
@@ -377,9 +377,9 @@ const DocsSideBar = ({
                           </div>
                         </div>
                       </li>
-                      {item.content.map((item2) => {
+                      {item.content.map((item2, index) => {
                         return (
-                          <li class="w-100 mb-2">
+                          <li class="w-100 mb-2" key={index}>
                             <div
                               class={`pointer-on-hover w-100 rounded ${
                                 selectedSubMenu == item2.title
@@ -417,7 +417,7 @@ const DocsSideBar = ({
                           </li>
                         );
                       })}
-                    </>
+                    </div>
                   );
                 })}
               </ul>
