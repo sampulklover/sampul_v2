@@ -59,6 +59,13 @@
   cursor: pointer;
 }
 
+.stick-to-top {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 100px;
+  align-self: flex-start; 
+}
+
 .btn-light {
   border: 1px solid #dee2e6; /* Adjust the color as needed */
 }

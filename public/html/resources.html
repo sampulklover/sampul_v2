@@ -129,6 +129,31 @@
         background: #090b19;
       }
     </style>
+    <!-- custom -->
+    <style>
+      #floatingList {
+        position: absolute;
+        z-index: 1000;
+        display: none;
+      }
+
+      #floatingList.show {
+        display: block;
+      }
+
+      .truncate-text {
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* Number of lines to show */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 0;
+      }
+
+      .list-group-item:hover {
+        cursor: pointer;
+      }
+    </style>
   </head>
   <body class="body">
     <div class="preloader">
@@ -179,7 +204,7 @@
         </div>
       </div>
     </nav>
-    <div class="page-wrapper">
+    <!-- <div class="page-wrapper">
       <div class="stripe-wrapper">
         <div class="wrapper no-padding">
           <div class="stripe-container">
@@ -550,9 +575,8 @@
           </div>
         </div>
       </div>
-    </div>
-    <!-- coming soon -->
-    <div class="page-wrapper" style="display: none">
+    </div> -->
+    <div class="page-wrapper">
       <div class="stripe-wrapper">
         <div class="wrapper no-padding">
           <div class="stripe-container">
@@ -569,19 +593,111 @@
           <div>
             <h2 class="uui-heading-medium">Hello, how can we help?</h2>
             <div class="uui-space-xsmall"></div>
-            <div class="d-flex justify-content-center mt-4">
-              <input
-                class="form-control"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-                style="width: 40%"
-              />
+            <div class="container mt-4">
+              <div class="row justify-content-center">
+                <div class="col-md-6">
+                  <input
+                    class="form-control"
+                    id="searchInput"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+                  />
+                  <div class="container-fluid" id="floatingList">
+                    <ul
+                      class="list-group"
+                      id="itemList"
+                      style="
+                        text-align: left;
+                        max-height: 180px;
+                        overflow: scroll;
+                      "
+                    ></ul>
+                    <div id="searchMessage" class="text-muted mt-2">
+                      No results found. Try adding a keyword or visit our
+                      <a href="docs">documentation</a>
+                    </div>
+                  </div>
+                </div>
+                <script src="../../static/contant/docs-content-summary.js"></script>
+                <script>
+                  const searchInput = document.getElementById('searchInput');
+                  const floatingList = document.getElementById('floatingList');
+                  const itemList = document.getElementById('itemList');
+                  const searchMessage =
+                    document.getElementById('searchMessage');
+
+                  function generateListItems(data) {
+                    itemList.innerHTML = '';
+                    searchMessage.style.display = 'none';
+                    data.forEach((mainItem) => {
+                      mainItem.content.forEach((subItem) => {
+                        const li = document.createElement('li');
+                        li.className = 'list-group-item';
+                        li.addEventListener('click', function () {
+                          window.location.href = `docs?key=${mainItem.key}&subKey=${subItem.subKey}`;
+                        });
+
+                        const title = document.createElement('h5');
+                        title.textContent = subItem.title;
+                        li.appendChild(title);
+
+                        const description = document.createElement('p');
+                        description.className =
+                          'truncate-text uui-text-size-large';
+                        description.textContent = subItem.description;
+                        li.appendChild(description);
+
+                        itemList.appendChild(li);
+                      });
+                    });
+
+                    if (data.length === 0) {
+                      searchMessage.style.display = 'block';
+                    }
+                  }
+
+                  const data = docsContent;
+                  generateListItems(data);
+
+                  searchInput.addEventListener('input', function (e) {
+                    const searchValue = e.target.value.trim().toLowerCase();
+
+                    const filteredData = data.reduce((acc, mainItem) => {
+                      const filteredContent = mainItem.content.filter(
+                        (subItem) =>
+                          subItem.title.toLowerCase().includes(searchValue) ||
+                          subItem.description
+                            .toLowerCase()
+                            .includes(searchValue)
+                      );
+
+                      if (filteredContent.length > 0) {
+                        acc.push({ ...mainItem, content: filteredContent });
+                      }
+
+                      return acc;
+                    }, []);
+
+                    generateListItems(filteredData);
+
+                    if (searchValue.length > 0) {
+                      floatingList.classList.add('show');
+                      floatingList.style.width = `${searchInput.offsetWidth}px`;
+                    } else {
+                      floatingList.classList.remove('show');
+                    }
+                  });
+                </script>
+              </div>
             </div>
           </div>
         </div>
         <div class="background-cover">
-          <div class="hero-background-image wave-background"></div>
+          <div
+            class="hero-background-image wave-background"
+            style="background-repeat: no-repeat; background-size: cover"
+          ></div>
           <div class="stripe-wrapper">
             <div class="wrapper no-padding">
               <div class="stripe-container">
@@ -616,7 +732,11 @@
               <div class="row mt-3">
                 <div class="col-lg ms-5 mt-3">
                   <div class="row">
-                    <div class="col-md-6">
+                    <a
+                      class="col-md-6 pointer-on-hover"
+                      style="text-decoration: none"
+                      href="docs?key=how-to"
+                    >
                       <div class="card-hover-item">
                         <div class="card-circle"></div>
                         <div class="minimal-card">
@@ -639,8 +759,12 @@
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="col-md-6">
+                    </a>
+                    <a
+                      class="col-md-6 pointer-on-hover"
+                      style="text-decoration: none"
+                      href="docs?key=about-islamic-inheritance"
+                    >
                       <div class="card-hover-item">
                         <div class="card-circle"></div>
                         <div class="minimal-card">
@@ -662,10 +786,14 @@
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </a>
                   </div>
                   <div class="row">
-                    <div class="col-md-6">
+                    <a
+                      class="col-md-6 pointer-on-hover"
+                      style="text-decoration: none"
+                      href="docs?key=about-us"
+                    >
                       <div class="card-hover-item">
                         <div class="card-circle"></div>
                         <div class="minimal-card">
@@ -687,8 +815,12 @@
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="col-md-6">
+                    </a>
+                    <a
+                      class="col-md-6 pointer-on-hover"
+                      style="text-decoration: none"
+                      href="docs?key=shariah-and-legal"
+                    >
                       <div class="card-hover-item">
                         <div class="card-circle"></div>
                         <div class="minimal-card">
@@ -710,12 +842,12 @@
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </a>
                   </div>
                 </div>
                 <div class="col-lg">
                   <img
-                    src="../../static/images/sampul-half-dashboard.png"
+                    src="../../static/images/sampul-half-digital.png"
                     loading="lazy"
                     alt="sampul image"
                     class="uui-contact05_image"

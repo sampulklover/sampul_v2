@@ -1,38 +1,37 @@
+// IMPORTANT: IF YOU MAKE ANY CHANGES, PLEASE UPDATE docs-content-summary.js TO MATCH WITH CURRENT CONTENT
 export const docsContent = [
   {
     mainTitle: 'About Us',
+    key: 'about-us',
     icon: (
       <svg
-        width="24"
-        height="24"
+        width="18"
+        height="18"
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <g id="play-circle">
-          <g id="Icon">
-            <path
-              d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-              stroke="#533de9"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M9.5 8.96533C9.5 8.48805 9.5 8.24941 9.59974 8.11618C9.68666 8.00007 9.81971 7.92744 9.96438 7.9171C10.1304 7.90525 10.3311 8.03429 10.7326 8.29239L15.4532 11.3271C15.8016 11.551 15.9758 11.663 16.0359 11.8054C16.0885 11.9298 16.0885 12.0702 16.0359 12.1946C15.9758 12.337 15.8016 12.449 15.4532 12.6729L10.7326 15.7076C10.3311 15.9657 10.1304 16.0948 9.96438 16.0829C9.81971 16.0726 9.68666 15.9999 9.59974 15.8838C9.5 15.7506 9.5 15.512 9.5 15.0347V8.96533Z"
-              stroke="#667085"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </g>
-        </g>
+        <path
+          d="M3 10.5658C3 9.99143 3 9.70425 3.07403 9.43978C3.1396 9.20552 3.24737 8.98518 3.39203 8.78959C3.55534 8.56879 3.78202 8.39248 4.23539 8.03986L11.0177 2.76473C11.369 2.49148 11.5447 2.35485 11.7387 2.30233C11.9098 2.25599 12.0902 2.25599 12.2613 2.30233C12.4553 2.35485 12.631 2.49148 12.9823 2.76473L19.7646 8.03986C20.218 8.39248 20.4447 8.56879 20.608 8.78959C20.7526 8.98518 20.8604 9.20552 20.926 9.43978C21 9.70425 21 9.99143 21 10.5658V17.8007C21 18.9208 21 19.4809 20.782 19.9087C20.5903 20.285 20.2843 20.591 19.908 20.7827C19.4802 21.0007 18.9201 21.0007 17.8 21.0007H6.2C5.07989 21.0007 4.51984 21.0007 4.09202 20.7827C3.71569 20.591 3.40973 20.285 3.21799 19.9087C3 19.4809 3 18.9208 3 17.8007V10.5658Z"
+          stroke="#667085"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
       </svg>
     ),
     content: [
       {
         title: 'What is Sampul',
-        id: 'what-is-Sampul',
+        subKey: 'what-is-sampul',
+        summary: `Sampul is Malaysia's first digital wasiat for digital asset app,
+        designed to protect and manage your digital assets, like online
+        accounts and cryptocurrencies, with ease. By creating a digital
+        wasiat or will, Sampul ensures your digital legacy is passed on
+        according to your wishes, safeguarding your digital treasures for
+        future generations. It's a smart choice for Malaysians looking to
+        secure their digital footprint and preserve their online presence,
+        ensuring no asset is left behind.`,
         content: (
           <>
             <p>
@@ -58,7 +57,7 @@ export const docsContent = [
       },
       {
         title: 'Why use Sampul',
-        id: 'why-use-Sampul',
+        subKey: 'why-use-sampul',
         content: (
           <>
             <p>
@@ -94,7 +93,7 @@ export const docsContent = [
       },
       {
         title: 'How experienced is Sampul’s team',
-        id: 'how-experienced-is-Sampuls-team',
+        subKey: 'how-experienced-is-sampuls-team',
         content: (
           <>
             <p>
@@ -133,10 +132,11 @@ export const docsContent = [
   },
   {
     mainTitle: 'Getting Started',
+    key: 'getting-started',
     icon: (
       <svg
-        width="24"
-        height="24"
+        width="18"
+        height="18"
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -145,7 +145,7 @@ export const docsContent = [
           <g id="Icon">
             <path
               d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-              stroke="#533de9"
+              stroke="#667085"
               stroke-width="1.5"
               stroke-linecap="round"
               stroke-linejoin="round"
@@ -164,7 +164,7 @@ export const docsContent = [
     content: [
       {
         title: 'What is Wasiat/Will',
-        id: 'what-is-wasiat-will',
+        subKey: 'what-is-wasiat-will',
         content: (
           <>
             <p>
@@ -226,7 +226,7 @@ export const docsContent = [
       },
       {
         title: 'Co-Sampul',
-        id: 'co-sampul',
+        subKey: 'co-sampul',
         content: (
           <>
             <p>
@@ -244,7 +244,7 @@ export const docsContent = [
       },
       {
         title: 'Beneficiary',
-        id: 'beneficiary',
+        subKey: 'beneficiary',
         content: (
           <>
             <p>
@@ -260,7 +260,7 @@ export const docsContent = [
       },
       {
         title: 'Guardian',
-        id: 'guardian',
+        subKey: 'guardian',
         content: (
           <>
             <p>
@@ -290,38 +290,31 @@ export const docsContent = [
   },
   {
     mainTitle: 'About Islamic Inheritance',
+    key: 'about-islamic-inheritance',
     icon: (
       <svg
-        width="24"
-        height="24"
+        width="18"
+        height="18"
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <g id="play-circle">
-          <g id="Icon">
-            <path
-              d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-              stroke="#533de9"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M9.5 8.96533C9.5 8.48805 9.5 8.24941 9.59974 8.11618C9.68666 8.00007 9.81971 7.92744 9.96438 7.9171C10.1304 7.90525 10.3311 8.03429 10.7326 8.29239L15.4532 11.3271C15.8016 11.551 15.9758 11.663 16.0359 11.8054C16.0885 11.9298 16.0885 12.0702 16.0359 12.1946C15.9758 12.337 15.8016 12.449 15.4532 12.6729L10.7326 15.7076C10.3311 15.9657 10.1304 16.0948 9.96438 16.0829C9.81971 16.0726 9.68666 15.9999 9.59974 15.8838C9.5 15.7506 9.5 15.512 9.5 15.0347V8.96533Z"
-              stroke="#667085"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </g>
+        <g id="zap">
+          <path
+            id="Icon"
+            d="M13.0001 2L4.09356 12.6879C3.74475 13.1064 3.57035 13.3157 3.56768 13.4925C3.56537 13.6461 3.63384 13.7923 3.75336 13.8889C3.89085 14 4.16328 14 4.70814 14H12.0001L11.0001 22L19.9067 11.3121C20.2555 10.8936 20.4299 10.6843 20.4325 10.5075C20.4348 10.3539 20.3664 10.2077 20.2468 10.1111C20.1094 10 19.8369 10 19.2921 10H12.0001L13.0001 2Z"
+            stroke="#667085"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
         </g>
       </svg>
     ),
     content: [
       {
         title: 'Faraid',
-        id: 'faraid',
+        subKey: 'faraid',
         content: (
           <>
             <p>
@@ -340,7 +333,7 @@ export const docsContent = [
       },
       {
         title: 'Hibah',
-        id: 'hibah',
+        subKey: 'hibah',
         content: (
           <>
             <p>
@@ -356,7 +349,7 @@ export const docsContent = [
       },
       {
         title: 'Differences between Faraid vs Wasiat vs Hibah',
-        id: 'differences-between-faraid-vs-wasiat-vs-hibah',
+        subKey: 'differences-between-faraid-vs-wasiat-vs-hibah',
         content: (
           <>
             <div class="table-responsive">
@@ -443,101 +436,91 @@ export const docsContent = [
   },
   {
     mainTitle: 'How To',
+    key: 'how-to',
     icon: (
       <svg
-        width="24"
-        height="24"
+        width="18"
+        height="18"
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <g id="play-circle">
-          <g id="Icon">
-            <path
-              d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-              stroke="#533de9"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M9.5 8.96533C9.5 8.48805 9.5 8.24941 9.59974 8.11618C9.68666 8.00007 9.81971 7.92744 9.96438 7.9171C10.1304 7.90525 10.3311 8.03429 10.7326 8.29239L15.4532 11.3271C15.8016 11.551 15.9758 11.663 16.0359 11.8054C16.0885 11.9298 16.0885 12.0702 16.0359 12.1946C15.9758 12.337 15.8016 12.449 15.4532 12.6729L10.7326 15.7076C10.3311 15.9657 10.1304 16.0948 9.96438 16.0829C9.81971 16.0726 9.68666 15.9999 9.59974 15.8838C9.5 15.7506 9.5 15.512 9.5 15.0347V8.96533Z"
-              stroke="#667085"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </g>
-        </g>
+        <path
+          d="M10 8.00224C10.1762 7.50136 10.524 7.07901 10.9817 6.80998C11.4395 6.54095 11.9777 6.4426 12.501 6.53237C13.0243 6.62213 13.499 6.89421 13.8409 7.30041C14.1829 7.70661 14.37 8.22072 14.3692 8.75168C14.3692 10.2506 12.1209 11 12.1209 11M12.1499 14H12.1599M7 18V20.3355C7 20.8684 7 21.1348 7.10923 21.2716C7.20422 21.3906 7.34827 21.4599 7.50054 21.4597C7.67563 21.4595 7.88367 21.2931 8.29976 20.9602L10.6852 19.0518C11.1725 18.662 11.4162 18.4671 11.6875 18.3285C11.9282 18.2055 12.1844 18.1156 12.4492 18.0613C12.7477 18 13.0597 18 13.6837 18H16.2C17.8802 18 18.7202 18 19.362 17.673C19.9265 17.3854 20.3854 16.9265 20.673 16.362C21 15.7202 21 14.8802 21 13.2V7.8C21 6.11984 21 5.27976 20.673 4.63803C20.3854 4.07354 19.9265 3.6146 19.362 3.32698C18.7202 3 17.8802 3 16.2 3H7.8C6.11984 3 5.27976 3 4.63803 3.32698C4.07354 3.6146 3.6146 4.07354 3.32698 4.63803C3 5.27976 3 6.11984 3 7.8V14C3 14.93 3 15.395 3.10222 15.7765C3.37962 16.8117 4.18827 17.6204 5.22354 17.8978C5.60504 18 6.07003 18 7 18Z"
+          stroke="#667085"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
       </svg>
     ),
     content: [
       {
         title: 'How to Add/Amend Personal Details',
-        id: 'how-to-add-amend-personal-details',
+        subKey: 'how-to-add-amend-personal-details',
         content: (
           <>
-            <p>[Tutorial Video]</p>
+            <p>[Tutorial Video Coming Soon]</p>
           </>
         ),
       },
       {
         title: 'How to Add/Amend Digital Asset',
-        id: 'how-to-add-amend-digital-asset',
+        subKey: 'how-to-add-amend-digital-asset',
         content: (
           <>
-            <p>[Tutorial Video]</p>
+            <p>[Tutorial Video Coming Soon]</p>
           </>
         ),
       },
       {
         title: 'How to Add/Amend Co-Sampul',
-        id: 'how-to-add-amend-co-sampul',
+        subKey: 'how-to-add-amend-co-sampul',
         content: (
           <>
-            <p>[Tutorial Video]</p>
+            <p>[Tutorial Video Coming Soon]</p>
           </>
         ),
       },
       {
         title: 'How to Add/Amend Beneficiary',
-        id: 'how-to-add-amend-beneficiary',
+        subKey: 'how-to-add-amend-beneficiary',
         content: (
           <>
-            <p>[Tutorial Video]</p>
+            <p>[Tutorial Video Coming Soon]</p>
           </>
         ),
       },
       {
         title: 'How to Add/Amend Guardian',
-        id: 'how-to-add-amend-guardian',
+        subKey: 'how-to-add-amend-guardian',
         content: (
           <>
-            <p>[Tutorial Video]</p>
+            <p>[Tutorial Video Coming Soon]</p>
           </>
         ),
       },
       {
         title: 'How to Inform Death',
-        id: 'how-to-inform-death',
+        subKey: 'how-to-inform-death',
         content: (
           <>
-            <p>[Tutorial Video]</p>
+            <p>[Tutorial Video Coming Soon]</p>
           </>
         ),
       },
       {
         title: 'Forget Password',
-        id: 'forget-password',
+        subKey: 'forget-password',
         content: (
           <>
-            <p>[Tutorial Video]</p>
+            <p>[Tutorial Video Coming Soon]</p>
           </>
         ),
       },
       {
         title: 'How to contact Sampul?',
-        id: 'contact-sampul',
+        subKey: 'contact-sampul',
         content: (
           <>
             <div>
@@ -564,38 +547,31 @@ export const docsContent = [
   },
   {
     mainTitle: 'Additional Wishes',
+    key: 'additional-wishes',
     icon: (
       <svg
-        width="24"
-        height="24"
+        width="18"
+        height="18"
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <g id="play-circle">
-          <g id="Icon">
-            <path
-              d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-              stroke="#533de9"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M9.5 8.96533C9.5 8.48805 9.5 8.24941 9.59974 8.11618C9.68666 8.00007 9.81971 7.92744 9.96438 7.9171C10.1304 7.90525 10.3311 8.03429 10.7326 8.29239L15.4532 11.3271C15.8016 11.551 15.9758 11.663 16.0359 11.8054C16.0885 11.9298 16.0885 12.0702 16.0359 12.1946C15.9758 12.337 15.8016 12.449 15.4532 12.6729L10.7326 15.7076C10.3311 15.9657 10.1304 16.0948 9.96438 16.0829C9.81971 16.0726 9.68666 15.9999 9.59974 15.8838C9.5 15.7506 9.5 15.512 9.5 15.0347V8.96533Z"
-              stroke="#667085"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </g>
+        <g id="zap">
+          <path
+            id="Icon"
+            d="M13.0001 2L4.09356 12.6879C3.74475 13.1064 3.57035 13.3157 3.56768 13.4925C3.56537 13.6461 3.63384 13.7923 3.75336 13.8889C3.89085 14 4.16328 14 4.70814 14H12.0001L11.0001 22L19.9067 11.3121C20.2555 10.8936 20.4299 10.6843 20.4325 10.5075C20.4348 10.3539 20.3664 10.2077 20.2468 10.1111C20.1094 10 19.8369 10 19.2921 10H12.0001L13.0001 2Z"
+            stroke="#667085"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
         </g>
       </svg>
     ),
     content: [
       {
         title: 'What is Nazar',
-        id: 'what-is-nazar',
+        subKey: 'what-is-nazar',
         content: (
           <>
             <p>
@@ -625,7 +601,7 @@ export const docsContent = [
       },
       {
         title: 'What is Kaffarah',
-        id: 'what-is-kaffarah',
+        subKey: 'what-is-kaffarah',
         content: (
           <>
             <p>
@@ -674,7 +650,7 @@ export const docsContent = [
       },
       {
         title: 'What is Fidyah',
-        id: 'what-is-fidyah',
+        subKey: 'what-is-fidyah',
         content: (
           <>
             <p>
@@ -699,7 +675,7 @@ export const docsContent = [
       },
       {
         title: 'What is Zakat',
-        id: 'what-is-zakat',
+        subKey: 'what-is-zakat',
         content: (
           <>
             <p>
@@ -728,7 +704,7 @@ export const docsContent = [
       },
       {
         title: 'What is Sadaqah/Charity',
-        id: 'what-is-sadaqah-charity',
+        subKey: 'what-is-sadaqah-charity',
         content: (
           <>
             <p>
@@ -747,7 +723,7 @@ export const docsContent = [
       },
       {
         title: 'What is Waqaf',
-        id: 'what-is-waqaf',
+        subKey: 'what-is-waqaf',
         content: (
           <>
             <p>
@@ -775,7 +751,7 @@ export const docsContent = [
       },
       {
         title: 'How is the Organ Donation Process',
-        id: 'organ-donation-process',
+        subKey: 'organ-donation-process',
         content: (
           <>
             <p>
@@ -821,38 +797,31 @@ export const docsContent = [
   },
   {
     mainTitle: 'Shariah & Legal',
+    key: 'shariah-and-legal',
     icon: (
       <svg
-        width="24"
-        height="24"
+        width="18"
+        height="18"
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <g id="play-circle">
-          <g id="Icon">
-            <path
-              d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-              stroke="#533de9"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M9.5 8.96533C9.5 8.48805 9.5 8.24941 9.59974 8.11618C9.68666 8.00007 9.81971 7.92744 9.96438 7.9171C10.1304 7.90525 10.3311 8.03429 10.7326 8.29239L15.4532 11.3271C15.8016 11.551 15.9758 11.663 16.0359 11.8054C16.0885 11.9298 16.0885 12.0702 16.0359 12.1946C15.9758 12.337 15.8016 12.449 15.4532 12.6729L10.7326 15.7076C10.3311 15.9657 10.1304 16.0948 9.96438 16.0829C9.81971 16.0726 9.68666 15.9999 9.59974 15.8838C9.5 15.7506 9.5 15.512 9.5 15.0347V8.96533Z"
-              stroke="#667085"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </g>
+        <g id="shield-tick">
+          <path
+            id="Icon"
+            d="M9 11.5004L11 13.5004L15.5 9.00036M20 12.0004C20 16.9088 14.646 20.4788 12.698 21.6152C12.4766 21.7444 12.3659 21.809 12.2097 21.8425C12.0884 21.8685 11.9116 21.8685 11.7903 21.8425C11.6341 21.809 11.5234 21.7444 11.302 21.6152C9.35396 20.4788 4 16.9088 4 12.0004V7.21796C4 6.41845 4 6.01869 4.13076 5.67506C4.24627 5.3715 4.43398 5.10064 4.67766 4.88589C4.9535 4.6428 5.3278 4.50243 6.0764 4.22171L11.4382 2.21103C11.6461 2.13307 11.75 2.09409 11.857 2.07864C11.9518 2.06493 12.0482 2.06493 12.143 2.07864C12.25 2.09409 12.3539 2.13307 12.5618 2.21103L17.9236 4.22171C18.6722 4.50243 19.0465 4.6428 19.3223 4.88589C19.566 5.10064 19.7537 5.3715 19.8692 5.67506C20 6.01869 20 6.41845 20 7.21796V12.0004Z"
+            stroke="#667085"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
         </g>
       </svg>
     ),
     content: [
       {
         title: 'Privacy Policy',
-        id: 'privacy-policy',
+        subKey: 'privacy-policy',
         content: (
           <>
             <p>
@@ -869,7 +838,7 @@ export const docsContent = [
       },
       {
         title: 'Terms and Conditions',
-        id: 'terms-and-conditions',
+        subKey: 'terms-and-conditions',
         content: (
           <>
             <p>
@@ -886,7 +855,7 @@ export const docsContent = [
       },
       {
         title: 'Does Sampul comply with Shariah requirements?',
-        id: 'does-sampul-comply-with-shariah-requirements',
+        subKey: 'does-sampul-comply-with-shariah-requirements',
         content: (
           <>
             <p>
@@ -929,6 +898,7 @@ export const docsContent = [
       },
       {
         title: 'Does Sampul comply with Malaysian legal requirements?',
+        subKey: 'does-sampul-comply-with-malaysian-legal-requirements',
         content: (
           <>
             <p>
