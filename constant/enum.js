@@ -317,7 +317,7 @@ export const religions = () => {
     { name: 'Sikhism', value: 'sikhism' },
     { name: 'Confucianism', value: 'confucianism' },
     { name: 'Taoism', value: 'taoism' },
-    { name: 'Other', value: 'other' },
+    { name: 'Others', value: 'others' },
   ];
 
   return options;
