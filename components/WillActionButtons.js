@@ -417,7 +417,14 @@ const WillActionButtons = ({ viewOnly = false }) => {
               }
             }}
           >
-            <Loading title="Generate Wasiat" loading={buttonLoading.generate} />
+            <Loading
+              title={
+                contextApiData?.profile?.data?.religion == 'islam'
+                  ? 'Generate Wasiat'
+                  : 'Generate Will'
+              }
+              loading={buttonLoading.generate}
+            />
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
