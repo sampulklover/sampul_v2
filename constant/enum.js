@@ -236,15 +236,8 @@ export const declaredValues = () => {
   return items;
 };
 
-export const instructionsAfterDeath = () => {
+export const instructionsAfterDeath = (religion) => {
   const options = [
-    {
-      name: 'Faraid',
-      opName:
-        'My beneficiary to liquidate the account and proceeds to be distributed as per Faraid',
-      value: 'faraid',
-      theme: 'green',
-    },
     {
       name: 'Transfer as gift',
       opName: 'Pass this account to be used by my beneficiary',
@@ -258,6 +251,16 @@ export const instructionsAfterDeath = () => {
       theme: 'orange',
     },
   ];
+
+  if (['islam', null, undefined].includes(religion)) {
+    options.unshift({
+      name: 'Faraid',
+      opName:
+        'My beneficiary to liquidate the account and proceeds to be distributed as per Faraid',
+      value: 'faraid',
+      theme: 'green',
+    });
+  }
 
   return options;
 };

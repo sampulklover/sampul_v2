@@ -665,7 +665,9 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                   required
                   class="form-select"
                 >
-                  {instructionsAfterDeath().map((item) => (
+                  {instructionsAfterDeath(
+                    contextApiData?.profile?.data?.religion
+                  ).map((item) => (
                     <option key={item.value} value={item.value}>
                       {item.opName}
                     </option>
