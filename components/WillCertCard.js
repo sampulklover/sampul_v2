@@ -8,7 +8,7 @@ const WillCertCard = ({ willData }) => {
       info: `Salinan sijil dan perincian penuh wasiat boleh didapati dalam peti simpanan digital Sampul. Sebarang maklumat dan pertanyaan, sila emel kepada ${process.env.NEXT_PUBLIC_CONTACT_EMAIL}`,
     },
     non_muslim: {
-      title: 'Will & Testator for Digital Asset',
+      title: 'Will and Testament for Digital Asset',
       from: 'of',
       info: `A copy of this certificate & details of the will is stored in Sampul digital vault. For queries and info please email ${process.env.NEXT_PUBLIC_CONTACT_EMAIL}`,
     },

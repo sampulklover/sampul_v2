@@ -61,9 +61,9 @@ const SideBar = ({ children }) => {
     },
     {
       title: (
-        <div class="d-flex justify-content-between">
-          <span>Physical</span>
-          <div class="coming-soon-badge-container ms-2">
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="me-1">Physical</span>
+          <div class="coming-soon-badge-container">
             <div
               class="coming-soon-badge-body"
               style={{
