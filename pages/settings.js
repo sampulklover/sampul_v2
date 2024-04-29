@@ -8,6 +8,7 @@ import InformDeath from '../components/InformDeath';
 import Billing from '../components/Billing';
 import SideBar from '../components/SideBar';
 import DangerZone from '../components/DangerZone';
+import UnderMaintenance from '../components/UnderMaintenance';
 
 const Settings = () => {
   const router = useRouter();
@@ -142,7 +143,8 @@ const Settings = () => {
             role="tabpanel"
             aria-labelledby="nav-billing-tab"
           >
-            <Billing />
+            {/* <Billing /> */}
+            <UnderMaintenance />
           </div>
           <div
             class="tab-pane fade"
