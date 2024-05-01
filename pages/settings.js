@@ -143,8 +143,8 @@ const Settings = () => {
             role="tabpanel"
             aria-labelledby="nav-billing-tab"
           >
-            {/* <Billing /> */}
-            <UnderMaintenance />
+            <Billing />
+            {/* <UnderMaintenance /> */}
           </div>
           <div
             class="tab-pane fade"

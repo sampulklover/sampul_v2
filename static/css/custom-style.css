@@ -87,3 +87,12 @@ a:hover {
   background-color: #3c22e2 !important;
 }
 
+.form-switch.form-switch-lg .form-check-input {
+  height: 2rem;
+  width: calc(3rem + 0.75rem);
+  border-radius: 4rem;
+}
+
+.form-check-input:checked {
+  background-color: #533de9 !important;
+}

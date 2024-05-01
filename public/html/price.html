@@ -351,6 +351,40 @@
                       class="uui-pricing11_tab-pane w-tab-pane w--tab-active"
                     >
                       <div class="uui-pricing11_plans">
+                        <div class="d-flex justify-content-end">
+                          <div>
+                            <div class="d-flex align-items-center mb-2">
+                              <span
+                                id="text-billed-monthly"
+                                style="font-weight: bold"
+                                class="uui-pricing11_row-lead-text"
+                                >Billed monthly</span
+                              >
+                              <div
+                                class="form-check form-switch form-switch-lg mx-3"
+                              >
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  role="switch"
+                                  id="flexSwitchCheckDefault"
+                                />
+                              </div>
+                              <span
+                                id="text-billed-yearly"
+                                class="uui-pricing11_row-lead-text"
+                                >Billed yearly</span
+                              >
+                            </div>
+                            <div
+                              class="d-flex justify-content-center align-items-center"
+                            >
+                              <small class="uui-text-size-small-7"
+                                >(Save up to 20% with yearly billing)</small
+                              >
+                            </div>
+                          </div>
+                        </div>
                         <div class="w-layout-grid uui-pricing11_top-row">
                           <div class="uui-pricing11_empty-space"></div>
                           <div class="uui-pricing11_top-row-content">
@@ -378,14 +412,17 @@
                           <div class="uui-pricing11_top-row-content">
                             <div>
                               <div class="uui-pricing11_plan-name-wrapper">
-                                <h2 class="uui-heading-xxsmall-2">Premium</h2>
+                                <h2 class="uui-heading-xxsmall-2">Protect</h2>
                                 <div class="uui-badge-2 is-primary">
                                   <div>Popular</div>
                                 </div>
                               </div>
                               <div class="uui-pricing11_price">
-                                <sup>RM</sup>60<span
+                                <sup>RM</sup
+                                ><span id="price-protect-amount">5.99</span
+                                ><span
                                   class="uui-pricing11_price-text"
+                                  id="price-protect-validity"
                                   >/month</span
                                 >
                               </div>
@@ -1306,6 +1343,28 @@
       integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
       crossorigin="anonymous"
     ></script>
+
+    <script>
+      const priceElement = document.getElementById('price-protect-amount');
+      const validityElement = document.getElementById('price-protect-validity');
+      const toggleSwitch = document.getElementById('flexSwitchCheckDefault');
+      const billedMonthlyText = document.getElementById('text-billed-monthly');
+      const billedYearlyText = document.getElementById('text-billed-yearly');
+
+      toggleSwitch.addEventListener('change', function () {
+        if (this.checked) {
+          priceElement.textContent = '60';
+          validityElement.textContent = '/year';
+          billedMonthlyText.style.fontWeight = 'normal';
+          billedYearlyText.style.fontWeight = 'bold';
+        } else {
+          priceElement.textContent = '5.99';
+          validityElement.textContent = '/month';
+          billedMonthlyText.style.fontWeight = 'bold';
+          billedYearlyText.style.fontWeight = 'normal';
+        }
+      });
+    </script>
     <script
       src="../../static/js/marketing/webflow.js"
       type="text/javascript"
