@@ -15,8 +15,8 @@ const Billing = () => {
     data: [],
     isCalling: false,
     isSaving: false,
-    selectedProductId: null,
-    currentPlan: null,
+    selectedPriceId: null,
+    currentPriceId: null,
   });
 
   useEffect(() => {
@@ -47,10 +47,10 @@ const Billing = () => {
 
       const data = await response.json();
 
-      var myProduct = null;
+      var myStripePriceId = null;
 
       if (contextApiData.account.data?.is_subscribed) {
-        myProduct = contextApiData.account.data?.stripe_product;
+        myStripePriceId = contextApiData.account.data?.stripe_price_id;
       }
 
       data.plans.unshift({
@@ -61,15 +61,16 @@ const Billing = () => {
         name: 'Free plan',
         price: 0,
         product_id: defaultProductId,
+        price_id: null,
       });
 
       setSummary({
         ...summary,
         data: data.plans,
         isCalling: false,
-        selectedProductId: myProduct ? myProduct : defaultProductId,
-        currentPlan: myProduct ? myProduct : defaultProductId,
-        isSubscribed: myProduct ? true : false,
+        selectedPriceId: myStripePriceId ? myStripePriceId : defaultProductId,
+        currentPriceId: myStripePriceId ? myStripePriceId : defaultProductId,
+        isSubscribed: myStripePriceId ? true : false,
       });
     } catch (error) {
       setSummary({
@@ -107,21 +108,22 @@ const Billing = () => {
   };
 
   const getStripeSession = async () => {
-    if (summary.data.length !== 0 && summary.selectedProductId) {
-      const priceId = summary.data.find(
-        (item) => item.product_id === summary.selectedProductId
-      )?.price_id;
+    if (summary.data.length !== 0 && summary.selectedPriceId) {
+      // const priceId = summary.data.find(
+      //   (item) => item.product_id === summary.selectedProductId
+      // )?.price_id;
 
-      if (priceId) {
+      if (summary.selectedPriceId) {
         setSummary({
           ...summary,
           isSaving: true,
         });
 
         const data = await getStripeCustomer();
+
         if (data?.stripe_customer_id) {
           await createStripeSession({
-            price_id: priceId,
+            price_id: summary.selectedPriceId,
             stripe_customer_id: data.stripe_customer_id,
           });
         }
@@ -239,7 +241,7 @@ const Billing = () => {
             type="button"
             class="btn btn-primary btn-text"
             onClick={() => {
-              if (summary.selectedProductId == defaultProductId) {
+              if (summary.selectedPriceId == defaultProductId) {
                 toast.error(
                   'The free plan is automatically included upon registration'
                 );
@@ -269,7 +271,7 @@ const Billing = () => {
               onClick={() => {
                 setSummary({
                   ...summary,
-                  selectedProductId: item.product_id,
+                  selectedPriceId: item.price_id,
                 });
               }}
             >
@@ -277,7 +279,7 @@ const Billing = () => {
                 class="form-block-9 w-form card-4"
                 style={{
                   border:
-                    summary.selectedProductId == item.product_id
+                    summary.selectedPriceId == item.price_id
                       ? '1px solid blue'
                       : '',
                 }}
@@ -306,7 +308,7 @@ const Billing = () => {
                     <div class="text-and-supporting-text-19">
                       <div class="text-and-badge-copy">
                         <span class="smpl_text-lg-semibold">{item.name}</span>
-                        {summary.currentPlan == item.product_id ? (
+                        {summary.currentPriceId == item.product_id ? (
                           <span class="badge bg-danger text-white">
                             Current plan
                           </span>
