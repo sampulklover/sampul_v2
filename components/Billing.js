@@ -61,7 +61,7 @@ const Billing = () => {
         name: 'Free plan',
         price: 0,
         product_id: defaultProductId,
-        price_id: null,
+        price_id: defaultProductId,
       });
 
       setSummary({
