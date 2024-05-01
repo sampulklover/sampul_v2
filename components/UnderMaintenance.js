@@ -1,3 +1,5 @@
+// Note: change text [billing system] according to your current page
+
 const UnderMaintenance = () => {
   return (
     <div class="mt-4 text-center">
