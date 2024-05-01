@@ -116,7 +116,7 @@ const Dashboard = () => {
       if (checkCompleteProfile() == false) {
         setTimeout(() => {
           $('#intro-modal')?.modal('show');
-        }, 2000);
+        }, 1000);
       }
     }
   }, [contextApiData.digitalAssets.isLoading]);
