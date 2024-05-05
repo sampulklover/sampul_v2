@@ -322,9 +322,9 @@ const WillDetailsCard = () => {
               <br />
               <strong>Signed by</strong>
               <br />
-              Mohamad Farhan Bin Che Hamid
+              Mohammad Aiman bin Sulaiman
               <br />
-              930705036339
+              871013875003
               <br />
               Co-Founder, SAMPUL
               <br />
