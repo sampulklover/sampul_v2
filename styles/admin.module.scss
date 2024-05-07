@@ -1,0 +1,95 @@
+$primary-color: #64ff00;
+$secondary-color: #475467;
+$accent-color: #101828;
+$success-color: #067647;
+$success-light-color: #ECFDF3;
+$success-border-color: #ABEFC6;
+$danger-color: #B42318;
+$danger-light-color: #FEF3F2;
+$danger-border-color: #FECDCA;
+
+.tabContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 24px;
+}
+
+.tabHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 12px;
+  align-self: stretch;
+  height: 66px;
+}
+
+.tabTitle {
+  color: $secondary-color;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  word-wrap: break-word;
+}
+
+.totalUsers {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.totalUsersValue {
+  color: $accent-color;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 38px;
+  word-wrap: break-word;
+}
+
+.percentageContainer {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 5px;
+  background: $success-light-color;
+  border-radius: 9999px;
+  border: 1px solid $success-border-color;
+}
+
+.percentageContainer.success {
+  background: $success-light-color;
+  border: 1px solid $success-border-color;
+}
+
+.percentageContainer.danger {
+  background: $danger-light-color;
+  border: 1px solid $danger-border-color;
+}
+
+.percentageValue {
+  color: $success-color;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  word-wrap: break-word;
+}
+
+.percentageValue.success {
+  color: $success-color;
+}
+
+.percentageValue.danger {
+  color: $danger-color;
+}
+
+.sectionTitle {
+  color: $accent-color;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+  word-wrap: break-word
+}

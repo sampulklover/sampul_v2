@@ -307,7 +307,7 @@ const SideBar = ({ children }) => {
                               <div class="html-embed w-embed">{item.icon}</div>
                             </div>
                             <div class="c-navlink-text">
-                              <div class=" d-none d-sm-inline">
+                              <div class="d-none d-sm-inline">
                                 <div>{item.title}</div>
                               </div>
                             </div>
