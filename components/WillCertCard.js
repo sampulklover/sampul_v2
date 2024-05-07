@@ -51,7 +51,7 @@ const WillCertCard = ({ willData }) => {
             >
               <img alt="image" loading="lazy" src="/images/Logo.svg"></img>
             </div>
-            {myInfo.isDraft == false ? (
+            {/* {myInfo.isDraft == false ? (
               <></>
             ) : (
               <img
@@ -62,7 +62,7 @@ const WillCertCard = ({ willData }) => {
                 }}
                 class="draft-image"
               ></img>
-            )}
+            )} */}
             <div class="wasiat-cert_content-centre">
               <h2 class="heading-xsmall centre">
                 {will_settings[checkReligion()].title}
