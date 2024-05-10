@@ -1,6 +1,9 @@
 $primary-color: #64ff00;
 $secondary-color: #475467;
 $accent-color: #101828;
+$default-color: #c3c4c5;
+$default-light-color: #ecedec;
+$default-border-color: #b9bab9;
 $success-color: #067647;
 $success-light-color: #ECFDF3;
 $success-border-color: #ABEFC6;
@@ -60,6 +63,11 @@ $danger-border-color: #FECDCA;
   border: 1px solid $success-border-color;
 }
 
+.percentageContainer.default {
+  background: $default-light-color;
+  border: 1px solid $default-border-color;
+}
+
 .percentageContainer.success {
   background: $success-light-color;
   border: 1px solid $success-border-color;
@@ -78,6 +86,10 @@ $danger-border-color: #FECDCA;
   word-wrap: break-word;
 }
 
+.percentageValue.default {
+  color: $default-color;
+}
+
 .percentageValue.success {
   color: $success-color;
 }
@@ -92,4 +104,41 @@ $danger-border-color: #FECDCA;
   font-weight: 600;
   line-height: 28px;
   word-wrap: break-word
+}
+
+.radialChartLabelTitle {
+  color: $secondary-color;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  word-wrap: break-word
+}
+
+.radialChartLabelValue {
+ color: $accent-color;
+ font-size: 24px;
+ font-weight: 600;
+ line-height: 32px;
+ word-wrap: break-word
+}
+
+.assetsPointCircle {
+  width: 10px; 
+  height: 10px; 
+  background: #2F1DA9; 
+  border-radius: 9999px;
+  margin-right: 5px
+}
+
+.expensesPointCircle {
+  width: 10px; 
+  height: 10px; 
+  background: #3118D3; 
+  border-radius: 9999px;
+  margin-right: 5px
+}
+
+.radialChartLabelContainer {
+  display: flex; 
+  align-items: center;
 }
