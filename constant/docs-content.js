@@ -528,7 +528,7 @@ export const docsContent = [
               <br />
               Sampul Sdn Bhd
               <br />
-              S1-05-17, VISTA ALAM SERVICED APARTMENT,
+              S1-05-17, VISTA ALAM,
               <br />
               JALAN IKHTISAS 14/1, SEKSYEN 14,
               <br />
