@@ -37,7 +37,7 @@ $(document).ready(function () {
     <p>For any inquiries or concerns regarding these terms and conditions, please contact us at:</p>
     <address>
           Sampul Sdn Bhd<br>
-          S1-05-17, VISTA ALAM SERVICED APARTMENT<br>
+          S1-05-17, VISTA ALAM<br>
           JALAN IKHTISAS 14/1, SEKSYEN 14<br>
           40000 SHAH ALAM<br>
           MALAYSIA<br>
@@ -80,7 +80,7 @@ $(document).ready(function () {
     <address>
     Business Address:<br>
     Sampul Sdn Bhd<br>
-    S1-05-17, VISTA ALAM SERVICED APARTMENT<br>
+    S1-05-17, VISTA ALAM<br>
     JALAN IKHTISAS 14/1, SEKSYEN 14<br>
     40000 SHAH ALAM<br>
     MALAYSIA<br>

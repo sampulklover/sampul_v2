@@ -197,7 +197,7 @@ const docsContent = [
       {
         subKey: 'contact-sampul',
         title: 'How to contact Sampul?',
-        description: `Business Address: Sampul Sdn Bhd, S1-05-17, VISTA ALAM SERVICED APARTMENT, JALAN IKHTISAS 14/1, SEKSYEN 14, 40000 SHAH ALAM, MALAYSIA. Email: hello@sampul.co. Phone: +60189766429`,
+        description: `Business Address: Sampul Sdn Bhd, S1-05-17, VISTA ALAM, JALAN IKHTISAS 14/1, SEKSYEN 14, 40000 SHAH ALAM, MALAYSIA. Email: hello@sampul.co. Phone: +60189766429`,
       },
     ],
   },
