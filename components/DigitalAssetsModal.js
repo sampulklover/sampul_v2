@@ -1,18 +1,18 @@
-import React, { useState, useEffect, useId } from 'react';
-import { useRouter } from 'next/router';
-import { supabase } from '../utils/supabase';
-import Loading from './Laoding';
-import toast from 'react-hot-toast';
-import Select from 'react-select';
+import { addUserImg } from '../constant/element';
 import {
   instructionsAfterDeath,
   servicePlatformAccountTypes,
   servicePlatformFrequencies,
 } from '../constant/enum';
-import { deleteImage, getOptionLabelWithIcon } from '../utils/helpers';
-import { addUserImg } from '../constant/element';
-import Link from 'next/link';
 import { useApi } from '../context/api';
+import { deleteImage, getOptionLabelWithIcon } from '../utils/helpers';
+import { supabase } from '../utils/supabase';
+import Loading from './Laoding';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useState, useEffect, useId } from 'react';
+import toast from 'react-hot-toast';
+import Select from 'react-select';
 
 const digitalAssetsTypeName = {
   add: {
@@ -688,11 +688,13 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                   required
                   class="form-select"
                 >
-                  {contextApiData.beloved.data?.map((item, index) => (
-                    <option key={index} value={item.id}>
-                      {item.name}
-                    </option>
-                  ))}
+                  {contextApiData.beloved.data
+                    ?.filter((item) => item?.type !== 'co_sampul')
+                    .map((item, index) => (
+                      <option key={index} value={item.id}>
+                        {item.name}
+                      </option>
+                    ))}
                 </select>
                 {checkBeloved()}
               </div>

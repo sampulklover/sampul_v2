@@ -1,19 +1,19 @@
-import { useState } from 'react';
-import { useRouter } from 'next/router';
+import BelovedModal from '../components/BelovedModal';
+import Breadcrumb from '../components/Breadcrumb';
+import Footer from '../components/Footer';
+import InviteModal from '../components/InviteModal';
 import Loading from '../components/Laoding';
-import toast from 'react-hot-toast';
+import SideBar from '../components/SideBar';
+import { addUserImg, emptyUserImg } from '../constant/element';
 import {
   belovedInviteStatus,
   belovedLevel,
   relationships,
 } from '../constant/enum';
-import Footer from '../components/Footer';
-import Breadcrumb from '../components/Breadcrumb';
-import BelovedModal from '../components/BelovedModal';
-import { addUserImg, emptyUserImg } from '../constant/element';
-import SideBar from '../components/SideBar';
-import InviteModal from '../components/InviteModal';
 import { useApi } from '../context/api';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 const Beloved = () => {
   const { contextApiData } = useApi();
