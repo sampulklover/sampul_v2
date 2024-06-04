@@ -689,7 +689,7 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                   class="form-select"
                 >
                   {contextApiData.beloved.data
-                    ?.filter((item) => item?.type !== 'co_sampul')
+                    ?.filter((item) => item.type === 'future_owner')
                     .map((item, index) => (
                       <option key={index} value={item.id}>
                         {item.name}
