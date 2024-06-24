@@ -1,13 +1,13 @@
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { emptyUserImg } from '../constant/element';
 import {
   instructionsAfterDeath,
   relationships,
   servicePlatformAccountTypes,
 } from '../constant/enum';
-import Loading from './Laoding';
-import { emptyUserImg } from '../constant/element';
 import { useApi } from '../context/api';
+import Loading from './Laoding';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const DigitalSummaryCard = ({ typeName, showBeloved = false }) => {
   const router = useRouter();
@@ -317,3 +317,10 @@ const DigitalSummaryCard = ({ typeName, showBeloved = false }) => {
 };
 
 export default DigitalSummaryCard;
+
+// The summary of this page includes:
+// This page displays digital assets information categorized by type, such as non-subscription accounts or subscription expenses, based on user data fetched from an API.
+// It organizes assets into a table format showing platforms, asset values, and instructions after death.
+// Optional details like beneficiaries and remarks can be included.
+// If assets are present, they're listed with relevant details; otherwise, a message prompts users to add assets.
+// Navigation options are provided for adding new assets or viewing all digital assets.

@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useApi } from '../context/api';
+import successWillAnimationData from '../public/animation/lottie_will_success_generated.json';
 import { supabase } from '../utils/supabase';
+import Loading from './Laoding';
+import ShareModal from './ShareModal';
 import { jsPDF } from 'jspdf';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import ShareModal from './ShareModal';
-import Loading from './Laoding';
-import { useApi } from '../context/api';
 import Lottie from 'react-lottie';
-import successWillAnimationData from '../public/animation/lottie_will_success_generated.json';
 
 const WillActionButtons = ({ viewOnly = false }) => {
   const { contextApiData, getWill } = useApi();
@@ -461,3 +461,9 @@ const WillActionButtons = ({ viewOnly = false }) => {
 };
 
 export default WillActionButtons;
+
+// The summary of this page includes:
+// This page is designed for managing actions related to generating and sharing will certificates.
+// Key functionalities include generating and downloading PDF certificates, sharing URLs, and displaying animations upon successful actions.
+// The component dynamically adjusts based on whether it's in view-only mode or interactive mode, ensuring seamless user experience through conditional rendering and state management.
+// It emphasizes user profile completeness before allowing generation actions.

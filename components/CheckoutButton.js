@@ -1,5 +1,5 @@
-import { loadStripe } from '@stripe/stripe-js';
 import { useApi } from '../context/api';
+import { loadStripe } from '@stripe/stripe-js';
 
 const asyncStripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
 
@@ -86,3 +86,14 @@ const CheckoutButton = ({ price_id = '' }) => {
 };
 
 export default CheckoutButton;
+
+// The summary of this page includes:
+// The button triggers a checkout process when clicked.
+// Upon clicking "Checkout Now," the component fetches user information and creates a Stripe customer ID by sending a request to /api/stripe/customer.
+// This ID is essential for securely managing customer data and transactions through Stripe.
+// If successful, it proceeds to create a Stripe session via /api/stripe/session,
+// specifying the price ID and the previously generated Stripe customer ID.
+// If both operations (customer creation and session creation) are successful,
+// the component uses Stripe's functionality to redirect the user to the Stripe Checkout page
+// with the generated session ID. This allows users to complete their purchases securely.
+// Error handling is implemented throughout to log and manage any issues that may occur.

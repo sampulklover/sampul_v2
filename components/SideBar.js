@@ -1,8 +1,8 @@
-import { useRouter } from 'next/router';
 import { addUserImg } from '../constant/element';
-import LogoutModal from './LogoutModal';
-import toast from 'react-hot-toast';
 import { useApi } from '../context/api';
+import LogoutModal from './LogoutModal';
+import { useRouter } from 'next/router';
+import toast from 'react-hot-toast';
 
 const SideBar = ({ children }) => {
   const router = useRouter();
@@ -380,3 +380,10 @@ const SideBar = ({ children }) => {
 };
 
 export default SideBar;
+
+// The summary of this page includes:
+// This page is designed for sidebar component for a this application.
+// It includes navigation links styled with icons that change color based on the current page.
+// The sidebar supports various sections like Dashboard, Digital Assets, and others, each with clickable icons.
+// Some sections, like Physical Assets, are labeled as "Coming Soon." The sidebar adapts based on the user's role,
+// showing an Admin section for administrators.

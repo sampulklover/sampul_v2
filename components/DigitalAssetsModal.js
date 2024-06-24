@@ -789,3 +789,9 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
 };
 
 export default DigitalAssetsModal;
+
+// The summary of this page includes:
+// This page described is designed to ensure these assets are handled appropriately after the user's death.
+// It allows users to add or edit details of their digital accounts, such as email, platform details, subscription type, payment frequency, estimated value, and instructions for after death.
+// Users can also nominate trusted individuals to manage these accounts.
+// The form includes options to add new platform details and supports creating multiple entries if needed.

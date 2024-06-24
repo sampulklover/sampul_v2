@@ -262,3 +262,7 @@ const Footer = () => {
 };
 
 export default Footer;
+
+// The summary of this page includes:
+// This page features a footer section that includes a logo and social media icons.
+// The footer's layout uses grids and links are embedded using SVG graphics.

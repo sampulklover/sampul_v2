@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
-import Loading from '../components/Laoding';
-import Footer from '../components/Footer';
 import Breadcrumb from '../components/Breadcrumb';
-import DigitalAssetsModal from '../components/DigitalAssetsModal';
 import DigitalAssetsCard from '../components/DigitalAssetsCard';
+import DigitalAssetsModal from '../components/DigitalAssetsModal';
+import Footer from '../components/Footer';
+import Loading from '../components/Laoding';
 import SideBar from '../components/SideBar';
+import { useState, useEffect } from 'react';
 
 const DigitalAssets = () => {
   const [digitalAssetsModalType, setDigitalAssetsModalType] = useState({
@@ -198,3 +198,9 @@ const DigitalAssets = () => {
 };
 
 export default DigitalAssets;
+
+// The summary for this page includes:
+// The page is designed to manage and display digital assets and expenses. It includes features like a search bar for filtering items
+// and modal dialogs for adding or editing entries.
+// There are tabs to categorize assets and expenses, allowing users to switch between different views seamlessly.
+// Each tab section dynamically loads content based on user selections.

@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import Loading from '../components/Laoding';
-import Link from 'next/link';
 import { useApi } from '../context/api';
 import * as Sentry from '@sentry/nextjs';
+import Link from 'next/link';
+import { useState } from 'react';
 
 const SignUp = () => {
   const { normalSignup, googleLogin } = useApi();
@@ -175,3 +175,10 @@ const SignUp = () => {
 };
 
 export default SignUp;
+
+// The summary of this page includes:
+// This page is about a signup form. It offers two ways to register: normal signup and Google login.
+// The form requires users to input their name, email, and password, agreeing to a privacy policy.
+// There's also an option to sign up using a Google account.
+// When users submit the form, it disables the signup button temporarily to prevent multiple submissions.
+// Error handling is implemented using Sentry for tracking and logging errors.

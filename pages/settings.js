@@ -1,14 +1,14 @@
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Footer from '../components/Footer';
+import Billing from '../components/Billing';
 import Breadcrumb from '../components/Breadcrumb';
+import DangerZone from '../components/DangerZone';
+import Footer from '../components/Footer';
+import InformDeath from '../components/InformDeath';
 import MyDetails from '../components/MyDetails';
 import Password from '../components/Password';
-import InformDeath from '../components/InformDeath';
-import Billing from '../components/Billing';
 import SideBar from '../components/SideBar';
-import DangerZone from '../components/DangerZone';
 import UnderMaintenance from '../components/UnderMaintenance';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 const Settings = () => {
   const router = useRouter();
@@ -174,3 +174,8 @@ const Settings = () => {
 };
 
 export default Settings;
+
+// The summary of this page includes:
+// This page is designed to manage various aspects of a user's account.
+// It includes different tabs such as "My details," "Password," "Inform Death," "Billing," and "Danger Zone,"
+// each offering specific functionalities. It's also automatically selects and displays the tab specified in the URL.

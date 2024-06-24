@@ -103,3 +103,9 @@ const ManageBodies = ({ summary, refreshFunction }) => {
 };
 
 export default ManageBodies;
+
+// The summary of this page includes:
+// This page is designed to manage and display information about different "bodies" or service platforms.
+// It includes features like a modal for detailed body information, a loading indicator, and a data table for displaying body details.
+// Users can click on items in the table to view more information in a modal window.
+// The component allows for creating new entries and updates its display based on the provided data.

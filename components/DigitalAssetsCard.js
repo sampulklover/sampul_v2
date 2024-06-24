@@ -1,6 +1,6 @@
 import { bodiesCategory, instructionsAfterDeath } from '../constant/enum';
-import Loading from './Laoding';
 import { useApi } from '../context/api';
+import Loading from './Laoding';
 
 const DigitalAssetsCard = ({ typeName, editFunction, searchInput = '' }) => {
   const { contextApiData } = useApi();
@@ -286,3 +286,10 @@ const DigitalAssetsCard = ({ typeName, editFunction, searchInput = '' }) => {
 };
 
 export default DigitalAssetsCard;
+
+// The summary of this page includes:
+// This page displays digital assets categorized into different types such as all, non-subscription, and subscription accounts.
+// It fetches data from an API and presents details like platform names, categories, icons, and instructions for handling after death.
+// Users can filter and search for specific accounts using a search input.
+// If data is available, it shows each asset's details in a card format for editing.
+// If no data matches the filter, it offers options to add new digital assets with appropriate titles and descriptions.

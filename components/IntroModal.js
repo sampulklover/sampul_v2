@@ -113,3 +113,8 @@ const IntroModal = () => {
 };
 
 export default IntroModal;
+
+// The summary of this page includes:
+// This page is designed to display a modal window with dynamic content.
+// The modal can show either an embedded YouTube video or a placeholder image, based on user interaction.
+// There are buttons to skip the video or start a video tour, which toggle the visibility of the video player.

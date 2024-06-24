@@ -187,3 +187,9 @@ const AccountsChart = ({ summary }) => {
 };
 
 export default AccountsChart;
+
+// The summary of this page includes:
+// This page serves financial data using charts and values.
+// When the page loads, it fetches data and calculates totals for different types of accounts—digital and subscription-based.
+// These calculations are then used to generate a radial chart showing percentages of assets and expenses.
+// The chart's design includes labels and values formatted for clarity.

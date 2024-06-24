@@ -1,7 +1,7 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { useApi } from '../context/api';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const NavBar = () => {
   const { contextApiData } = useApi();
@@ -75,3 +75,10 @@ const NavBar = () => {
 };
 
 export default NavBar;
+
+// The summary of this page includes:
+// This page describes a navigation bar component.
+// It includes features such as a logo displayed at the top left corner, navigation links that adjust based on user authentication status,
+// and responsive behavior for smaller screens.
+// The bar allows users to navigate between different pages like Home, Pricing, Login, and Logout, with options for signing in or signing up if not authenticated.
+// The component dynamically adjusts its content based on the user's login state and the current page being viewed.

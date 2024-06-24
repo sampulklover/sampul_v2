@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import Loading from './Laoding';
-import toast from 'react-hot-toast';
 import {
   belovedInviteStatus,
   belovedLevel,
   beneficiaryTypes,
 } from '../constant/enum';
-import Link from 'next/link';
 import { useApi } from '../context/api';
+import Loading from './Laoding';
+import Link from 'next/link';
+import React, { useState, useEffect } from 'react';
+import toast from 'react-hot-toast';
 
 const type_title = {
   invite: {
@@ -316,3 +316,10 @@ const InviteModal = ({ keyType, category, selectedItem }) => {
 };
 
 export default InviteModal;
+
+// The summary of this page includes:
+// This page is designed to manages invitations for a specific category of beneficiaries.
+// It allows users to interact with invitations through various actions like approving or rejecting them.
+// The component fetches data from an API to display details about the invitation and the beneficiary involved.
+// Users can update the status of invitations, such as approving or rejecting them, with feedback displayed through toast notifications.
+// The interface dynamically adjusts based on whether the beneficiary's profile is complete, guiding users to complete their profiles if necessary.

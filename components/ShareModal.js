@@ -202,3 +202,9 @@ const ShareModal = ({ url, title }) => {
 };
 
 export default ShareModal;
+
+// The summary of this page includes:
+// This page is designed to facilitate sharing of a digital "Will Certificate" on social media platforms.
+// It includes functionalities like sharing on Facebook, Twitter, and LinkedIn, as well as copying the certificate's URL.
+// The modal interface displays an image of the certificate and encourages users to share it with loved ones, promoting a legacy of care and protection.
+// Various buttons trigger actions to open social media sharing dialogs or copy the URL to the clipboard, accompanied by visual icons for each platform.

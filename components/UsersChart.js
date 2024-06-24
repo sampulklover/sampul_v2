@@ -460,3 +460,10 @@ const UsersChart = ({ summary }) => {
 };
 
 export default UsersChart;
+
+// The summary of this page includes:
+// This page is designed to visualize and analyze user data over time.
+// It utilizes ApexCharts for rendering graphical data.
+// The chart displays trends in user activity categorized into subscribed, unsubscribed, and total users.
+// Users can select different time ranges such as 12 months, 30 days, or 7 days to view data dynamically.
+// The interface also includes tabs for switching between user categories and highlights percentage changes in user counts between the current and previous periods.

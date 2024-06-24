@@ -669,3 +669,10 @@ const Beloved = () => {
 };
 
 export default Beloved;
+
+// Summary for this page includes:
+// The "Beloved" page allows users to manage trusted individuals who can handle their assets in the future.
+// Users can add, view, and edit profiles categorized as Co-Sampul (trusted individuals), Beneficiaries (future asset owners), and Guardians (caretakers).
+// Each category is collapsible for easy navigation, displaying relevant details like names, emails, and status indicators.
+// Users can also manage invitations and access control based on their subscription plan.
+// The page features includes modals for adding and editing profiles.

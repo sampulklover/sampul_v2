@@ -1,15 +1,15 @@
-import Link from 'next/link';
-import Loading from './Laoding';
 import { addFileImg } from '../constant/element';
-import { supabase } from '../utils/supabase';
-import { useEffect, useState } from 'react';
+import { useApi } from '../context/api';
 import {
   mapViewElements,
   processForm,
   replaceOrAddImage,
 } from '../utils/helpers';
+import { supabase } from '../utils/supabase';
+import Loading from './Laoding';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useApi } from '../context/api';
 
 const InformDeath = () => {
   const { contextApiData, getInformDeath } = useApi();
@@ -398,3 +398,10 @@ const InformDeath = () => {
 };
 
 export default InformDeath;
+
+// The summary of this page includes:
+// This page dynamically mapping elements based on retrieved data,
+// allowing users to select a co-owner from a dropdown list and
+// automatically populating related fields upon selection.
+// The component also supports uploading and displaying files,
+// specifically death certification documents, facilitating their addition or replacement.

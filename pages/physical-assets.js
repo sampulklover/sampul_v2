@@ -1,5 +1,5 @@
-import Footer from '../components/Footer';
 import Breadcrumb from '../components/Breadcrumb';
+import Footer from '../components/Footer';
 import SideBar from '../components/SideBar';
 
 const DigitalAssets = () => {
@@ -42,3 +42,8 @@ const DigitalAssets = () => {
 };
 
 export default DigitalAssets;
+
+// The summary of this page includes:
+// The main content section for this page is to showcases a "coming soon" image,
+// suggesting that further details or functionality related to physical assets
+// will be available in the future.

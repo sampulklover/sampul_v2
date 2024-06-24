@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { useRouter } from 'next/router';
-import Loading from './Laoding';
-import toast from 'react-hot-toast';
-import { useApi } from '../context/api';
 import { bucketName } from '../constant/element';
-import { supabase } from '../utils/supabase';
+import { useApi } from '../context/api';
 import { deleteMyStorage } from '../utils/helpers';
+import { supabase } from '../utils/supabase';
+import Loading from './Laoding';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 const DangerZone = () => {
   const { contextApiData } = useApi();
@@ -136,3 +136,10 @@ const DangerZone = () => {
 };
 
 export default DangerZone;
+
+// The summary of this page includes:
+// This page is designed for managing account deletion functionality.
+// Key features include form submission handling, validation to confirm user intent,
+// and integration with a backend API for account deletion.
+// Users must input specific text to initiate account deletion,
+// and upon confirmation, their data is removed from the system permanently.

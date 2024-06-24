@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { supabase } from '../utils/supabase';
-import Loading from './Laoding';
-import toast from 'react-hot-toast';
 import { bodiesCategory, trueFalse } from '../constant/enum';
 import { mapViewElements } from '../utils/helpers';
+import { supabase } from '../utils/supabase';
+import Loading from './Laoding';
+import React, { useState, useEffect } from 'react';
+import toast from 'react-hot-toast';
 
 const BodyDetailsModal = ({ selectedBody, refreshFunction }) => {
   const [isLoading, setIsLoading] = useState({
@@ -210,3 +210,9 @@ const BodyDetailsModal = ({ selectedBody, refreshFunction }) => {
 };
 
 export default BodyDetailsModal;
+
+// The summary of this page includes:
+// This page is designed for managing details of a body entity in an application.
+// Key functionalities include updating body details via a form,
+// handling CRUD operations, and displaying a modal interface with fields
+// for name, website URL, category, icon (in SVG format), and active status.

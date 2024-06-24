@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import { addUserImg } from '../constant/element';
+import { belovedLevel, beneficiaryTypes, countries } from '../constant/enum';
+import { useApi } from '../context/api';
+import { deleteImage, replaceOrAddImage } from '../utils/helpers';
 import { supabase } from '../utils/supabase';
 import Loading from './Laoding';
-import toast from 'react-hot-toast';
-import { belovedLevel, beneficiaryTypes, countries } from '../constant/enum';
-import { deleteImage, replaceOrAddImage } from '../utils/helpers';
-import { addUserImg } from '../constant/element';
 import Link from 'next/link';
-import { v4 as uuidv4 } from 'uuid';
+import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import { Tooltip } from 'react-tooltip';
-import { useApi } from '../context/api';
+import { v4 as uuidv4 } from 'uuid';
 
 const getElements = () => {
   // Note: if you make changes into beloved_modal elements, do apply same changes into the beloved.js page.
@@ -1082,3 +1082,9 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
 };
 
 export default BelovedModal;
+
+// The summary of this page includes:
+// This page describes a modal interface designed for managing personal information and preferences.
+// It includes fields for entering details like name, email, phone number, and address.
+// Users can also select a level from a dropdown menu, upload a profile photo, and agree to a privacy policy.
+// The interface allows for creating multiple entries if enabled, and provides options for updating or deleting entries as needed.

@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
+import { useApi } from '../context/api';
 import { formatTimestamp } from '../utils/helpers';
 import DigitalSummaryCard from './DigitalSummaryCard';
 import ExtraWishesTable from './ExtraWishesTable';
-import { useApi } from '../context/api';
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
 const WillDetailsCard = () => {
   const { contextApiData } = useApi();
@@ -522,3 +522,10 @@ const WillDetailsCard = () => {
 };
 
 export default WillDetailsCard;
+
+// The summary of this page includes:
+// This page is designed to manage and display details from a user's digital will.
+// It fetches data through an API and organizes information such as the user's personal details, guardianship preferences, and specific wishes for digital assets.
+// Depending on the user's religion, it formats the content accordingly, emphasizing Islamic or non-Islamic legal principles.
+// The component includes sections for primary and secondary co-sampul (trusted individuals), organ donation preferences, and additional requests like charity allocations.
+// It uses formatted timestamps and various helper functions to present comprehensive information relevant to digital asset management after the user's demise.

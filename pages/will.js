@@ -1,14 +1,14 @@
-import { formatTimestamp } from '../utils/helpers';
-import Link from 'next/link';
-import Footer from '../components/Footer';
 import Breadcrumb from '../components/Breadcrumb';
+import Footer from '../components/Footer';
+import SideBar from '../components/SideBar';
 import WillActionButtons from '../components/WillActionButtons';
 import WillCertCard from '../components/WillCertCard';
 import WillDetailsCard from '../components/WillDetailsCard';
-import SideBar from '../components/SideBar';
 import { useApi } from '../context/api';
+import { formatTimestamp } from '../utils/helpers';
+import Link from 'next/link';
 
-const Beloved = () => {
+const Will = () => {
   const { contextApiData } = useApi();
 
   const summary = {
@@ -228,4 +228,11 @@ const Beloved = () => {
   );
 };
 
-export default Beloved;
+export default Will;
+
+// The summary of this page includes:
+// This page serves as a comprehensive platform for users to assess and manage their will-related information.
+// Users are alerted to essential tasks such as assigning primary and secondary co-sampuls and guardians through clear alerts.
+// These alerts also indicate the status of approval requests, whether accepted or pending.
+// The page further organizes information into tabbed sections:
+// the "Certificate" tab displays critical details of the will, while the "Details" tab offers more comprehensive information.

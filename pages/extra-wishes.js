@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react';
-import { supabase } from '../utils/supabase';
+import Breadcrumb from '../components/Breadcrumb';
+import Footer from '../components/Footer';
 import Loading from '../components/Laoding';
+import SideBar from '../components/SideBar';
+import { useApi } from '../context/api';
+import { getOptionLabelWithIcon } from '../utils/helpers';
+import { supabase } from '../utils/supabase';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import Select from 'react-select';
-import { getOptionLabelWithIcon } from '../utils/helpers';
-import Link from 'next/link';
-import Footer from '../components/Footer';
-import Breadcrumb from '../components/Breadcrumb';
-import SideBar from '../components/SideBar';
 import { Tooltip } from 'react-tooltip';
-import { useApi } from '../context/api';
 
 const ExtraWishes = () => {
   const { contextApiData, getExtraWishes } = useApi();
@@ -829,3 +829,11 @@ const ExtraWishes = () => {
 };
 
 export default ExtraWishes;
+
+// The summary of this page includes:
+// This page allows users to customize their digital estate plans with specific religious obligations and charitable intentions.
+// It integrates features like Nazar/Kaffarah vows fulfillment, Fidyah obligations for missed fasts, and contributions to charity (Sadaqah).
+// Users can also allocate assets to Waqf foundations for enduring charitable impact.
+// Additionally, there's an option to pledge as an organ donor.
+// Each section includes forms for inputting details and options to save changes.
+// Access to certain features may require upgrading the user's plan.

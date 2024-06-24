@@ -263,3 +263,9 @@ const Footer = () => {
 };
 
 export default Footer;
+
+// The summary of this page includes:
+// This page describes a website footer. It includes a logo and social media icons.
+// The logo, designed as an SVG image, features a stylized graphic enclosed within a grid layout.
+// The footer also incorporates social media links represented by SVG icons for platforms like Twitter and Facebook.
+// Each icon is embedded within its respective link.
