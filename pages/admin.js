@@ -240,3 +240,11 @@ const Admin = () => {
 };
 
 export default Admin;
+
+// Summary for this page includes:
+// The page in Sampul's interface serves as an overview of secure assets,
+// accessible only to users with administrative privileges.
+// It includes a breadcrumb for navigation, a title section describing its purpose,
+// and two charts: one for user data and another for digital accounts.
+// The page features tabs for navigating between user listings and organizational body management.
+// If accessed without proper permissions, an error message prompts users to return to the dashboard.

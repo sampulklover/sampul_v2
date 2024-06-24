@@ -17,3 +17,7 @@ const Loading = ({ title = '', loading = false }) => {
 };
 
 export default Loading;
+
+// The summary of this page includes:
+// This page allows you to easily integrate loading animations into any other page applications
+// by controlling the visibility of the spinner based on the loading prop.

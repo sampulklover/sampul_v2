@@ -1,15 +1,15 @@
-import Loading from './Laoding';
 import { addUserImg } from '../constant/element';
 import { countries, maritalStatus, religions } from '../constant/enum';
-import { supabase } from '../utils/supabase';
-import { useEffect, useState } from 'react';
+import { useApi } from '../context/api';
 import {
   mapViewElements,
   processForm,
   replaceOrAddImage,
 } from '../utils/helpers';
+import { supabase } from '../utils/supabase';
+import Loading from './Laoding';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useApi } from '../context/api';
 
 const MyDetails = ({ isModal = false }) => {
   const { contextApiData, getProfile, getWill } = useApi();
@@ -427,3 +427,10 @@ const MyDetails = ({ isModal = false }) => {
 };
 
 export default MyDetails;
+
+// The summary of this page includes:
+// This page allows users to update their personal information and profile picture.
+// It's designed for both regular use and within a modal interface.
+// Users can input and save details like their username, NRIC name and number, date of birth, email, phone number, religion, marital status, and address.
+// The form is integrated with functionalities for data processing, image handling, and validation.
+// Upon submission, changes are stored in a database using Supabase, with visual feedback provided through toast notifications.

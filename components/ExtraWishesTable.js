@@ -1,8 +1,8 @@
+import { useApi } from '../context/api';
+import Loading from './Laoding';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import Loading from './Laoding';
 import { useEffect, useState } from 'react';
-import { useApi } from '../context/api';
 
 const ExtraWishesTable = ({ typeName }) => {
   const { contextApiData } = useApi();
@@ -226,3 +226,11 @@ const ExtraWishesTable = ({ typeName }) => {
 };
 
 export default ExtraWishesTable;
+
+// The summary of this page includes:
+// The purpose of this page is to display a table of extra wishes categorized as either Charity or Waqf.
+// It fetches data from an API through a custom hook and renders details about each wish,
+// including the institution's name, value, and type.
+// If data is available, it dynamically generates rows in the table with icons, links, and category badges.
+// Users can click to view more details or add new wishes.
+// If no data is present, it offers a prompt to add new wishes.

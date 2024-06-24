@@ -1,5 +1,5 @@
-import React from 'react';
 import MyDetails from './MyDetails';
+import React from 'react';
 
 const type_title = {
   profile: {
@@ -64,3 +64,9 @@ const ProfileModal = ({ category }) => {
 };
 
 export default ProfileModal;
+
+// The summary of this page includes:
+// This page displays a modal window when triggered.
+// Inside the modal, it shows a title and subtitle related to a user's profile completeness.
+// The modal design includes graphical elements and structured text.
+// Additionally, it integrates another component, MyDetails, to facilitate further interaction.

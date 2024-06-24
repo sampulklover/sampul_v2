@@ -16,3 +16,7 @@ const UnderMaintenance = () => {
 };
 
 export default UnderMaintenance;
+
+// The summary of this page includes:
+// The page is informing visitors that the billing system is undergoing maintenance and is currently unavailable.
+// It displays a message stating that maintenance work is being carried out and advises users to return at a later time.

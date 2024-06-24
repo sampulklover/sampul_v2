@@ -1,5 +1,5 @@
-import { useRouter } from 'next/router';
 import { docsContent } from '../constant/docs-content';
+import { useRouter } from 'next/router';
 
 const DocsSideBar = ({
   children,
@@ -141,3 +141,10 @@ const DocsSideBar = ({
 };
 
 export default DocsSideBar;
+
+// The summary of this page includes:
+// This page is designed to display a dynamic sidebar menu for navigating documentation content.
+// It utilizes Next.js's useRouter for routing and imports content from a constant named docsContent.
+// The sidebar includes a list of items with main titles and associated submenus.
+// Each item and submenu can be selected, triggering actions such as scrolling to specific elements on the page.
+// The sidebar adjusts its layout responsively, showing a compact menu toggle button on smaller screens and expanding into a full sidebar on larger screens.

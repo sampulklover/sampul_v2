@@ -301,3 +301,11 @@ export const inviteBelove = ({
     </div>
   );
 };
+
+// The summary of this page includes:
+// This page is designed to send an invitation email using dynamic content based on recipient details.
+// It includes styled sections for a personalized greeting, detailed responsibilities,
+// and links for accepting or rejecting the invitation to join Sampul.
+// The email content is presented in both English and Malay languages.
+// Additional sections provide links to further information about Sampul's mission and processes.
+// The email concludes with a message of thanks and an option to unsubscribe, alongside social media links and branding elements.

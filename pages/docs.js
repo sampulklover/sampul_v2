@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import DocsSideBar from '../components/DocsSideBar';
 import { docsContent } from '../constant/docs-content';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 const Docs = () => {
   const router = useRouter();
@@ -119,3 +119,10 @@ const Docs = () => {
 };
 
 export default Docs;
+
+// The summary of this page includes:
+// This page serves as a documentation viewer.
+// It integrates with Next.js router to dynamically load content based on URL queries.
+// The main functionality includes selecting and displaying documentation sections and subsections.
+// When a user navigates to a specific section (defined by 'key' and optionally 'subKey' in the URL),
+// the component updates to highlight the selected menu and scroll to the relevant subsection within that section.

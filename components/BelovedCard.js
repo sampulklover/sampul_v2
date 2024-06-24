@@ -71,3 +71,10 @@ const BelovedCard = ({ title }) => {
 };
 
 export default BelovedCard;
+
+// The summary of this page includes:
+// This page used for rendering an accordion-style card that displays information about beloved individuals.
+// It utilizes Bootstrap components for styling and Next.js for routing.
+// The card header, driven by a title prop, can be expanded to reveal details in a collapsible section.
+// Within this section, a list of individuals is dynamically generated from summary.data,
+// each represented with an image, nickname, relationship type, and level badge.

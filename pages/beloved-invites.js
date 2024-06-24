@@ -1,9 +1,9 @@
+import Footer from '../components/Footer';
+import * as Sentry from '@sentry/nextjs';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
-import Link from 'next/link';
-import Footer from '../components/Footer';
-import { useRouter } from 'next/router';
-import * as Sentry from '@sentry/nextjs';
 
 const BelovedInvites = () => {
   const router = useRouter();
@@ -194,3 +194,9 @@ const BelovedInvites = () => {
 };
 
 export default BelovedInvites;
+
+// Summary for this page includes:
+// This page manages invitations' status updates. When accessed, it checks for a specific invitation ID and its status.
+// If both are present, it sends a request to update the invitation status through an API call.
+// Depending on the response, it displays different messages. After displaying the appropriate message,
+// users are provided with a link to return to the main Sampul page.

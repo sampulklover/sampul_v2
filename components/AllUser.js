@@ -92,3 +92,10 @@ const MyDetails = ({ summary, refreshFunction }) => {
 };
 
 export default MyDetails;
+
+// The summary of this page includes:
+// This page is designed to display user details in a table format with specific columns: Account, Role, and Total Beloved.
+// Each column shows different information about users, such as their username, email, role, and the number of 'beloved' items they have.
+// When a user clicks on a user's account details, it opens up a modal window with more information.
+// The data displayed in the table is fetched from an external source (summary.data?.profiles)
+// and is paginated for easier navigation through multiple user entries.

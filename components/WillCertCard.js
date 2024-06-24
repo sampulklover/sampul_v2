@@ -125,3 +125,9 @@ const WillCertCard = ({ willData }) => {
 };
 
 export default WillCertCard;
+
+// The summary of this page includes:
+// This page designed to generates a digital certificate for wills.
+// It's dynamically render content based on whether the will owner is Muslim or not.
+// The certificate includes personalized details such as the owner's name and will ID,
+// and it offers a QR code for easy access to the digital asset's details.

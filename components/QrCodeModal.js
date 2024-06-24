@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import QRCode from 'react-qr-code';
 import { useRouter } from 'next/router';
+import QRCode from 'react-qr-code';
 
 const QrCodeModal = ({ cardRef, qrValue }) => {
   const router = useRouter();
@@ -52,3 +52,10 @@ const QrCodeModal = ({ cardRef, qrValue }) => {
 };
 
 export default QrCodeModal;
+
+// The summary of this page includes:
+// This page generates a QR code for a "Wasiat" or will document.
+// When activated, it displays a modal window centered on the screen.
+// The modal includes a QR code that, when scanned, links to the specific will.
+// Users can also access the will by clicking a provided link within the modal,
+// which redirects them to the '/will' page.

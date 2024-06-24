@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import Loading from '../components/Laoding';
 import ForgotPasswordModal from '../components/ForgotPasswordModal';
-import Link from 'next/link';
+import Loading from '../components/Laoding';
 import { useApi } from '../context/api';
 import * as Sentry from '@sentry/nextjs';
+import Link from 'next/link';
+import { useState } from 'react';
 
 const SignIn = () => {
   const { normalLogin, googleLogin } = useApi();
@@ -145,3 +145,8 @@ const SignIn = () => {
 };
 
 export default SignIn;
+
+// The summary of this page includes:
+// The page features a sign-in form.
+// It allows users to log in using their email and password or through Google.
+// Errors during login attempts are captured and reported using @sentry/nextjs for better debugging and monitoring.

@@ -1,13 +1,14 @@
 'use client';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-
 import '../styles/global.css';
-import { useEffect } from 'react';
-import Head from 'next/head';
 import NavBar from '../components/NavBar';
-import dynamic from 'next/dynamic';
 import { ApiProvider } from '../context/api';
+import dynamic from 'next/dynamic';
+import Head from 'next/head';
+import { useEffect } from 'react';
+
 // import Footer from '../components/Footer';
 
 const DynamicToaster = dynamic(
@@ -71,3 +72,10 @@ export default function MyApp({ Component, pageProps }) {
     </>
   );
 }
+
+// Summary for this page includes:
+// This page serves as the main entry point to this website.
+// It imports styling and components like a navigation bar and toast notifications.
+// The page includes metadata and loads necessary scripts only when needed.
+// The main content of the page is wrapped in an 'ApiProvider' context provider,
+// ensuring that components can access necessary API functionalities.

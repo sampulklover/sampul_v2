@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import Loading from './Laoding';
 import { useApi } from '../context/api';
+import Loading from './Laoding';
+import { useState } from 'react';
 
 const LogoutModal = () => {
   const { logout } = useApi();
@@ -60,3 +60,11 @@ const LogoutModal = () => {
 };
 
 export default LogoutModal;
+
+// The summary of this page includes:
+// This page is designed to handle user logout functionality.
+// It integrates with a custom API hook for handling logout operations.
+// The modal interface prompts users with a confirmation message before logging out,
+// ensuring they want to end their current session.
+// Upon clicking the logout button, the component triggers an asynchronous logout process, updating the loading state to indicate activity.
+// Once logout completes, it hides the modal and resets the loading state.

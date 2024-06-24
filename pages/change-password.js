@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { supabase } from '../utils/supabase';
 import Loading from '../components/Laoding';
+import { supabase } from '../utils/supabase';
 import Link from 'next/link';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 
 const ChangePassword = () => {
@@ -86,3 +86,10 @@ const ChangePassword = () => {
 };
 
 export default ChangePassword;
+
+// Summary for this page includes:
+// This page is for changing your password. It includes a form where you can enter a new password.
+// When you submit the form, it sends a request to update your password using the Supabase
+// authentication service. While it processes, a loading indicator shows to let you know it's working.
+// If there's an error, like if the new password isn't accepted, it shows an error message.
+// Once the password is successfully changed, it displays a success message.

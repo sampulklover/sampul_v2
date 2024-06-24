@@ -1,9 +1,9 @@
-import Loading from './Laoding';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import toast from 'react-hot-toast';
-import { loadStripe } from '@stripe/stripe-js';
 import { useApi } from '../context/api';
+import Loading from './Laoding';
+import { loadStripe } from '@stripe/stripe-js';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
 const asyncStripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
 
@@ -349,3 +349,10 @@ const Billing = () => {
 };
 
 export default Billing;
+
+// The summary of this page includes:
+// This page represents a billing interface for managing subscription plans and payments.
+// It integrates with Stripe for handling pricing details and session management.
+// The component initializes with a loading indicator and retrieves pricing information from an API, adjusting plans based on user subscription status.
+// Users can select different subscription tiers, with the option to upgrade via a Stripe checkout session.
+// It also includes functionality for managing billing details and accessing a Stripe portal for subscribed users.

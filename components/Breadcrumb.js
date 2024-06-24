@@ -34,3 +34,8 @@ const Breadcrumb = ({ pageName }) => {
 };
 
 export default Breadcrumb;
+
+// The summary of this page includes:
+// This page generates a breadcrumb navigation element based on the current page name provided as a prop.
+// If the page name is 'Dashboard', it only displays the current page name without any navigation links.
+// For other pages, it renders a navigation trail with a home link represented by an image and an additional separator image.

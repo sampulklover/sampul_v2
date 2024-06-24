@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
-import { supabase } from '../utils/supabase';
-import toast from 'react-hot-toast';
-import { formatTimestamp } from '../utils/helpers';
 import Footer from '../components/Footer';
-import { useRouter } from 'next/router';
 import WillActionButtons from '../components/WillActionButtons';
 import WillCertCard from '../components/WillCertCard';
+import { formatTimestamp } from '../utils/helpers';
+import { supabase } from '../utils/supabase';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
 const ViewWill = () => {
   const router = useRouter();
@@ -134,3 +134,11 @@ const ViewWill = () => {
 };
 
 export default ViewWill;
+
+// The summary of this page includes:
+// This page is designed to display details of a will based on a unique identifier ('will_code') obtained from the URL query parameters.
+// Upon loading, the component initiates a fetch operation to retrieve the will's information.
+// If successful, it updates the state to include the fetched data and indicates readiness for rendering.
+// If the specified will ID does not exist, it triggers an error notification.
+// The page layout consists of a title section displaying the last updated timestamp of the will and action buttons for viewing.
+// A tabbed interface allows navigation between different sections, currently focusing on displaying the certificate related to the will.

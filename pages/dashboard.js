@@ -1,25 +1,25 @@
-import { useEffect, useState } from 'react';
-import Loading from '../components/Laoding';
-import toast from 'react-hot-toast';
-import { formatTimestamp, mapViewElements } from '../utils/helpers';
+import BelovedModal from '../components/BelovedModal';
+import Breadcrumb from '../components/Breadcrumb';
+import DigitalAssetsModal from '../components/DigitalAssetsModal';
 import DigitalSummaryCard from '../components/DigitalSummaryCard';
 import Footer from '../components/Footer';
-import Breadcrumb from '../components/Breadcrumb';
-import WillActionButtons from '../components/WillActionButtons';
-import SideBar from '../components/SideBar';
-import DigitalAssetsModal from '../components/DigitalAssetsModal';
-import BelovedModal from '../components/BelovedModal';
+import IntroModal from '../components/IntroModal';
+import InviteModal from '../components/InviteModal';
+import Loading from '../components/Laoding';
 import ProfileModal from '../components/ProfileModal';
-import { Tooltip } from 'react-tooltip';
-import { useApi } from '../context/api';
-import * as Sentry from '@sentry/nextjs';
+import SideBar from '../components/SideBar';
+import WillActionButtons from '../components/WillActionButtons';
 import {
   belovedInviteStatus,
   belovedLevel,
   beneficiaryTypes,
 } from '../constant/enum';
-import InviteModal from '../components/InviteModal';
-import IntroModal from '../components/IntroModal';
+import { useApi } from '../context/api';
+import { formatTimestamp, mapViewElements } from '../utils/helpers';
+import * as Sentry from '@sentry/nextjs';
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import { Tooltip } from 'react-tooltip';
 
 const Dashboard = () => {
   const { contextApiData } = useApi();
@@ -629,3 +629,10 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+// The summary for this page includes
+// Upon login, the dashboard greets the user and displays notifications, such as pending invitations from other users.
+// It guides users through essential tasks like completing their profile information, registering beneficiaries, setting up digital assets, and appointing a Co-Sampul (trusted person).
+// Users can view summaries of their digital assets, including total count and value, categorized into digital accounts and subscription accounts.
+// The dashboard includes interactive elements like modals for editing profiles, managing beneficiaries, and adding digital assets.
+// It also offers tools for generating wills certificate (wasiat).

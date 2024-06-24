@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { supabase } from '../utils/supabase';
 import Loading from '../components/Laoding';
+import { supabase } from '../utils/supabase';
+import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 
 const ForgotPasswordModal = () => {
@@ -91,3 +91,7 @@ const ForgotPasswordModal = () => {
 };
 
 export default ForgotPasswordModal;
+
+// The summary of this page includes:
+// This page contains modal appears centered on the screen and prompts users to enter their email address.
+// Upon submission, it sends a password reset email using Supabase authentication services.

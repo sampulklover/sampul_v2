@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { supabase } from '../utils/supabase';
-import Loading from './Laoding';
-import toast from 'react-hot-toast';
+import { emptyUserImg } from '../constant/element';
 import {
   belovedLevel,
   beneficiaryTypes,
   relationships,
   userRoles,
 } from '../constant/enum';
-import { emptyUserImg } from '../constant/element';
+import { supabase } from '../utils/supabase';
+import Loading from './Laoding';
+import React, { useState, useEffect } from 'react';
+import toast from 'react-hot-toast';
 
 const UserDetailsModal = ({ selectedUser, refreshFunction, summary }) => {
   const [isLoading, setIsLoading] = useState({
@@ -281,3 +281,11 @@ const UserDetailsModal = ({ selectedUser, refreshFunction, summary }) => {
 };
 
 export default UserDetailsModal;
+
+// The summary of this page includes:
+// This page displays a modal component for managing detailed user information.
+// It includes functionalities for updating user roles and interacting with user data stored in a database using Supabase.
+// The modal presents user details such as username and email, along with roles that can be selected from a dropdown menu.
+// Additionally, it lists users' "beloved" individuals and their associated types and levels.
+// Digital assets linked to the user are also displayed, showing platforms and their respective details.
+// The modal supports data editing and updates with visual feedback on loading states using components like toast notifications and loading spinners.
