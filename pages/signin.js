@@ -3,6 +3,7 @@ import Loading from '../components/Laoding';
 import { useApi } from '../context/api';
 import * as Sentry from '@sentry/nextjs';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 const SignIn = () => {
@@ -11,6 +12,8 @@ const SignIn = () => {
     normal_login: false,
     google_login: false,
   });
+
+  const router = useRouter();
 
   const onSubmitNormalLogin = async (event) => {
     event.preventDefault();

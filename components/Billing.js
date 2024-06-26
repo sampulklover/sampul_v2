@@ -261,8 +261,8 @@ const Billing = () => {
           </button>
         </div>
       </div>
-      {summary.data?.map((item) => (
-        <>
+      {summary.data?.map((item, index) => (
+        <div key={index}>
           {contextApiData.user.isLoading ? <Loading /> : <></>}
           {item.active ? (
             <div
@@ -342,7 +342,7 @@ const Billing = () => {
           ) : (
             ''
           )}
-        </>
+        </div>
       ))}
     </div>
   );

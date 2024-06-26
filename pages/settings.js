@@ -7,11 +7,16 @@ import MyDetails from '../components/MyDetails';
 import Password from '../components/Password';
 import SideBar from '../components/SideBar';
 import UnderMaintenance from '../components/UnderMaintenance';
+import { systemLanguages } from '../constant/enum';
+import { useApi } from '../context/api';
+// import { useTranslation } from 'next-i18next';
+// import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 const Settings = () => {
   const router = useRouter();
+  // const { contextApiData } = useApi();
 
   useEffect(() => {
     if (router.isReady && document) {
@@ -27,6 +32,18 @@ const Settings = () => {
       }, 500);
     }
   }, [router.isReady]);
+
+  // useEffect(() => {
+  //   if (contextApiData.profile.data) {
+  //     const langNow = contextApiData.profile?.data?.system_language; // malay
+  //     const lObject = systemLanguages().find((x) => x.value === langNow);
+  //     const currentPage = router.pathname;
+  //     const currentPath = router.asPath.replace(/^\/[^/]+/, '');
+  //     if (lObject?.langCode) {
+  //       router.push(`/${lObject.langCode}${currentPath}/${currentPage}`);
+  //     }
+  //   }
+  // }, [contextApiData.profile]);
 
   const title = () => {
     return (
@@ -172,6 +189,14 @@ const Settings = () => {
     </SideBar>
   );
 };
+
+// export const getStaticProps = async ({ locale }) => {
+//   return {
+//     props: {
+//       ...(await serverSideTranslations(locale ?? 'bm', ['common'])),
+//     },
+//   };
+// };
 
 export default Settings;
 
