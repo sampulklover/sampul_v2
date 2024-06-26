@@ -1,5 +1,10 @@
 import { addUserImg } from '../constant/element';
-import { countries, maritalStatus, religions } from '../constant/enum';
+import {
+  countries,
+  maritalStatus,
+  religions,
+  systemLanguages,
+} from '../constant/enum';
 import { useApi } from '../context/api';
 import {
   mapViewElements,
@@ -55,6 +60,9 @@ const MyDetails = ({ isModal = false }) => {
           state: document.getElementById('input-my-details-state'),
           country: document.getElementById('select-my-details-country'),
           image_path: document.getElementById('preview-my-details-image'),
+          // system_language: document.getElementById(
+          //   'select-my-details-system-language'
+          // ),
         },
       },
     };
@@ -412,6 +420,29 @@ const MyDetails = ({ isModal = false }) => {
             </div>
           </div>
         </div>
+        {/* {checkView({
+          labelDiv1: (
+            <label
+              htmlFor="select-my-details-system-language"
+              class="uui-field-label"
+            >
+              System Language
+            </label>
+          ),
+          inputDiv1: (
+            <select
+              id="select-my-details-system-language"
+              required
+              class="form-select"
+            >
+              {systemLanguages().map((item) => (
+                <option key={item.value} value={item.value}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          ),
+        })} */}
         {isModal ? (
           <div class="d-grid gap-2 mt-5">
             <button type="submit" class="btn btn-primary btn-text">

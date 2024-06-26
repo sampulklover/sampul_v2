@@ -53,7 +53,11 @@ const DigitalAssetsCard = ({ typeName, editFunction, searchInput = '' }) => {
                       .includes(searchInput.toLowerCase()))
                 );
               } else {
-                return spObject;
+                if (spObject) {
+                  return spObject;
+                } else {
+                  return item;
+                }
               }
             })
             .map((item, index) => {

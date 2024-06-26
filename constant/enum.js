@@ -443,3 +443,12 @@ export const bodiesCategory = () => {
 
   return options;
 };
+
+export const systemLanguages = () => {
+  const options = [
+    { name: 'Malay', value: 'malay', langCode: 'bm' },
+    { name: 'English', value: 'english', langCode: 'en' },
+  ];
+
+  return options;
+};

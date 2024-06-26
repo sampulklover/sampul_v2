@@ -5,6 +5,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../styles/global.css';
 import NavBar from '../components/NavBar';
 import { ApiProvider } from '../context/api';
+import { appWithTranslation } from 'next-i18next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useEffect } from 'react';
@@ -18,7 +19,7 @@ const DynamicToaster = dynamic(
   }
 );
 
-export default function MyApp({ Component, pageProps }) {
+const MyApp = ({ Component, pageProps }) => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       import('bootstrap/dist/js/bootstrap.min.js');
@@ -71,7 +72,9 @@ export default function MyApp({ Component, pageProps }) {
       </ApiProvider>
     </>
   );
-}
+};
+
+export default appWithTranslation(MyApp);
 
 // Summary for this page includes:
 // This page serves as the main entry point to this website.
