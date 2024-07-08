@@ -13,8 +13,11 @@ import {
   belovedInviteStatus,
   belovedLevel,
   beneficiaryTypes,
+  systemLanguages,
 } from '../constant/enum';
+import translations from '../constant/translations';
 import { useApi } from '../context/api';
+import { useLocale } from '../context/locale';
 import { formatTimestamp, mapViewElements } from '../utils/helpers';
 import * as Sentry from '@sentry/nextjs';
 import { useEffect, useState } from 'react';
@@ -23,6 +26,7 @@ import { Tooltip } from 'react-tooltip';
 
 const Dashboard = () => {
   const { contextApiData } = useApi();
+  const { locale, changeLocale } = useLocale();
 
   const [summary, setSummary] = useState({
     data: null,
@@ -118,6 +122,14 @@ const Dashboard = () => {
           $('#intro-modal')?.modal('show');
         }, 1000);
       }
+
+      if (contextApiData.profile.data?.system_language) {
+        const useLang = contextApiData.profile.data?.system_language;
+        let langguageUse = systemLanguages().find((x) => x.value === useLang);
+        if (langguageUse?.langCode) {
+          changeLocale({ lang: langguageUse?.langCode });
+        }
+      }
     }
   }, [contextApiData.digitalAssets.isLoading]);
 
@@ -136,10 +148,9 @@ const Dashboard = () => {
 
   const getStartedKey = {
     complete_profile: {
-      title: 'Complete profile',
-      description:
-        'Complete the information on your profile and get verified to generate and download your wasiat/will',
-      btnTitle: 'Edit Profile',
+      title: translations[locale].dashboard.complete_profile,
+      description: translations[locale].dashboard.complete_the_information_,
+      btnTitle: translations[locale].dashboard.edit_profile,
       btnFunction: () => {
         try {
           $('#profile-modal')?.modal('show');
@@ -168,9 +179,9 @@ const Dashboard = () => {
       image: <img width="130px" src="images/monochrome_disk.png" />,
     },
     register_beneficiary: {
-      title: 'Register beneficiaries',
-      description: 'The future owner of your assets',
-      btnTitle: 'Add Beneficiary',
+      title: translations[locale].dashboard.register_beneficiary,
+      description: translations[locale].dashboard.the_future_owner_,
+      btnTitle: translations[locale].dashboard.add_beneficiary,
       btnFunction: () => {
         try {
           setBelovedCategory('future_owner');
@@ -200,10 +211,9 @@ const Dashboard = () => {
       image: <img width="130px" src="images/glass_liquid_swirly_sphere.png" />,
     },
     setup_digital_assets: {
-      title: 'Setup your first digital assets',
-      description:
-        'List and register all your Digital Assets, keep track of your assets, monitor the performance of your assets and keep track of their value',
-      btnTitle: 'Add Digital Asset',
+      title: translations[locale].dashboard.setup_your_first_,
+      description: translations[locale].dashboard.list_and_register_,
+      btnTitle: translations[locale].dashboard.add_digital_asset,
       btnFunction: () => {
         try {
           $('#digital-assets-modal')?.modal('show');
@@ -234,10 +244,9 @@ const Dashboard = () => {
       ),
     },
     appoint_co_sampul: {
-      title: 'Appoint your Co-Sampul',
-      description:
-        'Co-Sampul is your trusted person for whom which all information in this Sampul will be passed on.',
-      btnTitle: 'Add Co-Sampul',
+      title: translations[locale].dashboard.appoint_your_co_sampul,
+      description: translations[locale].dashboard.co_sampul_is_your,
+      btnTitle: translations[locale].dashboard.add_co_sampul,
       btnFunction: () => {
         try {
           setBelovedCategory('co_sampul');
@@ -299,7 +308,9 @@ const Dashboard = () => {
     return (
       <>
         <div>
-          <div class="smpl_text-lg-semibold mb-3">Getting started</div>
+          <div class="smpl_text-lg-semibold mb-3">
+            {translations[locale].dashboard.getting_started}
+          </div>
           <div class="row mt-md-0">
             <div class="col-lg">
               <div class="list-group" id="list-tab" role="tablist">
@@ -311,7 +322,10 @@ const Dashboard = () => {
                   role="tab"
                   aria-controls="list-home"
                 >
-                  {numberUI({ number: 1, title: 'Complete profile' })}
+                  {numberUI({
+                    number: 1,
+                    title: translations[locale].dashboard.complete_profile,
+                  })}
                 </button>
                 <button
                   class="list-group-item list-group-item-action"
@@ -323,7 +337,7 @@ const Dashboard = () => {
                 >
                   {numberUI({
                     number: 2,
-                    title: 'Register beneficiary',
+                    title: translations[locale].dashboard.register_beneficiary,
                   })}
                 </button>
                 <button
@@ -336,7 +350,7 @@ const Dashboard = () => {
                 >
                   {numberUI({
                     number: 3,
-                    title: 'Setup your first digital assets',
+                    title: translations[locale].dashboard.setup_your_first,
                   })}
                 </button>
                 <button
@@ -347,7 +361,11 @@ const Dashboard = () => {
                   role="tab"
                   aria-controls="list-profile"
                 >
-                  {numberUI({ number: 4, title: 'Appoint your Co-Sampul' })}
+                  {numberUI({
+                    number: 4,
+                    title:
+                      translations[locale].dashboard.appoint_your_co_sampul,
+                  })}
                 </button>
               </div>
             </div>
@@ -442,31 +460,28 @@ const Dashboard = () => {
         <div class="smpl_section-content wf-section">
           <div class="metric-group">
             {summaryValueCard({
-              title: 'Total Digital Asset',
+              title: translations[locale].dashboard.total_digital_asset,
               id_of_value: 'count-value-digital-account',
-              tooltip_html:
-                '<div>How much total value of my Digital Asset?</div>',
+              tooltip_html: `<div>${translations[locale].dashboard.total_digital_asset_tooltip}</div>`,
             })}
 
             {summaryValueCard({
-              title: 'Digital Assets',
+              title: translations[locale].dashboard.digital_assets,
               id_of_value: 'count-digital-account',
-              tooltip_html: '<div>How many Digital Asset that I have?</div>',
+              tooltip_html: `<div>${translations[locale].dashboard.digital_assets_tooltip}</div>`,
             })}
 
             {summaryValueCard({
-              title: 'Total Digital Expenses',
+              title: translations[locale].dashboard.total_digital_expenses,
               id_of_value: 'count-value-subscription-account',
-              tooltip_html:
-                '<div>How much total value of my Digital Expenses Account per annum?</div>',
+              tooltip_html: `<div>${translations[locale].dashboard.total_digital_expenses_tooltip}</div>`,
               image_path: 'images/like_pink.png',
             })}
 
             {summaryValueCard({
-              title: 'Digital Expenses',
+              title: translations[locale].dashboard.digital_expenses,
               id_of_value: 'count-subscription-account',
-              tooltip_html:
-                '<div>How many Digital Expenses Account that I have?</div>',
+              tooltip_html: `<div>${translations[locale].dashboard.digital_expenses_tooltips}</div>`,
               image_path: 'images/like_pink.png',
             })}
           </div>
@@ -489,10 +504,14 @@ const Dashboard = () => {
                   />
                   <div class="text-and-supporting-text-19">
                     <div class="text-and-badge-copy">
-                      <div class="smpl_text-lg-semibold">Digital Assets</div>
+                      <div class="smpl_text-lg-semibold">
+                        {translations[locale].dashboard.digital_assets}
+                      </div>
                       <div class="smpl_text-sm-medium text-align-left">
-                        Accounts where you keep your assets with value and can
-                        be passed on to your beloved ones.
+                        {
+                          translations[locale].dashboard
+                            .accounts_where_you_keep_
+                        }
                       </div>
                     </div>
                   </div>
@@ -506,10 +525,11 @@ const Dashboard = () => {
                   <img width="50px" src="images/monochrome_pie_chart.png" />
                   <div class="text-and-supporting-text-19">
                     <div class="text-and-badge-copy">
-                      <div class="smpl_text-lg-semibold">Digital Expenses</div>
+                      <div class="smpl_text-lg-semibold">
+                        {translations[locale].dashboard.digital_expenses}
+                      </div>
                       <div class="smpl_text-sm-medium text-align-left">
-                        Account where you make payment for subscription and to
-                        be terminated or transferred at the point of death.
+                        {translations[locale].dashboard.account_where_you_make_}
                       </div>
                     </div>
                   </div>
@@ -531,10 +551,15 @@ const Dashboard = () => {
             <div class="d-flex flex-wrap mb-1">
               <div class="flex-grow-1 mb-1">
                 <h3 class="smpl_display-sm-semibold">
-                  Start generating wasiat/will
+                  {
+                    translations[locale].dashboard
+                      .start_generating_wasiat_or_will
+                  }
                 </h3>
                 <div class="div-block-11">
-                  <div class="smpl_text-md-regular">Last wasiat update :</div>
+                  <div class="smpl_text-md-regular">
+                    {translations[locale].dashboard.last_wasiat_update}
+                  </div>
                   <div class="smpl_text-md-regular text-color-primary700">
                     {contextApiData.will.data?.last_updated
                       ? formatTimestamp(contextApiData.will.data?.last_updated)
@@ -557,13 +582,13 @@ const Dashboard = () => {
         <div class="row text-md-start text-center">
           <div class="col-lg">
             <div class="smpl_display-sm-semibold">
-              Welcome back,{' '}
+              {translations[locale].dashboard.welcome_back}{' '}
               <span class="smpl_display-sm-semibold text-color-primary700">
                 {contextApiData.profile.data?.username}
               </span>
             </div>
             <div class="smpl_text-md-regular">
-              Overview of secured assets in your Sampul
+              {translations[locale].dashboard.page_subtitle}
             </div>
           </div>
           <div class="col text-end"></div>
@@ -580,14 +605,15 @@ const Dashboard = () => {
       if (item?.invite_status == 'pending') {
         alerts.push(
           <div key={index} className="alert alert-warning" role="alert">
-            You have a notification from {item?.profiles?.nric_name}.{' '}
+            {translations[locale].dashboard.you_have_notification_}{' '}
+            {item?.profiles?.nric_name}.{' '}
             <span
               class="pointer-on-hover"
               onClick={() => {
                 inviteModal(item, 'invite');
               }}
             >
-              <b>Click to view</b>
+              <b>{translations[locale].dashboard.click_to_view}</b>
             </span>
           </div>
         );
@@ -614,7 +640,7 @@ const Dashboard = () => {
             selectedItem={inviteModalType.selectedItem}
           />
           <DigitalAssetsModal keyType={'add'} selectedItem={null} />
-          <Breadcrumb pageName={'Dashboard'} />
+          <Breadcrumb pageName={translations[locale].dashboard.pageTitle} />
           <div class="mt-4">{title()}</div>
           {invitedNotification()}
           <div class="mt-4">{section1()}</div>

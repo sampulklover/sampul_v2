@@ -10,13 +10,16 @@ import {
   belovedLevel,
   relationships,
 } from '../constant/enum';
+import translations from '../constant/translations';
 import { useApi } from '../context/api';
+import { useLocale } from '../context/locale';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 
 const Beloved = () => {
   const { contextApiData } = useApi();
+  const { locale } = useLocale();
   const router = useRouter();
 
   const [belovedModalType, setBelovedModalType] = useState({
@@ -36,10 +39,10 @@ const Beloved = () => {
         <div class="row text-md-start text-center">
           <div class="col-lg">
             <div class="smpl_display-sm-semibold">
-              Appoint your trusted person
+              {translations[locale].beloved.appoint_your_trusted_}
             </div>
             <div class="smpl_text-md-regular">
-              Ensure your assets is well managed later
+              {translations[locale].beloved.ensure_your_assets_}
             </div>
           </div>
           <div class="col text-end"></div>
@@ -141,7 +144,9 @@ const Beloved = () => {
                 aria-expanded="true"
                 aria-controls="collapseOne"
               >
-                <h3 class="heading-xsmall">Co-Sampul</h3>
+                <h3 class="heading-xsmall">
+                  {translations[locale].beloved.co_sampul}
+                </h3>
               </button>
             </h2>
             <div
@@ -231,7 +236,7 @@ const Beloved = () => {
                       belovedModal(null, 'co_sampul');
                     } else {
                       toast.error(
-                        'You have reached the maximum limit of two co-sampul. To add more, you must first delete existing ones.',
+                        translations[locale].beloved.you_have_reached_,
                         {
                           duration: 6000,
                         }
@@ -263,11 +268,10 @@ const Beloved = () => {
                     </div>
                     <div>
                       <div class="smpl_text-sm-semibold">
-                        Add your Co-Sampul
+                        {translations[locale].beloved.add_your_co_sampul}
                       </div>
                       <div class="smpl_text-sm-regular">
-                        Co-Sampul is your trusted person for whom which all
-                        information in this Sampul will be passed on.
+                        {translations[locale].beloved.co_sampul_is_your}
                       </div>
                     </div>
                   </div>
@@ -288,7 +292,9 @@ const Beloved = () => {
                 aria-expanded="true"
                 aria-controls="collapseTwo"
               >
-                <h3 class="heading-xsmall">Beneficiaries</h3>
+                <h3 class="heading-xsmall">
+                  {translations[locale].beloved.beneficiaries}
+                </h3>
               </button>
             </h2>
             <div
@@ -380,10 +386,10 @@ const Beloved = () => {
                     </div>
                     <div>
                       <div class="smpl_text-sm-semibold">
-                        Add your Beneficiary
+                        {translations[locale].beloved.add_your_beneficiary}
                       </div>
                       <div class="smpl_text-sm-regular">
-                        The future owner of your assets
+                        {translations[locale].beloved.the_future_owner}
                       </div>
                     </div>
                   </div>
@@ -404,7 +410,9 @@ const Beloved = () => {
                 aria-expanded="true"
                 aria-controls="collapseThree"
               >
-                <h3 class="heading-xsmall">Guardians</h3>
+                <h3 class="heading-xsmall">
+                  {translations[locale].beloved.guardians}
+                </h3>
               </button>
             </h2>
             <div
@@ -514,16 +522,17 @@ const Beloved = () => {
                     </div>
                     <div>
                       <div class="smpl_text-sm-semibold">
-                        Add your Guardian{' '}
+                        {translations[locale].beloved.add_your_guardian}{' '}
                         {checkRestriction() ? (
-                          <span class="text-primary">(Upgrade your plan)</span>
+                          <span class="text-primary">
+                            {translations[locale].beloved.upgrade_your_plan}
+                          </span>
                         ) : (
                           ''
                         )}
                       </div>
                       <div class="smpl_text-sm-regular">
-                        The caretaker of your underage kids ensuring they get
-                        the best care after you and you spoused demised
+                        {translations[locale].beloved.the_caretaker_of_}
                       </div>
                     </div>
                   </div>
@@ -544,7 +553,9 @@ const Beloved = () => {
                 aria-expanded="true"
                 aria-controls="collapseFour"
               >
-                <h3 class="heading-xsmall">I am a co-sampul for</h3>
+                <h3 class="heading-xsmall">
+                  {translations[locale].beloved.i_am_a_}
+                </h3>
               </button>
             </h2>
             <div

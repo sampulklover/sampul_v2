@@ -4,12 +4,15 @@ import SideBar from '../components/SideBar';
 import WillActionButtons from '../components/WillActionButtons';
 import WillCertCard from '../components/WillCertCard';
 import WillDetailsCard from '../components/WillDetailsCard';
+import translations from '../constant/translations';
 import { useApi } from '../context/api';
+import { useLocale } from '../context/locale';
 import { formatTimestamp } from '../utils/helpers';
 import Link from 'next/link';
 
 const Will = () => {
   const { contextApiData } = useApi();
+  const { locale } = useLocale();
 
   const summary = {
     data: {
@@ -27,14 +30,14 @@ const Will = () => {
         <div class="row text-md-start text-center">
           <div class="col-lg">
             <div class="smpl_display-sm-semibold">
-              Review your draft wasiat/will
+              {translations[locale].will.review_your_draft_}
             </div>
 
             <div class="smpl_text-md-regular">
               {summary.data.will?.last_updated
-                ? ` Last wasiat/will generated: ${formatTimestamp(
-                    summary.data.will?.last_updated
-                  )}`
+                ? `${
+                    translations[locale].will.last_wasiat_will_
+                  } ${formatTimestamp(summary.data.will?.last_updated)}`
                 : ''}
             </div>
           </div>
@@ -89,17 +92,20 @@ const Will = () => {
   const displayStatusInfo = {
     pending: (
       <span>
-        is still <b>pending</b>
+        {translations[locale].will.is_still}{' '}
+        <b>{translations[locale].will.pending}</b>
       </span>
     ),
     rejected: (
       <span>
-        has been <b>rejected</b>
+        {translations[locale].will.has_been}{' '}
+        <b>{translations[locale].will.rejected}</b>
       </span>
     ),
     null: (
       <span>
-        is still <b>pending</b>
+        {translations[locale].will.is_still}{' '}
+        <b>{translations[locale].will.pending}</b>
       </span>
     ),
   };
@@ -111,11 +117,11 @@ const Will = () => {
       if (!belovedCat[category].data && belovedCat[category].isRequired) {
         alerts.push(
           <div key={category} className="alert alert-danger" role="alert">
-            {`${belovedCat[category].name} has not been assigned. Click `}
+            {`${belovedCat[category].name} ${translations[locale].will.has_not_been_} `}
             <Link href="beloved" class="alert-link">
-              here
+              {translations[locale].will.here}
             </Link>
-            {` to assign.`}
+            {` ${translations[locale].will.to_assign}`}
           </div>
         );
       }
@@ -127,9 +133,9 @@ const Will = () => {
       ) {
         alerts.push(
           <div key={category} className="alert alert-danger" role="alert">
-            {`Your request for `}
+            {`${translations[locale].will.your_request_for} `}
             <b>{belovedCat[category].data.name}</b>
-            {`'s approval to be your ${belovedCat[category].name} `}{' '}
+            {`${translations[locale].will.s_approval_to_} ${belovedCat[category].name} `}{' '}
             {displayStatusInfo[belovedCat[category].inviteStatus]}.
           </div>
         );
@@ -160,7 +166,7 @@ const Will = () => {
               aria-controls="pills-certificate"
               aria-selected="true"
             >
-              Certificate
+              {translations[locale].will.certificate}
             </button>
           </li>
           <li class="nav-item" role="presentation">
@@ -174,7 +180,7 @@ const Will = () => {
               aria-controls="pills-details"
               aria-selected="false"
             >
-              Details
+              {translations[locale].will.details}
             </button>
           </li>
         </ul>
@@ -218,7 +224,7 @@ const Will = () => {
     <SideBar>
       <div class="body inner-body">
         <div class="content">
-          <Breadcrumb pageName={'Wasiat/Will'} />
+          <Breadcrumb pageName={translations[locale].will.wasiat_will} />
           <div class="mt-4">{title()}</div>
           {tabSection()}
         </div>

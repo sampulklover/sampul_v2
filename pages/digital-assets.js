@@ -4,9 +4,12 @@ import DigitalAssetsModal from '../components/DigitalAssetsModal';
 import Footer from '../components/Footer';
 import Loading from '../components/Laoding';
 import SideBar from '../components/SideBar';
+import translations from '../constant/translations';
+import { useLocale } from '../context/locale';
 import { useState, useEffect } from 'react';
 
 const DigitalAssets = () => {
+  const { locale } = useLocale();
   const [digitalAssetsModalType, setDigitalAssetsModalType] = useState({
     key: 'add',
     selectedItem: null,
@@ -42,10 +45,10 @@ const DigitalAssets = () => {
         <div class="row text-md-start text-center">
           <div class="col-lg">
             <div class="smpl_display-sm-semibold">
-              List down your Digital Assets & Expenses
+              {translations[locale].digital_assets.list_down_your_}
             </div>
             <div class="smpl_text-md-regular">
-              Ensure no asset is left behind for your loved ones
+              {translations[locale].digital_assets.ensure_no_asset_}
             </div>
           </div>
           <div class="col text-md-end text-center mt-md-0 mt-3">
@@ -64,7 +67,7 @@ const DigitalAssets = () => {
                 onChange={handleInputChange}
                 class="form-control"
                 type="search"
-                placeholder="Search"
+                placeholder={translations[locale].digital_assets.search}
                 aria-label="Search"
                 style={{ 'max-width': '275px' }}
               />
@@ -95,7 +98,7 @@ const DigitalAssets = () => {
               aria-controls="pills-all"
               aria-selected="true"
             >
-              View all
+              {translations[locale].digital_assets.view_all}
             </button>
           </li>
           <li class="nav-item" role="presentation">
@@ -109,7 +112,7 @@ const DigitalAssets = () => {
               aria-controls="pills-non-subscription"
               aria-selected="false"
             >
-              Assets
+              {translations[locale].digital_assets.assets}
             </button>
           </li>
           <li class="nav-item" role="presentation">
@@ -123,7 +126,7 @@ const DigitalAssets = () => {
               aria-controls="pills-subscription"
               aria-selected="false"
             >
-              Expenses
+              {translations[locale].digital_assets.expenses}
             </button>
           </li>
         </ul>
@@ -183,7 +186,9 @@ const DigitalAssets = () => {
     <SideBar>
       <div class="body inner-body">
         <div class="content">
-          <Breadcrumb pageName={'Digital Assets & Expenses'} />
+          <Breadcrumb
+            pageName={translations[locale].digital_assets.digital_assets_and_}
+          />
           <DigitalAssetsModal
             keyType={digitalAssetsModalType.key}
             selectedItem={digitalAssetsModalType.selectedItem}

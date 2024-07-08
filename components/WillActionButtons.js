@@ -1,4 +1,6 @@
+import translations from '../constant/translations';
 import { useApi } from '../context/api';
+import { useLocale } from '../context/locale';
 import successWillAnimationData from '../public/animation/lottie_will_success_generated.json';
 import { supabase } from '../utils/supabase';
 import Loading from './Laoding';
@@ -11,6 +13,7 @@ import Lottie from 'react-lottie';
 
 const WillActionButtons = ({ viewOnly = false }) => {
   const { contextApiData, getWill } = useApi();
+  const { locale } = useLocale();
   const router = useRouter();
 
   const [shareUrl, setShareUrl] = useState(null);
@@ -357,7 +360,7 @@ const WillActionButtons = ({ viewOnly = false }) => {
             }
           }}
         >
-          Share
+          {translations[locale].component.will_action_btn.share}
           <svg
             width="20"
             height="21"
@@ -420,8 +423,9 @@ const WillActionButtons = ({ viewOnly = false }) => {
             <Loading
               title={
                 contextApiData?.profile?.data?.religion == 'islam'
-                  ? 'Generate Wasiat'
-                  : 'Generate Will'
+                  ? translations[locale].component.will_action_btn
+                      .generate_wasiat
+                  : translations[locale].component.will_action_btn.generate_will
               }
               loading={buttonLoading.generate}
             />

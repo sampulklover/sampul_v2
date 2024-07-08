@@ -5,7 +5,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../styles/global.css';
 import NavBar from '../components/NavBar';
 import { ApiProvider } from '../context/api';
-import { appWithTranslation } from 'next-i18next';
+import { LocaleProvider } from '../context/locale';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useEffect } from 'react';
@@ -63,18 +63,20 @@ const MyApp = ({ Component, pageProps }) => {
           crossOrigin="anonymous"
         ></script>
       </Head>
-      <ApiProvider>
-        <DynamicToaster position="top-right" />
-        <NavBar />
-        <main className="main">
-          <Component {...pageProps} />
-        </main>
-      </ApiProvider>
+      <LocaleProvider>
+        <ApiProvider>
+          <DynamicToaster position="top-right" />
+          <NavBar />
+          <main className="main">
+            <Component {...pageProps} />
+          </main>
+        </ApiProvider>
+      </LocaleProvider>
     </>
   );
 };
 
-export default appWithTranslation(MyApp);
+export default MyApp;
 
 // Summary for this page includes:
 // This page serves as the main entry point to this website.

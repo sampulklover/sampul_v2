@@ -1,16 +1,21 @@
 import Breadcrumb from '../components/Breadcrumb';
 import Footer from '../components/Footer';
 import SideBar from '../components/SideBar';
+import translations from '../constant/translations';
+import { useLocale } from '../context/locale';
 
 const DigitalAssets = () => {
+  const { locale } = useLocale();
   const title = () => {
     return (
       <>
         <div class="row text-md-start text-center">
           <div class="col-lg">
-            <div class="smpl_display-sm-semibold">Physical Assets</div>
+            <div class="smpl_display-sm-semibold">
+              {translations[locale].physical_assets.physical_assets}
+            </div>
             <div class="smpl_text-md-regular">
-              Overview of secured assets in your Sampul
+              {translations[locale].physical_assets.overview_of_secured_}
             </div>
           </div>
         </div>
@@ -31,7 +36,9 @@ const DigitalAssets = () => {
     <SideBar>
       <div class="body inner-body">
         <div class="content">
-          <Breadcrumb pageName={'Physical Assets'} />
+          <Breadcrumb
+            pageName={translations[locale].physical_assets.physical_assets}
+          />
           <div class="mt-4">{title()}</div>
           {comingSoonSection()}
           <Footer />
