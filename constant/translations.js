@@ -32,6 +32,13 @@ export default {
       account_to_terminated: 'Account to be terminated',
       beneficiary_liquidate_account:
         'My beneficiary to liquidate the account and proceeds to be distributed as per Faraid',
+      islam: 'Islam',
+      christianity: 'Christianity',
+      buddhism: 'Buddhism',
+      hinduism: 'Hinduism',
+      sikhism: 'Sikhism',
+      confucianism: 'Confucianism',
+      taoism: 'Taoism',
     },
     component: {
       accounts_chart: {
@@ -528,6 +535,13 @@ export default {
       account_to_terminated: 'Akaun untuk ditamatkan',
       beneficiary_liquidate_account:
         'Penerima manfaat saya untuk mencairkan akaun dan hasilnya akan diedarkan mengikut Faraid',
+      islam: 'Islam',
+      christianity: 'Kristian',
+      buddhism: 'Buddha',
+      hinduism: 'Hindu',
+      sikhism: 'Sikh',
+      confucianism: 'Konfusianisme',
+      taoism: 'Taoisme',
     },
     component: {
       accounts_chart: {

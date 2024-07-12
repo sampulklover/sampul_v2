@@ -345,7 +345,7 @@ const MyDetails = ({ isModal = false }) => {
             >
               {religions().map((item) => (
                 <option key={item.value} value={item.value}>
-                  {item.name}
+                  {translations[locale]?.global[item.value]}
                 </option>
               ))}
             </select>
