@@ -1,3 +1,5 @@
+import translations from '../constant/translations';
+import { useLocale } from '../context/locale';
 import adminStyles from '../styles/admin.module.scss';
 import Loading from './Laoding';
 import dynamic from 'next/dynamic';
@@ -10,6 +12,8 @@ const ReactApexChart = dynamic(() => import('react-apexcharts'), {
 });
 
 const AccountsChart = ({ summary }) => {
+  const { locale } = useLocale();
+
   const [chartData, setChartData] = useState({
     digital_account: [],
     subscription_account: [],
@@ -151,7 +155,9 @@ const AccountsChart = ({ summary }) => {
           <div>
             <div class={adminStyles.radialChartLabelContainer}>
               <div class={adminStyles.assetsPointCircle} />
-              <span class={adminStyles.radialChartLabelTitle}>Assets</span>
+              <span class={adminStyles.radialChartLabelTitle}>
+                {translations[locale].component.accounts_chart.assets}
+              </span>
             </div>
             <p class={adminStyles.radialChartLabelValue}>
               {
@@ -168,7 +174,9 @@ const AccountsChart = ({ summary }) => {
           <div>
             <div class={adminStyles.radialChartLabelContainer}>
               <div class={adminStyles.expensesPointCircle} />
-              <span class={adminStyles.radialChartLabelTitle}>Expenses</span>
+              <span class={adminStyles.radialChartLabelTitle}>
+                {translations[locale].component.accounts_chart.expenses}
+              </span>
             </div>
             <p class={adminStyles.radialChartLabelValue}>
               {

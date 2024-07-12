@@ -1,15 +1,21 @@
+import translations from '../constant/translations';
+import { useLocale } from '../context/locale';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import QRCode from 'react-qr-code';
 
 const QrCodeModal = ({ cardRef, qrValue }) => {
   const router = useRouter();
+  const { locale } = useLocale();
+
   return (
     <div class="modal fade" id="qr-code-modal">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Your Wasiat/will QR code</h5>
+            <h5 class="modal-title">
+              {translations[locale].component.qr_code_modal.your_wasiat_will_}
+            </h5>
             <button
               type="button"
               class="btn-close"
@@ -31,8 +37,7 @@ const QrCodeModal = ({ cardRef, qrValue }) => {
                 )}
               </div>
               <p class="mt-3">
-                Here's the QR code that links to your wasiat/will, you can
-                access it by scanning this code or by{' '}
+                {translations[locale].component.qr_code_modal.here_the_qr}{' '}
                 <span
                   class="text-primary pointer-on-hover"
                   onClick={() => {
@@ -40,7 +45,7 @@ const QrCodeModal = ({ cardRef, qrValue }) => {
                     router.push('/will');
                   }}
                 >
-                  clicking here.
+                  {translations[locale].component.qr_code_modal.clicking_here}
                 </span>
               </p>
             </div>

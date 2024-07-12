@@ -11,7 +11,7 @@ export const LocaleProvider = ({ children }) => {
   const changeLocale = async ({ lang }) => {
     if (translations.hasOwnProperty(lang)) {
       setLocale(lang);
-      console.log('Language changed to:', lang);
+      // console.log('Language changed to:', lang);
     } else {
       console.error(`Language key "${lang}" not found in translations.`);
     }

@@ -846,7 +846,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                         belovedConfig[belovedType]?.level_info_tooltip_content
                       }
                     >
-                      Level{' '}
+                      {translations[locale].component.beloved_modal.level}{' '}
                       {belovedConfig[belovedType]
                         ?.level_info_tooltip_content ? (
                         <i class="bi bi-info-circle"></i>
@@ -874,7 +874,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                   >
                     {belovedConfig[belovedType].beloved_list.map((item) => (
                       <option key={item.value} value={item.value}>
-                        {item.name}
+                        {translations[locale]?.global[item.value]}
                       </option>
                     ))}
                   </select>

@@ -59,7 +59,10 @@ const DigitalAssets = () => {
                 digitalAssetsModal(null);
               }}
             >
-              <Loading title="Add Digital Assets & Expenses" loading={false} />
+              <Loading
+                title={translations[locale].digital_assets.add_digital_assets_}
+                loading={false}
+              />
             </button>
             <div class="d-flex justify-content-md-end justify-content-center mt-2">
               <input

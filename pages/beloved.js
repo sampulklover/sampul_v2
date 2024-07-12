@@ -210,13 +210,25 @@ const Beloved = () => {
                               <div class="beloved-tag">
                                 {status_invites ? (
                                   <div class="badge is-badge-small">
-                                    <span>{status_invites.name}</span>
+                                    <span>
+                                      {
+                                        translations[locale]?.global[
+                                          status_invites.value
+                                        ]
+                                      }
+                                    </span>
                                   </div>
                                 ) : (
                                   <></>
                                 )}
                                 <div class="badge is-badge-small">
-                                  <span>{lObject.name}</span>
+                                  <span>
+                                    {
+                                      translations[locale]?.global[
+                                        lObject.value
+                                      ]
+                                    }
+                                  </span>
                                 </div>
                               </div>
                             </div>
@@ -646,7 +658,7 @@ const Beloved = () => {
     <SideBar>
       <div class="body inner-body">
         <div class="content">
-          <Breadcrumb pageName={'Beloved'} />
+          <Breadcrumb pageName={translations[locale].beloved.beloved} />
           <InviteModal
             keyType={inviteModalType.key}
             category={inviteModalType.category}

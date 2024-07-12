@@ -1,5 +1,7 @@
 import { bucketName } from '../constant/element';
+import translations from '../constant/translations';
 import { useApi } from '../context/api';
+import { useLocale } from '../context/locale';
 import { deleteMyStorage } from '../utils/helpers';
 import { supabase } from '../utils/supabase';
 import Loading from './Laoding';
@@ -9,6 +11,7 @@ import toast from 'react-hot-toast';
 
 const DangerZone = () => {
   const { contextApiData } = useApi();
+  const { locale } = useLocale();
 
   const router = useRouter();
   const [summary, setSummary] = useState({
@@ -67,7 +70,9 @@ const DangerZone = () => {
           userId: contextApiData.user.data?.id,
         });
 
-        toast.success('Deleted successfully!');
+        toast.success(
+          translations[locale].component.danger_zone.deleted_successfully
+        );
 
         setSummary({
           ...summary,
@@ -85,7 +90,7 @@ const DangerZone = () => {
         });
       }
     } else {
-      toast.error('Input do not match!');
+      toast.error(translations[locale].component.danger_zone.input_do_not_);
     }
   };
 
@@ -100,15 +105,24 @@ const DangerZone = () => {
       >
         <div class="row mb-4">
           <div class="col-lg">
-            <div class="smpl_text-sm-semibold">Delete Account</div>
+            <div class="smpl_text-sm-semibold">
+              {translations[locale].component.danger_zone.delete_account}
+            </div>
             <div class="smpl_text-sm-regular">
-              Deleting your account will remove all of your information from our
-              database. This cannot be undone.
+              {
+                translations[locale].component.danger_zone
+                  .deleting_your_account_
+              }
             </div>
           </div>
           <div class="col text-end mt-md-0 mt-3">
             <button type="submit" class="btn btn-danger btn-text">
-              <Loading title="Delete Account" loading={summary.isSaving} />
+              <Loading
+                title={
+                  translations[locale].component.danger_zone.delete_account
+                }
+                loading={summary.isSaving}
+              />
             </button>
           </div>
         </div>
@@ -118,7 +132,8 @@ const DangerZone = () => {
               htmlFor="input-password-new-password"
               class="uui-field-label"
             >
-              To delete your Sampul account please type "delete my account"
+              {translations[locale].component.danger_zone.to_delete_your_}{' '}
+              "delete my account"
             </label>
           </div>
           <div class="col">

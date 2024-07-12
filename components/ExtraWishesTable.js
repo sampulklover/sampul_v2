@@ -1,4 +1,6 @@
+import translations from '../constant/translations';
 import { useApi } from '../context/api';
+import { useLocale } from '../context/locale';
 import Loading from './Laoding';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -6,6 +8,7 @@ import { useEffect, useState } from 'react';
 
 const ExtraWishesTable = ({ typeName }) => {
   const { contextApiData } = useApi();
+  const { locale } = useLocale();
   const router = useRouter();
   const [bodyList, setBodyList] = useState([]);
 
@@ -39,9 +42,11 @@ const ExtraWishesTable = ({ typeName }) => {
 
   const type = {
     extra_wishes: {
-      title: 'Extra Wishes',
-      subtitle: `Add special touches with Sampul's Extra Wishes feature.`,
-      addNewBtnTitle: 'Add Extra Wishes',
+      title: translations[locale].component.extra_wishes_table.extra_wishes,
+      subtitle:
+        translations[locale].component.extra_wishes_table.add_special_touches_,
+      addNewBtnTitle:
+        translations[locale].component.extra_wishes_table.add_extra_wishes,
       data: bodyList,
       isReady: true,
       pageName: 'extra-wishes',
@@ -57,13 +62,22 @@ const ExtraWishesTable = ({ typeName }) => {
               <thead>
                 <tr>
                   <th scope="col">
-                    <small class="smpl_text-xs-medium">Institution</small>
+                    <small class="smpl_text-xs-medium">
+                      {
+                        translations[locale].component.extra_wishes_table
+                          .institution
+                      }
+                    </small>
                   </th>
                   <th scope="col">
-                    <small class="smpl_text-xs-medium">Value</small>
+                    <small class="smpl_text-xs-medium">
+                      {translations[locale].component.extra_wishes_table.value}
+                    </small>
                   </th>
                   <th scope="col">
-                    <small class="smpl_text-xs-medium">Type</small>
+                    <small class="smpl_text-xs-medium">
+                      {translations[locale].component.extra_wishes_table.type}
+                    </small>
                   </th>
                 </tr>
               </thead>

@@ -1,9 +1,13 @@
 import Loading from '../components/Laoding';
+import translations from '../constant/translations';
+import { useLocale } from '../context/locale';
 import { supabase } from '../utils/supabase';
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 
 const ForgotPasswordModal = () => {
+  const { locale } = useLocale();
+
   const [isLoading, setIsLoading] = useState({
     send_recovery: false,
   });
@@ -33,7 +37,8 @@ const ForgotPasswordModal = () => {
     }
 
     toast.success(
-      'Password recovery email has been sent, please check your inbox.',
+      translations[locale].component.forgot_password_modal
+        .password_recovery_email_,
       {
         duration: 6000,
       }
@@ -45,7 +50,12 @@ const ForgotPasswordModal = () => {
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Forgot Password</h5>
+            <h5 class="modal-title">
+              {
+                translations[locale].component.forgot_password_modal
+                  .forgot_password
+              }
+            </h5>
             <button
               type="button"
               class="btn-close"
@@ -55,8 +65,10 @@ const ForgotPasswordModal = () => {
           </div>
           <div class="modal-body">
             <p>
-              Please enter your email address. We'll send you a link to change
-              your password.
+              {
+                translations[locale].component.forgot_password_modal
+                  .please_enter_your_
+              }
             </p>
             <form>
               <div class="mb-3">
@@ -64,7 +76,7 @@ const ForgotPasswordModal = () => {
                   htmlFor="input-forgot-password-email"
                   class="uui-field-label"
                 >
-                  Email
+                  {translations[locale].component.forgot_password_modal.email}
                 </label>
                 <input
                   type="email"

@@ -305,21 +305,12 @@ const ExtraWishes = () => {
               <div class="text-sm-medium-6">
                 <b
                   data-tooltip-id="my-tooltip-nazar"
-                  data-tooltip-html="
-                    <div>
-                      <p>
-                        Info: Nazar is a vow made to Allah to perform certain
-                        actions if certain conditions are met. For example: “I
-                        wish to go for Umrah if I got a son.” Umrah is
-                        compulsory if a son was borned and if he/she does not
-                        have the chance to do it while still alive, his/her
-                        beneficiaries are obliged to do it on behalf and the
-                        expenses can be taken from one’s estate. If the
-                        beneficiaries are unable to perform the nazar, they may
-                        opt for a Kaffarah.
-                      </p>
-                    </div>
-                  "
+                  data-tooltip-html={`
+                  <div>
+                    <p>
+                    ${translations[locale].extra_wishes.info_nazar_is_} 
+                    </p>
+                  </div>`}
                 >
                   {translations[locale].extra_wishes.nazar_kaffarah}
                   <i class="bi bi-info-circle ms-1"></i>
@@ -361,7 +352,7 @@ const ExtraWishes = () => {
                 <textarea
                   class="form-control"
                   id="input-extra-wishes-nazar-wishes"
-                  placeholder="I wish to go for Umrah if I got a son."
+                  placeholder={translations[locale].extra_wishes.i_wish_to_}
                   required
                   rows="5"
                 />
@@ -408,15 +399,12 @@ const ExtraWishes = () => {
               <div class="text-sm-medium-6">
                 <b
                   data-tooltip-id="my-tooltip-fidyah"
-                  data-tooltip-html="
-                    <div>
-                      <p>
-                        Info: When someone cannot fast in Ramadhan and got no
-                        chance to make up the lost days afterwards, then their
-                        beneficiaries may pay (Fidyah) taken from the estate.
-                      </p>
-                    </div>
-                  "
+                  data-tooltip-html={`
+                  <div>
+                    <p>
+                    ${translations[locale].extra_wishes.info_when_someone_} 
+                    </p>
+                  </div>`}
                 >
                   {translations[locale].extra_wishes.fidyah}
                   <i class="bi bi-info-circle ms-1"></i>
@@ -717,17 +705,12 @@ const ExtraWishes = () => {
               <div class="text-sm-medium-6">
                 <b
                   data-tooltip-id="my-tooltip-1"
-                  data-tooltip-html="
+                  data-tooltip-html={`
                     <div>
                       <p>
-                        Info: For Muslims, the National Fatwa Council (Majlis
-                        Fatwa Kebangsaan) in June 1970 has decided that it is
-                        permissible to donate organs with the condition it is
-                        used to save life where there are no other alternatives
-                        and not used for business dealings.
+                      ${translations[locale].extra_wishes.info_for_muslims_} 
                       </p>
-                    </div>
-                  "
+                    </div>`}
                 >
                   {translations[locale].extra_wishes.organ_donor_pledge}
                   <i class="bi bi-info-circle ms-1"></i>
@@ -772,11 +755,15 @@ const ExtraWishes = () => {
                   class="form-select"
                 >
                   {[
-                    { name: 'Disagree', value: false },
-                    { name: 'Agree', value: true },
+                    {
+                      name: 'Disagree',
+                      value: false,
+                      translationKey: 'disagree',
+                    },
+                    { name: 'Agree', value: true, translationKey: 'agree' },
                   ].map((item) => (
                     <option key={item.value} value={item.value}>
-                      {item.name}
+                      {translations[locale]?.global[item.translationKey]}
                     </option>
                   ))}
                 </select>

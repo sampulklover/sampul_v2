@@ -1,16 +1,31 @@
 import { addUserImg } from '../constant/element';
+import { systemLanguages } from '../constant/enum';
+import translations from '../constant/translations';
 import { useApi } from '../context/api';
+import { useLocale } from '../context/locale';
 import LogoutModal from './LogoutModal';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 
 const SideBar = ({ children }) => {
   const router = useRouter();
+  const { locale, changeLocale } = useLocale();
   const { contextApiData } = useApi();
+
+  useEffect(() => {
+    if (contextApiData.profile.data?.system_language) {
+      const useLang = contextApiData.profile.data?.system_language;
+      let langguageUse = systemLanguages().find((x) => x.value === useLang);
+      if (langguageUse?.langCode) {
+        changeLocale({ lang: langguageUse?.langCode });
+      }
+    }
+  }, [router.asPath && contextApiData.profile.data?.system_language]);
 
   const pageList = [
     {
-      title: 'Dashboard',
+      title: translations[locale].component.side_bar.dashboard,
       page: 'dashboard',
       display: true,
       action: () => {
@@ -35,7 +50,7 @@ const SideBar = ({ children }) => {
       ),
     },
     {
-      title: 'Digital',
+      title: translations[locale].component.side_bar.digital,
       page: 'digital-assets',
       display: true,
       action: () => {
@@ -62,7 +77,9 @@ const SideBar = ({ children }) => {
     {
       title: (
         <div class="d-flex justify-content-between align-items-center">
-          <span class="me-1">Physical</span>
+          <span class="me-1">
+            {translations[locale].component.side_bar.physical}
+          </span>
           <div class="coming-soon-badge-container">
             <div
               class="coming-soon-badge-body"
@@ -71,7 +88,7 @@ const SideBar = ({ children }) => {
                   router?.route == `/physical-assets` ? '#533de9' : '#667085',
               }}
             >
-              Coming Soon
+              {translations[locale].component.side_bar.coming_soon}
             </div>
           </div>
         </div>
@@ -105,7 +122,7 @@ const SideBar = ({ children }) => {
       ),
     },
     {
-      title: 'Beloved',
+      title: translations[locale].component.side_bar.beloved,
       page: 'beloved',
       display: true,
       action: () => {
@@ -130,7 +147,7 @@ const SideBar = ({ children }) => {
       ),
     },
     {
-      title: 'Extra Wishes',
+      title: translations[locale].component.side_bar.extra_wishes,
       page: 'extra-wishes',
       display: true,
       action: () => {
@@ -164,7 +181,7 @@ const SideBar = ({ children }) => {
       ),
     },
     {
-      title: 'Wasiat/Will',
+      title: translations[locale].component.side_bar.wasiat_will,
       page: 'will',
       display: true,
       action: () => {
@@ -192,7 +209,7 @@ const SideBar = ({ children }) => {
 
   const pageListBtm = [
     {
-      title: 'Admin',
+      title: translations[locale].component.side_bar.admin,
       page: 'admin',
       display: contextApiData.role.data?.role == 'admin' ? true : false,
       action: () => {
@@ -217,7 +234,7 @@ const SideBar = ({ children }) => {
       ),
     },
     {
-      title: 'Settings',
+      title: translations[locale].component.side_bar.settings,
       page: 'settings',
       display: true,
       action: () => {
@@ -249,14 +266,14 @@ const SideBar = ({ children }) => {
       ),
     },
     {
-      title: 'Sign out',
+      title: translations[locale].component.side_bar.sign_out,
       page: '',
       display: true,
       action: () => {
         try {
           $('#logout-modal')?.modal('show');
         } catch (error) {
-          toast.error('Something went wrong, please try again');
+          toast.error(translations[locale].global.something_went_wrong_);
         }
       },
       icon: (

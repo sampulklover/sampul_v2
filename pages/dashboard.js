@@ -9,12 +9,6 @@ import Loading from '../components/Laoding';
 import ProfileModal from '../components/ProfileModal';
 import SideBar from '../components/SideBar';
 import WillActionButtons from '../components/WillActionButtons';
-import {
-  belovedInviteStatus,
-  belovedLevel,
-  beneficiaryTypes,
-  systemLanguages,
-} from '../constant/enum';
 import translations from '../constant/translations';
 import { useApi } from '../context/api';
 import { useLocale } from '../context/locale';
@@ -26,7 +20,7 @@ import { Tooltip } from 'react-tooltip';
 
 const Dashboard = () => {
   const { contextApiData } = useApi();
-  const { locale, changeLocale } = useLocale();
+  const { locale } = useLocale();
 
   const [summary, setSummary] = useState({
     data: null,
@@ -121,14 +115,6 @@ const Dashboard = () => {
         setTimeout(() => {
           $('#intro-modal')?.modal('show');
         }, 1000);
-      }
-
-      if (contextApiData.profile.data?.system_language) {
-        const useLang = contextApiData.profile.data?.system_language;
-        let langguageUse = systemLanguages().find((x) => x.value === useLang);
-        if (langguageUse?.langCode) {
-          changeLocale({ lang: langguageUse?.langCode });
-        }
       }
     }
   }, [contextApiData.digitalAssets.isLoading]);

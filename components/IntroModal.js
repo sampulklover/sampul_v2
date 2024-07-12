@@ -1,7 +1,10 @@
+import translations from '../constant/translations';
+import { useLocale } from '../context/locale';
 import { useEffect, useState } from 'react';
 import YouTube from 'react-youtube';
 
 const IntroModal = () => {
+  const { locale } = useLocale();
   const [showVideo, setShowVideo] = useState(false);
 
   useEffect(() => {
@@ -67,11 +70,12 @@ const IntroModal = () => {
 
             <div class="my-4">
               <h5>
-                <strong>Welcome to your dashboard</strong>
+                <strong>
+                  {translations[locale].component.intro_modal.welcome_to_your_}
+                </strong>
               </h5>
               <h6 class="text-muted">
-                We’re glad to have you onboard. Here are some quick tips to get
-                you up and running.
+                {translations[locale].component.intro_modal.we_glad_to_}
               </h6>
             </div>
             <div class="row">
@@ -83,7 +87,7 @@ const IntroModal = () => {
                     $('#intro-modal')?.modal('hide');
                   }}
                 >
-                  Skip
+                  {translations[locale].component.intro_modal.skip}
                 </button>
               </div>
               <div class="col">
@@ -93,7 +97,7 @@ const IntroModal = () => {
                     setShowVideo(true);
                   }}
                 >
-                  Start video tour
+                  {translations[locale].component.intro_modal.start_video_tour}
                 </button>
               </div>
             </div>

@@ -1,6 +1,309 @@
 export default {
   en: {
+    global: {
+      something_went_wrong_: 'Something went wrong, please try again',
+      save: 'Save',
+      successfully_submitted: 'Successfully submitted!',
+      successfully_updated: 'Successfully updated!',
+      delete_confirmation: 'Are you sure you want to delete this record?',
+      successfully_deleted: 'Successfully deleted!',
+      delete: 'Delete',
+      saved_successfully: 'Saved successfully!',
+      updated_successfully: 'Updated successfully!',
+      agree: 'Agree',
+      disagree: 'Disagree',
+      primary: 'Primary',
+      secondary: 'Secondary',
+      others: 'Others',
+      pending: 'Pending',
+      accepted: 'Accepted',
+      rejected: 'Rejected',
+      single: 'Single',
+      married: 'Married',
+      widowed: 'Widowed',
+      divorced: 'Divorced',
+      no: 'No',
+      yes: 'Yes',
+      n_a: 'N/A',
+      weekly: 'Weekly',
+      monthly: 'Monthly',
+      yearly: 'Yearly',
+      pass_this_account_: 'Pass this account to be used by my beneficiary',
+      account_to_terminated: 'Account to be terminated',
+      beneficiary_liquidate_account:
+        'My beneficiary to liquidate the account and proceeds to be distributed as per Faraid',
+    },
     component: {
+      accounts_chart: {
+        assets: 'Assets',
+        expenses: 'Expenses',
+        role: 'Role',
+        total_beloved: 'Total Beloved',
+      },
+      billing: {
+        failed_to_get_: 'Failed to get prices',
+        failed_to_create_: 'Failed to create customer ID',
+        please_select_a_: 'Please select a plan below',
+        failed_to_create_: 'Failed to create payment session',
+        subscription_plan: 'Subscription Plan',
+        as_you_embark_:
+          'As you embark on your digital wasiat/will planning adventure, you have the flexibility to upgrade your plan at any time. Unlock premium reatures, sun as Frysical Asset, Appointment or Guardian, and Corporate Executor.',
+        billing: 'Billing',
+        manage_your_billing_: 'Manage your billing and payment details',
+        the_free_plan_:
+          'The free plan is automatically included upon registration',
+        manage_subscription: 'Manage subscription',
+        subscribe: 'Subscribe',
+        current_plan: 'Current plan',
+      },
+      body_details_modal: {
+        body_details: 'Body Details',
+        name: 'Name',
+        website_URL: 'Website URL',
+        category: 'Category',
+        icon_svg: 'Icon (SVG)',
+        active: 'Active',
+      },
+      checkout_button: {
+        checkout_now: 'Checkout Now',
+      },
+      danger_zone: {
+        deleted_successfully: 'Deleted successfully!',
+        input_do_not_: 'Input do not match!',
+        delete_account: 'Delete Account',
+        deleting_your_account_:
+          'Deleting your account will remove all of your information from our database. This cannot be undone.',
+        to_delete_your_: 'To delete your Sampul account please type',
+      },
+      digital_assets_card: {
+        no_digital_accounts_: 'No Digital Accounts found',
+        accounts_where_keep_:
+          'Accounts where you keep your assets with value and can be passed on to your beloved ones.',
+        add_digital_assets: 'Add Digital Assets',
+        digital_subscriptions: 'Digital Subscriptions',
+        account_where_make:
+          'Account where you make payment for subscription and to be terminated or transferred at the point of death.',
+      },
+      digital_assets_modal: {
+        you_can_store_: 'You can store up to',
+        digital_assets_to_: 'digital assets. To add more, upgrade your plan.',
+        appoint_my_trusted_: 'Appoint my trusted person',
+        digital_assets_expenses: 'Digital Assets & Expenses',
+        account_details: 'Account Details',
+        help_us_to_:
+          'Help us to ensure no asset is left behind for your loved one by filling out this form:',
+        email: 'Email',
+        platform_account: 'Platform Account',
+        Cannot_find_your_: `Can't find your Platform Account?`,
+        add_a_new_: 'Add a new one.',
+        new_platform_account: 'New Platform Account',
+        service_provider: 'Service Provider',
+        website_url: 'Website URL',
+        is_this_a_: 'Is this a subscription account?',
+        how_often_do_: 'How often do you pay?',
+        what_estimate_value_: 'What’s the estimate value of the account?',
+        what_should_we_:
+          'What should we do with your account in the event of death?',
+        who_will_manage_: 'Who will manage the account?',
+        anything_else_we_: 'Anything else we should know?',
+        please_download_all_:
+          'E.g. Please download all pictures before terminate.',
+        you_agree_to_: 'You agree to our friendly',
+        privacy_policy_: 'privacy policy.',
+        create_more: 'Create More',
+      },
+      digital_summary_card: {
+        platforms: 'Platforms',
+        beneficiaries: 'Beneficiaries',
+        value: 'Value',
+        type: 'Type',
+        instructions: 'Instructions',
+        remarks: 'Remarks',
+        show_all: 'Show All',
+        no_digital_assets_found: 'No Digital Assets found',
+        digital_assets: 'Digital Assets',
+        digital_expenses: 'Digital Expenses',
+        add_digital_asset: 'Add Digital Asset',
+        add_digital_expenses: 'Add Digital Expenses',
+        accounts_where_you_keep_:
+          'Accounts where you keep your assets with value and can be passed on to your beloved ones.',
+        account_where_you_make_:
+          'Account where you make payment for subscription and to be terminated or transferred at the point of death.',
+      },
+      docs_sidebar: {
+        show_menu: 'Show Menu',
+        menu: 'Menu',
+      },
+      extra_wishes_table: {
+        extra_wishes: 'Extra Wishes',
+        add_special_touches_: `Add special touches with Sampul's Extra Wishes feature.`,
+        add_extra_wishes: 'Add Extra Wishes',
+        institution: 'Institution',
+        value: 'Value',
+        type: 'Type',
+      },
+      forgot_password_modal: {
+        password_recovery_email_:
+          'Password recovery email has been sent, please check your inbox.',
+        forgot_password: 'Forgot Password',
+        please_enter_your_: `Please enter your email address. We'll send you a link to change your password.`,
+        email: 'Email',
+      },
+      header: {
+        terms: 'Terms',
+        privacy: 'Privacy',
+        cookies: 'Cookies',
+      },
+      inform_death: {
+        death_of_sampul_owner: 'Death of Sampul Owner',
+        inform_and_update_:
+          'Inform and update your co-sampul owner information',
+        sampul_owner_s: `Sampul owner's`,
+        select_an_option: '-- select an option --',
+        sampul_owner_name_: `Sampul owner's Name (As Per NRIC)`,
+        sampul_owner_nric: `Sampul owner's NRIC`,
+        death_certification: 'Death Certification',
+        click_to_view_: 'click to view file',
+        death_certification_id: 'Death Certification ID',
+      },
+      intro_modal: {
+        welcome_to_your_: 'Welcome to your dashboard',
+        we_glad_to_:
+          'We’re glad to have you onboard. Here are some quick tips to get you up and running.',
+        skip: 'Skip',
+        start_video_tour: 'Start video tour',
+      },
+      invite_modal: {
+        to_reject_the_:
+          'To reject the invitation, you must first complete your profile. You can do this on the settings page.',
+        to_accept_the_:
+          'To accept the invitation, you must first complete your profile. You can do this on the settings page.',
+        i_am_a_: 'I am a co-sampul for',
+        we_are_delighted_:
+          'We are delighted to inform you that you had been selected as a',
+        for: 'for',
+        we_hope_that_: 'We hope that you have been briefed by',
+        on_the_appointment_:
+          'on the appointment and are ready to take on the responsibilities.',
+        briefly_your_responsibilities_:
+          'Briefly, your responsibilities as a Co-Sampul is to be given the information of',
+        wasiat_will_which_: `’s wasiat/will which contain all assets’ information and wishes at the point of death and assist the loved ones in managing the estate in the event of death. Click`,
+        here: 'HERE',
+        for_the_process_: 'for the process flow.',
+        current_status_: 'Current Status:',
+        reject: 'Reject',
+        accept: 'Accept',
+      },
+      logout_modal: {
+        sign_out: 'Sign out',
+        are_you_confirm_:
+          'Are you confirm to signing out? this action will terminate the current session.',
+      },
+      manage_bodies: {
+        body_service_platform: 'Body / Service Platform',
+        active: 'Active',
+        yes: 'Yes',
+        no: 'No',
+        create_new: 'Create New',
+      },
+      my_details: {
+        profile: 'Profile',
+        update_your_personal_: 'Update your personal data here',
+        your_photo_: 'Your photo',
+        this_will_be_: 'This will be displayed on your profile.',
+        username: 'Username',
+        name_as_per_: 'Name (As Per NRIC)',
+        nric: 'NRIC',
+        date_of_birth: 'Date of Birth',
+        email: 'Email',
+        contact: 'Contact',
+        religion: 'Religion',
+        marital_status: 'Marital Status',
+        address: 'Address',
+        address_1: 'Address 1',
+        address_2: 'Address 2',
+        city: 'City',
+        postcode: 'Postcode',
+        state: 'State',
+        system_language: 'System Language',
+      },
+      nav_bar: {
+        sign_in: 'Sign in',
+        sign_up: 'Sign up',
+      },
+      password: {
+        password_do_not_: 'Password do not match!',
+        password: 'Password',
+        please_enter_your_:
+          'Please enter your current password to change your password',
+        update_password: 'Update Password',
+        new_password: 'New password',
+        confirm_new_password: 'Confirm new password',
+      },
+      profile_modal: {
+        profile: 'Profile',
+        complete_profile: 'Complete Profile',
+        ensure_no_assets_:
+          'Ensure no assets will be left behind for your loved ones.',
+      },
+      qr_code_modal: {
+        your_wasiat_will_: 'Your Wasiat/will QR code',
+        here_the_qr: `Here's the QR code that links to your wasiat/will, you can access it by scanning this code or by`,
+        clicking_here: 'clicking here.',
+      },
+      share_modal: {
+        please_generate_your_:
+          'Please generate your wasiat/will in order to start sharing',
+        share_certificate_on_: 'Share Certificate on Social Media',
+        let_your_will_:
+          'Let your Will Certificate be a symbol of your care. Share it with those you love and inspire a legacy of protection.',
+        copy_link: 'Copy Link',
+      },
+      side_bar: {
+        dashboard: 'Dashboard',
+        digital: 'Digital',
+        physical: 'Physical',
+        coming_soon: 'Coming Soon',
+        beloved: 'Beloved',
+        extra_wishes: 'Extra Wishes',
+        wasiat_will: 'Wasiat/Will',
+        admin: 'Admin',
+        settings: 'Settings',
+        sign_out: 'Sign out',
+      },
+      under_maintenance: {
+        under_maintenance: 'Under Maintenance',
+        we_are_currently_:
+          'We are currently performing maintenance on our billing system.',
+        please_check_back_: 'Please check back later.',
+      },
+      user_details_modal: {
+        user_details: 'User Details',
+        user_role: 'User role',
+        beloved: 'Beloved',
+        type: 'Type',
+        digital_assets_list: 'Digital Assets List',
+        platforms: 'Platforms',
+      },
+      users_chart: {
+        protect_users: 'Protect Users',
+        basic_users: 'Basic Users',
+        total_users: 'Total Users',
+        twelfth_months: '12 months',
+        thirty_days: '30 Days',
+        seven_days: '7 Days',
+      },
+      will_action_btn: {
+        share: 'Share',
+        generate_wasiat: 'Generate Wasiat',
+        generate_will: 'Generate Will',
+      },
+      will_details_card: {
+        please_setup_your_: 'Please setup your Primary or secondary beloved',
+        list_of_digital_: 'List of Digital Assets',
+        list_of_accounts_: 'List of accounts where you keep your assets.',
+        list_of_additional_: 'List of Additional Bequests',
+      },
       beloved_modal: {
         email_not_delivered: 'Email not delivered.',
         click_to_resend: 'Click to resend',
@@ -50,35 +353,7 @@ export default {
         privacy_policy_: 'privacy policy.',
         create_more: 'Create More',
         delete: 'Delete',
-      },
-      profile_modal: {
-        profile: 'Profile',
-        complete_profile: 'Complete Profile',
-        ensure_no_assets_:
-          'Ensure no assets will be left behind for your loved ones.',
-      },
-      will_action_btn: {
-        share: 'Share',
-        generate_wasiat: 'Generate Wasiat',
-        generate_will: 'Generate Will',
-      },
-      digital_summary_card: {
-        platforms: 'Platforms',
-        beneficiaries: 'Beneficiaries',
-        value: 'Value',
-        type: 'Type',
-        instructions: 'Instructions',
-        remarks: 'Remarks',
-        show_all: 'Show All',
-        no_digital_assets_found: 'No Digital Assets found',
-        digital_assets: 'Digital Assets',
-        digital_expenses: 'Digital Expenses',
-        add_digital_asset: 'Add Digital Asset',
-        add_digital_expenses: 'Add Digital Expenses',
-        accounts_where_you_keep_:
-          'Accounts where you keep your assets with value and can be passed on to your beloved ones.',
-        account_where_you_make_:
-          'Account where you make payment for subscription and to be terminated or transferred at the point of death.',
+        level: 'Level',
       },
     },
     dashboard: {
@@ -130,6 +405,7 @@ export default {
       assets: 'Assets',
       expenses: 'Expenses',
       digital_assets_and_: 'Digital Assets & Expenses',
+      add_digital_assets_: 'Add Digital Assets & Expenses',
     },
     physical_assets: {
       physical_assets: 'Physical Assets',
@@ -164,8 +440,16 @@ export default {
       at_the_point_: `At the point of death, if you are deemed suitable for organ or tissue donation by Ministry of Health medical experts, consent from your loved ones will be obtained. By agreeing to pledge as an organ donor, please ensure that you have informed your loved ones on your wish.`,
       please_select_your_:
         'Please select your preference regarding organ donation',
+      info_for_muslims_:
+        'Info: For Muslims, the National Fatwa Council (Majlis Fatwa Kebangsaan) in June 1970 has decided that it is permissible to donate organs with the condition it is used to save life where there are no other alternatives and not used for business dealings.',
+      info_nazar_is_:
+        'Info: Nazar is a vow made to Allah to perform certain actions if certain conditions are met. For example: “I wish to go for Umrah if I got a son.” Umrah is compulsory if a son was borned and if he/she does not have the chance to do it while still alive, his/her beneficiaries are obliged to do it on behalf and the expenses can be taken from one’s estate. If the beneficiaries are unable to perform the nazar, they may opt for a Kaffarah.',
+      info_when_someone_:
+        'Info: When someone cannot fast in Ramadhan and got no chance to make up the lost days afterwards, then their beneficiaries may pay (Fidyah) taken from the estate.',
+      i_wish_to_: 'I wish to go for Umrah if I got a son.',
     },
     beloved: {
+      beloved: 'Beloved',
       appoint_your_trusted_: 'Appoint your trusted person',
       ensure_your_assets_: 'Ensure your assets is well managed later',
       co_sampul: 'Co-Sampul',
@@ -211,41 +495,355 @@ export default {
     },
   },
   bm: {
+    global: {
+      something_went_wrong_: 'Ada yang tidak kena, sila cuba lagi',
+      save: 'Simpan',
+      successfully_submitted: 'Berjaya dihantar!',
+      successfully_updated: 'Berjaya dikemas kini!',
+      delete_confirmation: 'Adakah anda pasti ingin memadam rekod ini?',
+      successfully_deleted: 'Berjaya dipadam!',
+      delete: 'Padam',
+      saved_successfully: 'Berjaya disimpan!',
+      updated_successfully: 'Berjaya dikemas kini!',
+      agree: 'Setuju',
+      disagree: 'Tidak Setuju',
+      primary: 'Utama',
+      secondary: 'Kedua',
+      others: 'Lain-lain',
+      pending: 'Tertunda',
+      accepted: 'Diterima',
+      rejected: 'Ditolak',
+      single: 'Bujang',
+      married: 'Berkahwin',
+      widowed: 'Balu',
+      divorced: 'Bercerai',
+      no: 'Tidak',
+      yes: 'Ya',
+      n_a: 'Tiada',
+      weekly: 'Mingguan',
+      monthly: 'Bulanan',
+      yearly: 'Tahunan',
+      pass_this_account_:
+        'Serahkan akaun ini untuk digunakan oleh penerima manfaat saya',
+      account_to_terminated: 'Akaun untuk ditamatkan',
+      beneficiary_liquidate_account:
+        'Penerima manfaat saya untuk mencairkan akaun dan hasilnya akan diedarkan mengikut Faraid',
+    },
     component: {
+      accounts_chart: {
+        assets: 'Aset',
+        expenses: 'Perbelanjaan',
+        role: 'Peranan',
+        total_beloved: 'Jumlah Kesayangan',
+      },
+      billing: {
+        failed_to_get_: 'Gagal mendapatkan harga',
+        failed_to_create_: 'Gagal membuat ID pelanggan',
+        please_select_a_: 'Sila pilih pelan di bawah',
+        failed_to_create_: 'Gagal membuat sesi pembayaran',
+        subscription_plan: 'Pelan Langganan',
+        as_you_embark_:
+          'Apabila anda memulakan pengembaraan perancangan wasiat/wasiat digital anda, anda mempunyai fleksibiliti untuk menaik taraf pelan anda pada bila-bila masa. Buka kunci ciri premium seperti Aset Fizikal, Janji Temu atau Penjaga, dan Pelaksana Korporat.',
+        billing: 'Penagihan',
+        manage_your_billing_: 'Urus butiran penagihan dan pembayaran anda',
+        the_free_plan_:
+          'Pelan percuma akan dimasukkan secara automatik semasa pendaftaran',
+        manage_subscription: 'Urus langganan',
+        subscribe: 'Langgan',
+        current_plan: 'Pelan semasa',
+      },
+      body_details_modal: {
+        body_details: 'Butiran Badan',
+        name: 'Nama',
+        website_URL: 'URL Laman Web',
+        category: 'Kategori',
+        icon_svg: 'Ikon (SVG)',
+        active: 'Aktif',
+      },
+      checkout_button: {
+        checkout_now: 'Semak Keluar Sekarang',
+      },
+      danger_zone: {
+        deleted_successfully: 'Berjaya dipadam!',
+        input_do_not_: 'Input tidak sepadan!',
+        delete_account: 'Padam Akaun',
+        deleting_your_account_:
+          'Memadam akaun anda akan mengeluarkan semua maklumat anda dari pangkalan data kami. Ini tidak boleh dibatalkan.',
+        to_delete_your_: 'Untuk memadam akaun Sampul anda, sila taip',
+      },
+      digital_assets_card: {
+        no_digital_accounts_: 'Tiada Akaun Digital ditemui',
+        accounts_where_keep_:
+          'Akaun di mana anda menyimpan aset anda dengan nilai dan boleh diberikan kepada orang yang anda sayangi.',
+        add_digital_assets: 'Tambah Aset Digital',
+        digital_subscriptions: 'Langganan Digital',
+        account_where_make:
+          'Akaun di mana anda membuat pembayaran untuk langganan dan akan ditamatkan atau dipindahkan pada saat kematian.',
+      },
+      digital_assets_modal: {
+        you_can_store_: 'Anda boleh menyimpan sehingga',
+        digital_assets_to_:
+          'aset digital. Untuk menambah lebih banyak, naik taraf pelan anda.',
+        appoint_my_trusted_: 'Lantik orang kepercayaan saya',
+        digital_assets_expenses: 'Aset & Perbelanjaan Digital',
+        account_details: 'Butiran Akaun',
+        help_us_to_:
+          'Bantu kami memastikan tiada aset yang tertinggal untuk orang yang anda sayangi dengan mengisi borang ini:',
+        email: 'Email',
+        platform_account: 'Akaun Platform',
+        Cannot_find_your_: 'Tidak boleh mencari Akaun Platform anda?',
+        add_a_new_: 'Tambah yang baru.',
+        new_platform_account: 'Akaun Platform Baru',
+        service_provider: 'Pembekal Perkhidmatan',
+        website_url: 'URL Laman Web',
+        is_this_a_: 'Adakah ini akaun langganan?',
+        how_often_do_: 'Berapa kerap anda membayar?',
+        what_estimate_value_: 'Berapakah anggaran nilai akaun?',
+        what_should_we_:
+          'Apa yang perlu kita lakukan dengan akaun anda dalam kes kematian?',
+        who_will_manage_: 'Siapa yang akan menguruskan akaun?',
+        anything_else_we_: 'Apa lagi yang perlu kita tahu?',
+        please_download_all_:
+          'Contoh: Sila muat turun semua gambar sebelum tamatkan.',
+        you_agree_to_: 'Anda bersetuju dengan',
+        privacy_policy_: 'dasar privasi kami.',
+        create_more: 'Buat Lebih Banyak',
+      },
+      digital_summary_card: {
+        platforms: 'Platform',
+        beneficiaries: 'Penerima',
+        value: 'Nilai',
+        type: 'Jenis',
+        instructions: 'Arahan',
+        remarks: 'Ulasan',
+        show_all: 'Tunjukkan Semua',
+        no_digital_assets_found: 'Tiada Aset Digital ditemui',
+        digital_assets: 'Aset Digital',
+        digital_expenses: 'Perbelanjaan Digital',
+        add_digital_asset: 'Tambah Aset Digital',
+        add_digital_expenses: 'Tambah Perbelanjaan Digital',
+        accounts_where_you_keep_:
+          'Akaun di mana anda menyimpan aset anda dengan nilai dan boleh diberikan kepada orang yang anda sayangi.',
+        account_where_you_make_:
+          'Akaun di mana anda membuat pembayaran untuk langganan dan akan ditamatkan atau dipindahkan pada saat kematian.',
+      },
+      docs_sidebar: {
+        show_menu: 'Tunjukkan Menu',
+        menu: 'Menu',
+      },
+      extra_wishes_table: {
+        extra_wishes: 'Permintaan Tambahan',
+        add_special_touches_:
+          'Tambah sentuhan khas dengan ciri Permintaan Tambahan Sampul.',
+        add_extra_wishes: 'Tambah Permintaan Tambahan',
+        institution: 'Institusi',
+        value: 'Nilai',
+        type: 'Jenis',
+      },
+      forgot_password_modal: {
+        password_recovery_email_:
+          'Email pemulihan kata laluan telah dihantar, sila periksa peti masuk anda.',
+        forgot_password: 'Lupa Kata Laluan',
+        please_enter_your_:
+          'Sila masukkan alamat email anda. Kami akan menghantar pautan untuk menukar kata laluan anda.',
+        email: 'Email',
+      },
+      header: {
+        terms: 'Terma',
+        privacy: 'Privasi',
+        cookies: 'Cookies',
+      },
+      inform_death: {
+        death_of_sampul_owner: 'Kematian Pemilik Sampul',
+        inform_and_update_:
+          'Maklumkan dan kemas kini maklumat pemilik bersama sampul anda',
+        sampul_owner_s: 'Nama Pemilik Sampul (Seperti Dalam NRIC)',
+        select_an_option: '-- pilih pilihan --',
+        sampul_owner_name_: 'Nama Pemilik Sampul (Seperti Dalam NRIC)',
+        sampul_owner_nric: 'NRIC Pemilik Sampul',
+        death_certification: 'Sijil Kematian',
+        click_to_view_: 'klik untuk melihat fail',
+        death_certification_id: 'ID Sijil Kematian',
+      },
+      intro_modal: {
+        welcome_to_your_: 'Selamat datang ke papan pemuka anda',
+        we_glad_to_:
+          'Kami gembira menerima anda. Berikut adalah beberapa petua cepat untuk memulakan.',
+        skip: 'Langkau',
+        start_video_tour: 'Mulakan lawatan video',
+      },
+      invite_modal: {
+        to_reject_the_:
+          'Untuk menolak jemputan, anda mesti melengkapkan profil anda terlebih dahulu. Anda boleh melakukannya di halaman tetapan.',
+        to_accept_the_:
+          'Untuk menerima jemputan, anda mesti melengkapkan profil anda terlebih dahulu. Anda boleh melakukannya di halaman tetapan.',
+        i_am_a_: 'Saya seorang pemegang bersama sampul untuk',
+        we_are_delighted_:
+          'Kami gembira untuk memaklumkan bahawa anda telah dipilih sebagai',
+        for: 'untuk',
+        we_hope_that_: 'Kami berharap anda telah diberitahu oleh',
+        on_the_appointment_:
+          'tentang pelantikan dan bersedia untuk mengambil tanggungjawab.',
+        briefly_your_responsibilities_:
+          'Secara ringkas, tanggungjawab anda sebagai Pemegang Bersama Sampul adalah diberikan maklumat mengenai',
+        wasiat_will_which_:
+          'wasiat/wasiat yang mengandungi semua maklumat aset dan kehendak pada saat kematian dan membantu orang tersayang menguruskan harta dalam kes kematian. Klik',
+        here: 'DI SINI',
+        for_the_process_: 'untuk aliran proses.',
+        current_status_: 'Status Semasa:',
+        reject: 'Tolak',
+        accept: 'Terima',
+      },
+      logout_modal: {
+        sign_out: 'Log Keluar',
+        are_you_confirm_:
+          'Adakah anda pasti untuk log keluar? Tindakan ini akan menamatkan sesi semasa.',
+      },
+      manage_bodies: {
+        body_service_platform: 'Badan / Platform Perkhidmatan',
+        active: 'Aktif',
+        yes: 'Ya',
+        no: 'Tidak',
+        create_new: 'Buat Baru',
+      },
+      my_details: {
+        profile: 'Profil',
+        update_your_personal_: 'Kemas kini data peribadi anda di sini',
+        your_photo_: 'Foto anda',
+        this_will_be_: 'Ini akan dipaparkan pada profil anda.',
+        username: 'Nama Pengguna',
+        name_as_per_: 'Nama (Seperti Dalam NRIC)',
+        nric: 'NRIC',
+        date_of_birth: 'Tarikh Lahir',
+        email: 'Email',
+        contact: 'Hubungi',
+        religion: 'Agama',
+        marital_status: 'Status Perkahwinan',
+        address: 'Alamat',
+        address_1: 'Alamat 1',
+        address_2: 'Alamat 2',
+        city: 'Bandar',
+        postcode: 'Poskod',
+        state: 'Negeri',
+        system_language: 'Bahasa Sistem',
+      },
+      nav_bar: {
+        sign_in: 'Log Masuk',
+        sign_up: 'Daftar',
+      },
+      password: {
+        password_do_not_: 'Kata laluan tidak sepadan!',
+        password: 'Kata Laluan',
+        please_enter_your_:
+          'Sila masukkan kata laluan semasa anda untuk menukar kata laluan anda',
+        update_password: 'Kemas Kini Kata Laluan',
+        new_password: 'Kata laluan baru',
+        confirm_new_password: 'Sahkan kata laluan baru',
+      },
+      profile_modal: {
+        profile: 'Profil',
+        complete_profile: 'Lengkapkan Profil',
+        ensure_no_assets_:
+          'Pastikan tiada aset akan tertinggal untuk orang yang anda sayangi.',
+      },
+      qr_code_modal: {
+        your_wasiat_will_: 'Kod QR Wasiat/wasiat anda',
+        here_the_qr:
+          'Ini adalah kod QR yang menghubungkan kepada wasiat/wasiat anda, anda boleh mengaksesnya dengan mengimbas kod ini atau dengan',
+        clicking_here: 'klik di sini.',
+      },
+      share_modal: {
+        please_generate_your_:
+          'Sila hasilkan wasiat/wasiat anda untuk memulakan perkongsian',
+        share_certificate_on_: 'Kongsi Sijil di Media Sosial',
+        let_your_will_:
+          'Biarkan Sijil Wasiat anda menjadi simbol kasih sayang anda. Kongsi dengan mereka yang anda cintai dan inspirasi legasi perlindungan.',
+        copy_link: 'Salin Pautan',
+      },
+      side_bar: {
+        dashboard: 'Papan Pemuka',
+        digital: 'Digital',
+        physical: 'Fizikal',
+        coming_soon: 'Akan Datang',
+        beloved: 'Kesayangan',
+        extra_wishes: 'Permintaan Tambahan',
+        wasiat_will: 'Wasiat/Wasiat',
+        admin: 'Admin',
+        settings: 'Tetapan',
+        sign_out: 'Log Keluar',
+      },
+      under_maintenance: {
+        under_maintenance: 'Dalam Penyelenggaraan',
+        we_are_currently_:
+          'Kami sedang menjalankan penyelenggaraan pada sistem penagihan kami.',
+        please_check_back_: 'Sila periksa kembali nanti.',
+      },
+      user_details_modal: {
+        user_details: 'Butiran Pengguna',
+        user_role: 'Peranan pengguna',
+        beloved: 'Kesayangan',
+        type: 'Jenis',
+        digital_assets_list: 'Senarai Aset Digital',
+        platforms: 'Platform',
+      },
+      users_chart: {
+        protect_users: 'Lindungi Pengguna',
+        basic_users: 'Pengguna Asas',
+        total_users: 'Jumlah Pengguna',
+        twelfth_months: '12 bulan',
+        thirty_days: '30 Hari',
+        seven_days: '7 Hari',
+      },
+      will_action_btn: {
+        share: 'Kongsi',
+        generate_wasiat: 'Hasilkan Wasiat',
+        generate_will: 'Hasilkan Wasiat',
+      },
+      will_details_card: {
+        please_setup_your_: 'Sila sediakan Kesayangan Utama atau sekunder anda',
+        list_of_digital_: 'Senarai Aset Digital',
+        list_of_accounts_: 'Senarai akaun di mana anda menyimpan aset anda.',
+        list_of_additional_: 'Senarai Bequest Tambahan',
+      },
       beloved_modal: {
-        email_not_delivered: 'Emel tidak berjaya dihantar.',
+        email_not_delivered: 'Email tidak dihantar.',
         click_to_resend: 'Klik untuk hantar semula',
-        email_successfully_delivered: 'Emel berjaya dihantar',
-        failed_to_send_: 'Gagal menghantar emel.',
-        to_update_the_: `Untuk mengemas kini rekod semasa, sila klik butang 'kemas kini'.`,
+        email_successfully_delivered: 'Email berjaya dihantar',
+        failed_to_send_: 'Gagal menghantar email.',
+        to_update_the_:
+          "Untuk mengemas kini rekod semasa, sila klik butang 'kemas kini'.",
         appoint_your_co_sampul: 'Lantik Co-Sampul anda',
-        co_sampul_is_your_: `Co-Sampul adalah orang yang anda percayai di mana semua maklumat dalam Sampul ini akan diserahkan kepadanya`,
-        when_you_create_: `Apabila anda membuat wasiat dan melantik Co-Sampul Utama, anda juga harus melantik Co-Sampul alternatif (Co-Sampul Kedua).`,
-        secondary_co_sampul_will: `Co-Sampul Kedua akan mengambil alih tugas Co-Sampul Utama jika Co-Sampul Utama anda meninggal dunia, tidak dapat bertindak sebagai Co-Sampul, atau memutuskan dia tidak mahu menjadi Co-Sampul. Co-Sampul Utama yang dilantik tidak perlu berunding dengan Co-Sampul Kedua. Co-Sampul Kedua hanya dinamakan dalam wasiat untuk menggantikan Co-Sampul Utama yang dilantik jika diperlukan.`,
-        appoint_your_beneficiary: 'Lantik Penerima Anda',
+        co_sampul_is_your_:
+          'Co-Sampul adalah orang kepercayaan anda yang mana semua maklumat dalam Sampul ini akan diserahkan',
+        when_you_create_:
+          'Apabila anda membuat wasiat dan melantik Co-Sampul Utama, anda juga harus melantik Co-Sampul sekunder.',
+        secondary_co_sampul_will:
+          'Co-Sampul sekunder akan mengambil alih tugas Co-Sampul Utama jika Co-Sampul Utama anda mati, tidak dapat bertindak sebagai Co-Sampul, atau memutuskan dia tidak ingin menjadi Co-Sampul. Co-Sampul Utama yang dilantik tidak perlu berunding dengan Co-Sampul sekunder. Co-Sampul sekunder hanya dinamakan dalam wasiat untuk mengisi kekosongan untuk Co-Sampul Utama yang dilantik jika diperlukan.',
+        appoint_your_beneficiary: 'Lantik Penerima anda',
         the_future_owner_: 'Pemilik masa depan aset anda',
-        appoint_your_guardian: 'Lantik Penjaga Anda',
+        appoint_your_guardian: 'Lantik Penjaga anda',
         the_caretaker_of:
-          'Penjaga anak-anak bawah umur anda memastikan mereka mendapat penjagaan terbaik selepas anda dan pasangan anda meninggal dunia',
+          'Penjaga anak-anak bawah umur anda memastikan mereka mendapat penjagaan terbaik selepas anda dan pasangan anda meninggal',
         when_you_create_guardian_:
-          'Apabila anda membuat wasiat dan melantik Penjaga Utama, anda juga harus melantik Penjaga alternatif. Penjaga alternatif akan mengambil alih tugas Penjaga Utama jika Penjaga Utama anda meninggal dunia, tidak dapat bertindak sebagai penjaga, atau memutuskan dia tidak mahu menjadi Penjaga.',
+          'Apabila anda membuat wasiat dan melantik Penjaga Utama, anda juga harus melantik Penjaga alternatif. Penjaga alternatif akan mengambil alih tugas Penjaga Utama jika Penjaga Utama anda mati, tidak dapat bertindak sebagai penjaga, atau memutuskan dia tidak ingin menjadi Co-Sampul',
         submit: 'Hantar',
         update: 'Kemas Kini',
         successfully_submitted: 'Berjaya dihantar!',
         please_update_your_:
           'Sila kemas kini profil anda untuk mula menambah orang yang anda sayangi, yang boleh dilakukan di halaman tetapan.',
-        failed_to_send_: 'Gagal menghantar emel jemputan',
-        confirmation_email_has_: 'Emel pengesahan telah dihantar kepada',
+        failed_to_send_: 'Gagal menghantar email jemputan',
+        confirmation_email_has_: 'Email pengesahan telah dihantar kepada',
         successfully_updated: 'Berjaya dikemas kini!',
-        confirm_deletion_this_: `Sahkan penghapusan? tindakan ini akan membuang maklumat pengguna dan aset digital yang dipautkan secara kekal. Sila ingat untuk menjana semula wasiat anda selepas itu.`,
+        confirm_deletion_this_:
+          'Sahkan pemadaman? tindakan ini akan mengeluarkan maklumat pengguna secara kekal dan aset digital yang dikaitkan. Sila ingat untuk menjana semula wasiat/wasiat anda selepas itu.',
         the_user_cannot_:
-          'Pengguna tidak boleh dibuang kerana mereka dikaitkan dengan rekod kematian maklumat anda. Sila serahkan rekod tersebut kepada orang lain dan cuba hapuskan semula.',
-        successfully_deleted: 'Berjaya dihapuskan!',
+          'Pengguna tidak dapat dipadamkan kerana mereka dikaitkan dengan rekod pemberitahuan kematian anda. Sila serahkan rekod tersebut kepada orang lain dan cuba padam semula.',
+        successfully_deleted: 'Berjaya dipadam!',
         please_enter_an_:
-          'Sila masukkan alamat emel selain daripada anda sendiri',
-        beloved: 'Tersayang',
-        name_nickname: 'Nama/Nama Panggilan',
-        email: 'Emel',
+          'Sila masukkan alamat email selain dari email anda sendiri',
+        beloved: 'Kesayangan',
+        name_nickname: 'Nama/Nama Samaran',
+        email: 'Email',
         phone_number: 'Nombor Telefon',
         address: 'Alamat',
         address_1: 'Alamat 1',
@@ -258,37 +856,9 @@ export default {
         this_will_be: 'Ini akan dipaparkan pada profil.',
         you_agree_to: 'Anda bersetuju dengan',
         privacy_policy_: 'dasar privasi kami.',
-        create_more: 'Cipta Lagi',
-        delete: 'Hapus',
-      },
-      profile_modal: {
-        profile: 'Biodata',
-        complete_profile: 'Lengkapkan Biodata',
-        ensure_no_assets_:
-          'Pastikan tiada aset tertinggal untuk orang tersayang.',
-      },
-      will_action_btn: {
-        share: 'Kongsi',
-        generate_wasiat: 'Jana Wasiat',
-        generate_will: 'Jana Wasiat',
-      },
-      digital_summary_card: {
-        platforms: 'Platform',
-        beneficiaries: 'Penerima Aset',
-        value: 'Nilai',
-        type: 'Jenis',
-        instructions: 'Arahan',
-        remarks: 'Kenyataan',
-        show_all: 'Tunjuk semua',
-        no_digital_assets_found: 'Tiada Aset Digital ditemui',
-        digital_assets: 'Aset Digital',
-        digital_expenses: 'Perbelanjaan Digital',
-        add_digital_asset: 'Tambah Aset Digital',
-        add_digital_expenses: 'Tambah Perbelanjaan Digital',
-        accounts_where_you_keep_:
-          'Akaun di mana anda menyimpan aset anda yang bernilai dan boleh diwariskan kepada orang tersayang.',
-        account_where_you_make_:
-          'Akaun di mana anda membuat pembayaran untuk langganan dan akan ditamatkan atau dipindahkan pada waktu kematian.',
+        create_more: 'Buat Lebih Banyak',
+        delete: 'Padam',
+        level: 'Tahap',
       },
     },
     dashboard: {
@@ -341,6 +911,7 @@ export default {
       assets: 'Aset',
       expenses: 'Perbelanjaan',
       digital_assets_and_: 'Aset Digital & Perbelanjaan',
+      add_digital_assets_: 'Tambah Aset Digital & Perbelanjaan',
     },
     physical_assets: {
       physical_assets: 'Aset Fizikal',
@@ -382,8 +953,17 @@ export default {
         'Pada saat kematian, jika anda dianggap sesuai untuk pendermaan organ atau tisu oleh pakar perubatan Kementerian Kesihatan, persetujuan dari orang yang anda sayangi akan diperoleh. Dengan bersetuju untuk berjanji sebagai penderma organ, sila pastikan bahawa anda telah memaklumkan kepada orang yang anda sayangi mengenai hasrat anda.',
       please_select_your_:
         'Sila pilih keutamaan anda mengenai pendermaan organ',
+      info_for_muslims_:
+        'Maklumat: Bagi umat Islam, Majlis Fatwa Kebangsaan pada Jun 1970 telah memutuskan bahawa adalah dibenarkan untuk menderma organ dengan syarat ia digunakan untuk menyelamatkan nyawa di mana tiada alternatif lain dan tidak digunakan untuk urus niaga perniagaan.',
+      info_nazar_is_:
+        'Maklumat: Nazar adalah nazar yang dibuat kepada Allah untuk melaksanakan tindakan tertentu jika syarat tertentu dipenuhi. Contohnya: “Saya berhasrat untuk pergi Umrah jika saya mendapat anak lelaki.” Umrah wajib jika seorang anak lelaki dilahirkan dan jika dia tidak mempunyai peluang untuk melakukannya semasa masih hidup, warisnya wajib melakukannya bagi pihaknya dan perbelanjaan boleh diambil dari harta pusaka. Jika waris tidak dapat menunaikan nazar, mereka boleh memilih untuk melakukan Kaffarah.',
+      info_when_someone_:
+        'Maklumat: Apabila seseorang tidak dapat berpuasa pada bulan Ramadhan dan tidak mempunyai peluang untuk menggantikan hari-hari yang hilang selepas itu, maka warisnya boleh membayar (Fidyah) diambil daripada harta pusaka.',
+      i_wish_to_:
+        'Saya berhasrat untuk pergi Umrah jika saya mendapat anak lelaki.',
     },
     beloved: {
+      beloved: 'Kesayangan',
       appoint_your_trusted_: 'Lantik orang yang anda percayai',
       ensure_your_assets_: 'Pastikan aset anda diuruskan dengan baik kemudian',
       co_sampul: 'Co-Sampul',

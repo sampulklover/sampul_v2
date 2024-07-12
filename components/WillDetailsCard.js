@@ -1,4 +1,6 @@
+import translations from '../constant/translations';
 import { useApi } from '../context/api';
+import { useLocale } from '../context/locale';
 import { formatTimestamp } from '../utils/helpers';
 import DigitalSummaryCard from './DigitalSummaryCard';
 import ExtraWishesTable from './ExtraWishesTable';
@@ -7,6 +9,7 @@ import toast from 'react-hot-toast';
 
 const WillDetailsCard = () => {
   const { contextApiData } = useApi();
+  const { locale } = useLocale();
 
   const willData = {
     data: {
@@ -397,7 +400,9 @@ const WillDetailsCard = () => {
           },
         });
       } else {
-        toast.error('Please setup your Primary or secondary beloved');
+        toast.error(
+          translations[locale].component.will_details_card.please_setup_your_
+        );
       }
     }
   };
@@ -456,7 +461,10 @@ const WillDetailsCard = () => {
                 <div class="text-and-supporting-text-19">
                   <div class="text-and-badge-copy">
                     <div class="smpl_text-lg-semibold">
-                      List of Digital Assets
+                      {
+                        translations[locale].component.will_details_card
+                          .list_of_digital_
+                      }
                       <span class="text-span-5">
                         <sup class="superscript">
                           {will_settings[checkReligion()].table.table_1.title}
@@ -464,7 +472,10 @@ const WillDetailsCard = () => {
                       </span>
                     </div>
                     <div class="smpl_text-sm-medium text-align-left">
-                      List of accounts where you keep your assets.
+                      {
+                        translations[locale].component.will_details_card
+                          .list_of_accounts_
+                      }
                     </div>
                   </div>
                 </div>
@@ -499,7 +510,10 @@ const WillDetailsCard = () => {
                 <div class="text-and-supporting-text-19">
                   <div class="text-and-badge-copy">
                     <div class="smpl_text-lg-semibold">
-                      List of Additional Bequests
+                      {
+                        translations[locale].component.will_details_card
+                          .list_of_additional_
+                      }
                       <span class="text-span-5">
                         <sup class="superscript">
                           {will_settings[checkReligion()].table.table_2.title}
@@ -507,7 +521,10 @@ const WillDetailsCard = () => {
                       </span>
                     </div>
                     <div class="smpl_text-sm-medium text-align-left">
-                      List of additional requests.
+                      {
+                        translations[locale].component.will_details_card
+                          .list_of_additional_
+                      }
                     </div>
                   </div>
                 </div>

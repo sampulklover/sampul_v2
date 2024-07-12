@@ -1,28 +1,38 @@
 import { bodiesCategory, instructionsAfterDeath } from '../constant/enum';
+import translations from '../constant/translations';
 import { useApi } from '../context/api';
+import { useLocale } from '../context/locale';
 import Loading from './Laoding';
 
 const DigitalAssetsCard = ({ typeName, editFunction, searchInput = '' }) => {
   const { contextApiData } = useApi();
+  const { locale } = useLocale();
 
   const type = {
     all: {
-      title: 'No Digital Accounts found',
+      title:
+        translations[locale].component.digital_assets_card.no_digital_accounts_,
       subtitle:
-        'Accounts where you keep your assets with value and can be passed on to your beloved ones.',
-      addNewBtnTitle: 'Add Digital Assets',
+        translations[locale].component.digital_assets_card.accounts_where_keep_,
+      addNewBtnTitle:
+        translations[locale].component.digital_assets_card.add_digital_assets,
     },
     non_subscription: {
-      title: 'No Digital Accounts found',
+      title:
+        translations[locale].component.digital_assets_card.no_digital_accounts_,
       subtitle:
-        'Accounts where you keep your assets with value and can be passed on to your beloved ones.',
-      addNewBtnTitle: 'Add Digital Assets',
+        translations[locale].component.digital_assets_card.accounts_where_keep_,
+      addNewBtnTitle:
+        translations[locale].component.digital_assets_card.add_digital_assets,
     },
     subscription: {
-      title: 'Digital Subscriptions',
+      title:
+        translations[locale].component.digital_assets_card
+          .digital_subscriptions,
       subtitle:
-        'Account where you make payment for subscription and to be terminated or transferred at the point of death.',
-      addNewBtnTitle: 'Add Digital Assets',
+        translations[locale].component.digital_assets_card.account_where_make,
+      addNewBtnTitle:
+        translations[locale].component.digital_assets_card.add_digital_assets,
     },
   };
 

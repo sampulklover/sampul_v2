@@ -4,7 +4,9 @@ import {
   servicePlatformAccountTypes,
   servicePlatformFrequencies,
 } from '../constant/enum';
+import translations from '../constant/translations';
 import { useApi } from '../context/api';
+import { useLocale } from '../context/locale';
 import { deleteImage, getOptionLabelWithIcon } from '../utils/helpers';
 import { supabase } from '../utils/supabase';
 import Loading from './Laoding';
@@ -31,6 +33,8 @@ const digitalAssetsTypeName = {
 
 const DigitalAssetsModal = ({ keyType, selectedItem }) => {
   const { contextApiData, getDigitalAssets } = useApi();
+  const { locale } = useLocale();
+
   const router = useRouter();
   const [isLoading, setIsLoading] = useState({
     update: false,
@@ -201,7 +205,7 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
       return;
     }
 
-    toast.success('Successfully submitted!');
+    toast.success(translations[locale].global.successfully_submitted);
 
     if (createMore.status == true) {
       setCreateMore((prev) => ({
@@ -280,7 +284,7 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
     }
 
     $('#digital-assets-modal')?.modal('hide');
-    toast.success('Successfully updated!');
+    toast.success(translations[locale].global.successfully_updated);
 
     setIsLoading({
       ...isLoading,
@@ -290,7 +294,7 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
   };
 
   const deleteDigitalAssets = async () => {
-    if (confirm(`Are you sure you want to delete this record?`)) {
+    if (confirm(translations[locale].global.delete_confirmation)) {
       setIsLoading({
         ...isLoading,
         delete: true,
@@ -316,7 +320,7 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
       });
 
       $('#digital-assets-modal')?.modal('hide');
-      toast.success('Successfully deleted!');
+      toast.success(translations[locale].global.successfully_deleted);
 
       getDigitalAssets();
 
@@ -349,7 +353,7 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
           .maximum;
       if (count >= max) {
         toast.error(
-          `You can store up to ${max} digital assets. To add more, upgrade your plan.`
+          `${translations[locale].component.digital_assets_modal.you_can_store_} ${max} ${translations[locale].component.digital_assets_modal.digital_assets_to_}`
         );
         setIsLoading({
           ...isLoading,
@@ -402,7 +406,11 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
             }, 1000);
           }}
         >
-          Appoint my trusted person <i class="bi bi-arrow-right-short"></i>
+          {
+            translations[locale].component.digital_assets_modal
+              .appoint_my_trusted_
+          }{' '}
+          <i class="bi bi-arrow-right-short"></i>
         </div>
       );
     }
@@ -417,7 +425,12 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
       >
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Digital Assets & Expenses</h5>
+            <h5 class="modal-title">
+              {
+                translations[locale].component.digital_assets_modal
+                  .digital_assets_expenses
+              }
+            </h5>
             <button
               type="button"
               class="btn-close"
@@ -448,10 +461,17 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                   </div>
                 </div>
                 <div class="text-and-supporting-text-18">
-                  <div class="text-lg-semibold-4">Account Details</div>
+                  <div class="text-lg-semibold-4">
+                    {
+                      translations[locale].component.digital_assets_modal
+                        .account_details
+                    }
+                  </div>
                   <div class="text-sm-regular-6">
-                    Help us to ensure no asset is left behind for your loved one
-                    by filling out this form:
+                    {
+                      translations[locale].component.digital_assets_modal
+                        .help_us_to_
+                    }
                   </div>
                 </div>
               </div>
@@ -477,7 +497,7 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                   htmlFor={`input-digital-assets-email`}
                   class="uui-field-label"
                 >
-                  Email
+                  {translations[locale].component.digital_assets_modal.email}
                 </label>
                 <input
                   type="email"
@@ -495,7 +515,10 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                 }}
               >
                 <label class="uui-field-label">
-                  Platform Account{' '}
+                  {
+                    translations[locale].component.digital_assets_modal
+                      .platform_account
+                  }{' '}
                   <Loading loading={contextApiData.bodies.isLoading} />
                 </label>
                 <Select
@@ -526,14 +549,20 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
               {!newServicePlatform ? (
                 <div class="mb-3">
                   <small>
-                    Can't find your Platform Account?{' '}
+                    {
+                      translations[locale].component.digital_assets_modal
+                        .Cannot_find_your_
+                    }{' '}
                     <b
                       class="text-primary pointer-on-hover"
                       onClick={() => {
                         setNewServicePlatform(!newServicePlatform);
                       }}
                     >
-                      Add a new one.
+                      {
+                        translations[locale].component.digital_assets_modal
+                          .add_a_new_
+                      }
                     </b>
                   </small>
                 </div>
@@ -549,7 +578,12 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
               >
                 <div class="row mx-0 mb-3">
                   <div class="col px-0">
-                    <label>New Platform Account</label>
+                    <label>
+                      {
+                        translations[locale].component.digital_assets_modal
+                          .new_platform_account
+                      }
+                    </label>
                   </div>
                   <div class="col px-0 text-end">
                     <small>
@@ -570,7 +604,10 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                       htmlFor={`input-digital-assets-new-service-platform-name`}
                       class="uui-field-label"
                     >
-                      Service Provider
+                      {
+                        translations[locale].component.digital_assets_modal
+                          .service_provider
+                      }
                     </label>
                     <input
                       type="text"
@@ -584,7 +621,10 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                       htmlFor={`input-digital-assets-new-service-platform-url`}
                       class="uui-field-label"
                     >
-                      Website URL
+                      {
+                        translations[locale].component.digital_assets_modal
+                          .website_url
+                      }
                     </label>
                     <input
                       type="text"
@@ -601,7 +641,10 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                   htmlFor={`select-digital-assets-type`}
                   class="uui-field-label"
                 >
-                  Is this a subscription account?
+                  {
+                    translations[locale].component.digital_assets_modal
+                      .is_this_a_
+                  }
                 </label>
                 <select
                   id={`select-digital-assets-type`}
@@ -611,7 +654,7 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                 >
                   {servicePlatformAccountTypes().map((item) => (
                     <option key={item.value} value={item.value}>
-                      {item.opName}
+                      {translations[locale]?.global[item.translationKey]}
                     </option>
                   ))}
                 </select>
@@ -621,7 +664,10 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                   htmlFor={`select-digital-assets-frequency`}
                   class="uui-field-label"
                 >
-                  How often do you pay?
+                  {
+                    translations[locale].component.digital_assets_modal
+                      .how_often_do_
+                  }
                 </label>
                 <select
                   id={`select-digital-assets-frequency`}
@@ -630,7 +676,7 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                 >
                   {servicePlatformFrequencies().map((item) => (
                     <option key={item.value} value={item.value}>
-                      {item.name}
+                      {translations[locale]?.global[item.value]}
                     </option>
                   ))}
                 </select>
@@ -640,7 +686,10 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                   htmlFor={`input-digital-assets-declared-value`}
                   class="uui-field-label"
                 >
-                  What’s the estimate value of the account?
+                  {
+                    translations[locale].component.digital_assets_modal
+                      .what_estimate_value_
+                  }
                 </label>
                 <div class="input-group">
                   <div class="input-group-text">RM</div>
@@ -658,7 +707,10 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                   htmlFor={`select-digital-assets-instructions-after-death`}
                   class="uui-field-label"
                 >
-                  What should we do with your account in the event of death?
+                  {
+                    translations[locale].component.digital_assets_modal
+                      .what_should_we_
+                  }
                 </label>
                 <select
                   id={`select-digital-assets-instructions-after-death`}
@@ -669,7 +721,7 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                     contextApiData?.profile?.data?.religion
                   ).map((item) => (
                     <option key={item.value} value={item.value}>
-                      {item.opName}
+                      {translations[locale]?.global[item.translationKey]}
                     </option>
                   ))}
                 </select>
@@ -680,7 +732,10 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                   htmlFor={`select-digital-assets-beloved`}
                   class="uui-field-label"
                 >
-                  Who will manage the account?{' '}
+                  {
+                    translations[locale].component.digital_assets_modal
+                      .who_will_manage_
+                  }{' '}
                   <Loading loading={contextApiData.beloved.isLoading} />
                 </label>
                 <select
@@ -704,12 +759,18 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                   htmlFor={`input-digital-assets-remarks`}
                   class="uui-field-label"
                 >
-                  Anything else we should know?
+                  {
+                    translations[locale].component.digital_assets_modal
+                      .anything_else_we_
+                  }
                 </label>
                 <textarea
                   class="form-control"
                   id={`input-digital-assets-remarks`}
-                  placeholder="E.g. Please download all pictures before terminate."
+                  placeholder={
+                    translations[locale].component.digital_assets_modal
+                      .please_download_all
+                  }
                 />
               </div>
 
@@ -723,9 +784,15 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                     required
                   />
                   <label class="form-check-label" htmlFor="flexCheckChecked">
-                    You agree to our friendly{' '}
+                    {
+                      translations[locale].component.digital_assets_modal
+                        .you_agree_to_
+                    }{' '}
                     <Link href="policy" target="_blank">
-                      privacy policy.
+                      {
+                        translations[locale].component.digital_assets_modal
+                          .privacy_policy_
+                      }
                     </Link>
                   </label>
                 </div>
@@ -752,7 +819,10 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                         className="form-check-label small"
                         htmlFor="checkbox-digital-assets-create-more"
                       >
-                        Create More
+                        {
+                          translations[locale].component.digital_assets_modal
+                            .create_more
+                        }
                       </label>
                     </div>
                   </div>
@@ -773,7 +843,10 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                       class="btn btn-light btn-text"
                       onClick={deleteDigitalAssets}
                     >
-                      <Loading title="Delete" loading={isLoading.delete} />
+                      <Loading
+                        title={translations[locale].global.delete}
+                        loading={isLoading.delete}
+                      />
                     </button>
                   ) : (
                     ''

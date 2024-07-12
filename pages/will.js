@@ -134,7 +134,7 @@ const Will = () => {
         alerts.push(
           <div key={category} className="alert alert-danger" role="alert">
             {`${translations[locale].will.your_request_for} `}
-            <b>{belovedCat[category].data.name}</b>
+            <b>{belovedCat[category].data.name}</b>{' '}
             {`${translations[locale].will.s_approval_to_} ${belovedCat[category].name} `}{' '}
             {displayStatusInfo[belovedCat[category].inviteStatus]}.
           </div>
