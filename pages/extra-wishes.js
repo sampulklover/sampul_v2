@@ -781,6 +781,8 @@ const ExtraWishes = () => {
     return display;
   };
 
+  // console.log('TEST')
+
   return (
     <SideBar>
       <div class="body inner-body">
