@@ -71,12 +71,14 @@
 }
 
 .btn-primary, .btn-primary:active, .btn-primary:visited {
-  background-color: #533de9 !important;
-  border: 1px solid #7f56d9;
+  background-color: #DDD8FB !important;
+  border: 1px solid #8D7FEF;
+  color: #2F1DA9;
 }
 
 .btn-primary:hover {
-  background-color: #3c22e2 !important;
+  background-color: #8D7FEF !important;
+  color: #2F1DA9;
 }
 
 .navbar-padding {

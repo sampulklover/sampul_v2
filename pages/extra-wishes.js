@@ -1,5 +1,6 @@
 import Breadcrumb from '../components/Breadcrumb';
 import Footer from '../components/Footer';
+import InnerHeader from '../components/InnerHeader';
 import Loading from '../components/Laoding';
 import SideBar from '../components/SideBar';
 import translations from '../constant/translations';
@@ -8,6 +9,7 @@ import { useLocale } from '../context/locale';
 import { getOptionLabelWithIcon } from '../utils/helpers';
 import { supabase } from '../utils/supabase';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import Select from 'react-select';
@@ -16,6 +18,7 @@ import { Tooltip } from 'react-tooltip';
 const ExtraWishes = () => {
   const { contextApiData, getExtraWishes } = useApi();
   const { locale } = useLocale();
+  const router = useRouter();
 
   const useUniqueId = () => {
     const [id, setId] = useState('');
@@ -196,25 +199,6 @@ const ExtraWishes = () => {
       });
     }
   }, [contextApiData.extraWishes, contextApiData.bodies]);
-
-  const title = () => {
-    return (
-      <>
-        <div class="row text-md-start text-center">
-          <div class="col-lg">
-            <div class="smpl_display-sm-semibold">
-              {translations[locale].extra_wishes.extra_wishes}
-            </div>
-            <div class="smpl_text-md-regular">
-              {translations[locale].extra_wishes.add_special_touches_}
-            </div>
-          </div>
-          <div class="col text-end"></div>
-        </div>
-        <div class="border-top my-3"></div>
-      </>
-    );
-  };
 
   const onSubmitForm = async ({ keyName }) => {
     if (checkRestriction(keyName) == true) {
@@ -803,8 +787,23 @@ const ExtraWishes = () => {
         <div class="content">
           <Breadcrumb
             pageName={translations[locale].extra_wishes.extra_wishes}
+            rightSection={
+              <button
+                type="button"
+                class="btn btn-primary btn-sm"
+                onClick={() => {
+                  router.push('will');
+                }}
+              >
+                <Loading title="Preview Wasiat" />
+              </button>
+            }
           />
-          <div class="mt-4">{title()}</div>
+          {/* <InnerHeader
+            title="Add Personal Touches to Your Wasiat"
+            subtitle={`Your wasiat is a deeply personal document that reflects your values and wishes. Here, you can add special instructions to make sure your final wishes are honored. Whether it's fulfilling religious obligations, making charitable donations, or pledging to donate your organs, you can add these meaningful touches to your wasiat. Select an option below to get started.`}
+            imageSrc="images/investing.svg"
+          /> */}
           <div class="row mt-4">
             <div
               style={{
