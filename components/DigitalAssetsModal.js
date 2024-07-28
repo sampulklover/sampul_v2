@@ -650,170 +650,168 @@ const DigitalAssetsModal = ({ keyType = 'add' }) => {
                   ''
                 )}
               </div>
-              {mutiselectData.platform.selected
-                ?.reverse()
-                ?.map((item, index) => {
-                  return (
-                    <div class="mb-3 card card-muted-01" key={index}>
-                      <label class="d-flex align-items-center">
-                        <img
-                          loading="lazy"
-                          src={
-                            item?.icon
-                              ? `data:image/svg+xml,${encodeURIComponent(
-                                  item.icon
-                                )}`
-                              : '/images/Displacement-p-500.png'
-                          }
-                          alt=""
-                          class="avatar-8 me-2"
-                          style={{ width: 40, height: 40 }}
-                        />{' '}
-                        <span class="rounded-icon-title-01">
-                          {item?.label ? item.label : 'Platform'}
-                        </span>
-                      </label>
+              {mutiselectData.platform.selected?.map((item, index) => {
+                return (
+                  <div class="mb-3 card card-muted-01" key={index}>
+                    <label class="d-flex align-items-center">
+                      <img
+                        loading="lazy"
+                        src={
+                          item?.icon
+                            ? `data:image/svg+xml,${encodeURIComponent(
+                                item.icon
+                              )}`
+                            : '/images/Displacement-p-500.png'
+                        }
+                        alt=""
+                        class="avatar-8 me-2"
+                        style={{ width: 40, height: 40 }}
+                      />{' '}
+                      <span class="rounded-icon-title-01">
+                        {item?.label ? item.label : 'Platform'}
+                      </span>
+                    </label>
 
-                      {item?.isCustom ? (
-                        <>
-                          <div class="form-field-wrapper mt-2">
-                            <label
-                              htmlFor={`input-${item.value}-new-service-platform-name`}
-                              class="form-label-01"
-                            >
-                              {
-                                translations[locale].component
-                                  .digital_assets_modal.service_provider
-                              }
-                            </label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id={`input-${item.value}-new-service-platform-name`}
-                              value={item?.platformName}
-                              onChange={(event) =>
-                                handleMultiSelectInputChange(
-                                  index,
-                                  event.target.value,
-                                  'platform',
-                                  'platformName'
-                                )
-                              }
-                              required
-                            />
-                          </div>
-                          <div class="form-field-wrapper mt-2">
-                            <label
-                              htmlFor={`input-${item.value}-new-service-platform-url`}
-                              class="form-label-01"
-                            >
-                              {
-                                translations[locale].component
-                                  .digital_assets_modal.website_url
-                              }
-                            </label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id={`input-${item.value}-new-service-platform-url`}
-                              value={item?.websiteUrl}
-                              onChange={(event) =>
-                                handleMultiSelectInputChange(
-                                  index,
-                                  event.target.value,
-                                  'platform',
-                                  'websiteUrl'
-                                )
-                              }
-                              required
-                            />
-                          </div>
-                        </>
-                      ) : (
-                        ''
-                      )}
-                      <div class="form-field-wrapper mt-2">
-                        <label
-                          htmlFor={`input-platform-${item.value}-estimate-value`}
-                          class="form-label-01"
-                        >
-                          Estimation Value
-                        </label>
-                        <div class="input-group">
-                          <div class="input-group-text">RM</div>
+                    {item?.isCustom ? (
+                      <>
+                        <div class="form-field-wrapper mt-2">
+                          <label
+                            htmlFor={`input-${item.value}-new-service-platform-name`}
+                            class="form-label-01"
+                          >
+                            {
+                              translations[locale].component
+                                .digital_assets_modal.service_provider
+                            }
+                          </label>
                           <input
-                            type="number"
-                            step="0.01"
+                            type="text"
                             class="form-control"
-                            id={`input-platform-${item.value}-estimate-value`}
-                            value={item.amount}
+                            id={`input-${item.value}-new-service-platform-name`}
+                            value={item?.platformName}
                             onChange={(event) =>
                               handleMultiSelectInputChange(
                                 index,
                                 event.target.value,
                                 'platform',
-                                'amount'
+                                'platformName'
                               )
                             }
                             required
                           />
                         </div>
-                      </div>
-                      <div class="form-field-wrapper mt-2">
-                        <label
-                          htmlFor={`input-${item.value}-protection`}
-                          class="form-label-01"
-                        >
-                          Is this asset protected under insurance or takaful?
-                        </label>
-                        <select
-                          id={`input-${item.value}-protection`}
-                          class="form-select"
-                          value={item.protection}
+                        <div class="form-field-wrapper mt-2">
+                          <label
+                            htmlFor={`input-${item.value}-new-service-platform-url`}
+                            class="form-label-01"
+                          >
+                            {
+                              translations[locale].component
+                                .digital_assets_modal.website_url
+                            }
+                          </label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id={`input-${item.value}-new-service-platform-url`}
+                            value={item?.websiteUrl}
+                            onChange={(event) =>
+                              handleMultiSelectInputChange(
+                                index,
+                                event.target.value,
+                                'platform',
+                                'websiteUrl'
+                              )
+                            }
+                            required
+                          />
+                        </div>
+                      </>
+                    ) : (
+                      ''
+                    )}
+                    <div class="form-field-wrapper mt-2">
+                      <label
+                        htmlFor={`input-platform-${item.value}-estimate-value`}
+                        class="form-label-01"
+                      >
+                        Estimation Value
+                      </label>
+                      <div class="input-group">
+                        <div class="input-group-text">RM</div>
+                        <input
+                          type="number"
+                          step="0.01"
+                          class="form-control"
+                          id={`input-platform-${item.value}-estimate-value`}
+                          value={item.amount}
                           onChange={(event) =>
                             handleMultiSelectInputChange(
                               index,
                               event.target.value,
                               'platform',
-                              'protection'
+                              'amount'
                             )
                           }
                           required
-                        >
-                          <option disabled selected value="">
-                            Select...
-                          </option>
-                          {trueFalse().map((item) => (
-                            <option key={item.value} value={item.value}>
-                              {item.name}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                      <div class="form-field-wrapper mt-2">
-                        <label
-                          htmlFor={`input-${item.value}-remarks`}
-                          class="form-label-01"
-                        >
-                          Anything else you would like to share?
-                        </label>
-                        <textarea
-                          class="form-control"
-                          id={`input-${item.value}-remarks`}
-                          value={item.remarks}
-                          onChange={(event) =>
-                            handleMultiSelectInputChange(
-                              index,
-                              event.target.value,
-                              'platform',
-                              'remarks'
-                            )
-                          }
                         />
                       </div>
                     </div>
-                  );
-                })}
+                    <div class="form-field-wrapper mt-2">
+                      <label
+                        htmlFor={`input-${item.value}-protection`}
+                        class="form-label-01"
+                      >
+                        Is this asset protected under insurance or takaful?
+                      </label>
+                      <select
+                        id={`input-${item.value}-protection`}
+                        class="form-select"
+                        value={item.protection}
+                        onChange={(event) =>
+                          handleMultiSelectInputChange(
+                            index,
+                            event.target.value,
+                            'platform',
+                            'protection'
+                          )
+                        }
+                        required
+                      >
+                        <option disabled selected value="">
+                          Select...
+                        </option>
+                        {trueFalse().map((item) => (
+                          <option key={item.value} value={item.value}>
+                            {item.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div class="form-field-wrapper mt-2">
+                      <label
+                        htmlFor={`input-${item.value}-remarks`}
+                        class="form-label-01"
+                      >
+                        Anything else you would like to share?
+                      </label>
+                      <textarea
+                        class="form-control"
+                        id={`input-${item.value}-remarks`}
+                        value={item.remarks}
+                        onChange={(event) =>
+                          handleMultiSelectInputChange(
+                            index,
+                            event.target.value,
+                            'platform',
+                            'remarks'
+                          )
+                        }
+                      />
+                    </div>
+                  </div>
+                );
+              })}
 
               <div class="mt-5">
                 <div class="d-grid gap-2">
