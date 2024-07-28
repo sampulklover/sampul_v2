@@ -39,41 +39,41 @@ const instructionTypeConfig = {
   add: {
     faraid: {
       title: 'Add Assets to be Faraid',
-      description: 'Share where you’ve worked on your profile.',
+      description: `Fill in the asset name, it's value, and any additional notes or details.`,
       actionFormLabel: 'Which Assets you want to Faraid?',
     },
     terminate: {
       title: 'Add Assets to be Terminate',
-      description: 'Share where you’ve worked on your profile.',
+      description: `Fill in the asset name, it's value, and any additional notes or details.`,
       actionFormLabel: 'Which Assets you want to Terminate?',
     },
     transfer_as_gift: {
       title: 'Add Assets to be Transfer as Gift',
-      description: 'Share where you’ve worked on your profile.',
+      description: `Fill in the asset name, it's value, and any additional notes or details.`,
       actionFormLabel: 'Which Assets you want to Transfer as Gift?',
     },
     settle: {
       title: 'Add Assets to be Settle Debts',
-      description: 'Share where you’ve worked on your profile.',
+      description: `Fill in the asset name, it's value, and any additional notes or details.`,
       actionFormLabel: 'Which Assets you want to Settle Debts?',
     },
   },
   edit: {
     faraid: {
       title: 'Update Faraid Asset',
-      description: 'Share where you’ve worked on your profile.',
+      description: `Fill in the asset name, it's value, and any additional notes or details.`,
     },
     terminate: {
       title: 'Update Terminate Asset',
-      description: 'Share where you’ve worked on your profile.',
+      description: `Fill in the asset name, it's value, and any additional notes or details.`,
     },
     transfer_as_gift: {
       title: 'Update Transfer as Gift Asset',
-      description: 'Share where you’ve worked on your profile.',
+      description: `Fill in the asset name, it's value, and any additional notes or details.`,
     },
     settle: {
       title: 'Update Settle Debts Asset',
-      description: 'Share where you’ve worked on your profile.',
+      description: `Fill in the asset name, it's value, and any additional notes or details.`,
     },
   },
 };
