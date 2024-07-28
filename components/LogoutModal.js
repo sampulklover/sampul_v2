@@ -1,9 +1,12 @@
+import translations from '../constant/translations';
 import { useApi } from '../context/api';
+import { useLocale } from '../context/locale';
 import Loading from './Laoding';
 import { useState } from 'react';
 
 const LogoutModal = () => {
   const { logout } = useApi();
+  const { locale } = useLocale();
   const [isLoading, setIsLoading] = useState({
     is_logout: false,
   });
@@ -29,7 +32,9 @@ const LogoutModal = () => {
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Sign out</h5>
+            <h5 class="modal-title">
+              {translations[locale].component.logout_modal.sign_out}
+            </h5>
             <button
               type="button"
               class="btn-close"
@@ -39,17 +44,18 @@ const LogoutModal = () => {
           </div>
           <div class="modal-body">
             <p>
-              Are you confirm to signing out? this action will terminate the
-              current session.
+              {translations[locale].component.logout_modal.are_you_confirm_}
             </p>
-
             <div class="d-grid gap-2">
               <button
                 type="submit"
                 class="btn btn-primary btn-text"
                 onClick={onClickLogout}
               >
-                <Loading title="Sign out" loading={isLoading.is_logout} />
+                <Loading
+                  title={translations[locale].component.logout_modal.sign_out}
+                  loading={isLoading.is_logout}
+                />
               </button>
             </div>
           </div>

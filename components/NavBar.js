@@ -1,10 +1,13 @@
+import translations from '../constant/translations';
 import { useApi } from '../context/api';
+import { useLocale } from '../context/locale';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 const NavBar = () => {
   const { contextApiData } = useApi();
+  const { locale } = useLocale();
   const router = useRouter();
 
   return (
@@ -49,7 +52,7 @@ const NavBar = () => {
                   <li class="nav-item pe-2">
                     <Link href="signin">
                       <button class="btn btn-light btn-text" type="button">
-                        Sign in
+                        {translations[locale].component.nav_bar.sign_in}
                       </button>
                     </Link>
                   </li>
@@ -60,7 +63,7 @@ const NavBar = () => {
                   <li class="nav-item">
                     <Link href="signup">
                       <button class="btn btn-primary btn-text" type="button">
-                        Sign up
+                        {translations[locale].component.nav_bar.sign_up}
                       </button>
                     </Link>
                   </li>

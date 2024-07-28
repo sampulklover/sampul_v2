@@ -3,7 +3,9 @@ import {
   belovedLevel,
   beneficiaryTypes,
 } from '../constant/enum';
+import translations from '../constant/translations';
 import { useApi } from '../context/api';
+import { useLocale } from '../context/locale';
 import Loading from './Laoding';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
@@ -50,6 +52,7 @@ const getElements = () => {
 
 const InviteModal = ({ keyType, category, selectedItem }) => {
   const { contextApiData, getInvites } = useApi();
+  const { locale } = useLocale();
   const [isLoading, setIsLoading] = useState({
     reject: false,
     approve: false,
@@ -83,7 +86,7 @@ const InviteModal = ({ keyType, category, selectedItem }) => {
       });
 
       if (!response.ok) {
-        toast.error('Something went wrong!');
+        toast.error(translations[locale].global.something_went_wrong_);
         setBelovedItem({
           data: null,
           isReady: true,
@@ -140,7 +143,7 @@ const InviteModal = ({ keyType, category, selectedItem }) => {
       });
 
       if (!response.ok) {
-        toast.error('Something went wrong!');
+        toast.error(translations[locale].global.something_went_wrong_);
         setBelovedItem({
           data: null,
           isReady: true,
@@ -167,7 +170,7 @@ const InviteModal = ({ keyType, category, selectedItem }) => {
 
   const buttonConfig = {
     approve: {
-      title: 'Reject',
+      title: translations[locale].component.invite_modal.reject,
       loading: isLoading.approve,
       action: () => {
         var is_completed = checkCompleteProfile();
@@ -175,13 +178,13 @@ const InviteModal = ({ keyType, category, selectedItem }) => {
           updateStatus('approve', 'rejected');
         } else {
           toast.error(
-            'To reject the invitation, you must first complete your profile. You can do this on the settings page.'
+            translations[locale].component.invite_modal.to_reject_the_
           );
         }
       },
     },
     reject: {
-      title: 'Accept',
+      title: translations[locale].component.invite_modal.accept,
       loading: isLoading.reject,
       action: () => {
         var is_completed = checkCompleteProfile();
@@ -189,7 +192,7 @@ const InviteModal = ({ keyType, category, selectedItem }) => {
           updateStatus('reject', 'accepted');
         } else {
           toast.error(
-            'To accept the invitation, you must first complete your profile. You can do this on the settings page.'
+            translations[locale].component.invite_modal.to_accept_the_
           );
         }
       },
@@ -214,7 +217,9 @@ const InviteModal = ({ keyType, category, selectedItem }) => {
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">I am a co-sampul for</h5>
+            <h5 class="modal-title">
+              {translations[locale].component.invite_modal.i_am_a_}
+            </h5>
             <button
               type="button"
               class="btn-close"
@@ -253,23 +258,48 @@ const InviteModal = ({ keyType, category, selectedItem }) => {
                     <div class="text-sm-regular-6">
                       {/* {type_title[category].subtitle} */}
                       <p>
-                        We are delighted to inform you that you had been
-                        selected as a {keyValue.level} {keyValue.type} for{' '}
-                        {keyValue.from_nric_name}. We hope that you have been
-                        briefed by {keyValue.from_nric_name} on the appointment
-                        and are ready to take on the responsibilities.
+                        {
+                          translations[locale].component.invite_modal
+                            .we_are_delighted_
+                        }
+                        {keyValue.level} {keyValue.type}{' '}
+                        {translations[locale].component.invite_modal.for}{' '}
+                        {keyValue.from_nric_name}.{' '}
+                        {
+                          translations[locale].component.invite_modal
+                            .we_hope_that_
+                        }{' '}
+                        {keyValue.from_nric_name}{' '}
+                        {
+                          translations[locale].component.invite_modal
+                            .on_the_appointment_
+                        }
                       </p>
                       <p />
-                      Briefly, your responsibilities as a Co-Sampul is to be
-                      given the information of {keyValue.from_nric_name}’s
-                      wasiat/will which contain all assets’ information and
-                      wishes at the point of death and assist the loved ones in
-                      managing the estate in the event of death. Click{' '}
-                      <Link href="/">HERE</Link> for the process flow.
+                      {
+                        translations[locale].component.invite_modal
+                          .briefly_your_responsibilities_
+                      }{' '}
+                      {keyValue.from_nric_name}
+                      {
+                        translations[locale].component.invite_modal
+                          .wasiat_will_which_
+                      }{' '}
+                      <Link href="/">
+                        {translations[locale].component.invite_modal.here}
+                      </Link>{' '}
+                      {
+                        translations[locale].component.invite_modal
+                          .for_the_process_
+                      }
                       <p />
                     </div>
                     <div class="text-sm-regular-6">
-                      Current Status: <b>{currentStatus(selectedItem)}</b>
+                      {
+                        translations[locale].component.invite_modal
+                          .current_status_
+                      }{' '}
+                      <b>{currentStatus(selectedItem)}</b>
                     </div>
                   </div>
                 ) : (

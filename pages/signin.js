@@ -57,7 +57,7 @@ const SignIn = () => {
   };
 
   return (
-    <div class="body px-5">
+    <div class="body-01 px-5">
       <ForgotPasswordModal />
       <div class="row">
         <div class="col-lg-4">

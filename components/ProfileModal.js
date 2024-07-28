@@ -1,20 +1,26 @@
+import translations from '../constant/translations';
+import { useLocale } from '../context/locale';
 import MyDetails from './MyDetails';
 import React from 'react';
 
-const type_title = {
-  profile: {
-    title: 'Complete profile',
-    subtitle: `Ensure no assets will be left behind for your loved ones.`,
-  },
-};
-
 const ProfileModal = ({ category }) => {
+  const { locale } = useLocale();
+
+  const type_title = {
+    profile: {
+      title: translations[locale].component.profile_modal.complete_profile,
+      subtitle: translations[locale].component.profile_modal.ensure_no_assets_,
+    },
+  };
+
   return (
     <div class="modal fade" id="profile-modal">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Profile</h5>
+            <h5 class="modal-title">
+              {translations[locale].component.profile_modal.profile}
+            </h5>
             <button
               type="button"
               class="btn-close"

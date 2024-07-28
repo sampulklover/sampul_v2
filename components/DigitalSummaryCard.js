@@ -4,41 +4,54 @@ import {
   relationships,
   servicePlatformAccountTypes,
 } from '../constant/enum';
+import translations from '../constant/translations';
 import { useApi } from '../context/api';
+import { useLocale } from '../context/locale';
 import Loading from './Laoding';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 const DigitalSummaryCard = ({ typeName, showBeloved = false }) => {
   const router = useRouter();
+  const { locale } = useLocale();
   const { contextApiData } = useApi();
 
   const type = {
     digital: {
-      title: 'No Digital Assets found',
+      title:
+        translations[locale].component.digital_summary_card
+          .no_digital_assets_found,
       subtitle:
-        'Accounts where you keep your assets with value and can be passed on to your beloved ones.',
-      addNewBtnTitle: 'Add Digital Assets',
+        translations[locale].component.digital_summary_card
+          .accounts_where_you_keep_,
+      addNewBtnTitle:
+        translations[locale].component.digital_summary_card.add_digital_asset,
       data: contextApiData.digitalAssets.data?.filter(
         (x) => x.account_type === 'non_subscription'
       ),
       isReady: !contextApiData.digitalAssets.isLoading,
     },
     subscription: {
-      title: 'Digital Expenses',
+      title:
+        translations[locale].component.digital_summary_card.digital_expenses,
       subtitle:
-        'Account where you make payment for subscription and to be terminated or transferred at the point of death.',
-      addNewBtnTitle: 'Add Digital Expenses',
+        translations[locale].component.digital_summary_card
+          .account_where_you_make_,
+      addNewBtnTitle:
+        translations[locale].component.digital_summary_card
+          .add_digital_expenses,
       data: contextApiData.digitalAssets.data?.filter(
         (x) => x.account_type === 'subscription'
       ),
       isReady: !contextApiData.digitalAssets.isLoading,
     },
     all: {
-      title: 'Digital Assets',
+      title: translations[locale].component.digital_summary_card.digital_assets,
       subtitle:
-        'Accounts where you keep your assets with value and can be passed on to your beloved ones.',
-      addNewBtnTitle: 'Add Digital Assets',
+        translations[locale].component.digital_summary_card
+          .accounts_where_you_keep_,
+      addNewBtnTitle:
+        translations[locale].component.digital_summary_card.add_digital_asset,
       data: contextApiData.digitalAssets.data,
       isReady: !contextApiData.digitalAssets.isLoading,
     },
@@ -53,31 +66,61 @@ const DigitalSummaryCard = ({ typeName, showBeloved = false }) => {
               <thead>
                 <tr>
                   <th scope="col">
-                    <small class="smpl_text-xs-medium">Platforms</small>
+                    <small class="smpl_text-xs-medium">
+                      {
+                        translations[locale].component.digital_summary_card
+                          .platforms
+                      }
+                    </small>
                   </th>
                   {showBeloved ? (
                     <th scope="col">
-                      <small class="smpl_text-xs-medium">Beneficiaries</small>
+                      <small class="smpl_text-xs-medium">
+                        {
+                          translations[locale].component.digital_summary_card
+                            .beneficiaries
+                        }
+                      </small>
                     </th>
                   ) : (
                     ''
                   )}
                   <th scope="col">
-                    <small class="smpl_text-xs-medium">Value</small>
+                    <small class="smpl_text-xs-medium">
+                      {
+                        translations[locale].component.digital_summary_card
+                          .value
+                      }
+                    </small>
                   </th>
                   {showBeloved ? (
                     <th scope="col">
-                      <small class="smpl_text-xs-medium">Type</small>
+                      <small class="smpl_text-xs-medium">
+                        {
+                          translations[locale].component.digital_summary_card
+                            .type
+                        }
+                      </small>
                     </th>
                   ) : (
                     ''
                   )}
                   <th scope="col">
-                    <small class="smpl_text-xs-medium">Instructions</small>
+                    <small class="smpl_text-xs-medium">
+                      {
+                        translations[locale].component.digital_summary_card
+                          .instructions
+                      }
+                    </small>
                   </th>
                   {showBeloved ? (
                     <th scope="col">
-                      <small class="smpl_text-xs-medium">Remarks</small>
+                      <small class="smpl_text-xs-medium">
+                        {
+                          translations[locale].component.digital_summary_card
+                            .remarks
+                        }
+                      </small>
                     </th>
                   ) : (
                     ''
@@ -86,7 +129,7 @@ const DigitalSummaryCard = ({ typeName, showBeloved = false }) => {
               </thead>
               <tbody>
                 {type[typeName].data.map((item, index) => {
-                  const spObject = contextApiData.bodies.data.find(
+                  const spObject = contextApiData.bodies?.data?.find(
                     (x) => x.id === item.bodies_id
                   );
 
@@ -144,9 +187,9 @@ const DigitalSummaryCard = ({ typeName, showBeloved = false }) => {
                             <div class="smpl_text-sm-medium crop-text">
                               {platform.name}
                             </div>
-                            <div class="smpl_text-sm-regular crop-text">
+                            {/* <div class="smpl_text-sm-regular crop-text">
                               {item.email}
-                            </div>
+                            </div> */}
                           </div>
                         </div>
                       </td>
@@ -223,7 +266,12 @@ const DigitalSummaryCard = ({ typeName, showBeloved = false }) => {
               <div class="actions-8">
                 <Link href="digital-assets">
                   <button type="button" class="btn btn-light btn-text">
-                    <Loading title="Show All" />
+                    <Loading
+                      title={
+                        translations[locale].component.digital_summary_card
+                          .show_all
+                      }
+                    />
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="20"

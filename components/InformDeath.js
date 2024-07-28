@@ -1,5 +1,7 @@
 import { addFileImg } from '../constant/element';
+import translations from '../constant/translations';
 import { useApi } from '../context/api';
+import { useLocale } from '../context/locale';
 import {
   mapViewElements,
   processForm,
@@ -13,6 +15,7 @@ import toast from 'react-hot-toast';
 
 const InformDeath = () => {
   const { contextApiData, getInformDeath } = useApi();
+  const { locale } = useLocale();
 
   const [summary, setSummary] = useState({
     isCalling: false,
@@ -145,7 +148,7 @@ const InformDeath = () => {
       deleted: selectedImage.deleted,
     });
 
-    toast.success('Saved successfully!');
+    toast.success(translations[locale].global.saved_successfully);
 
     setSummary({
       ...summary,
@@ -199,11 +202,14 @@ const InformDeath = () => {
         <div class="row mb-4">
           <div class="col-lg">
             <div class="smpl_text-sm-semibold">
-              Death of Sampul Owner
+              {
+                translations[locale].component.inform_death
+                  .death_of_sampul_owner
+              }
               <Loading loading={summary.isCalling} />
             </div>
             <div class="smpl_text-sm-regular">
-              Inform and update your co-sampul owner information
+              {translations[locale].component.inform_death.inform_and_update_}
             </div>
           </div>
           <div class="col text-end mt-md-0 mt-3">
@@ -218,7 +224,7 @@ const InformDeath = () => {
               htmlFor="select-inform-death-invite-user-uuid"
               class="uui-field-label"
             >
-              Sampul owner's{' '}
+              {translations[locale].component.inform_death.sampul_owner_s}{' '}
               <Loading loading={contextApiData.invites.isLoading} />
             </label>
           </div>
@@ -243,7 +249,7 @@ const InformDeath = () => {
               required
             >
               <option disabled selected value>
-                -- select an option --
+                {translations[locale].component.inform_death.select_an_option}
               </option>
               {contextApiData.invites.data?.map((item) => (
                 <option key={item.uuid} value={item.uuid}>
@@ -259,7 +265,7 @@ const InformDeath = () => {
               htmlFor="input-inform-death-nric-name"
               class="uui-field-label"
             >
-              Sampul owner's Name (As Per NRIC)
+              {translations[locale].component.inform_death.sampul_owner_name_}
             </label>
           </div>
           <div class="col">
@@ -274,7 +280,7 @@ const InformDeath = () => {
         <div class="row mb-4">
           <div class="col-lg">
             <label htmlFor="input-inform-death-nric-no" class="uui-field-label">
-              Sampul owner's NRIC
+              {translations[locale].component.inform_death.sampul_owner_nric}
             </label>
           </div>
           <div class="col">
@@ -289,7 +295,9 @@ const InformDeath = () => {
 
         <div class="row mb-4 align-items-start">
           <div class="col-lg ">
-            <label class="uui-field-label">Death Certification</label>
+            <label class="uui-field-label">
+              {translations[locale].component.inform_death.death_certification}
+            </label>
           </div>
           <div
             class="col text-end"
@@ -332,8 +340,8 @@ const InformDeath = () => {
                     class="me-2 text-primary"
                     style={{ 'text-decoration': 'none' }}
                   >
-                    <i class="bi bi-file-earmark-check-fill"></i> click to view
-                    file
+                    <i class="bi bi-file-earmark-check-fill"></i>{' '}
+                    {translations[locale].component.inform_death.click_to_view_}
                   </Link>
                   <i
                     class="bi bi-x"
@@ -380,7 +388,10 @@ const InformDeath = () => {
               htmlFor="input-inform-death-certification-id"
               class="uui-field-label"
             >
-              Death Certification ID
+              {
+                translations[locale].component.inform_death
+                  .death_certification_id
+              }
             </label>
           </div>
           <div class="col">

@@ -1,4 +1,6 @@
 import { emptyUserImg } from '../constant/element';
+import translations from '../constant/translations';
+import { useLocale } from '../context/locale';
 import Loading from './Laoding';
 import UserDetailsModal from './UserDetailsModal';
 import { useState } from 'react';
@@ -6,6 +8,8 @@ import DataTable from 'react-data-table-component';
 import toast from 'react-hot-toast';
 
 const MyDetails = ({ summary, refreshFunction }) => {
+  const { locale } = useLocale();
+
   const [selectedUser, setSelectedUser] = useState({
     userDetails: null,
   });
@@ -19,7 +23,7 @@ const MyDetails = ({ summary, refreshFunction }) => {
     try {
       $('#user-details-modal')?.modal('show');
     } catch (error) {
-      toast.error('Something went wrong, please try again');
+      toast.error(translations[locale].global.something_went_wrong_);
     }
   };
 
@@ -49,7 +53,11 @@ const MyDetails = ({ summary, refreshFunction }) => {
       },
     },
     {
-      name: <small class="smpl_text-xs-medium">Role</small>,
+      name: (
+        <small class="smpl_text-xs-medium">
+          {translations[locale].component.accounts_chart.role}
+        </small>
+      ),
       selector: (item) => {
         return (
           <td>
@@ -63,7 +71,11 @@ const MyDetails = ({ summary, refreshFunction }) => {
       },
     },
     {
-      name: <small class="smpl_text-xs-medium">Total Beloved</small>,
+      name: (
+        <small class="smpl_text-xs-medium">
+          {translations[locale].component.accounts_chart.total_beloved}
+        </small>
+      ),
       selector: (item) => {
         return (
           <td>

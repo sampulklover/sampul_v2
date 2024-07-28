@@ -1,6 +1,10 @@
+import translations from '../constant/translations';
+import { useLocale } from '../context/locale';
 import Link from 'next/link';
 
 const Footer = () => {
+  const { locale } = useLocale();
+
   return (
     <footer>
       <div>
@@ -244,13 +248,13 @@ const Footer = () => {
               </div>
               <div class="w-layout-grid footer_legal-list">
                 <a href="#" class="footer_legal-link">
-                  Terms
+                  {translations[locale].component.header.terms}
                 </a>
                 <a href="#" class="footer_legal-link">
-                  Privacy
+                  {translations[locale].component.header.privacy}
                 </a>
                 <a href="#" class="footer_legal-link">
-                  Cookies
+                  {translations[locale].component.header.cookies}
                 </a>
               </div>
             </div>

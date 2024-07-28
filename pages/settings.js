@@ -8,15 +8,16 @@ import Password from '../components/Password';
 import SideBar from '../components/SideBar';
 import UnderMaintenance from '../components/UnderMaintenance';
 import { systemLanguages } from '../constant/enum';
+import translations from '../constant/translations';
 import { useApi } from '../context/api';
-// import { useTranslation } from 'next-i18next';
-// import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useLocale } from '../context/locale';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 const Settings = () => {
   const router = useRouter();
   // const { contextApiData } = useApi();
+  const { locale } = useLocale();
 
   useEffect(() => {
     if (router.isReady && document) {
@@ -50,9 +51,11 @@ const Settings = () => {
       <>
         <div class="row text-md-start text-center">
           <div class="col-lg">
-            <div class="smpl_display-sm-semibold">Settings</div>
+            <div class="smpl_display-sm-semibold">
+              {translations[locale].settings.settings}
+            </div>
             <div class="smpl_text-md-regular">
-              Manage your account settings here
+              {translations[locale].settings.manage_your_account_}
             </div>
           </div>
           <div class="col text-end"></div>
@@ -77,7 +80,7 @@ const Settings = () => {
               aria-controls="nav-my-details"
               aria-selected="true"
             >
-              My details
+              {translations[locale].settings.my_details}
             </button>
             <button
               class="nav-link"
@@ -89,7 +92,7 @@ const Settings = () => {
               aria-controls="nav-password"
               aria-selected="false"
             >
-              Password
+              {translations[locale].settings.password}
             </button>
             <button
               class="nav-link"
@@ -101,7 +104,7 @@ const Settings = () => {
               aria-controls="nav-inform-death"
               aria-selected="false"
             >
-              Inform Death
+              {translations[locale].settings.inform_death}
             </button>
             <button
               class="nav-link"
@@ -113,7 +116,7 @@ const Settings = () => {
               aria-controls="nav-billing"
               aria-selected="false"
             >
-              Billing
+              {translations[locale].settings.billing}
             </button>
             <button
               class="nav-link"
@@ -125,7 +128,7 @@ const Settings = () => {
               aria-controls="nav-danger-zone"
               aria-selected="false"
             >
-              Danger Zone
+              {translations[locale].settings.danger_zone}
             </button>
           </div>
         </nav>
@@ -178,9 +181,9 @@ const Settings = () => {
 
   return (
     <SideBar>
-      <div class="body inner-body">
+      <div class="body-01 inner-body-01">
         <div class="content">
-          <Breadcrumb pageName={'Settings'} />
+          <Breadcrumb pageName={translations[locale].settings.settings} />
           <div class="mt-4">{title()}</div>
           <div class="row mt-4">{tabSection()}</div>
         </div>
@@ -189,14 +192,6 @@ const Settings = () => {
     </SideBar>
   );
 };
-
-// export const getStaticProps = async ({ locale }) => {
-//   return {
-//     props: {
-//       ...(await serverSideTranslations(locale ?? 'bm', ['common'])),
-//     },
-//   };
-// };
 
 export default Settings;
 

@@ -1,4 +1,6 @@
 import { bodiesCategory } from '../constant/enum';
+import translations from '../constant/translations';
+import { useLocale } from '../context/locale';
 import BodyDetailsModal from './BodyDetailsModal';
 import Loading from './Laoding';
 import { useState } from 'react';
@@ -6,6 +8,8 @@ import DataTable from 'react-data-table-component';
 import toast from 'react-hot-toast';
 
 const ManageBodies = ({ summary, refreshFunction }) => {
+  const { locale } = useLocale();
+
   const [selectedBody, setSelectedBody] = useState({
     bodyDetails: null,
   });
@@ -19,13 +23,17 @@ const ManageBodies = ({ summary, refreshFunction }) => {
     try {
       $('#body-details-modal')?.modal('show');
     } catch (error) {
-      toast.error('Something went wrong, please try again');
+      toast.error(translations[locale].global.something_went_wrong_);
     }
   };
 
   const columns = [
     {
-      name: <small class="smpl_text-xs-medium">Body / Service Platform</small>,
+      name: (
+        <small class="smpl_text-xs-medium">
+          {translations[locale].component.manage_bodies.body_service_platform}
+        </small>
+      ),
       selector: (item) => {
         let category = bodiesCategory().find((x) => x.value === item.category);
 
@@ -58,13 +66,19 @@ const ManageBodies = ({ summary, refreshFunction }) => {
       },
     },
     {
-      name: <small class="smpl_text-xs-medium">Active</small>,
+      name: (
+        <small class="smpl_text-xs-medium">
+          {translations[locale].component.manage_bodies.active}
+        </small>
+      ),
       selector: (item) => {
         return (
           <td>
             <div class="custom-table-cell">
               <div class="smpl_text-sm-regular crop-text">
-                {item.active ? 'Yes' : 'No'}
+                {item.active
+                  ? translations[locale].component.manage_bodies.yes
+                  : translations[locale].component.manage_bodies.no}
               </div>
             </div>
           </td>
@@ -93,7 +107,9 @@ const ManageBodies = ({ summary, refreshFunction }) => {
               });
             }}
           >
-            <span>Create New</span>
+            <span>
+              {translations[locale].component.manage_bodies.create_new}
+            </span>
           </button>
         </div>
       </div>

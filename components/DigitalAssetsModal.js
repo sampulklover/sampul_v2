@@ -3,21 +3,27 @@ import {
   instructionsAfterDeath,
   servicePlatformAccountTypes,
   servicePlatformFrequencies,
+  trueFalse,
 } from '../constant/enum';
+import translations from '../constant/translations';
 import { useApi } from '../context/api';
+import { useLocale } from '../context/locale';
+import { useTempData } from '../context/tempData';
 import { deleteImage, getOptionLabelWithIcon } from '../utils/helpers';
 import { supabase } from '../utils/supabase';
 import Loading from './Laoding';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState, useEffect, useId } from 'react';
 import toast from 'react-hot-toast';
 import Select from 'react-select';
+import { Tooltip } from 'react-tooltip';
 
 const digitalAssetsTypeName = {
   add: {
     key: 'add',
-    button_title: 'Submit',
+    button_title: 'Add',
     allow_delete: false,
     show_create_more: true,
   },
@@ -29,167 +35,181 @@ const digitalAssetsTypeName = {
   },
 };
 
-const DigitalAssetsModal = ({ keyType, selectedItem }) => {
+const instructionTypeConfig = {
+  add: {
+    faraid: {
+      title: 'Add Assets to be Faraid',
+      description: 'Share where you’ve worked on your profile.',
+      actionFormLabel: 'Which Assets you want to Faraid?',
+    },
+    terminate: {
+      title: 'Add Assets to be Terminate',
+      description: 'Share where you’ve worked on your profile.',
+      actionFormLabel: 'Which Assets you want to Terminate?',
+    },
+    transfer_as_gift: {
+      title: 'Add Assets to be Transfer as Gift',
+      description: 'Share where you’ve worked on your profile.',
+      actionFormLabel: 'Which Assets you want to Transfer as Gift?',
+    },
+    settle: {
+      title: 'Add Assets to be Settle Debts',
+      description: 'Share where you’ve worked on your profile.',
+      actionFormLabel: 'Which Assets you want to Settle Debts?',
+    },
+  },
+  edit: {
+    faraid: {
+      title: 'Update Faraid Asset',
+      description: 'Share where you’ve worked on your profile.',
+    },
+    terminate: {
+      title: 'Update Terminate Asset',
+      description: 'Share where you’ve worked on your profile.',
+    },
+    transfer_as_gift: {
+      title: 'Update Transfer as Gift Asset',
+      description: 'Share where you’ve worked on your profile.',
+    },
+    settle: {
+      title: 'Update Settle Debts Asset',
+      description: 'Share where you’ve worked on your profile.',
+    },
+  },
+};
+
+const DigitalAssetsModal = ({ keyType = 'add' }) => {
   const { contextApiData, getDigitalAssets } = useApi();
+  const { locale } = useLocale();
+  const { tempData, setValueTempData } = useTempData();
+
+  const selectedItem = tempData.digitalAssets.selectedItem;
+
+  const useUniqueId = () => {
+    const [id, setId] = useState('');
+
+    useEffect(() => {
+      setId(`id-${Math.random().toString(36).substr(2, 9)}`);
+    }, []);
+
+    return id;
+  };
+
+  const uniqueId = useUniqueId();
   const router = useRouter();
+
+  const [mutiselectData, setMultiSelectData] = useState({
+    platform: {
+      selected: [],
+    },
+  });
+
   const [isLoading, setIsLoading] = useState({
     update: false,
     delete: false,
+    content: false,
   });
-
-  const [createMore, setCreateMore] = useState({
-    status: false,
-    animated: false,
-  });
-
-  const [newServicePlatform, setNewServicePlatform] = useState(false);
-  const [arrayElements, setArrayElements] = useState({
-    bodies: null,
-  });
-
-  const setFrequencyBasedOnType = (type) => {
-    const frequencySelect = document.getElementById(
-      'select-digital-assets-frequency'
-    );
-    if (type === 'non_subscription') {
-      const NA_frequency = servicePlatformFrequencies().find(
-        (item) => item.value === 'n_a'
-      );
-      if (NA_frequency) {
-        frequencySelect.value = NA_frequency.value;
-        frequencySelect.disabled = true;
-      } else {
-        frequencySelect.disabled = false;
-      }
-    } else {
-      frequencySelect.disabled = false;
-    }
-  };
-
-  const elementList = () => {
-    const inputElements = {
-      digital_assets_modal: {
-        elements: {
-          // username: document.getElementById('input-digital-assets-username'),
-          email: document.getElementById('input-digital-assets-email'),
-          // bodies_id: document.getElementById(
-          //   'select-digital-assets-service-platform'
-          // ),
-          new_service_platform_name: document.getElementById(
-            'input-digital-assets-new-service-platform-name'
-          ),
-          new_service_platform_url: document.getElementById(
-            'input-digital-assets-new-service-platform-url'
-          ),
-          account_type: document.getElementById('select-digital-assets-type'),
-          frequency: document.getElementById('select-digital-assets-frequency'),
-          declared_value_myr: document.getElementById(
-            'input-digital-assets-declared-value'
-          ),
-          instructions_after_death: document.getElementById(
-            'select-digital-assets-instructions-after-death'
-          ),
-          beloved_id: document.getElementById('select-digital-assets-beloved'),
-          remarks: document.getElementById('input-digital-assets-remarks'),
-        },
-      },
-    };
-
-    return inputElements;
-  };
 
   useEffect(() => {
-    const editedType = document.getElementById('select-digital-assets-type');
-    setFrequencyBasedOnType(editedType.value);
-
-    setNewServicePlatform(false);
-
-    var element = elementList().digital_assets_modal.elements;
-
-    for (const key in element) {
-      if (key == 'image_path') {
-        element[key].src = addUserImg;
-      } else {
-        element[key].value = '';
-      }
+    if (keyType == 'add') {
+      clearSelectedItem();
     }
+  }, [keyType]);
 
-    if (selectedItem) {
-      if (selectedItem?.new_service_platform_name) {
-        setNewServicePlatform(true);
-      } else {
-        setNewServicePlatform(false);
-        if (contextApiData.bodies.data.length > 0) {
-          var foundObject = contextApiData.bodies.data.find(
-            (obj) => obj.id === selectedItem.bodies_id
-          );
+  useEffect(() => {
+    if (selectedItem && keyType == 'edit') {
+      setMultiSelectData({
+        platform: {
+          selected: [],
+        },
+      });
 
-          setArrayElements((prevState) => ({
-            ...prevState,
-            bodies: {
-              ...foundObject,
-              label: foundObject.name,
-              value: foundObject.id,
+      setIsLoading({
+        ...isLoading,
+        content: true,
+      });
+
+      setTimeout(() => {
+        if (selectedItem?.new_service_platform_name) {
+          handleChangeMultiSelect({
+            keyName: 'platform',
+            newValues: {
+              isCustom: true,
+              platformName: selectedItem.new_service_platform_name,
+              websiteUrl: selectedItem.new_service_platform_url,
+              amount: selectedItem.declared_value_myr,
+              protection: selectedItem.protection,
+              remarks: selectedItem.remarks,
             },
-          }));
-        }
-      }
+          });
+        } else {
+          if (contextApiData.bodies.data.length > 0) {
+            var foundObject = contextApiData.bodies.data.find(
+              (obj) => obj.id === selectedItem.bodies_id
+            );
 
-      for (const key in element) {
-        element[key].value = selectedItem[key];
+            if (foundObject) {
+              foundObject.label = foundObject.name;
+              foundObject.value = foundObject.id;
+              foundObject.amount = selectedItem.declared_value_myr;
+              foundObject.protection = selectedItem.protection;
+              foundObject.remarks = selectedItem.remarks;
 
-        if (key == 'image_path') {
-          const imageUrl = selectedItem[key]
-            ? `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${selectedItem[key]}`
-            : addUserImg;
-          element.image_path.src = imageUrl;
+              handleChangeMultiSelect({
+                keyName: 'platform',
+                newValues: foundObject,
+              });
+            }
+          }
         }
-      }
+        setIsLoading({
+          ...isLoading,
+          content: false,
+        });
+      }, 1000);
     }
   }, [selectedItem]);
 
-  useEffect(() => {
-    if (contextApiData.profile.data?.email && selectedItem == null) {
-      elementList().digital_assets_modal.elements.email.value =
-        contextApiData.profile.data?.email;
-    }
-  }, [contextApiData.profile.data?.email, selectedItem]);
-
-  const handleTypeChange = (event) => {
-    const selectedType = event.target.value;
-    setFrequencyBasedOnType(selectedType);
+  const clearSelectedItem = () => {
+    setMultiSelectData({
+      platform: {
+        selected: [],
+      },
+    });
+    setValueTempData('digitalAssets', {
+      ...tempData.digitalAssets,
+      selectedItem: null,
+    });
   };
 
   const addDigitalAssets = async () => {
-    var element = elementList().digital_assets_modal.elements;
+    var addData = [];
+    mutiselectData.platform.selected.map((item) => {
+      const baseData = {
+        uuid: contextApiData.user.data?.id,
+        instructions_after_death: tempData.digitalAssets.instructionType,
+        declared_value_myr: item.amount,
+        protection: item?.protection || null,
+        remarks: item?.remarks || '',
+      };
 
-    const addData = {};
-
-    if (arrayElements.bodies) {
-      addData.bodies_id = arrayElements.bodies.value;
-    }
-
-    for (const key in element) {
-      if (key !== 'image_path') {
-        addData[key] = element[key].value;
+      if (item.isCustom) {
+        addData.push({
+          ...baseData,
+          new_service_platform_name: item.platformName,
+          new_service_platform_url: item.websiteUrl,
+        });
+      } else {
+        addData.push({
+          ...baseData,
+          bodies_id: item.value,
+        });
       }
-    }
-
-    if (newServicePlatform) {
-      addData.bodies_id = null;
-    }
-
-    if (!newServicePlatform) {
-      addData.new_service_platform_name = null;
-      addData.new_service_platform_url = null;
-    }
+    });
 
     const { data: returnData, error } = await supabase
       .from('digital_assets')
-      .insert({
-        uuid: contextApiData.user.data?.id,
-        ...addData,
-      })
+      .insert(addData)
       .select();
 
     if (error) {
@@ -201,65 +221,29 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
       return;
     }
 
-    toast.success('Successfully submitted!');
-
-    if (createMore.status == true) {
-      setCreateMore((prev) => ({
-        ...prev,
-        animated: true,
-      }));
-      setTimeout(() => {
-        setCreateMore((prev) => ({
-          ...prev,
-          animated: false,
-        }));
-      }, 1000);
-    } else {
-      $('#digital-assets-modal')?.modal('hide');
-    }
+    $('#digital-assets-modal')?.modal('hide');
+    toast.success(translations[locale].global.successfully_submitted);
 
     setIsLoading({
       ...isLoading,
       update: false,
     });
 
-    var element = elementList().digital_assets_modal.elements;
-
-    for (const key in element) {
-      if (key == 'image_path') {
-        element[key].src = addUserImg;
-      } else if (key == 'email') {
-        // not clear
-      } else {
-        element[key].value = '';
-      }
-    }
-
     getDigitalAssets();
   };
 
   const editDigitalAssets = async () => {
-    var element = elementList().digital_assets_modal.elements;
+    const updatedData = mutiselectData.platform.selected[0];
 
-    const addData = {};
+    var addData = {
+      declared_value_myr: updatedData.amount,
+      protection: updatedData?.protection,
+      remarks: updatedData?.remarks ? updatedData.remarks : '',
+    };
 
-    for (const key in element) {
-      if (key !== 'image_path') {
-        addData[key] = element[key].value;
-      }
-    }
-
-    if (arrayElements.bodies) {
-      addData.bodies_id = arrayElements.bodies.value;
-    }
-
-    if (newServicePlatform) {
-      addData.bodies_id = null;
-    }
-
-    if (!newServicePlatform) {
-      addData.new_service_platform_name = null;
-      addData.new_service_platform_url = null;
+    if (updatedData?.isCustom) {
+      addData.new_service_platform_name = updatedData.platformName;
+      addData.new_service_platform_url = updatedData.websiteUrl;
     }
 
     const { data: returnData, error } = await supabase
@@ -280,17 +264,18 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
     }
 
     $('#digital-assets-modal')?.modal('hide');
-    toast.success('Successfully updated!');
+    toast.success(translations[locale].global.successfully_updated);
+
+    getDigitalAssets();
 
     setIsLoading({
       ...isLoading,
       update: false,
     });
-    getDigitalAssets();
   };
 
   const deleteDigitalAssets = async () => {
-    if (confirm(`Are you sure you want to delete this record?`)) {
+    if (confirm(translations[locale].global.delete_confirmation)) {
       setIsLoading({
         ...isLoading,
         delete: true,
@@ -311,12 +296,9 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
 
         return;
       }
-      await deleteImage({
-        returnData: selectedItem,
-      });
 
       $('#digital-assets-modal')?.modal('hide');
-      toast.success('Successfully deleted!');
+      toast.success(translations[locale].global.successfully_deleted);
 
       getDigitalAssets();
 
@@ -349,7 +331,7 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
           .maximum;
       if (count >= max) {
         toast.error(
-          `You can store up to ${max} digital assets. To add more, upgrade your plan.`
+          `${translations[locale].component.digital_assets_modal.you_can_store_} ${max} ${translations[locale].component.digital_assets_modal.digital_assets_to_}`
         );
         setIsLoading({
           ...isLoading,
@@ -367,57 +349,215 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
   const onSubmitAddDigitalAssets = async (event) => {
     event.preventDefault();
 
-    setIsLoading({
-      ...isLoading,
-      update: true,
-    });
-
-    if (keyType == 'add') {
-      checkRestriction().then(async (restricted) => {
-        if (restricted == false) {
-          await addDigitalAssets();
-        } else {
-          setIsLoading({
-            ...isLoading,
-            update: false,
-          });
-        }
+    if (mutiselectData.platform.selected.length > 0) {
+      setIsLoading({
+        ...isLoading,
+        update: true,
       });
-    }
-    if (keyType == 'edit') {
-      await editDigitalAssets();
+
+      if (keyType == 'add') {
+        checkRestriction().then(async (restricted) => {
+          if (restricted == false) {
+            await addDigitalAssets();
+          } else {
+            setIsLoading({
+              ...isLoading,
+              update: false,
+            });
+          }
+        });
+      }
+      if (keyType == 'edit') {
+        await editDigitalAssets();
+      }
+    } else {
+      toast.error('Please add your assets.');
     }
   };
 
-  const checkBeloved = () => {
-    if (contextApiData.beloved.data?.length == 0) {
+  const handleChangeMultiSelect = ({ keyName, newValues }) => {
+    // if item is deleted the coming newValues is array not object
+    setMultiSelectData((prevState) => ({
+      ...prevState,
+      [keyName]: {
+        ...prevState[keyName],
+        selected: Array.isArray(newValues)
+          ? newValues
+          : [...prevState[keyName].selected, ...[newValues]],
+      },
+    }));
+  };
+
+  const handleMultiSelectInputChange = (index, newValue, keyName, subKey) => {
+    const updatedSelected = [...mutiselectData[keyName].selected];
+    updatedSelected[index][subKey] = newValue;
+    setMultiSelectData((prevState) => ({
+      ...prevState,
+      [keyName]: {
+        ...prevState[keyName],
+        selected: updatedSelected,
+      },
+    }));
+  };
+
+  const getBodyData = () => {
+    const bodyData = contextApiData.bodies.data
+      ?.filter(
+        (item) =>
+          item.category !== 'sadaqah_waqaf_zakat' && item.category !== 'waqaf'
+      )
+      .map((item) => ({
+        ...item,
+        label: item.name,
+        value: item.id,
+      }));
+
+    if (bodyData?.length > 0) {
+      return bodyData;
+    } else {
+      return [];
+    }
+  };
+
+  const featuredIconList = () => {
+    const data = getBodyData();
+    const maxRows = 3;
+    const totalItems = data.length;
+    const itemsPerRow = Math.ceil(totalItems / maxRows);
+
+    if (data.length == 0) {
       return (
-        <div
-          class="alert text-center empty-beloved-card"
-          role="alert"
-          onClick={async () => {
-            $('#digital-assets-modal')?.modal('hide');
-            setTimeout(() => {
-              router.push('beloved');
-            }, 1000);
-          }}
-        >
-          Appoint my trusted person <i class="bi bi-arrow-right-short"></i>
+        <div class="text-center">
+          <Loading loading={true} />
         </div>
       );
     }
+
+    return (
+      <div class="py-3">
+        <div class="d-flex text-center mb-2 justify-content-center">
+          {data
+            ?.filter((item) => item.category == 'physical_assets')
+            .map((item, index) => (
+              <div key={index}>
+                <img
+                  loading="lazy"
+                  src={
+                    item?.icon
+                      ? `data:image/svg+xml,${encodeURIComponent(item.icon)}`
+                      : '/images/Displacement-p-500.png'
+                  }
+                  alt=""
+                  className="avatar-8 card-size-onhover"
+                  style={{
+                    width: 40,
+                    height: 40,
+                    transition: 'transform 0.5s ease',
+                    cursor: 'pointer',
+                  }}
+                  onClick={() => {
+                    handleChangeMultiSelect({
+                      keyName: 'platform',
+                      newValues: item,
+                    });
+                  }}
+                  data-tooltip-id={`my-tooltip-${item.label}`}
+                  data-tooltip-html={`
+                <div>
+                  <span>
+                  ${item.label} 
+                  </span>
+                </div>`}
+                />
+                <Tooltip
+                  id={`my-tooltip-${item.label}`}
+                  place="bottom"
+                  style={{
+                    textAlign: 'justify',
+                    maxWidth: '300px',
+                    backgroundColor: 'black',
+                    color: 'white',
+                    'border-radius': '10px',
+                    'z-index': '10',
+                  }}
+                />
+              </div>
+            ))}
+        </div>
+        <div className="overflow-auto">
+          <div
+            className="d-grid gap-2"
+            style={{
+              gridTemplateColumns: `repeat(${itemsPerRow}, auto)`,
+              gridTemplateRows: `repeat(${maxRows}, auto)`,
+            }}
+          >
+            {data
+              .filter((item) => item.category !== 'physical_assets')
+              .map((item, index) => (
+                <div key={index}>
+                  <img
+                    loading="lazy"
+                    src={
+                      item?.icon
+                        ? `data:image/svg+xml,${encodeURIComponent(item.icon)}`
+                        : '/images/Displacement-p-500.png'
+                    }
+                    alt=""
+                    className="avatar-8 card-size-onhover"
+                    style={{
+                      width: 30,
+                      height: 30,
+                      transition: 'transform 0.5s ease',
+                      cursor: 'pointer',
+                    }}
+                    onClick={() => {
+                      handleChangeMultiSelect({
+                        keyName: 'platform',
+                        newValues: item,
+                      });
+                    }}
+                    data-tooltip-id={`my-tooltip-${item.label}`}
+                    data-tooltip-html={`
+               <div>
+                 <span>
+                 ${item.label} 
+                 </span>
+               </div>`}
+                  />
+                  <Tooltip
+                    id={`my-tooltip-${item.label}`}
+                    place="bottom"
+                    style={{
+                      textAlign: 'justify',
+                      maxWidth: '300px',
+                      backgroundColor: 'black',
+                      color: 'white',
+                      'border-radius': '10px',
+                      'z-index': '10',
+                    }}
+                  />
+                </div>
+              ))}
+          </div>
+        </div>
+      </div>
+    );
   };
 
   return (
     <div class="modal fade" id="digital-assets-modal">
-      <div
-        class={`modal-dialog modal-dialog-centered ${
-          createMore.animated ? 'pulse-modal' : ''
-        }`}
-      >
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Digital Assets & Expenses</h5>
+          <div class="modal-header border-0">
+            <Image
+              src="images/flag-icon.svg"
+              alt="image"
+              width={0}
+              height={0}
+              sizes="100vw"
+              style={{ width: 40, height: 40 }}
+            />
             <button
               type="button"
               class="btn-close"
@@ -426,340 +566,261 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
             ></button>
           </div>
           <div class="modal-body">
-            <div class="modal-header-2 mb-3">
-              <div class="content-32">
-                <div class="smpl-icon-featured-outline-large">
-                  <div class="uui-icon-1x1-xsmall-2 w-embed">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M6 21H9M15 21H18M17.5 6.5V14.5M3 6.2L3 14.8C3 15.9201 3 16.4802 3.21799 16.908C3.40973 17.2843 3.71569 17.5903 4.09202 17.782C4.51984 18 5.07989 18 6.2 18L17.8 18C18.9201 18 19.4802 18 19.908 17.782C20.2843 17.5903 20.5903 17.2843 20.782 16.908C21 16.4802 21 15.9201 21 14.8V6.2C21 5.0799 21 4.51984 20.782 4.09202C20.5903 3.7157 20.2843 3.40974 19.908 3.21799C19.4802 3 18.9201 3 17.8 3L6.2 3C5.0799 3 4.51984 3 4.09202 3.21799C3.7157 3.40973 3.40973 3.71569 3.21799 4.09202C3 4.51984 3 5.07989 3 6.2ZM11.5 10.5C11.5 11.8807 10.3807 13 9 13C7.61929 13 6.5 11.8807 6.5 10.5C6.5 9.11929 7.61929 8 9 8C10.3807 8 11.5 9.11929 11.5 10.5Z"
-                        stroke="#3118D3"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      ></path>
-                    </svg>
-                  </div>
-                </div>
-                <div class="text-and-supporting-text-18">
-                  <div class="text-lg-semibold-4">Account Details</div>
-                  <div class="text-sm-regular-6">
-                    Help us to ensure no asset is left behind for your loved one
-                    by filling out this form:
-                  </div>
-                </div>
-              </div>
-              <div class="padding-bottom-3"></div>
+            <div class="mb-0 modal-title-01">
+              {keyType == 'edit'
+                ? instructionTypeConfig[keyType][
+                    selectedItem?.instructions_after_death
+                  ]?.title
+                : instructionTypeConfig[keyType][
+                    tempData.digitalAssets.instructionType
+                  ]?.title}
             </div>
+            <div class="modal-subtitle-01">
+              {keyType == 'edit'
+                ? instructionTypeConfig[keyType][
+                    selectedItem?.instructions_after_death
+                  ]?.description
+                : instructionTypeConfig[keyType][
+                    tempData.digitalAssets.instructionType
+                  ]?.description}
+            </div>
+          </div>
+          <div class="text-center">
+            <Loading loading={isLoading.content} />
+          </div>
+          {keyType == 'add' ? featuredIconList() : ''}
+          <div class="modal-body">
             <form onSubmit={onSubmitAddDigitalAssets}>
-              {/* <div class="form-field-wrapper">
-                  <label
-                    htmlFor={`input-digital-assets-username`}
-                    class="uui-field-label"
-                  >
-                    Username
-                  </label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id={`input-digital-assets-username`}
-                    required
-                  />
-                </div> */}
               <div class="form-field-wrapper mb-3">
-                <label
-                  htmlFor={`input-digital-assets-email`}
-                  class="uui-field-label"
-                >
-                  Email
+                <label class="form-label-01">
+                  {
+                    instructionTypeConfig[keyType][
+                      tempData.digitalAssets.instructionType
+                    ]?.actionFormLabel
+                  }
                 </label>
-                <input
-                  type="email"
-                  class="form-control"
-                  id={`input-digital-assets-email`}
-                  required
-                />
-              </div>
-              <div
-                class="form-field-wrapper"
-                style={{
-                  transition: 'max-height 0.5s ease', // Use max-height for animation
-                  overflow: newServicePlatform ? 'hidden' : '',
-                  maxHeight: newServicePlatform ? '0px' : '200px',
-                }}
-              >
-                <label class="uui-field-label">
-                  Platform Account{' '}
-                  <Loading loading={contextApiData.bodies.isLoading} />
-                </label>
-                <Select
-                  instanceId={useId()}
-                  value={arrayElements.bodies}
-                  options={contextApiData.bodies.data
-                    ?.filter(
-                      (item) =>
-                        item.category !== 'sadaqah_waqaf_zakat' &&
-                        item.category !== 'waqaf'
-                    )
-                    .map((item) => ({
-                      ...item,
-                      label: item.name,
-                      value: item.id,
-                    }))}
-                  onChange={(newValues) => {
-                    setArrayElements((prevState) => ({
-                      ...prevState,
-                      bodies: newValues,
-                    }));
-                  }}
-                  getOptionLabel={getOptionLabelWithIcon}
-                  getOptionValue={(option) => option.label}
-                  required={!newServicePlatform ? true : false}
-                />
-              </div>
-              {!newServicePlatform ? (
-                <div class="mb-3">
-                  <small>
-                    Can't find your Platform Account?{' '}
-                    <b
-                      class="text-primary pointer-on-hover"
-                      onClick={() => {
-                        setNewServicePlatform(!newServicePlatform);
+                {keyType == 'add' ? (
+                  <>
+                    <Select
+                      instanceId={uniqueId}
+                      isMulti
+                      value={mutiselectData.platform.selected}
+                      options={getBodyData()}
+                      onChange={(newValues) => {
+                        handleChangeMultiSelect({
+                          keyName: 'platform',
+                          newValues: newValues,
+                        });
                       }}
-                    >
-                      Add a new one.
-                    </b>
-                  </small>
-                </div>
-              ) : (
-                <></>
-              )}
-              <div
-                style={{
-                  transition: 'max-height 0.5s ease', // Use max-height for animation
-                  overflow: 'hidden',
-                  maxHeight: newServicePlatform ? '300px' : '0px',
-                }}
-              >
-                <div class="row mx-0 mb-3">
-                  <div class="col px-0">
-                    <label>New Platform Account</label>
-                  </div>
-                  <div class="col px-0 text-end">
-                    <small>
+                      getOptionLabel={getOptionLabelWithIcon}
+                      getOptionValue={(option) => option.label}
+                    />
+                    <span class="form-under-label-01">
+                      <Image
+                        src="images/small-plus.svg"
+                        alt="image"
+                        width={0}
+                        height={0}
+                        sizes="100vw"
+                        style={{ width: 17, height: 17 }}
+                        class="me-1"
+                      />
+                      {
+                        translations[locale].component.digital_assets_modal
+                          .Cannot_find_your_
+                      }{' '}
                       <b
                         class="text-primary pointer-on-hover"
                         onClick={() => {
-                          setNewServicePlatform(!newServicePlatform);
+                          handleChangeMultiSelect({
+                            keyName: 'platform',
+                            newValues: {
+                              isCustom: true,
+                              platformName: '',
+                              websiteUrl: '',
+                              amount: '',
+                              value: '',
+                            },
+                          });
                         }}
                       >
-                        <i class="bi bi-x-circle"></i>
+                        {
+                          translations[locale].component.digital_assets_modal
+                            .add_a_new_
+                        }
                       </b>
-                    </small>
-                  </div>
-                </div>
-                <div class="form-content-2 mb-3">
-                  <div class="form-field-wrapper">
-                    <label
-                      htmlFor={`input-digital-assets-new-service-platform-name`}
-                      class="uui-field-label"
-                    >
-                      Service Provider
-                    </label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id={`input-digital-assets-new-service-platform-name`}
-                      required={newServicePlatform ? true : false}
-                    />
-                  </div>
-                  <div class="form-field-wrapper">
-                    <label
-                      htmlFor={`input-digital-assets-new-service-platform-url`}
-                      class="uui-field-label"
-                    >
-                      Website URL
-                    </label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id={`input-digital-assets-new-service-platform-url`}
-                      required={newServicePlatform ? true : false}
-                    />
-                  </div>
-                </div>
-                <div class="border-bottom mb-3"></div>
+                    </span>
+                  </>
+                ) : (
+                  ''
+                )}
               </div>
-              <div class="form-field-wrapper mb-3">
-                <label
-                  htmlFor={`select-digital-assets-type`}
-                  class="uui-field-label"
-                >
-                  Is this a subscription account?
-                </label>
-                <select
-                  id={`select-digital-assets-type`}
-                  required
-                  class="form-select"
-                  onChange={handleTypeChange}
-                >
-                  {servicePlatformAccountTypes().map((item) => (
-                    <option key={item.value} value={item.value}>
-                      {item.opName}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div class="form-field-wrapper mb-3">
-                <label
-                  htmlFor={`select-digital-assets-frequency`}
-                  class="uui-field-label"
-                >
-                  How often do you pay?
-                </label>
-                <select
-                  id={`select-digital-assets-frequency`}
-                  required
-                  class="form-select"
-                >
-                  {servicePlatformFrequencies().map((item) => (
-                    <option key={item.value} value={item.value}>
-                      {item.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div class="form-field-wrapper mb-3">
-                <label
-                  htmlFor={`input-digital-assets-declared-value`}
-                  class="uui-field-label"
-                >
-                  What’s the estimate value of the account?
-                </label>
-                <div class="input-group">
-                  <div class="input-group-text">RM</div>
-                  <input
-                    type="number"
-                    step="0.01"
-                    class="form-control"
-                    id={`input-digital-assets-declared-value`}
-                    required
-                  />
-                </div>
-              </div>
-              <div class="form-field-wrapper mb-3">
-                <label
-                  htmlFor={`select-digital-assets-instructions-after-death`}
-                  class="uui-field-label"
-                >
-                  What should we do with your account in the event of death?
-                </label>
-                <select
-                  id={`select-digital-assets-instructions-after-death`}
-                  required
-                  class="form-select"
-                >
-                  {instructionsAfterDeath(
-                    contextApiData?.profile?.data?.religion
-                  ).map((item) => (
-                    <option key={item.value} value={item.value}>
-                      {item.opName}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              {mutiselectData.platform.selected
+                ?.reverse()
+                ?.map((item, index) => {
+                  return (
+                    <div class="mb-3 card card-muted-01" key={index}>
+                      <label class="d-flex align-items-center">
+                        <img
+                          loading="lazy"
+                          src={
+                            item?.icon
+                              ? `data:image/svg+xml,${encodeURIComponent(
+                                  item.icon
+                                )}`
+                              : '/images/Displacement-p-500.png'
+                          }
+                          alt=""
+                          class="avatar-8 me-2"
+                          style={{ width: 40, height: 40 }}
+                        />{' '}
+                        <span class="rounded-icon-title-01">
+                          {item?.label ? item.label : 'Platform'}
+                        </span>
+                      </label>
 
-              <div class="form-field-wrapper mb-3">
-                <label
-                  htmlFor={`select-digital-assets-beloved`}
-                  class="uui-field-label"
-                >
-                  Who will manage the account?{' '}
-                  <Loading loading={contextApiData.beloved.isLoading} />
-                </label>
-                <select
-                  id={`select-digital-assets-beloved`}
-                  required
-                  class="form-select"
-                >
-                  {contextApiData.beloved.data
-                    ?.filter((item) => item.type === 'future_owner')
-                    .map((item, index) => (
-                      <option key={index} value={item.id}>
-                        {item.name}
-                      </option>
-                    ))}
-                </select>
-                {checkBeloved()}
-              </div>
-
-              <div class="form-field-wrapper mb-3">
-                <label
-                  htmlFor={`input-digital-assets-remarks`}
-                  class="uui-field-label"
-                >
-                  Anything else we should know?
-                </label>
-                <textarea
-                  class="form-control"
-                  id={`input-digital-assets-remarks`}
-                  placeholder="E.g. Please download all pictures before terminate."
-                />
-              </div>
-
-              <div class="mb-3">
-                <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    value=""
-                    id="checkbox-digital-assets"
-                    required
-                  />
-                  <label class="form-check-label" htmlFor="flexCheckChecked">
-                    You agree to our friendly{' '}
-                    <Link href="policy" target="_blank">
-                      privacy policy.
-                    </Link>
-                  </label>
-                </div>
-              </div>
+                      {item?.isCustom ? (
+                        <>
+                          <div class="form-field-wrapper mt-2">
+                            <label
+                              htmlFor={`input-${item.value}-new-service-platform-name`}
+                              class="form-label-01"
+                            >
+                              {
+                                translations[locale].component
+                                  .digital_assets_modal.service_provider
+                              }
+                            </label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id={`input-${item.value}-new-service-platform-name`}
+                              value={item?.platformName}
+                              onChange={(event) =>
+                                handleMultiSelectInputChange(
+                                  index,
+                                  event.target.value,
+                                  'platform',
+                                  'platformName'
+                                )
+                              }
+                              required
+                            />
+                          </div>
+                          <div class="form-field-wrapper mt-2">
+                            <label
+                              htmlFor={`input-${item.value}-new-service-platform-url`}
+                              class="form-label-01"
+                            >
+                              {
+                                translations[locale].component
+                                  .digital_assets_modal.website_url
+                              }
+                            </label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id={`input-${item.value}-new-service-platform-url`}
+                              value={item?.websiteUrl}
+                              onChange={(event) =>
+                                handleMultiSelectInputChange(
+                                  index,
+                                  event.target.value,
+                                  'platform',
+                                  'websiteUrl'
+                                )
+                              }
+                              required
+                            />
+                          </div>
+                        </>
+                      ) : (
+                        ''
+                      )}
+                      <div class="form-field-wrapper mt-2">
+                        <label
+                          htmlFor={`input-platform-${item.value}-estimate-value`}
+                          class="form-label-01"
+                        >
+                          Estimation Value
+                        </label>
+                        <div class="input-group">
+                          <div class="input-group-text">RM</div>
+                          <input
+                            type="number"
+                            step="0.01"
+                            class="form-control"
+                            id={`input-platform-${item.value}-estimate-value`}
+                            value={item.amount}
+                            onChange={(event) =>
+                              handleMultiSelectInputChange(
+                                index,
+                                event.target.value,
+                                'platform',
+                                'amount'
+                              )
+                            }
+                            required
+                          />
+                        </div>
+                      </div>
+                      <div class="form-field-wrapper mt-2">
+                        <label
+                          htmlFor={`input-${item.value}-protection`}
+                          class="form-label-01"
+                        >
+                          Is this asset protected under insurance or takaful?
+                        </label>
+                        <select
+                          id={`input-${item.value}-protection`}
+                          class="form-select"
+                          value={item.protection}
+                          onChange={(event) =>
+                            handleMultiSelectInputChange(
+                              index,
+                              event.target.value,
+                              'platform',
+                              'protection'
+                            )
+                          }
+                          required
+                        >
+                          <option disabled selected value="">
+                            Select...
+                          </option>
+                          {trueFalse().map((item) => (
+                            <option key={item.value} value={item.value}>
+                              {item.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div class="form-field-wrapper mt-2">
+                        <label
+                          htmlFor={`input-${item.value}-remarks`}
+                          class="form-label-01"
+                        >
+                          Anything else you would like to share?
+                        </label>
+                        <textarea
+                          class="form-control"
+                          id={`input-${item.value}-remarks`}
+                          value={item.remarks}
+                          onChange={(event) =>
+                            handleMultiSelectInputChange(
+                              index,
+                              event.target.value,
+                              'platform',
+                              'remarks'
+                            )
+                          }
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
 
               <div class="mt-5">
-                {digitalAssetsTypeName[keyType].show_create_more ? (
-                  <div className="form-field-wrapper mb-3">
-                    <div className="form-check form-switch">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        role="switch"
-                        id="checkbox-digital-assets-create-more"
-                        checked={createMore.status}
-                        onChange={(e) =>
-                          setCreateMore((prev) => ({
-                            ...prev,
-                            status: e.target.checked,
-                          }))
-                        }
-                      />
-                      <label
-                        className="form-check-label small"
-                        htmlFor="checkbox-digital-assets-create-more"
-                      >
-                        Create More
-                      </label>
-                    </div>
-                  </div>
-                ) : (
-                  <></>
-                )}
-
                 <div class="d-grid gap-2">
                   <button type="submit" class="btn btn-primary btn-text">
                     <Loading
@@ -773,7 +834,10 @@ const DigitalAssetsModal = ({ keyType, selectedItem }) => {
                       class="btn btn-light btn-text"
                       onClick={deleteDigitalAssets}
                     >
-                      <Loading title="Delete" loading={isLoading.delete} />
+                      <Loading
+                        title={translations[locale].global.delete}
+                        loading={isLoading.delete}
+                      />
                     </button>
                   ) : (
                     ''

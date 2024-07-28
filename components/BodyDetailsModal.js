@@ -1,4 +1,6 @@
 import { bodiesCategory, trueFalse } from '../constant/enum';
+import translations from '../constant/translations';
+import { useLocale } from '../context/locale';
 import { mapViewElements } from '../utils/helpers';
 import { supabase } from '../utils/supabase';
 import Loading from './Laoding';
@@ -6,6 +8,8 @@ import React, { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 
 const BodyDetailsModal = ({ selectedBody, refreshFunction }) => {
+  const { locale } = useLocale();
+
   const [isLoading, setIsLoading] = useState({
     update: false,
     delete: false,
@@ -65,7 +69,7 @@ const BodyDetailsModal = ({ selectedBody, refreshFunction }) => {
     try {
       $('#body-details-modal')?.modal('hide');
     } catch (error) {
-      toast.error('Something went wrong, please try again');
+      toast.error(translations[locale].global.something_went_wrong_);
     }
 
     refreshFunction();
@@ -95,7 +99,9 @@ const BodyDetailsModal = ({ selectedBody, refreshFunction }) => {
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Body Details</h5>
+            <h5 class="modal-title">
+              {translations[locale].component.body_details_modal.body_details}
+            </h5>
             <button
               type="button"
               class="btn-close"
@@ -130,7 +136,7 @@ const BodyDetailsModal = ({ selectedBody, refreshFunction }) => {
               <div class="mb-3">
                 <div class="form-field-wrapper">
                   <label htmlFor="input-body-name" class="uui-field-label">
-                    Name
+                    {translations[locale].component.body_details_modal.name}
                   </label>
                   <input
                     type="text"
@@ -146,7 +152,10 @@ const BodyDetailsModal = ({ selectedBody, refreshFunction }) => {
                     htmlFor="input-body-website-url"
                     class="uui-field-label"
                   >
-                    Website URL
+                    {
+                      translations[locale].component.body_details_modal
+                        .website_URL
+                    }
                   </label>
                   <input
                     type="text"
@@ -159,7 +168,7 @@ const BodyDetailsModal = ({ selectedBody, refreshFunction }) => {
               <div class="mb-3">
                 <div class="form-field-wrapper">
                   <label htmlFor="select-body-category" class="uui-field-label">
-                    Category
+                    {translations[locale].component.body_details_modal.category}
                   </label>
                   <select
                     id={`select-body-category`}
@@ -177,7 +186,7 @@ const BodyDetailsModal = ({ selectedBody, refreshFunction }) => {
               <div class="mb-3">
                 <div class="form-field-wrapper">
                   <label htmlFor="input-body-icon" class="uui-field-label">
-                    Icon (SVG)
+                    {translations[locale].component.body_details_modal.icon_svg}
                   </label>
                   <textarea class="form-control" id="input-body-icon" />
                 </div>
@@ -185,7 +194,7 @@ const BodyDetailsModal = ({ selectedBody, refreshFunction }) => {
               <div class="mb-3">
                 <div class="form-field-wrapper">
                   <label htmlFor="select-body-active" class="uui-field-label">
-                    Active
+                    {translations[locale].component.body_details_modal.active}
                   </label>
                   <select id={`select-body-active`} class="form-select">
                     {trueFalse().map((item) => (
@@ -198,7 +207,10 @@ const BodyDetailsModal = ({ selectedBody, refreshFunction }) => {
               </div>
               <div class="d-grid gap-2 mt-5">
                 <button type="submit" class="btn btn-primary btn-text">
-                  <Loading title="Save" loading={isLoading.update} />
+                  <Loading
+                    title={translations[locale].global.save}
+                    loading={isLoading.update}
+                  />
                 </button>
               </div>
             </form>

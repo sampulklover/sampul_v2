@@ -5,7 +5,9 @@ import {
   religions,
   systemLanguages,
 } from '../constant/enum';
+import translations from '../constant/translations';
 import { useApi } from '../context/api';
+import { useLocale } from '../context/locale';
 import {
   mapViewElements,
   processForm,
@@ -18,6 +20,7 @@ import toast from 'react-hot-toast';
 
 const MyDetails = ({ isModal = false }) => {
   const { contextApiData, getProfile, getWill } = useApi();
+  const { locale, changeLocale } = useLocale();
 
   const [summary, setSummary] = useState({
     isSaving: false,
@@ -85,6 +88,15 @@ const MyDetails = ({ isModal = false }) => {
       .select()
       .single();
 
+    if (returnData?.system_language) {
+      // let langguageUse = systemLanguages().find(
+      //   (x) => x.value === returnData.system_language
+      // );
+      // if (langguageUse?.langCode) {
+      //   changeLocale({ lang: langguageUse?.langCode });
+      // }
+    }
+
     if (error) {
       toast.error(error.message);
       setSummary({
@@ -106,7 +118,7 @@ const MyDetails = ({ isModal = false }) => {
       isUpdateByReturnId: false,
     });
 
-    toast.success('Saved successfully!');
+    toast.success(translations[locale].global.saved_successfully);
 
     setSummary({
       ...summary,
@@ -168,24 +180,33 @@ const MyDetails = ({ isModal = false }) => {
           <div class="row mb-4">
             <div class="col-lg">
               <div class="smpl_text-sm-semibold">
-                Profile <Loading loading={contextApiData.profile.isLoading} />
+                {translations[locale].component.my_details.profile}{' '}
+                <Loading loading={contextApiData.profile.isLoading} />
               </div>
               <div class="smpl_text-sm-regular">
-                Update your personal data here
+                {
+                  translations[locale].component.my_details
+                    .update_your_personal_
+                }
               </div>
             </div>
             <div class="col text-end mt-md-0 mt-3">
               <button type="submit" class="btn btn-primary btn-text">
-                <Loading title="Save" loading={summary.isSaving} />
+                <Loading
+                  title={translations[locale].global.save}
+                  loading={summary.isSaving}
+                />
               </button>
             </div>
           </div>
         )}
         <div class="row mb-4">
           <div class="col-lg">
-            <label class="uui-field-label">Your photo</label>
+            <label class="uui-field-label">
+              {translations[locale].component.my_details.your_photo_}
+            </label>
             <small class="smpl_text-sm-regular">
-              This will be displayed on your profile.
+              {translations[locale].component.my_details.this_will_be_}
             </small>
           </div>
           <div class="col">
@@ -225,7 +246,7 @@ const MyDetails = ({ isModal = false }) => {
         {checkView({
           labelDiv1: (
             <label htmlFor="input-my-details-username" class="uui-field-label">
-              Username
+              {translations[locale].component.my_details.username}
             </label>
           ),
           inputDiv1: (
@@ -238,7 +259,7 @@ const MyDetails = ({ isModal = false }) => {
           ),
           labelDiv2: (
             <label htmlFor="input-my-details-nric-name" class="uui-field-label">
-              Name (As Per NRIC)
+              {translations[locale].component.my_details.name_as_per_}
             </label>
           ),
           inputDiv2: (
@@ -254,7 +275,7 @@ const MyDetails = ({ isModal = false }) => {
         {checkView({
           labelDiv1: (
             <label htmlFor="input-my-details-nric-no" class="uui-field-label">
-              NRIC
+              {translations[locale].component.my_details.nric}
             </label>
           ),
           inputDiv1: (
@@ -267,7 +288,7 @@ const MyDetails = ({ isModal = false }) => {
           ),
           labelDiv2: (
             <label htmlFor="input-my-details-dob" class="uui-field-label">
-              Date of Birth
+              {translations[locale].component.my_details.date_of_birth}
             </label>
           ),
           inputDiv2: (
@@ -283,7 +304,7 @@ const MyDetails = ({ isModal = false }) => {
         {checkView({
           labelDiv1: (
             <label htmlFor="input-my-details-email" class="uui-field-label">
-              Email
+              {translations[locale].component.my_details.email}
             </label>
           ),
           inputDiv1: (
@@ -297,7 +318,7 @@ const MyDetails = ({ isModal = false }) => {
           ),
           labelDiv2: (
             <label htmlFor="input-my-details-phone-no" class="uui-field-label">
-              Contact
+              {translations[locale].component.my_details.contact}
             </label>
           ),
           inputDiv2: (
@@ -313,7 +334,7 @@ const MyDetails = ({ isModal = false }) => {
         {checkView({
           labelDiv1: (
             <label htmlFor="select-my-details-religion" class="uui-field-label">
-              Religion
+              {translations[locale].component.my_details.religion}
             </label>
           ),
           inputDiv1: (
@@ -324,7 +345,7 @@ const MyDetails = ({ isModal = false }) => {
             >
               {religions().map((item) => (
                 <option key={item.value} value={item.value}>
-                  {item.name}
+                  {translations[locale]?.global[item.value]}
                 </option>
               ))}
             </select>
@@ -334,7 +355,7 @@ const MyDetails = ({ isModal = false }) => {
               htmlFor="select-my-details-marital-status"
               class="uui-field-label"
             >
-              Marital Status
+              {translations[locale].component.my_details.marital_status}
             </label>
           ),
           inputDiv2: (
@@ -345,7 +366,7 @@ const MyDetails = ({ isModal = false }) => {
             >
               {maritalStatus().map((item) => (
                 <option key={item.value} value={item.value}>
-                  {item.name}
+                  {translations[locale]?.global[item.value]}
                 </option>
               ))}
             </select>
@@ -355,7 +376,7 @@ const MyDetails = ({ isModal = false }) => {
         <div class={`${isModal ? '' : 'row'} align-items-start`}>
           <div class="col-lg">
             <label htmlFor="input-my-details-address-1" class="uui-field-label">
-              Address
+              {translations[locale].component.my_details.address}
             </label>
           </div>
           <div class={isModal ? 'mt-2' : 'col'}>
@@ -364,13 +385,13 @@ const MyDetails = ({ isModal = false }) => {
               class="form-control"
               id="input-my-details-address-1"
               required
-              placeholder="Address 1"
+              placeholder={translations[locale].component.my_details.address_1}
             />
             <input
               type="text"
               class="form-control mt-2"
               id="input-my-details-address-2"
-              placeholder="Address 2"
+              placeholder={translations[locale].component.my_details.address_2}
             />
 
             <div class="form-content-2">
@@ -380,7 +401,7 @@ const MyDetails = ({ isModal = false }) => {
                   class="form-control mt-2"
                   id="input-my-details-city"
                   required
-                  placeholder="City"
+                  placeholder={translations[locale].component.my_details.city}
                 />
               </div>
               <div class="form-field-wrapper mr-2">
@@ -389,7 +410,9 @@ const MyDetails = ({ isModal = false }) => {
                   class="form-control mt-2"
                   id="input-my-details-postcode"
                   required
-                  placeholder="Postcode"
+                  placeholder={
+                    translations[locale].component.my_details.postcode
+                  }
                 />
               </div>
             </div>
@@ -401,7 +424,7 @@ const MyDetails = ({ isModal = false }) => {
                   class="form-control mt-2"
                   id="input-my-details-state"
                   required
-                  placeholder="State"
+                  placeholder={translations[locale].component.my_details.state}
                 />
               </div>
               <div class="form-field-wrapper">
@@ -426,7 +449,7 @@ const MyDetails = ({ isModal = false }) => {
               htmlFor="select-my-details-system-language"
               class="uui-field-label"
             >
-              System Language
+              {translations[locale].component.my_details.system_language}
             </label>
           ),
           inputDiv1: (
@@ -446,7 +469,10 @@ const MyDetails = ({ isModal = false }) => {
         {isModal ? (
           <div class="d-grid gap-2 mt-5">
             <button type="submit" class="btn btn-primary btn-text">
-              <Loading title="Save" loading={summary.isSaving} />
+              <Loading
+                title={translations[locale].global.save}
+                loading={summary.isSaving}
+              />
             </button>
           </div>
         ) : (

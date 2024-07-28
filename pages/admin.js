@@ -217,7 +217,7 @@ const Admin = () => {
 
   return (
     <SideBar>
-      <div class={`body inner-body ${inter.className}`}>
+      <div class={`body inner-body-01 ${inter.className}`}>
         <div class="content">
           {contextApiData.role.data?.role == 'admin' ? (
             <>

@@ -1,10 +1,13 @@
+import translations from '../constant/translations';
 import { useApi } from '../context/api';
+import { useLocale } from '../context/locale';
 import { loadStripe } from '@stripe/stripe-js';
 
 const asyncStripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
 
 const CheckoutButton = ({ price_id = '' }) => {
   const { contextApiData } = useApi();
+  const { locale } = useLocale();
 
   const getStripeCustomer = async () => {
     try {
@@ -80,7 +83,7 @@ const CheckoutButton = ({ price_id = '' }) => {
       onClick={getStripeSession}
       className="bg-blue-700 hover:bg-blue-800 duration-200 px-8 py-4 text-white"
     >
-      Checkout Now
+      {translations[locale].component.checkout_button.checkout_now}
     </button>
   );
 };

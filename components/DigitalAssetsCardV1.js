@@ -4,27 +4,49 @@ import { useApi } from '../context/api';
 import { useLocale } from '../context/locale';
 import Loading from './Laoding';
 
-const DigitalAssetsCard = ({
-  typeName = '',
-  editFunction,
-  searchInput = '',
-}) => {
+const DigitalAssetsCardV1 = ({ typeName, editFunction, searchInput = '' }) => {
   const { contextApiData } = useApi();
   const { locale } = useLocale();
+
+  const type = {
+    all: {
+      title:
+        translations[locale].component.digital_assets_card.no_digital_accounts_,
+      subtitle:
+        translations[locale].component.digital_assets_card.accounts_where_keep_,
+      addNewBtnTitle:
+        translations[locale].component.digital_assets_card.add_digital_assets,
+    },
+    non_subscription: {
+      title:
+        translations[locale].component.digital_assets_card.no_digital_accounts_,
+      subtitle:
+        translations[locale].component.digital_assets_card.accounts_where_keep_,
+      addNewBtnTitle:
+        translations[locale].component.digital_assets_card.add_digital_assets,
+    },
+    subscription: {
+      title:
+        translations[locale].component.digital_assets_card
+          .digital_subscriptions,
+      subtitle:
+        translations[locale].component.digital_assets_card.account_where_make,
+      addNewBtnTitle:
+        translations[locale].component.digital_assets_card.add_digital_assets,
+    },
+  };
 
   if (contextApiData.digitalAssets.isLoading == false) {
     if (
       contextApiData.digitalAssets.data?.filter(
-        (item) => !typeName || item.instructions_after_death === typeName
+        (item) => !typeName || item.account_type === typeName
       ).length > 0 &&
       contextApiData.digitalAssets.isLoading == false
     ) {
       return (
         <>
           {contextApiData.digitalAssets.data
-            ?.filter(
-              (item) => !typeName || item.instructions_after_death === typeName
-            )
+            ?.filter((item) => !typeName || item.account_type === typeName)
             .filter((item) => {
               const spObject = contextApiData.bodies.data?.find(
                 (x) => x.id === item.bodies_id
@@ -245,20 +267,14 @@ const DigitalAssetsCard = ({
             </div>
             <div class="text-and-supporting-text-32">
               <div class="text-lg-semibold-8">
-                {
-                  translations[locale].component.digital_assets_card
-                    .no_digital_accounts_
-                }
+                {type[typeName ? typeName : 'all'].title}
               </div>
               <div class="text-sm-regular-15">
-                {
-                  translations[locale].component.digital_assets_card
-                    .accounts_where_keep_
-                }
+                {type[typeName ? typeName : 'all'].subtitle}
               </div>
             </div>
           </div>
-          {/* <div class="mt-3">
+          <div class="mt-3">
             <button
               type="button"
               class="btn btn-primary btn-text"
@@ -267,14 +283,11 @@ const DigitalAssetsCard = ({
               }}
             >
               <Loading
-                title={
-                  translations[locale].component.digital_assets_card
-                    .add_digital_assets
-                }
+                title={type[typeName ? typeName : 'all'].addNewBtnTitle}
                 loading={false}
               />
             </button>
-          </div> */}
+          </div>
         </div>
       </>
     );
@@ -286,7 +299,7 @@ const DigitalAssetsCard = ({
   );
 };
 
-export default DigitalAssetsCard;
+export default DigitalAssetsCardV1;
 
 // The summary of this page includes:
 // This page displays digital assets categorized into different types such as all, non-subscription, and subscription accounts.

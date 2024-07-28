@@ -1,3 +1,5 @@
+import translations from '../constant/translations';
+import { useLocale } from '../context/locale';
 import { processForm } from '../utils/helpers';
 import { supabase } from '../utils/supabase';
 import Loading from './Laoding';
@@ -5,6 +7,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 
 const Password = () => {
+  const { locale } = useLocale();
   const [summary, setSummary] = useState({
     isSaving: false,
   });
@@ -50,14 +53,14 @@ const Password = () => {
         return;
       }
 
-      toast.success('Updated successfully!');
+      toast.success(translations[locale].global.updated_successfully);
 
       setSummary({
         ...summary,
         isSaving: false,
       });
     } else {
-      toast.error('Password do not match!');
+      toast.error(translations[locale].global.password_do_not_);
     }
   };
 
@@ -72,14 +75,19 @@ const Password = () => {
       >
         <div class="row mb-4">
           <div class="col-lg">
-            <div class="smpl_text-sm-semibold">Password</div>
+            <div class="smpl_text-sm-semibold">
+              {translations[locale].component.password.password}
+            </div>
             <div class="smpl_text-sm-regular">
-              Please enter your current password to change your password
+              {translations[locale].component.password.please_enter_your_}
             </div>
           </div>
           <div class="col text-end mt-md-0 mt-3">
             <button type="submit" class="btn btn-primary btn-text">
-              <Loading title="Update Password" loading={summary.isSaving} />
+              <Loading
+                title={translations[locale].component.password.update_password}
+                loading={summary.isSaving}
+              />
             </button>
           </div>
         </div>
@@ -89,7 +97,7 @@ const Password = () => {
               htmlFor="input-password-new-password"
               class="uui-field-label"
             >
-              New password
+              {translations[locale].component.password.new_password}
             </label>
           </div>
           <div class="col">
@@ -107,7 +115,7 @@ const Password = () => {
               htmlFor="input-password-confirm-new-password"
               class="uui-field-label"
             >
-              Confirm new password
+              {translations[locale].component.password.confirm_new_password}
             </label>
           </div>
           <div class="col">

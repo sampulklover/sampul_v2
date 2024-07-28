@@ -1,3 +1,5 @@
+import translations from '../constant/translations';
+import { useLocale } from '../context/locale';
 import adminStyles from '../styles/admin.module.scss';
 import dynamic from 'next/dynamic';
 import { useState, useEffect } from 'react';
@@ -7,6 +9,7 @@ const ReactApexChart = dynamic(() => import('react-apexcharts'), {
 });
 
 const UsersChart = ({ summary }) => {
+  const { locale } = useLocale();
   const [selectedType, setSelectedType] = useState('all');
   const [selectedRange, setSelectedRange] = useState('fullYear');
   const [chartOptions, setChartOptions] = useState({
@@ -194,21 +197,21 @@ const UsersChart = ({ summary }) => {
       labels,
       series: [
         {
-          name: 'Protect Users',
+          name: translations[locale].component.users_chart.protect_users,
           data:
             selectedType == 'subscribed' || selectedType == 'all'
               ? getChartData({ type: 'subscribed', labels })?.monthlyUser
               : [],
         },
         {
-          name: 'Basic Users',
+          name: translations[locale].component.users_chart.basic_users,
           data:
             selectedType == 'unsubscribed' || selectedType == 'all'
               ? getChartData({ type: 'unsubscribed', labels })?.monthlyUser
               : [],
         },
         {
-          name: 'Total Users',
+          name: translations[locale].component.users_chart.total_users,
           data:
             selectedType == 'all'
               ? getChartData({ type: 'all', labels })?.monthlyUser
@@ -251,19 +254,19 @@ const UsersChart = ({ summary }) => {
           class="btn btn-light bg-white btn-text btn-sm"
           onClick={() => handleRangeChange('fullYear')}
         >
-          12 months
+          {translations[locale].component.users_chart.twelfth_months}
         </button>
         <button
           class="btn btn-light bg-white btn-text btn-sm"
           onClick={() => handleRangeChange(30)}
         >
-          30 Days
+          {translations[locale].component.users_chart.thirty_days}
         </button>
         <button
           class="btn btn-light bg-white btn-text btn-sm"
           onClick={() => handleRangeChange(7)}
         >
-          7 Days
+          {translations[locale].component.users_chart.seven_days}
         </button>
       </div>
     );
@@ -406,7 +409,7 @@ const UsersChart = ({ summary }) => {
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
           <button class="nav-link active" data-bs-toggle="tab">
             {chartMenuCard({
-              title: 'Total Users',
+              title: translations[locale].component.users_chart.total_users,
               value: getChartData({ type: 'all' })?.allMonthUserCounts,
               percentage: getPercentageDifferent('all')?.percentage,
               status: getPercentageDifferent('all').theme,
@@ -417,7 +420,7 @@ const UsersChart = ({ summary }) => {
           </button>
           <button class="nav-link" data-bs-toggle="tab">
             {chartMenuCard({
-              title: 'Basic Users',
+              title: translations[locale].component.users_chart.basic_users,
               value: getChartData({ type: 'unsubscribed' })?.allMonthUserCounts,
               percentage: getPercentageDifferent('unsubscribed')?.percentage,
               status: getPercentageDifferent('unsubscribed').theme,
@@ -428,7 +431,7 @@ const UsersChart = ({ summary }) => {
           </button>
           <button class="nav-link" data-bs-toggle="tab">
             {chartMenuCard({
-              title: 'Protect Users',
+              title: translations[locale].component.users_chart.protect_users,
               value: getChartData({ type: 'subscribed' })?.allMonthUserCounts,
               percentage: getPercentageDifferent('subscribed')?.percentage,
               status: getPercentageDifferent('subscribed').theme,

@@ -5,12 +5,16 @@ import {
   relationships,
   userRoles,
 } from '../constant/enum';
+import translations from '../constant/translations';
+import { useLocale } from '../context/locale';
 import { supabase } from '../utils/supabase';
 import Loading from './Laoding';
 import React, { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 
 const UserDetailsModal = ({ selectedUser, refreshFunction, summary }) => {
+  const { locale } = useLocale();
+
   const [isLoading, setIsLoading] = useState({
     update: false,
     delete: false,
@@ -61,11 +65,11 @@ const UserDetailsModal = ({ selectedUser, refreshFunction, summary }) => {
     try {
       $('#user-details-modal')?.modal('hide');
     } catch (error) {
-      toast.error('Something went wrong, please try again');
+      toast.error(translations[locale].global.something_went_wrong_);
     }
 
     refreshFunction();
-    toast.success('Save!');
+    toast.success(translations[locale].global.saved_successfully);
 
     setIsLoading({
       ...isLoading,
@@ -85,7 +89,9 @@ const UserDetailsModal = ({ selectedUser, refreshFunction, summary }) => {
       <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">User Details</h5>
+            <h5 class="modal-title">
+              {translations[locale].component.user_details_modal.user_details}
+            </h5>
             <button
               type="button"
               class="btn-close"
@@ -121,7 +127,10 @@ const UserDetailsModal = ({ selectedUser, refreshFunction, summary }) => {
                     htmlFor={`select-beloved-relationship`}
                     class="uui-field-label"
                   >
-                    User role
+                    {
+                      translations[locale].component.user_details_modal
+                        .user_role
+                    }
                   </label>
                   <select
                     id="select-user-role"
@@ -143,7 +152,12 @@ const UserDetailsModal = ({ selectedUser, refreshFunction, summary }) => {
                   <thead>
                     <tr>
                       <th scope="col">
-                        <small class="smpl_text-xs-medium">Beloved</small>
+                        <small class="smpl_text-xs-medium">
+                          {
+                            translations[locale].component.user_details_modal
+                              .beloved
+                          }
+                        </small>
                       </th>
 
                       {/* <th scope="col">
@@ -151,7 +165,12 @@ const UserDetailsModal = ({ selectedUser, refreshFunction, summary }) => {
                       </th> */}
 
                       <th scope="col">
-                        <small class="smpl_text-xs-medium">Type</small>
+                        <small class="smpl_text-xs-medium">
+                          {
+                            translations[locale].component.user_details_modal
+                              .type
+                          }
+                        </small>
                       </th>
                     </tr>
                   </thead>
@@ -214,14 +233,24 @@ const UserDetailsModal = ({ selectedUser, refreshFunction, summary }) => {
                 </table>
               </div>
 
-              <label class="uui-field-label">Digital Assets List</label>
+              <label class="uui-field-label">
+                {
+                  translations[locale].component.user_details_modal
+                    .digital_assets_list
+                }
+              </label>
 
               <div class="table-responsive" style={{ width: '100%' }}>
                 <table class="table table-hover">
                   <thead>
                     <tr>
                       <th scope="col">
-                        <small class="smpl_text-xs-medium">Platforms</small>
+                        <small class="smpl_text-xs-medium">
+                          {
+                            translations[locale].component.user_details_modal
+                              .platforms
+                          }
+                        </small>
                       </th>
                     </tr>
                   </thead>
@@ -269,7 +298,10 @@ const UserDetailsModal = ({ selectedUser, refreshFunction, summary }) => {
 
               <div class="d-grid gap-2 mt-5">
                 <button type="submit" class="btn btn-primary btn-text">
-                  <Loading title="Save" loading={isLoading.update} />
+                  <Loading
+                    title={translations[locale].global.save}
+                    loading={isLoading.update}
+                  />
                 </button>
               </div>
             </form>

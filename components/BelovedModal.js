@@ -1,6 +1,8 @@
 import { addUserImg } from '../constant/element';
 import { belovedLevel, beneficiaryTypes, countries } from '../constant/enum';
+import translations from '../constant/translations';
 import { useApi } from '../context/api';
+import { useLocale } from '../context/locale';
 import { deleteImage, replaceOrAddImage } from '../utils/helpers';
 import { supabase } from '../utils/supabase';
 import Loading from './Laoding';
@@ -37,6 +39,7 @@ const getElements = () => {
 
 const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
   const { contextApiData, getBeloved, getDigitalAssets } = useApi();
+  const { locale } = useLocale();
 
   const [isLoading, setIsLoading] = useState({
     update: false,
@@ -91,7 +94,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
 
         view: (
           <span style={{ color: 'red' }}>
-            Email not delivered.{' '}
+            {translations[locale].component.beloved_modal.email_not_delivered}{' '}
             <span
               class="text-primary pointer-on-hover"
               onClick={() => {
@@ -109,7 +112,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                 }
               }}
             >
-              Click to resend
+              {translations[locale].component.beloved_modal.click_to_resend}
             </span>
           </span>
         ),
@@ -120,7 +123,12 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
           'Resend successfully delivered the email to the recipient’s mail server.',
 
         view: (
-          <span style={{ color: 'green' }}>Email successfully delivered</span>
+          <span style={{ color: 'green' }}>
+            {
+              translations[locale].component.beloved_modal
+                .email_successfully_delivered
+            }
+          </span>
         ),
       },
       // 'email.delivered_delayed': {
@@ -139,7 +147,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
           'The recipient’s mail server permanently rejected the email.',
         view: (
           <span style={{ color: 'red' }}>
-            Failed to send email.{' '}
+            {translations[locale].component.beloved_modal.failed_to_send_}{' '}
             <span
               class="text-primary pointer-on-hover"
               onClick={() => {
@@ -152,12 +160,12 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                   resendEmail();
                 } else {
                   toast.error(
-                    `To update the current record, please click the 'update' button.`
+                    translations[locale].component.beloved_modal.to_update_the_
                   );
                 }
               }}
             >
-              Click to resend
+              {translations[locale].component.beloved_modal.click_to_resend}
             </span>
           </span>
         ),
@@ -188,10 +196,9 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
 
   const belovedConfig = {
     co_sampul: {
-      title: 'Appoint your Co-Sampul',
-      subtitle: `Co-Sampul is your trusted person for
-      whom which all information in this
-      Sampul will be passed on`,
+      title:
+        translations[locale].component.beloved_modal.appoint_your_co_sampul,
+      subtitle: translations[locale].component.beloved_modal.co_sampul_is_your_,
       display_level: '',
       display_phone_number: 'none',
       phone_number_required: false,
@@ -208,12 +215,13 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
       ),
       email_status: checkEmailStatus(),
       level_info_tooltip_content: `<div>
-      <p>When you create a will and appoint an Primary Co-Sampul, you should also appoint an alternate Co-Sampul ( Secondary Co-Sampul).</p>
-      <p>Secondary Co-Sampul will take over the Primary Co-Sampul duties if your Primary Co-Sampul dies, is unable to act as Co-Sampul , or decides he or she does not wish to be the Co-Sampul. The appointed Primary Co-Sampul does not have to consult the Secondary Co-Sampul. Secondary Co-Sampul is only named in the will to fill in for the appointed Primary Co-Sampul if required.</p></div>`,
+      <p>${translations[locale].component.beloved_modal.when_you_create_}</p>
+      <p>${translations[locale].component.beloved_modal.secondary_co_sampul_will}</p></div>`,
     },
     future_owner: {
-      title: 'Appoint your Beneficiary',
-      subtitle: 'The future owner of your assets',
+      title:
+        translations[locale].component.beloved_modal.appoint_your_beneficiary,
+      subtitle: translations[locale].component.beloved_modal.the_future_owner_,
       display_level: 'none',
       display_phone_number: '',
       phone_number_required: true,
@@ -228,9 +236,9 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
       ),
     },
     guardian: {
-      title: 'Appoint your Guardian',
-      subtitle:
-        'The caretaker of your underage kids ensuring they get the best care after you and you spoused demised',
+      title: translations[locale].component.beloved_modal.appoint_your_guardian,
+      subtitle: translations[locale].component.beloved_modal.the_caretaker_of,
+
       display_level: '',
       display_phone_number: '',
       phone_number_required: true,
@@ -246,20 +254,20 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
         (option) => option.type == 'guardian'
       ),
       level_info_tooltip_content:
-        'When you create a will and appoint an Primary Guardian, you should also appoint an alternate Guardian. The alternate Guardian will take over the Primary Guardian duties if your Primary Guardian dies, is unable to act as guardian, or decides he or she does not wish to be the Co-Sampul',
+        translations[locale].component.beloved_modal.when_you_create_guardian_,
     },
   };
 
   const belovedTypeName = {
     add: {
       key: 'add',
-      button_title: 'Submit',
+      button_title: translations[locale].component.beloved_modal.submit,
       allow_delete: false,
       show_create_more: true,
     },
     edit: {
       key: 'edit',
-      button_title: 'Update',
+      button_title: translations[locale].component.beloved_modal.update,
       allow_delete: true,
       show_create_more: false,
     },
@@ -352,7 +360,9 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
         return;
       }
 
-      toast.success('Successfully submitted!');
+      toast.success(
+        translations[locale].component.beloved_modal.successfully_submitted
+      );
 
       if (
         createMore.status == true &&
@@ -402,7 +412,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
       }, 3000);
     } else {
       toast.error(
-        'Please update your profile to start adding your loved ones, which can be done in the settings page.'
+        translations[locale].component.beloved_modal.please_update_your_
       );
     }
   };
@@ -420,12 +430,16 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
       });
 
       if (!response.ok) {
-        toast.error('Failed to send invitation email');
-        throw new Error('Failed to send invitation email');
+        toast.error(
+          translations[locale].component.beloved_modal.failed_to_send_
+        );
+        throw new Error(
+          translations[locale].component.beloved_modal.failed_to_send_
+        );
       }
 
       toast.success(
-        `Confirmation email has been sent to ${passData.to_email}`,
+        `${translations[locale].component.beloved_modal.confirmation_email_has_} ${passData.to_email}`,
         {
           duration: 6000,
         }
@@ -528,7 +542,9 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
     }
 
     $('#beloved-modal')?.modal('hide');
-    toast.success('Successfully updated!');
+    toast.success(
+      translations[locale].component.beloved_modal.successfully_updated
+    );
 
     setTimeout(() => {
       getBeloved();
@@ -543,7 +559,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
   const deleteBeloved = async () => {
     if (
       confirm(
-        `Confirm deletion? this action will permanently remove user's information and linked digital assets. Please remember to regenerate your wasiat/will afterwards.`
+        translations[locale].component.beloved_modal.confirm_deletion_this_
       )
     ) {
       setIsLoading({
@@ -562,7 +578,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
       if (error) {
         if (error.code === '23503') {
           toast.error(
-            `The user cannot be removed as they are associated with your inform death record. Please assign the record to someone else and try to delete again.`,
+            translations[locale].component.beloved_modal.the_user_cannot_,
             {
               duration: 6000,
             }
@@ -584,7 +600,9 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
       });
 
       $('#beloved-modal')?.modal('hide');
-      toast.success('Successfully deleted!');
+      toast.success(
+        translations[locale].component.beloved_modal.successfully_deleted
+      );
 
       getBeloved();
       getDigitalAssets();
@@ -619,7 +637,9 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
         update: false,
       });
     } else {
-      toast.error('Please enter an email address other than your own');
+      toast.error(
+        translations[locale].component.beloved_modal.please_enter_an_
+      );
     }
   };
 
@@ -632,7 +652,9 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
       >
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Beloved</h5>
+            <h5 class="modal-title">
+              {translations[locale].component.beloved_modal.beloved}
+            </h5>
             <button
               type="button"
               class="btn-close"
@@ -676,7 +698,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
             <form onSubmit={onSubmitAddBeloved}>
               <div class="form-field-wrapper mb-3">
                 <label htmlFor={`input-beloved-name`} class="uui-field-label">
-                  Name/Nickname
+                  {translations[locale].component.beloved_modal.name_nickname}
                 </label>
                 <input
                   type="text"
@@ -703,7 +725,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                  */}
               <div class="form-field-wrapper mb-3">
                 <label htmlFor={`input-beloved-email`} class="uui-field-label">
-                  Email
+                  {translations[locale].component.beloved_modal.email}
                 </label>
                 <input
                   type="email"
@@ -723,7 +745,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                   htmlFor={`input-beloved-phone-no`}
                   class="uui-field-label"
                 >
-                  Phone number
+                  {translations[locale].component.beloved_modal.phone_number}
                 </label>
                 <input
                   type="text"
@@ -742,20 +764,24 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                   htmlFor="input-beloved-address-1"
                   class="uui-field-label"
                 >
-                  Address
+                  {translations[locale].component.beloved_modal.address}
                 </label>
                 <div>
                   <input
                     type="text"
                     class="form-control"
                     id="input-beloved-address-1"
-                    placeholder="Address 1"
+                    placeholder={
+                      translations[locale].component.beloved_modal.address_1
+                    }
                   />
                   <input
                     type="text"
                     class="form-control mt-2"
                     id="input-beloved-address-2"
-                    placeholder="Address 2"
+                    placeholder={
+                      translations[locale].component.beloved_modal.address_2
+                    }
                   />
                   <div class="form-content-2">
                     <div class="form-field-wrapper">
@@ -763,7 +789,9 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                         type="text"
                         class="form-control mt-2"
                         id="input-beloved-city"
-                        placeholder="City"
+                        placeholder={
+                          translations[locale].component.beloved_modal.city
+                        }
                       />
                     </div>
                     <div class="form-field-wrapper mr-2">
@@ -771,7 +799,9 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                         type="text"
                         class="form-control mt-2"
                         id="input-beloved-postcode"
-                        placeholder="Postcode"
+                        placeholder={
+                          translations[locale].component.beloved_modal.postcode
+                        }
                       />
                     </div>
                   </div>
@@ -781,7 +811,9 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                         type="text"
                         class="form-control mt-2"
                         id="input-beloved-state"
-                        placeholder="State"
+                        placeholder={
+                          translations[locale].component.beloved_modal.state
+                        }
                       />
                     </div>
                     <div class="form-field-wrapper">
@@ -814,7 +846,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                         belovedConfig[belovedType]?.level_info_tooltip_content
                       }
                     >
-                      Level{' '}
+                      {translations[locale].component.beloved_modal.level}{' '}
                       {belovedConfig[belovedType]
                         ?.level_info_tooltip_content ? (
                         <i class="bi bi-info-circle"></i>
@@ -842,7 +874,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                   >
                     {belovedConfig[belovedType].beloved_list.map((item) => (
                       <option key={item.value} value={item.value}>
-                        {item.name}
+                        {translations[locale]?.global[item.value]}
                       </option>
                     ))}
                   </select>
@@ -873,7 +905,10 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                     htmlFor={`select-beloved-type`}
                     class="uui-field-label"
                   >
-                    Beneficiary Type
+                    {
+                      translations[locale].component.beloved_modal
+                        .beneficiary_type
+                    }
                   </label>
                   <select
                     id={`select-beloved-type`}
@@ -890,9 +925,11 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
               </div>
               <div class="w-layout-grid settings_component">
                 <div class="text-and-supporting-text-14">
-                  <label class="uui-field-label">Profile photo</label>
+                  <label class="uui-field-label">
+                    {translations[locale].component.beloved_modal.profile_photo}
+                  </label>
                   <div class="text-size-tiny">
-                    This will be displayed on profile.
+                    {translations[locale].component.beloved_modal.this_will_be}
                   </div>
                 </div>
                 <div class="avatar-and-actions">
@@ -1015,9 +1052,12 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                     required
                   />
                   <label class="form-check-label" htmlFor="flexCheckChecked">
-                    You agree to our friendly{' '}
+                    {translations[locale].component.beloved_modal.you_agree_to}{' '}
                     <Link href="policy" target="_blank">
-                      privacy policy.
+                      {
+                        translations[locale].component.beloved_modal
+                          .privacy_policy_
+                      }
                     </Link>
                   </label>
                 </div>
@@ -1045,7 +1085,10 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                         className="form-check-label small"
                         htmlFor="checkbox-beloved-create-more"
                       >
-                        Create More
+                        {
+                          translations[locale].component.beloved_modal
+                            .create_more
+                        }
                       </label>
                     </div>
                   </div>
@@ -1067,7 +1110,12 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                     class="btn btn-light btn-text"
                     onClick={deleteBeloved}
                   >
-                    <Loading title="Delete" loading={isLoading.delete} />
+                    <Loading
+                      title={
+                        translations[locale].component.beloved_modal.delete
+                      }
+                      loading={isLoading.delete}
+                    />
                   </button>
                 ) : (
                   ''

@@ -1,4 +1,6 @@
 import { docsContent } from '../constant/docs-content';
+import translations from '../constant/translations';
+import { useLocale } from '../context/locale';
 import { useRouter } from 'next/router';
 
 const DocsSideBar = ({
@@ -11,6 +13,7 @@ const DocsSideBar = ({
 }) => {
   // const router = useRouter();
 
+  const { locale } = useLocale();
   const pageList = docsContent;
 
   const listItem = () => {
@@ -103,7 +106,8 @@ const DocsSideBar = ({
           data-bs-target="#offcanvasWithBothOptions"
           aria-controls="offcanvasWithBothOptions"
         >
-          <i class="bi bi-list"></i> Show Menu
+          <i class="bi bi-list"></i>{' '}
+          {translations[locale].component.docs_sidebar.show_menu}
         </button>
         <div
           class="offcanvas offcanvas-start"
@@ -114,7 +118,7 @@ const DocsSideBar = ({
         >
           <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">
-              Menu
+              {translations[locale].component.docs_sidebar.menu}
             </h5>
             <button
               type="button"

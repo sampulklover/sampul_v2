@@ -1,11 +1,15 @@
 import Breadcrumb from '../components/Breadcrumb';
 import Footer from '../components/Footer';
+import InnerHeader from '../components/InnerHeader';
 import Loading from '../components/Laoding';
 import SideBar from '../components/SideBar';
+import translations from '../constant/translations';
 import { useApi } from '../context/api';
+import { useLocale } from '../context/locale';
 import { getOptionLabelWithIcon } from '../utils/helpers';
 import { supabase } from '../utils/supabase';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import Select from 'react-select';
@@ -13,6 +17,8 @@ import { Tooltip } from 'react-tooltip';
 
 const ExtraWishes = () => {
   const { contextApiData, getExtraWishes } = useApi();
+  const { locale } = useLocale();
+  const router = useRouter();
 
   const useUniqueId = () => {
     const [id, setId] = useState('');
@@ -194,26 +200,9 @@ const ExtraWishes = () => {
     }
   }, [contextApiData.extraWishes, contextApiData.bodies]);
 
-  const title = () => {
-    return (
-      <>
-        <div class="row text-md-start text-center">
-          <div class="col-lg">
-            <div class="smpl_display-sm-semibold">Extra Wishes</div>
-            <div class="smpl_text-md-regular">
-              Add special touches with Sampul's Extra Wishes feature.
-            </div>
-          </div>
-          <div class="col text-end"></div>
-        </div>
-        <div class="border-top my-3"></div>
-      </>
-    );
-  };
-
   const onSubmitForm = async ({ keyName }) => {
     if (checkRestriction(keyName) == true) {
-      toast.error('You need to upgrade your plan to use this feature.');
+      toast.error(translations[locale].extra_wishes.you_need_to_);
       return;
     }
 
@@ -248,7 +237,7 @@ const ExtraWishes = () => {
       await db.insert({ uuid: contextApiData.user.data?.id, ...addData });
     }
 
-    toast.success('Saved successfully!');
+    toast.success(translations[locale].extra_wishes.saved_successfully);
 
     setButtonLoading({
       ...buttonLoading,
@@ -280,7 +269,9 @@ const ExtraWishes = () => {
       return (
         <Link href="/settings?tab=nav-billing-tab">
           <div class="smpl_text-sm-semibold">
-            <span class="text-primary">(Upgrade your plan)</span>
+            <span class="text-primary">
+              {translations[locale].extra_wishes.upgrade_your_plan}
+            </span>
           </div>
         </Link>
       );
@@ -298,23 +289,15 @@ const ExtraWishes = () => {
               <div class="text-sm-medium-6">
                 <b
                   data-tooltip-id="my-tooltip-nazar"
-                  data-tooltip-html="
-                    <div>
-                      <p>
-                        Info: Nazar is a vow made to Allah to perform certain
-                        actions if certain conditions are met. For example: “I
-                        wish to go for Umrah if I got a son.” Umrah is
-                        compulsory if a son was borned and if he/she does not
-                        have the chance to do it while still alive, his/her
-                        beneficiaries are obliged to do it on behalf and the
-                        expenses can be taken from one’s estate. If the
-                        beneficiaries are unable to perform the nazar, they may
-                        opt for a Kaffarah.
-                      </p>
-                    </div>
-                  "
+                  data-tooltip-html={`
+                  <div>
+                    <p>
+                    ${translations[locale].extra_wishes.info_nazar_is_} 
+                    </p>
+                  </div>`}
                 >
-                  Nazar/Kaffarah <i class="bi bi-info-circle"></i>
+                  {translations[locale].extra_wishes.nazar_kaffarah}
+                  <i class="bi bi-info-circle ms-1"></i>
                 </b>
                 <Tooltip
                   id="my-tooltip-nazar"
@@ -330,9 +313,7 @@ const ExtraWishes = () => {
                 />
               </div>
               <div class="smpl_text-sm-regular">
-                Fullfill your vows or compensatory actions with ease through
-                Sampul's streamlined process, ensuring your spiritual
-                commitments are honored.
+                {translations[locale].extra_wishes.fullfill_your_vows_}
               </div>
               {displayUpgradePlan('nazar')}
             </div>
@@ -350,13 +331,12 @@ const ExtraWishes = () => {
                   htmlFor="input-extra-wishes-nazar-wishes"
                   class="uui-field-label"
                 >
-                  Any Nazar/Kaffarah that you are afraid you may not be able to
-                  complete during your lifetime?
+                  {translations[locale].extra_wishes.any_nazar_kaffarah_}
                 </label>
                 <textarea
                   class="form-control"
                   id="input-extra-wishes-nazar-wishes"
-                  placeholder="I wish to go for Umrah if I got a son."
+                  placeholder={translations[locale].extra_wishes.i_wish_to_}
                   required
                   rows="5"
                 />
@@ -366,7 +346,7 @@ const ExtraWishes = () => {
                   htmlFor="input-extra-wishes-nazar-est-cost"
                   class="uui-field-label"
                 >
-                  Estimate cost to execute the Nazar or pay Kaffarah?
+                  {translations[locale].extra_wishes.estimate_cost_to_}
                 </label>
                 <div class="input-group">
                   <div class="input-group-text">RM</div>
@@ -379,9 +359,12 @@ const ExtraWishes = () => {
                   />
                 </div>
               </div>
-              <div class="mb-3 text-end">
+              <div class="text-end">
                 <button type="submit" class="btn btn-primary btn-text">
-                  <Loading title="Save" loading={buttonLoading.nazar} />
+                  <Loading
+                    title={translations[locale].extra_wishes.save}
+                    loading={buttonLoading.nazar}
+                  />
                 </button>
               </div>
             </form>
@@ -400,17 +383,15 @@ const ExtraWishes = () => {
               <div class="text-sm-medium-6">
                 <b
                   data-tooltip-id="my-tooltip-fidyah"
-                  data-tooltip-html="
-                    <div>
-                      <p>
-                        Info: When someone cannot fast in Ramadhan and got no
-                        chance to make up the lost days afterwards, then their
-                        beneficiaries may pay (Fidyah) taken from the estate.
-                      </p>
-                    </div>
-                  "
+                  data-tooltip-html={`
+                  <div>
+                    <p>
+                    ${translations[locale].extra_wishes.info_when_someone_} 
+                    </p>
+                  </div>`}
                 >
-                  Fidyah <i class="bi bi-info-circle"></i>
+                  {translations[locale].extra_wishes.fidyah}
+                  <i class="bi bi-info-circle ms-1"></i>
                 </b>
                 <Tooltip
                   id="my-tooltip-fidyah"
@@ -426,9 +407,7 @@ const ExtraWishes = () => {
                 />
               </div>
               <div class="smpl_text-sm-regular">
-                Fulfill your fidyah obligations effortlessly with Sampul's
-                simplified process, ensuring your religious duties are met with
-                ease.
+                {translations[locale].extra_wishes.fulfill_your_fidyah}
               </div>
               {displayUpgradePlan('fidyah')}
             </div>
@@ -446,7 +425,7 @@ const ExtraWishes = () => {
                   htmlFor="input-extra-wishes-fidyah-fast-left-days"
                   class="uui-field-label"
                 >
-                  How many days have you left your fast during Ramadhan?
+                  {translations[locale].extra_wishes.how_many_days_}
                 </label>
                 <input
                   type="number"
@@ -461,7 +440,7 @@ const ExtraWishes = () => {
                   htmlFor="input-extra-wishes-fidyah-amount-due"
                   class="uui-field-label"
                 >
-                  Any amount of Fidyah due?
+                  {translations[locale].extra_wishes.any_amount_of_}
                 </label>
                 <div class="input-group">
                   <div class="input-group-text">RM</div>
@@ -474,9 +453,12 @@ const ExtraWishes = () => {
                   />
                 </div>
               </div>
-              <div class="mb-3 text-end">
+              <div class="text-end">
                 <button type="submit" class="btn btn-primary btn-text">
-                  <Loading title="Save" loading={buttonLoading.fidyah} />
+                  <Loading
+                    title={translations[locale].extra_wishes.save}
+                    loading={buttonLoading.fidyah}
+                  />
                 </button>
               </div>
             </form>
@@ -493,12 +475,10 @@ const ExtraWishes = () => {
           <div class="col">
             <div>
               <div class="text-sm-medium-6">
-                <b>Charity/Sadaqah</b>
+                <b>{translations[locale].extra_wishes.charity_sadaqah}</b>
               </div>
               <div class="smpl_text-sm-regular">
-                Seamlessly include your charitable intentions in your digital
-                estate plan with Sampul, ensuring your legacy extends to making
-                a positive impact beyond your lifetime.
+                {translations[locale].extra_wishes.seamlessly_include_your_}
               </div>
               {displayUpgradePlan('charity')}
             </div>
@@ -519,7 +499,7 @@ const ExtraWishes = () => {
                   htmlFor="multiselect-extra-wishes-charity-bodies"
                   class="uui-field-label"
                 >
-                  Contribute to Charity/Sadaqah Bodies
+                  {translations[locale].extra_wishes.contribute_to_charity_}
                 </label>
                 <Select
                   instanceId={uniqueId1}
@@ -549,7 +529,8 @@ const ExtraWishes = () => {
                       htmlFor={`input-extra-wishes-charity-${item.value}-amount`}
                       class="uui-field-label"
                     >
-                      {item.label}'s asset/amount
+                      {item.label}
+                      {translations[locale].extra_wishes.s_assets_amout}
                     </label>
                     <div class="input-group">
                       <div class="input-group-text">RM</div>
@@ -572,9 +553,12 @@ const ExtraWishes = () => {
                   </div>
                 );
               })}
-              <div class="mb-3 text-end">
+              <div class="text-end">
                 <button type="submit" class="btn btn-primary btn-text">
-                  <Loading title="Save" loading={buttonLoading.charity} />
+                  <Loading
+                    title={translations[locale].extra_wishes.save}
+                    loading={buttonLoading.charity}
+                  />
                 </button>
               </div>
             </form>
@@ -591,12 +575,10 @@ const ExtraWishes = () => {
           <div class="col">
             <div>
               <div class="text-sm-medium-6">
-                <b>Waqf</b>
+                <b>{translations[locale].extra_wishes.waqf}</b>
               </div>
               <div class="smpl_text-sm-regular">
-                Preserve your legacy through charitable endowments with Sampul.
-                Securely allocate digital assets to support causes close to your
-                heart and leave a lasting impact on future generations.
+                {translations[locale].extra_wishes.preserve_your_legacy_}
               </div>
               {displayUpgradePlan('waqf')}
             </div>
@@ -617,7 +599,7 @@ const ExtraWishes = () => {
                   htmlFor="multiselect-extra-wishes-waqf-foundation"
                   class="uui-field-label"
                 >
-                  Contribute to Waqf Foundation
+                  {translations[locale].extra_wishes.contribute_to_waqf_}
                 </label>
                 <Select
                   instanceId={uniqueId2}
@@ -651,7 +633,8 @@ const ExtraWishes = () => {
                       htmlFor={`input-extra-wishes-waqf-${item.value}-amount`}
                       class="uui-field-label"
                     >
-                      {item.label}'s asset/amount
+                      {item.label}
+                      {translations[locale].extra_wishes.s_assets_amout}
                     </label>
                     <div class="input-group">
                       <div class="input-group-text">RM</div>
@@ -670,9 +653,12 @@ const ExtraWishes = () => {
                   </div>
                 );
               })}
-              <div class="mb-3 text-end">
+              <div class="text-end">
                 <button type="submit" class="btn btn-primary btn-text">
-                  <Loading title="Save" loading={buttonLoading.waqf} />
+                  <Loading
+                    title={translations[locale].extra_wishes.save}
+                    loading={buttonLoading.waqf}
+                  />
                 </button>
               </div>
             </form>
@@ -703,19 +689,15 @@ const ExtraWishes = () => {
               <div class="text-sm-medium-6">
                 <b
                   data-tooltip-id="my-tooltip-1"
-                  data-tooltip-html="
+                  data-tooltip-html={`
                     <div>
                       <p>
-                        Info: For Muslims, the National Fatwa Council (Majlis
-                        Fatwa Kebangsaan) in June 1970 has decided that it is
-                        permissible to donate organs with the condition it is
-                        used to save life where there are no other alternatives
-                        and not used for business dealings.
+                      ${translations[locale].extra_wishes.info_for_muslims_} 
                       </p>
-                    </div>
-                  "
+                    </div>`}
                 >
-                  Organ Donor Pledge <i class="bi bi-info-circle"></i>
+                  {translations[locale].extra_wishes.organ_donor_pledge}
+                  <i class="bi bi-info-circle ms-1"></i>
                 </b>
                 <Tooltip
                   id="my-tooltip-1"
@@ -731,11 +713,7 @@ const ExtraWishes = () => {
                 />
               </div>
               <div class="smpl_text-sm-regular">
-                At the point of death, if you are deemed suitable for organ or
-                tissue donation by Ministry of Health medical experts, consent
-                from your loved ones will be obtained. By agreeing to pledge as
-                an organ donor, please ensure that you have informed your loved
-                ones on your wish.
+                {translations[locale].extra_wishes.at_the_point_}
               </div>
               {displayUpgradePlan('organ_donor')}
             </div>
@@ -753,7 +731,7 @@ const ExtraWishes = () => {
                   htmlFor="select-extra-wishes-organ-donor-pledge"
                   class="uui-field-label"
                 >
-                  Please select your preference regarding organ donation
+                  {translations[locale].extra_wishes.please_select_your_}
                 </label>
                 <select
                   id="select-extra-wishes-organ-donor-pledge"
@@ -761,18 +739,25 @@ const ExtraWishes = () => {
                   class="form-select"
                 >
                   {[
-                    { name: 'Disagree', value: false },
-                    { name: 'Agree', value: true },
+                    {
+                      name: 'Disagree',
+                      value: false,
+                      translationKey: 'disagree',
+                    },
+                    { name: 'Agree', value: true, translationKey: 'agree' },
                   ].map((item) => (
                     <option key={item.value} value={item.value}>
-                      {item.name}
+                      {translations[locale]?.global[item.translationKey]}
                     </option>
                   ))}
                 </select>
               </div>
-              <div class="mb-3 text-end">
+              <div class="text-end">
                 <button type="submit" class="btn btn-primary btn-text">
-                  <Loading title="Save" loading={buttonLoading.organ_donor} />
+                  <Loading
+                    title={translations[locale].extra_wishes.save}
+                    loading={buttonLoading.organ_donor}
+                  />
                 </button>
               </div>
             </form>
@@ -796,12 +781,31 @@ const ExtraWishes = () => {
     return display;
   };
 
+  // console.log('TEST')
+
   return (
     <SideBar>
-      <div class="body inner-body">
+      <div class="body-01 inner-body-01">
         <div class="content">
-          <Breadcrumb pageName={'Extra Wishes'} />
-          <div class="mt-4">{title()}</div>
+          <Breadcrumb
+            pageName={translations[locale].extra_wishes.extra_wishes}
+            rightSection={
+              <button
+                type="button"
+                class="btn btn-primary btn-sm"
+                onClick={() => {
+                  router.push('will');
+                }}
+              >
+                <Loading title="Preview Wasiat" />
+              </button>
+            }
+          />
+          <InnerHeader
+            title="Add Personal Touches to Your Wasiat"
+            subtitle={`Your wasiat is a deeply personal document that reflects your values and wishes. Here, you can add special instructions to make sure your final wishes are honored. Whether it's fulfilling religious obligations, making charitable donations, or pledging to donate your organs, you can add these meaningful touches to your wasiat. Select an option below to get started.`}
+            imageSrc="images/investing.svg"
+          />
           <div class="row mt-4">
             <div
               style={{

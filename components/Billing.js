@@ -1,4 +1,6 @@
+import translations from '../constant/translations';
 import { useApi } from '../context/api';
+import { useLocale } from '../context/locale';
 import Loading from './Laoding';
 import { loadStripe } from '@stripe/stripe-js';
 import { useRouter } from 'next/router';
@@ -10,6 +12,7 @@ const asyncStripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
 const Billing = () => {
   const { contextApiData } = useApi();
   const router = useRouter();
+  const { locale } = useLocale();
   const [runEffect, setRunEffect] = useState(false);
   const [summary, setSummary] = useState({
     data: [],
@@ -41,7 +44,7 @@ const Billing = () => {
       });
 
       if (!response.ok) {
-        toast.error('Failed to get prices');
+        toast.error(translations[locale].component.billing.failed_to_get_);
         throw new Error('Failed to get Stripe prices');
       }
 
@@ -95,7 +98,7 @@ const Billing = () => {
       });
 
       if (!response.ok) {
-        toast.error('Failed to create customer ID');
+        toast.error(translations[locale].component.billing.failed_to_create_);
         throw new Error('Failed to create Stripe customer ID');
       }
 
@@ -133,10 +136,10 @@ const Billing = () => {
           isSaving: false,
         });
       } else {
-        toast.error('Something went wrong.');
+        toast.error(translations[locale].global.something_went_wrong_);
       }
     } else {
-      toast.error('Please select a plan below');
+      toast.error(translations[locale].component.billing.please_select_a_);
     }
   };
 
@@ -154,7 +157,7 @@ const Billing = () => {
       });
 
       if (!response.ok) {
-        toast.error('Failed to create payment session');
+        toast.error(translations[locale].component.billing.failed_to_create_);
         throw new Error('Failed to create Stripe session');
       }
 
@@ -217,23 +220,22 @@ const Billing = () => {
     <div class="mt-4">
       <div class="row mb-4">
         <div class="col-lg">
-          <div class="smpl_text-sm-semibold">Subscription Plan</div>
+          <div class="smpl_text-sm-semibold">
+            {translations[locale].component.billing.subscription_plan}
+          </div>
           <div class="smpl_text-sm-regular">
-            As you embark on your digital wasiat/will planning adventure, you
-            have the flexibility to upgrade your plan at any time. Unlock
-            premium reatures, sun as Frysical Asset, Appointment or Guardian,
-            and Corporate Executor.
+            {translations[locale].component.billing.as_you_embark_}
           </div>
         </div>
       </div>
       <div class="row mb-4">
         <div class="col-lg">
           <div class="smpl_text-sm-semibold">
-            Billing
+            {translations[locale].component.billing.Billing}
             <Loading loading={summary.isCalling} />
           </div>
           <div class="smpl_text-sm-regular">
-            Manage your billing and payment details
+            {translations[locale].component.billing.manage_your_billing_}
           </div>
         </div>
         <div class="col text-end mt-md-0 mt-3">
@@ -243,7 +245,7 @@ const Billing = () => {
             onClick={() => {
               if (summary.selectedPriceId == defaultProductId) {
                 toast.error(
-                  'The free plan is automatically included upon registration'
+                  translations[locale].component.billing.the_free_plan_
                 );
               } else {
                 if (summary.isSubscribed) {
@@ -255,7 +257,11 @@ const Billing = () => {
             }}
           >
             <Loading
-              title={summary.isSubscribed ? 'Manage subscription' : 'Subscribe'}
+              title={
+                summary.isSubscribed
+                  ? translations[locale].component.billing.manage_subscription
+                  : translations[locale].component.billing.subscribe
+              }
               loading={summary.isSaving}
             />
           </button>
@@ -310,7 +316,10 @@ const Billing = () => {
                         <span class="smpl_text-lg-semibold">{item.name}</span>
                         {summary.currentPriceId == item.product_id ? (
                           <span class="badge bg-danger text-white">
-                            Current plan
+                            {
+                              translations[locale].component.billing
+                                .current_plan
+                            }
                           </span>
                         ) : (
                           ''

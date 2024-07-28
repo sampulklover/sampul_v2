@@ -193,8 +193,18 @@ export const maritalStatus = () => {
 
 export const servicePlatformAccountTypes = () => {
   const items = [
-    { name: 'Non-Subscription', opName: 'No', value: 'non_subscription' },
-    { name: 'Subscription', opName: 'Yes', value: 'subscription' },
+    {
+      name: 'Non-Subscription',
+      opName: 'No',
+      value: 'non_subscription',
+      translationKey: 'no',
+    },
+    {
+      name: 'Subscription',
+      opName: 'Yes',
+      value: 'subscription',
+      translationKey: 'yes',
+    },
   ];
 
   return items;
@@ -243,12 +253,21 @@ export const instructionsAfterDeath = (religion) => {
       opName: 'Pass this account to be used by my beneficiary',
       value: 'transfer_as_gift',
       theme: 'blue',
+      translationKey: 'pass_this_account_',
     },
     {
       name: 'Terminate',
       opName: 'Account to be terminated',
       value: 'terminate',
       theme: 'orange',
+      translationKey: 'account_to_terminated',
+    },
+    {
+      name: 'Settle Debts',
+      opName: 'Account to be Settle Debts',
+      value: 'settle',
+      theme: 'orange',
+      translationKey: 'account_to_settle_debts',
     },
   ];
 
@@ -259,6 +278,7 @@ export const instructionsAfterDeath = (religion) => {
         'My beneficiary to liquidate the account and proceeds to be distributed as per Faraid',
       value: 'faraid',
       theme: 'green',
+      translationKey: 'beneficiary_liquidate_account',
     });
   }
 
@@ -439,6 +459,7 @@ export const bodiesCategory = () => {
     { name: 'Restaurants & delivery', value: 'restaurants_and_delivery' },
     { name: 'Shopping', value: 'shopping' },
     { name: 'Travel', value: 'travel' },
+    { name: 'Physical Assets', value: 'physical_assets' },
   ];
 
   return options;

@@ -1,14 +1,20 @@
+import translations from '../constant/translations';
+import { useLocale } from '../context/locale';
 import React, { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 
 const ShareModal = ({ url, title }) => {
+  const { locale } = useLocale();
+
   const checkUrl = () => {
     var proceed = false;
 
     if (url) {
       proceed = true;
     } else {
-      toast.error('Please generate your wasiat/will in order to start sharing');
+      toast.error(
+        translations[locale].component.share_modal.please_generate_your_
+      );
       proceed = false;
     }
 
@@ -77,10 +83,11 @@ const ShareModal = ({ url, title }) => {
           <div class="modal-body text-center">
             <img width="300px" src="images/will_dashboard.png" />
 
-            <h5 class="mt-3">Share Certificate on Social Media</h5>
+            <h5 class="mt-3">
+              {translations[locale].component.share_modal.share_certificate_on_}
+            </h5>
             <div class="smpl_text-sm-medium mb-5">
-              Let your Will Certificate be a symbol of your care. Share it with
-              those you love and inspire a legacy of protection.
+              {translations[locale].component.share_modal.let_your_will_}
             </div>
 
             <div class="row">
@@ -187,7 +194,8 @@ const ShareModal = ({ url, title }) => {
                       }}
                     >
                       <span>
-                        <i class="bi bi-copy"></i> Copy Link
+                        <i class="bi bi-copy"></i>{' '}
+                        {translations[locale].component.share_modal.copy_link}
                       </span>
                     </button>
                   </div>

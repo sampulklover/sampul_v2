@@ -1,4 +1,6 @@
+import translations from '../constant/translations';
 import { useApi } from '../context/api';
+import { useLocale } from '../context/locale';
 import successWillAnimationData from '../public/animation/lottie_will_success_generated.json';
 import { supabase } from '../utils/supabase';
 import Loading from './Laoding';
@@ -11,6 +13,7 @@ import Lottie from 'react-lottie';
 
 const WillActionButtons = ({ viewOnly = false }) => {
   const { contextApiData, getWill } = useApi();
+  const { locale } = useLocale();
   const router = useRouter();
 
   const [shareUrl, setShareUrl] = useState(null);
@@ -357,7 +360,7 @@ const WillActionButtons = ({ viewOnly = false }) => {
             }
           }}
         >
-          Share
+          {translations[locale].component.will_action_btn.share}
           <svg
             width="20"
             height="21"
@@ -420,8 +423,9 @@ const WillActionButtons = ({ viewOnly = false }) => {
             <Loading
               title={
                 contextApiData?.profile?.data?.religion == 'islam'
-                  ? 'Generate Wasiat'
-                  : 'Generate Will'
+                  ? translations[locale].component.will_action_btn
+                      .generate_wasiat
+                  : translations[locale].component.will_action_btn.generate_will
               }
               loading={buttonLoading.generate}
             />
@@ -436,7 +440,7 @@ const WillActionButtons = ({ viewOnly = false }) => {
               <g clipPath="url(#clip0_158_1895)">
                 <path
                   d="M10.8335 1.79651L3.41142 10.7031C3.12075 11.0519 2.97541 11.2263 2.97319 11.3736C2.97126 11.5016 3.02832 11.6234 3.12792 11.7039C3.2425 11.7965 3.46952 11.7965 3.92357 11.7965H10.0002L9.16688 18.4632L16.589 9.55663C16.8797 9.20782 17.025 9.03342 17.0272 8.88612C17.0292 8.75808 16.9721 8.63626 16.8725 8.55576C16.7579 8.46318 16.5309 8.46318 16.0768 8.46318H10.0002L10.8335 1.79651Z"
-                  stroke="white"
+                  stroke="#2F1DA9"
                   strokeWidth="1.66667"
                   strokeLinecap="round"
                   strokeLinejoin="round"
