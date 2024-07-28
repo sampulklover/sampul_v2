@@ -27,7 +27,7 @@ const Breadcrumb = ({ pageName, rightSection = null }) => {
           </>
         )} */}
         {/* <div class="breadcrumb-button-base-5"> */}
-        <div class="smpl_text-lg-semibold">{pageName}</div>
+        <div class="breadcrumb-title-01">{pageName}</div>
         {/* </div> */}
       </div>
       {rightSection ? <div class="d-flex col-auto">{rightSection}</div> : ''}

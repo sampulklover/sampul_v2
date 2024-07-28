@@ -30,6 +30,7 @@ export default {
       yearly: 'Yearly',
       pass_this_account_: 'Pass this account to be used by my beneficiary',
       account_to_terminated: 'Account to be terminated',
+      account_to_settle_debts: 'Account to be settle debts',
       beneficiary_liquidate_account:
         'My beneficiary to liquidate the account and proceeds to be distributed as per Faraid',
       islam: 'Islam',
@@ -86,7 +87,7 @@ export default {
         no_digital_accounts_: 'No Digital Accounts found',
         accounts_where_keep_:
           'Accounts where you keep your assets with value and can be passed on to your beloved ones.',
-        add_digital_assets: 'Add Digital Assets',
+        add_digital_assets: 'Add Assets',
         digital_subscriptions: 'Digital Subscriptions',
         account_where_make:
           'Account where you make payment for subscription and to be terminated or transferred at the point of death.',
@@ -112,7 +113,7 @@ export default {
         what_should_we_:
           'What should we do with your account in the event of death?',
         who_will_manage_: 'Who will manage the account?',
-        anything_else_we_: 'Anything else we should know?',
+        anything_else_we_: 'Anything else you would like to share?',
         please_download_all_:
           'E.g. Please download all pictures before terminate.',
         you_agree_to_: 'You agree to our friendly',
@@ -366,21 +367,21 @@ export default {
     dashboard: {
       pageTitle: 'Dashboard',
       page_subtitle: 'Overview of secured assets in your Sampul',
-      welcome_back: 'Welcome back, ',
+      welcome_back: 'Welcome,',
       getting_started: 'Getting started',
       complete_profile: 'Complete Profile',
       register_beneficiary: 'Register beneficiary',
-      setup_your_first: 'Setup your first digital assets',
+      setup_your_first: 'Setup your first assets',
       appoint_your_co_sampul: 'Appoint your Co-Sampul',
       complete_the_information_:
         'Complete the information on your profile and get verified to generate and download your wasiat/will',
       edit_profile: 'Edit Profile',
       the_future_owner_: 'The future owner of your assets',
       add_beneficiary: 'Add Beneficiary',
-      setup_your_first_: 'Setup your first digital assets',
+      setup_your_first_: 'Setup your first assets',
       list_and_register_:
         'List and register all your Digital Assets, keep track of your assets, monitor the performance of your assets and keep track of their value',
-      add_digital_asset: 'Add Digital Asset',
+      add_digital_asset: 'Add Asset',
       co_sampul_is_your:
         'Co-Sampul is your trusted person for whom which all information in this Sampul will be passed on.',
       add_co_sampul: 'Add Co-Sampul',
@@ -412,7 +413,7 @@ export default {
       assets: 'Assets',
       expenses: 'Expenses',
       digital_assets_and_: 'Digital Assets & Expenses',
-      add_digital_assets_: 'Add Digital Assets & Expenses',
+      add_digital_assets_: 'Add Assets & Expenses',
     },
     physical_assets: {
       physical_assets: 'Physical Assets',
@@ -533,6 +534,7 @@ export default {
       pass_this_account_:
         'Serahkan akaun ini untuk digunakan oleh penerima manfaat saya',
       account_to_terminated: 'Akaun untuk ditamatkan',
+      account_to_settle_debts: 'Account untuk diselesaikan hutang',
       beneficiary_liquidate_account:
         'Penerima manfaat saya untuk mencairkan akaun dan hasilnya akan diedarkan mengikut Faraid',
       islam: 'Islam',
@@ -616,7 +618,7 @@ export default {
         what_should_we_:
           'Apa yang perlu kita lakukan dengan akaun anda dalam kes kematian?',
         who_will_manage_: 'Siapa yang akan menguruskan akaun?',
-        anything_else_we_: 'Apa lagi yang perlu kita tahu?',
+        anything_else_we_: 'Ada lagi yang anda ingin kongsikan?',
         please_download_all_:
           'Contoh: Sila muat turun semua gambar sebelum tamatkan.',
         you_agree_to_: 'Anda bersetuju dengan',
@@ -877,7 +879,7 @@ export default {
     },
     dashboard: {
       pageTitle: 'Papan Pemuka',
-      welcome_back: 'Selamat kembali, ',
+      welcome_back: 'Selamat,',
       page_subtitle:
         'Gambaran keseluruhan aset yang dilindungi dalam Sampul anda',
       getting_started: 'Mula',

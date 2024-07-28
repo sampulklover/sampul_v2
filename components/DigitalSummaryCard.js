@@ -187,9 +187,9 @@ const DigitalSummaryCard = ({ typeName, showBeloved = false }) => {
                             <div class="smpl_text-sm-medium crop-text">
                               {platform.name}
                             </div>
-                            <div class="smpl_text-sm-regular crop-text">
+                            {/* <div class="smpl_text-sm-regular crop-text">
                               {item.email}
-                            </div>
+                            </div> */}
                           </div>
                         </div>
                       </td>

@@ -359,7 +359,7 @@ const ExtraWishes = () => {
                   />
                 </div>
               </div>
-              <div class="mb-3 text-end">
+              <div class="text-end">
                 <button type="submit" class="btn btn-primary btn-text">
                   <Loading
                     title={translations[locale].extra_wishes.save}
@@ -453,7 +453,7 @@ const ExtraWishes = () => {
                   />
                 </div>
               </div>
-              <div class="mb-3 text-end">
+              <div class="text-end">
                 <button type="submit" class="btn btn-primary btn-text">
                   <Loading
                     title={translations[locale].extra_wishes.save}
@@ -553,7 +553,7 @@ const ExtraWishes = () => {
                   </div>
                 );
               })}
-              <div class="mb-3 text-end">
+              <div class="text-end">
                 <button type="submit" class="btn btn-primary btn-text">
                   <Loading
                     title={translations[locale].extra_wishes.save}
@@ -653,7 +653,7 @@ const ExtraWishes = () => {
                   </div>
                 );
               })}
-              <div class="mb-3 text-end">
+              <div class="text-end">
                 <button type="submit" class="btn btn-primary btn-text">
                   <Loading
                     title={translations[locale].extra_wishes.save}
@@ -752,7 +752,7 @@ const ExtraWishes = () => {
                   ))}
                 </select>
               </div>
-              <div class="mb-3 text-end">
+              <div class="text-end">
                 <button type="submit" class="btn btn-primary btn-text">
                   <Loading
                     title={translations[locale].extra_wishes.save}
@@ -785,7 +785,7 @@ const ExtraWishes = () => {
 
   return (
     <SideBar>
-      <div class="body inner-body">
+      <div class="body-01 inner-body-01">
         <div class="content">
           <Breadcrumb
             pageName={translations[locale].extra_wishes.extra_wishes}
@@ -801,11 +801,11 @@ const ExtraWishes = () => {
               </button>
             }
           />
-          {/* <InnerHeader
+          <InnerHeader
             title="Add Personal Touches to Your Wasiat"
             subtitle={`Your wasiat is a deeply personal document that reflects your values and wishes. Here, you can add special instructions to make sure your final wishes are honored. Whether it's fulfilling religious obligations, making charitable donations, or pledging to donate your organs, you can add these meaningful touches to your wasiat. Select an option below to get started.`}
             imageSrc="images/investing.svg"
-          /> */}
+          />
           <div class="row mt-4">
             <div
               style={{

@@ -6,6 +6,7 @@ import '../styles/global.css';
 import NavBar from '../components/NavBar';
 import { ApiProvider } from '../context/api';
 import { LocaleProvider } from '../context/locale';
+import { TempDataProvider } from '../context/tempData';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useEffect } from 'react';
@@ -64,13 +65,15 @@ const MyApp = ({ Component, pageProps }) => {
         ></script>
       </Head>
       <LocaleProvider>
-        <ApiProvider>
-          <DynamicToaster position="top-right" />
-          <NavBar />
-          <main className="main">
-            <Component {...pageProps} />
-          </main>
-        </ApiProvider>
+        <TempDataProvider>
+          <ApiProvider>
+            <DynamicToaster position="top-right" />
+            <NavBar />
+            <main className="main">
+              <Component {...pageProps} />
+            </main>
+          </ApiProvider>
+        </TempDataProvider>
       </LocaleProvider>
     </>
   );

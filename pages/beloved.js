@@ -656,7 +656,7 @@ const Beloved = () => {
 
   return (
     <SideBar>
-      <div class="body inner-body">
+      <div class="body-01 inner-body-01">
         <div class="content">
           <Breadcrumb pageName={translations[locale].beloved.beloved} />
           <InviteModal

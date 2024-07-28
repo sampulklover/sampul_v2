@@ -1,4 +1,5 @@
 import { emptyUserImg } from '../constant/element';
+import translations from '../constant/translations';
 import { useLocale } from '../context/locale';
 import Loading from './Laoding';
 import UserDetailsModal from './UserDetailsModal';

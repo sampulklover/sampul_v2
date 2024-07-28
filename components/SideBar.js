@@ -74,53 +74,53 @@ const SideBar = ({ children }) => {
         </svg>
       ),
     },
-    {
-      title: (
-        <div class="d-flex justify-content-between align-items-center">
-          <span class="me-1">
-            {translations[locale].component.side_bar.physical}
-          </span>
-          <div class="coming-soon-badge-container">
-            <div
-              class="coming-soon-badge-body"
-              style={{
-                color:
-                  router?.route == `/physical-assets` ? '#533de9' : '#667085',
-              }}
-            >
-              {translations[locale].component.side_bar.coming_soon}
-            </div>
-          </div>
-        </div>
-      ),
-      page: 'physical-assets',
-      display: true,
-      action: () => {
-        router.push('physical-assets');
-      },
-      icon: (
-        <svg
-          width="18"
-          height="18"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <g id="layers-three-01">
-            <path
-              id="Icon"
-              d="M2 11.9996L11.6422 16.8207C11.7734 16.8863 11.839 16.9191 11.9078 16.932C11.9687 16.9434 12.0313 16.9434 12.0922 16.932C12.161 16.9191 12.2266 16.8863 12.3578 16.8207L22 11.9996M2 16.9996L11.6422 21.8207C11.7734 21.8863 11.839 21.9191 11.9078 21.932C11.9687 21.9434 12.0313 21.9434 12.0922 21.932C12.161 21.9191 12.2266 21.8863 12.3578 21.8207L22 16.9996M2 6.99958L11.6422 2.17846C11.7734 2.11287 11.839 2.08008 11.9078 2.06717C11.9687 2.05574 12.0313 2.05574 12.0922 2.06717C12.161 2.08008 12.2266 2.11287 12.3578 2.17846L22 6.99958L12.3578 11.8207C12.2266 11.8863 12.161 11.9191 12.0922 11.932C12.0313 11.9434 11.9687 11.9434 11.9078 11.932C11.839 11.9191 11.7734 11.8863 11.6422 11.8207L2 6.99958Z"
-              stroke={
-                router?.route == `/physical-assets` ? '#533de9' : '#667085'
-              }
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </g>
-        </svg>
-      ),
-    },
+    // {
+    //   title: (
+    //     <div class="d-flex justify-content-between align-items-center">
+    //       <span class="me-1">
+    //         {translations[locale].component.side_bar.physical}
+    //       </span>
+    //       <div class="coming-soon-badge-container">
+    //         <div
+    //           class="coming-soon-badge-body"
+    //           style={{
+    //             color:
+    //               router?.route == `/physical-assets` ? '#533de9' : '#667085',
+    //           }}
+    //         >
+    //           {translations[locale].component.side_bar.coming_soon}
+    //         </div>
+    //       </div>
+    //     </div>
+    //   ),
+    //   page: 'physical-assets',
+    //   display: true,
+    //   action: () => {
+    //     router.push('physical-assets');
+    //   },
+    //   icon: (
+    //     <svg
+    //       width="18"
+    //       height="18"
+    //       viewBox="0 0 24 24"
+    //       fill="none"
+    //       xmlns="http://www.w3.org/2000/svg"
+    //     >
+    //       <g id="layers-three-01">
+    //         <path
+    //           id="Icon"
+    //           d="M2 11.9996L11.6422 16.8207C11.7734 16.8863 11.839 16.9191 11.9078 16.932C11.9687 16.9434 12.0313 16.9434 12.0922 16.932C12.161 16.9191 12.2266 16.8863 12.3578 16.8207L22 11.9996M2 16.9996L11.6422 21.8207C11.7734 21.8863 11.839 21.9191 11.9078 21.932C11.9687 21.9434 12.0313 21.9434 12.0922 21.932C12.161 21.9191 12.2266 21.8863 12.3578 21.8207L22 16.9996M2 6.99958L11.6422 2.17846C11.7734 2.11287 11.839 2.08008 11.9078 2.06717C11.9687 2.05574 12.0313 2.05574 12.0922 2.06717C12.161 2.08008 12.2266 2.11287 12.3578 2.17846L22 6.99958L12.3578 11.8207C12.2266 11.8863 12.161 11.9191 12.0922 11.932C12.0313 11.9434 11.9687 11.9434 11.9078 11.932C11.839 11.9191 11.7734 11.8863 11.6422 11.8207L2 6.99958Z"
+    //           stroke={
+    //             router?.route == `/physical-assets` ? '#533de9' : '#667085'
+    //           }
+    //           stroke-width="1.5"
+    //           stroke-linecap="round"
+    //           stroke-linejoin="round"
+    //         />
+    //       </g>
+    //     </svg>
+    //   ),
+    // },
     {
       title: translations[locale].component.side_bar.beloved,
       page: 'beloved',
@@ -205,6 +205,31 @@ const SideBar = ({ children }) => {
         </svg>
       ),
     },
+    // {
+    //   title: 'Support',
+    //   page: 'support',
+    //   display: true,
+    //   action: () => {
+    //     router.push('support');
+    //   },
+    //   icon: (
+    //     <svg
+    //       width="24"
+    //       height="24"
+    //       viewBox="0 0 24 24"
+    //       fill="none"
+    //       xmlns="http://www.w3.org/2000/svg"
+    //     >
+    //       <path
+    //         d="M8.59 13.51L15.42 17.49M15.41 6.51L8.59 10.49M21 5C21 6.65685 19.6569 8 18 8C16.3431 8 15 6.65685 15 5C15 3.34315 16.3431 2 18 2C19.6569 2 21 3.34315 21 5ZM9 12C9 13.6569 7.65685 15 6 15C4.34315 15 3 13.6569 3 12C3 10.3431 4.34315 9 6 9C7.65685 9 9 10.3431 9 12ZM21 19C21 20.6569 19.6569 22 18 22C16.3431 22 15 20.6569 15 19C15 17.3431 16.3431 16 18 16C19.6569 16 21 17.3431 21 19Z"
+    //         stroke={router?.route == `/support` ? '#533de9' : '#667085'}
+    //         stroke-width="2"
+    //         stroke-linecap="round"
+    //         stroke-linejoin="round"
+    //       />
+    //     </svg>
+    //   ),
+    // },
   ];
 
   const pageListBtm = [
@@ -299,7 +324,7 @@ const SideBar = ({ children }) => {
   return (
     <>
       <LogoutModal />
-      <div class="container-fluid">
+      <div>
         <div class="row flex-nowrap">
           <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 align-self-start align-self-stretch nav-bg-custom">
             <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100 pt-3">
@@ -389,7 +414,7 @@ const SideBar = ({ children }) => {
               </div>
             </div>
           </div>
-          <div class="col">{children}</div>
+          <div class="col px-0">{children}</div>
         </div>
       </div>
     </>

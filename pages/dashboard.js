@@ -14,6 +14,7 @@ import { useApi } from '../context/api';
 import { useLocale } from '../context/locale';
 import { formatTimestamp, mapViewElements } from '../utils/helpers';
 import * as Sentry from '@sentry/nextjs';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Tooltip } from 'react-tooltip';
@@ -21,6 +22,7 @@ import { Tooltip } from 'react-tooltip';
 const Dashboard = () => {
   const { contextApiData } = useApi();
   const { locale } = useLocale();
+  const router = useRouter();
 
   const [summary, setSummary] = useState({
     data: null,
@@ -201,12 +203,14 @@ const Dashboard = () => {
       description: translations[locale].dashboard.list_and_register_,
       btnTitle: translations[locale].dashboard.add_digital_asset,
       btnFunction: () => {
-        try {
-          $('#digital-assets-modal')?.modal('show');
-        } catch (error) {
-          toast.error('Something went wrong, please try again');
-          Sentry.captureException(error);
-        }
+        // try {
+        //   $('#digital-assets-modal')?.modal('show');
+        // } catch (error) {
+        //   toast.error('Something went wrong, please try again');
+        //   Sentry.captureException(error);
+        // }
+
+        router.push('digital-assets');
       },
       innerIcon: (
         <svg
@@ -503,9 +507,9 @@ const Dashboard = () => {
                   </div>
                 </div>
               </div>
-              <DigitalSummaryCard typeName="digital" />
+              <DigitalSummaryCard typeName="all" />
             </div>
-            <div class="content_overview_digitalaccounts">
+            {/* <div class="content_overview_digitalaccounts">
               <div class="card-header-2">
                 <div class="content-33">
                   <img width="50px" src="images/monochrome_pie_chart.png" />
@@ -522,7 +526,7 @@ const Dashboard = () => {
                 </div>
               </div>
               <DigitalSummaryCard typeName="subscription" />
-            </div>
+            </div> */}
           </div>
         </div>
       </>
@@ -611,7 +615,7 @@ const Dashboard = () => {
 
   return (
     <SideBar>
-      <div class="body inner-body">
+      <div class="body-01 inner-body-01">
         <div class="content">
           <IntroModal />
           <ProfileModal category={'profile'} />
@@ -630,8 +634,8 @@ const Dashboard = () => {
           <div class="mt-4">{title()}</div>
           {invitedNotification()}
           <div class="mt-4">{section1()}</div>
-          <div class="mt-4">{section2()}</div>
-          <div class="mt-4">{section3()}</div>
+          {/* <div class="mt-4">{section2()}</div>
+          <div class="mt-4">{section3()}</div> */}
           <div class="mt-4">{section4()}</div>
           <Footer />
         </div>

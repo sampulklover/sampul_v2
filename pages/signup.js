@@ -61,7 +61,7 @@ const SignUp = () => {
   };
 
   return (
-    <div class="body px-5">
+    <div class="body-01 px-5">
       <div class="row">
         <div class="col-lg-4">
           <h2 class="uui-heading-medium-10">

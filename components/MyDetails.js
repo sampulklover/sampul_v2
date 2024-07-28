@@ -63,9 +63,9 @@ const MyDetails = ({ isModal = false }) => {
           state: document.getElementById('input-my-details-state'),
           country: document.getElementById('select-my-details-country'),
           image_path: document.getElementById('preview-my-details-image'),
-          system_language: document.getElementById(
-            'select-my-details-system-language'
-          ),
+          // system_language: document.getElementById(
+          //   'select-my-details-system-language'
+          // ),
         },
       },
     };
@@ -89,12 +89,12 @@ const MyDetails = ({ isModal = false }) => {
       .single();
 
     if (returnData?.system_language) {
-      let langguageUse = systemLanguages().find(
-        (x) => x.value === returnData.system_language
-      );
-      if (langguageUse?.langCode) {
-        changeLocale({ lang: langguageUse?.langCode });
-      }
+      // let langguageUse = systemLanguages().find(
+      //   (x) => x.value === returnData.system_language
+      // );
+      // if (langguageUse?.langCode) {
+      //   changeLocale({ lang: langguageUse?.langCode });
+      // }
     }
 
     if (error) {
@@ -443,7 +443,7 @@ const MyDetails = ({ isModal = false }) => {
             </div>
           </div>
         </div>
-        {checkView({
+        {/* {checkView({
           labelDiv1: (
             <label
               htmlFor="select-my-details-system-language"
@@ -465,7 +465,7 @@ const MyDetails = ({ isModal = false }) => {
               ))}
             </select>
           ),
-        })}
+        })} */}
         {isModal ? (
           <div class="d-grid gap-2 mt-5">
             <button type="submit" class="btn btn-primary btn-text">

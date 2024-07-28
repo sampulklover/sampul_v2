@@ -222,7 +222,7 @@ const Will = () => {
 
   return (
     <SideBar>
-      <div class="body inner-body">
+      <div class="body-01 inner-body-01">
         <div class="content">
           <Breadcrumb pageName={translations[locale].will.wasiat_will} />
           <div class="mt-4">{title()}</div>

@@ -262,6 +262,13 @@ export const instructionsAfterDeath = (religion) => {
       theme: 'orange',
       translationKey: 'account_to_terminated',
     },
+    {
+      name: 'Settle Debts',
+      opName: 'Account to be Settle Debts',
+      value: 'settle',
+      theme: 'orange',
+      translationKey: 'account_to_settle_debts',
+    },
   ];
 
   if (['islam', null, undefined].includes(religion)) {
@@ -452,6 +459,7 @@ export const bodiesCategory = () => {
     { name: 'Restaurants & delivery', value: 'restaurants_and_delivery' },
     { name: 'Shopping', value: 'shopping' },
     { name: 'Travel', value: 'travel' },
+    { name: 'Physical Assets', value: 'physical_assets' },
   ];
 
   return options;

@@ -481,7 +481,7 @@ const WillDetailsCard = () => {
                 </div>
               </div>
             </div>
-            <DigitalSummaryCard typeName="all" showBeloved={true} />
+            <DigitalSummaryCard typeName="all" showBeloved={false} />
           </div>
         </div>
         <div>
