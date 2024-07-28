@@ -11,8 +11,6 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useEffect } from 'react';
 
-// import Footer from '../components/Footer';
-
 const DynamicToaster = dynamic(
   () => import('react-hot-toast').then((module) => module.Toaster),
   {
@@ -27,8 +25,6 @@ const MyApp = ({ Component, pageProps }) => {
       import('../script/webflow.js');
     }
   }, []);
-
-  // Sampul
 
   return (
     <>
