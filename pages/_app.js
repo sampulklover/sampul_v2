@@ -28,6 +28,8 @@ const MyApp = ({ Component, pageProps }) => {
     }
   }, []);
 
+  // Sampul
+
   return (
     <>
       <Head>
