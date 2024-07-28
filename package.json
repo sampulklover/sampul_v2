@@ -36,6 +36,7 @@
     "react-tooltip": "^5.26.3",
     "react-youtube": "^10.1.0",
     "resend": "^3.2.0",
+    "sass": "^1.77.8",
     "stripe": "^14.16.0",
     "ui": "github:shadcn/ui",
     "uuid": "^9.0.1"

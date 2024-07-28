@@ -1,10 +1,5 @@
 import { addUserImg } from '../constant/element';
-import {
-  instructionsAfterDeath,
-  servicePlatformAccountTypes,
-  servicePlatformFrequencies,
-  trueFalse,
-} from '../constant/enum';
+import { trueFalse } from '../constant/enum';
 import translations from '../constant/translations';
 import { useApi } from '../context/api';
 import { useLocale } from '../context/locale';
