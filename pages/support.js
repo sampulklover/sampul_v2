@@ -75,9 +75,9 @@ const Support = () => {
                   Supporters.
                 </p>
                 <ul>
-                  {supportType.map((item) => {
+                  {supportType.map((item, index) => {
                     return (
-                      <li class="d-flex  align-items-center mb-2">
+                      <li class="d-flex  align-items-center mb-2" key={index}>
                         <Image
                           src="images/check_icon_purple.svg"
                           alt="image"
@@ -96,9 +96,13 @@ const Support = () => {
             </div>
           </div>
           <div class="col-lg col-sm-12">
-            {supporterUser.map((item) => {
+            {supporterUser.map((item, index) => {
               return (
-                <div class="mt-lg-0 mt-2 card mb-3" style={{ width: '100%' }}>
+                <div
+                  class="mt-lg-0 mt-2 card mb-3"
+                  style={{ width: '100%' }}
+                  key={index}
+                >
                   <div class="mb-3">
                     <div>
                       <img
