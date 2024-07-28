@@ -95,9 +95,8 @@ const DigitalAssetsActionCard = ({ onClickCard = () => {} }) => {
     return (
       <div className="row gap-1 justify-content-center">
         {data.slice(0, 5).map((item, index) => (
-          <div class="col col-auto p-0">
+          <div class="col col-auto p-0" key={index}>
             <img
-              key={index}
               loading="lazy"
               src={
                 item?.icon
@@ -122,10 +121,11 @@ const DigitalAssetsActionCard = ({ onClickCard = () => {} }) => {
   return (
     <>
       <div class="d-flex overflow-auto gap-3 py-3 ps-4 pt-5">
-        {instructionTypeConfig.map((item) => (
+        {instructionTypeConfig.map((item, index) => (
           <div
             class="card card-size-onhover text-center justify-content-center"
             style={{ minHeight: 200, minWidth: 200 }}
+            key={index}
           >
             <div class="gap-2 mb-4 h-100">
               <div>

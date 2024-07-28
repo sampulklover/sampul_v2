@@ -84,9 +84,9 @@ const DigitalAssets = () => {
           id="pills-tab"
           role="tablist"
         >
-          {tabConfig.map((item) => {
+          {tabConfig.map((item, index) => {
             return (
-              <li class="nav-item" role="presentation">
+              <li class="nav-item" role="presentation" key={index}>
                 <button
                   class={`nav-link smpl_text-sm-semibold ${
                     selectedTab == item.type ? 'active' : ''
@@ -113,7 +113,7 @@ const DigitalAssets = () => {
           id="pills-tabContent"
           style={{ minHeight: 300 }}
         >
-          {tabConfig.map((item) => {
+          {tabConfig.map((item, index) => {
             return (
               <div
                 class={`tab-pane fade ${
@@ -122,6 +122,7 @@ const DigitalAssets = () => {
                 id={`pills-${item.type}`}
                 role="tabpanel"
                 aria-labelledby={`pills-${item.type}-tab`}
+                key={index}
               >
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                   <DigitalAssetsCard
