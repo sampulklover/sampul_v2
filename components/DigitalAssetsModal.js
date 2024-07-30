@@ -1,5 +1,5 @@
 import { addUserImg } from '../constant/element';
-import { trueFalse } from '../constant/enum';
+import { instructionsAfterDeath, trueFalse } from '../constant/enum';
 import translations from '../constant/translations';
 import { useApi } from '../context/api';
 import { useLocale } from '../context/locale';
@@ -130,6 +130,7 @@ const DigitalAssetsModal = ({ keyType = 'add' }) => {
             keyName: 'platform',
             newValues: {
               isCustom: true,
+              instructionsAfterDeath: selectedItem.instructions_after_death,
               platformName: selectedItem.new_service_platform_name,
               websiteUrl: selectedItem.new_service_platform_url,
               amount: selectedItem.declared_value_myr,
@@ -146,6 +147,8 @@ const DigitalAssetsModal = ({ keyType = 'add' }) => {
             if (foundObject) {
               foundObject.label = foundObject.name;
               foundObject.value = foundObject.id;
+              foundObject.instructionsAfterDeath =
+                selectedItem.instructions_after_death;
               foundObject.amount = selectedItem.declared_value_myr;
               foundObject.protection = selectedItem.protection;
               foundObject.remarks = selectedItem.remarks;
@@ -234,6 +237,7 @@ const DigitalAssetsModal = ({ keyType = 'add' }) => {
       declared_value_myr: updatedData.amount,
       protection: updatedData?.protection,
       remarks: updatedData?.remarks ? updatedData.remarks : '',
+      instructions_after_death: updatedData.instructionsAfterDeath,
     };
 
     if (updatedData?.isCustom) {
@@ -422,7 +426,7 @@ const DigitalAssetsModal = ({ keyType = 'add' }) => {
 
     if (data.length == 0) {
       return (
-        <div class="text-center">
+        <div class="text-center mt-5 mb-5">
           <Loading loading={true} />
         </div>
       );
@@ -579,12 +583,14 @@ const DigitalAssetsModal = ({ keyType = 'add' }) => {
                     tempData.digitalAssets.instructionType
                   ]?.description}
             </div>
-          </div>
-          <div class="text-center">
-            <Loading loading={isLoading.content} />
-          </div>
-          {keyType == 'add' ? featuredIconList() : ''}
-          <div class="modal-body">
+            {isLoading.content ? (
+              <div class="text-center mt-5 mb-5">
+                <Loading loading={true} />
+              </div>
+            ) : (
+              ''
+            )}
+            {keyType == 'add' ? featuredIconList() : ''}
             <form onSubmit={onSubmitAddDigitalAssets}>
               <div class="form-field-wrapper mb-3">
                 <label class="form-label-01">
@@ -671,7 +677,41 @@ const DigitalAssetsModal = ({ keyType = 'add' }) => {
                         {item?.label ? item.label : 'Platform'}
                       </span>
                     </label>
-
+                    {keyType == 'edit' ? (
+                      <div class="form-field-wrapper mt-2">
+                        <label
+                          htmlFor={`input-${item.value}-instruction-after-death`}
+                          class="form-label-01"
+                        >
+                          Instruction After Death
+                        </label>
+                        <select
+                          id={`input-${item.value}-instruction-after-death`}
+                          class="form-select"
+                          value={item.instructionsAfterDeath}
+                          onChange={(event) =>
+                            handleMultiSelectInputChange(
+                              index,
+                              event.target.value,
+                              'platform',
+                              'instructionsAfterDeath'
+                            )
+                          }
+                          required
+                        >
+                          <option disabled selected value="">
+                            Select...
+                          </option>
+                          {instructionsAfterDeath().map((item) => (
+                            <option key={item.value} value={item.value}>
+                              {item.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    ) : (
+                      ''
+                    )}
                     {item?.isCustom ? (
                       <>
                         <div class="form-field-wrapper mt-2">
@@ -812,8 +852,7 @@ const DigitalAssetsModal = ({ keyType = 'add' }) => {
                   </div>
                 );
               })}
-
-              <div class="mt-5">
+              <div class="mt-3">
                 <div class="d-grid gap-2">
                   <button type="submit" class="btn btn-primary btn-text">
                     <Loading

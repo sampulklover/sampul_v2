@@ -50,7 +50,7 @@ const SideBar = ({ children }) => {
       ),
     },
     {
-      title: translations[locale].component.side_bar.digital,
+      title: translations[locale].component.side_bar.assets,
       page: 'digital-assets',
       display: true,
       action: () => {

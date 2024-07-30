@@ -268,6 +268,7 @@ export default {
         copy_link: 'Copy Link',
       },
       side_bar: {
+        assets: 'Assets',
         dashboard: 'Dashboard',
         digital: 'Digital',
         physical: 'Physical',
@@ -777,6 +778,7 @@ export default {
         copy_link: 'Salin Pautan',
       },
       side_bar: {
+        assets: 'Aset',
         dashboard: 'Papan Pemuka',
         digital: 'Digital',
         physical: 'Fizikal',
