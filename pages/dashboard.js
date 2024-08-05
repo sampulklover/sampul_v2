@@ -65,7 +65,7 @@ const Dashboard = () => {
     contextApiData.invites.data?.map((item, index) => {
       if (item?.invite_status == 'pending') {
         alerts.push(
-          <div key={index} className="alert alert-warning mt-3" role="alert">
+          <div key={index} className="alert alert-warning" role="alert">
             {translations[locale].dashboard.you_have_notification_}{' '}
             {item?.profiles?.nric_name}.{' '}
             <span
@@ -205,7 +205,7 @@ const Dashboard = () => {
                 </button>
               </>
             }
-            customClass="card-plain"
+            customClass="card-plain mb-3"
             firstSectionClass="p-4"
             imageSrc="images/diamond-digital-coins.svg"
             imageStyle={{ width: '100%', height: '100%' }}
