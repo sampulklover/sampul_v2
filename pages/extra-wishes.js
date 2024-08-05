@@ -789,17 +789,6 @@ const ExtraWishes = () => {
         <div class="content">
           <Breadcrumb
             pageName={translations[locale].extra_wishes.extra_wishes}
-            rightSection={
-              <button
-                type="button"
-                class="btn btn-primary btn-sm"
-                onClick={() => {
-                  router.push('will');
-                }}
-              >
-                <Loading title="Preview Wasiat" />
-              </button>
-            }
           />
           <InnerHeader
             title="Add Personal Touches to Your Wasiat"

@@ -51,7 +51,7 @@ const DigitalAssetsActionCard = ({ onClickCard = () => {} }) => {
     {
       title: 'Settle Debts',
       description: 'Settle any outstanding debts and loans.',
-      btnTitle: 'Add Assets',
+      btnTitle: 'Add Debts',
       btnOnClick: () => {
         onClickCard();
         setValueTempData('digitalAssets', {

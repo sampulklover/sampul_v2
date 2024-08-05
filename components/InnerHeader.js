@@ -23,7 +23,11 @@ const InnerHeader = ({
             width={0}
             height={0}
             sizes="100vw"
-            style={{ width: '80%', height: '80%', ...imageStyle }}
+            style={{
+              width: '80%',
+              height: '80%',
+              ...imageStyle,
+            }}
           />
         ) : (
           ''
