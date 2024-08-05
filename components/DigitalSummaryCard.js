@@ -11,7 +11,11 @@ import Loading from './Laoding';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-const DigitalSummaryCard = ({ typeName, showBeloved = false }) => {
+const DigitalSummaryCard = ({
+  typeName,
+  showBeloved = false,
+  showAll = true,
+}) => {
   const router = useRouter();
   const { locale } = useLocale();
   const { contextApiData } = useApi();
@@ -128,136 +132,141 @@ const DigitalSummaryCard = ({ typeName, showBeloved = false }) => {
                 </tr>
               </thead>
               <tbody>
-                {type[typeName].data.map((item, index) => {
-                  const spObject = contextApiData.bodies?.data?.find(
-                    (x) => x.id === item.bodies_id
-                  );
+                {type[typeName].data
+                  .slice(0, showAll ? type[typeName].data.length : 5)
+                  .map((item, index) => {
+                    const spObject = contextApiData.bodies?.data?.find(
+                      (x) => x.id === item.bodies_id
+                    );
 
-                  const platform = {
-                    name: item?.new_service_platform_name
-                      ? item.new_service_platform_name
-                      : spObject?.name,
-                    icon: item?.new_service_platform_name
-                      ? '/images/Displacement-p-500.png'
-                      : spObject?.icon
-                      ? `data:image/svg+xml,${encodeURIComponent(
-                          spObject?.icon
-                        )}`
-                      : '/images/Displacement-p-500.png',
-                  };
+                    const platform = {
+                      name: item?.new_service_platform_name
+                        ? item.new_service_platform_name
+                        : spObject?.name,
+                      website: item?.new_service_platform_name
+                        ? item.new_service_platform_name
+                        : spObject?.website_url,
+                      icon: item?.new_service_platform_name
+                        ? '/images/Displacement-p-500.png'
+                        : spObject?.icon
+                        ? `data:image/svg+xml,${encodeURIComponent(
+                            spObject?.icon
+                          )}`
+                        : '/images/Displacement-p-500.png',
+                    };
 
-                  const declaredValue = item.declared_value_myr
-                    ? `RM ${item.declared_value_myr.toLocaleString()}`
-                    : '';
+                    const declaredValue = item.declared_value_myr
+                      ? `RM ${item.declared_value_myr.toLocaleString()}`
+                      : '';
 
-                  let instructions = instructionsAfterDeath().find(
-                    (x) => x.value === item.instructions_after_death
-                  );
+                    let instructions = instructionsAfterDeath().find(
+                      (x) => x.value === item.instructions_after_death
+                    );
 
-                  const beloved = contextApiData.beloved.data?.find(
-                    (x) => x.id === item?.beloved_id
-                  );
+                    const beloved = contextApiData.beloved.data?.find(
+                      (x) => x.id === item?.beloved_id
+                    );
 
-                  // const relation = relationships().find(
-                  //   (x) => x.value === beloved?.relationship
-                  // );
-                  // const relationName = relation?.name || '';
+                    // const relation = relationships().find(
+                    //   (x) => x.value === beloved?.relationship
+                    // );
+                    // const relationName = relation?.name || '';
 
-                  const belovedImg = beloved?.image_path
-                    ? `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${beloved.image_path}`
-                    : emptyUserImg;
+                    const belovedImg = beloved?.image_path
+                      ? `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${beloved.image_path}`
+                      : emptyUserImg;
 
-                  let accountType = servicePlatformAccountTypes().find(
-                    (y) => y.value === item.account_type
-                  );
+                    let accountType = servicePlatformAccountTypes().find(
+                      (y) => y.value === item.account_type
+                    );
 
-                  const accountTypeName = accountType?.name || '';
+                    const accountTypeName = accountType?.name || '';
 
-                  return (
-                    <tr key={index}>
-                      <td>
-                        <div class="custom-table-cell">
-                          <img
-                            loading="lazy"
-                            src={platform.icon}
-                            alt=""
-                            class="avatar-8"
-                          />
-                          <div>
-                            <div class="smpl_text-sm-medium crop-text">
-                              {platform.name}
-                            </div>
-                            {/* <div class="smpl_text-sm-regular crop-text">
-                              {item.email}
-                            </div> */}
-                          </div>
-                        </div>
-                      </td>
-                      {showBeloved ? (
+                    return (
+                      <tr key={index}>
                         <td>
                           <div class="custom-table-cell">
                             <img
                               loading="lazy"
-                              src={belovedImg}
+                              src={platform.icon}
                               alt=""
-                              class="dp-image"
+                              class="avatar-8"
                             />
                             <div>
                               <div class="smpl_text-sm-medium crop-text">
-                                <span>{beloved?.name}</span>
+                                {platform.name}
                               </div>
-                              <div class="smpl_text-sm-regular crop-text">
-                                <span>
-                                  {beloved?.email ? beloved.email : '-'}
+                              <div class="paragraph-02 crop-text">
+                                {platform.website}
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        {showBeloved ? (
+                          <td>
+                            <div class="custom-table-cell">
+                              <img
+                                loading="lazy"
+                                src={belovedImg}
+                                alt=""
+                                class="dp-image"
+                              />
+                              <div>
+                                <div class="smpl_text-sm-medium crop-text">
+                                  <span>{beloved?.name}</span>
+                                </div>
+                                <div class="smpl_text-sm-regular crop-text">
+                                  <span>
+                                    {beloved?.email ? beloved.email : '-'}
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                        ) : (
+                          ''
+                        )}
+                        <td>
+                          <div class="custom-table-cell">
+                            <div class="text-sm-regular-8 crop-text">
+                              {declaredValue}
+                            </div>
+                          </div>
+                        </td>
+                        {showBeloved ? (
+                          <td>
+                            <div class="custom-table-cell">
+                              <div class="badge-instructions w-inline-block">
+                                <span class="text-xs-medium crop-text">
+                                  {accountTypeName}
                                 </span>
                               </div>
                             </div>
-                          </div>
-                        </td>
-                      ) : (
-                        ''
-                      )}
-                      <td>
-                        <div class="custom-table-cell">
-                          <div class="text-sm-regular-8 crop-text">
-                            {declaredValue}
-                          </div>
-                        </div>
-                      </td>
-                      {showBeloved ? (
+                          </td>
+                        ) : (
+                          ''
+                        )}
                         <td>
                           <div class="custom-table-cell">
-                            <div class="badge-instructions w-inline-block">
-                              <span class="text-xs-medium crop-text">
-                                {accountTypeName}
-                              </span>
-                            </div>
+                            <span class={`my-badge-${instructions?.theme}`}>
+                              {instructions?.shortName}
+                            </span>
                           </div>
                         </td>
-                      ) : (
-                        ''
-                      )}
-                      <td>
-                        <div class="custom-table-cell">
-                          <span class={`my-badge-${instructions?.theme}`}>
-                            {instructions?.name}
-                          </span>
-                        </div>
-                      </td>
-                      {showBeloved ? (
-                        <td>
-                          <div class="custom-table-cell">
-                            <div class="smpl_text-sm-regular crop-text">
-                              {item.remarks}
+                        {showBeloved ? (
+                          <td>
+                            <div class="custom-table-cell">
+                              <div class="smpl_text-sm-regular crop-text">
+                                {item.remarks}
+                              </div>
                             </div>
-                          </div>
-                        </td>
-                      ) : (
-                        ''
-                      )}
-                    </tr>
-                  );
-                })}
+                          </td>
+                        ) : (
+                          ''
+                        )}
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
           </div>

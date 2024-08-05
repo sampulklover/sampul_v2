@@ -483,6 +483,55 @@ const DigitalAssetsModal = ({ keyType = 'add' }) => {
               </div>
             ))}
         </div>
+        <div class="mt-3 d-flex text-center mb-2 gap-2 justify-content-center">
+          {data
+            ?.filter((item) => item.featured == true)
+            .map((item, index) => (
+              <div key={index}>
+                <img
+                  loading="lazy"
+                  src={
+                    item?.icon
+                      ? `data:image/svg+xml,${encodeURIComponent(item.icon)}`
+                      : '/images/Displacement-p-500.png'
+                  }
+                  alt=""
+                  className="avatar-8 card-size-onhover"
+                  style={{
+                    width: 35,
+                    height: 35,
+                    transition: 'transform 0.5s ease',
+                    cursor: 'pointer',
+                  }}
+                  onClick={() => {
+                    handleChangeMultiSelect({
+                      keyName: 'platform',
+                      newValues: item,
+                    });
+                  }}
+                  data-tooltip-id={`my-tooltip-${item.label}`}
+                  data-tooltip-html={`
+                <div>
+                  <span>
+                  ${item.label} 
+                  </span>
+                </div>`}
+                />
+                <Tooltip
+                  id={`my-tooltip-${item.label}`}
+                  place="bottom"
+                  style={{
+                    textAlign: 'justify',
+                    maxWidth: '300px',
+                    backgroundColor: 'black',
+                    color: 'white',
+                    'border-radius': '10px',
+                    'z-index': '10',
+                  }}
+                />
+              </div>
+            ))}
+        </div>
         <div className="overflow-auto">
           <div
             className="d-grid gap-2"
