@@ -33,7 +33,31 @@ const NavBar = () => {
           />
         </a>
         {contextApiData.user.data?.id ? (
-          <></>
+          <>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#mynavbar"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mynavbar">
+              <ul class="navbar-nav ms-auto">
+                <li class="nav-item pe-2">
+                  <button
+                    class="btn btn-primary btn-text"
+                    type="button"
+                    onClick={() => {
+                      router.push('will');
+                    }}
+                  >
+                    Preview Wasiat
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </>
         ) : (
           <>
             <button

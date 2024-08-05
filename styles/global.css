@@ -124,7 +124,7 @@
 }
 
 .card-plain {
-  background-color: var(--Colors-Warning-25, #FFFCF5);
+  background-color: var(--Colors-Warning-25, #ffffff);
   border: 1px solid #eaecf0;
   border-radius: 12px;
   box-shadow: 0 1px 2px rgba(16, 24, 40, .06), 0 1px 3px rgba(16, 24, 40, .1);

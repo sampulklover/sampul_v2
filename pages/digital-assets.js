@@ -143,20 +143,7 @@ const DigitalAssets = () => {
     <SideBar>
       <div class="body-01 inner-body-01">
         <div class="content">
-          <Breadcrumb
-            pageName="Manage Assets"
-            rightSection={
-              <button
-                type="button"
-                class="btn btn-primary btn-sm"
-                onClick={() => {
-                  router.push('will');
-                }}
-              >
-                <Loading title="Preview Wasiat" />
-              </button>
-            }
-          />
+          <Breadcrumb pageName="Manage Assets" />
           <InnerHeader
             title="Decide What Happens  to Your Asset"
             subtitle={`Your assets are an important part of your legacy. Here, you can make thoughtful decisions about how your digital and physical assets will be handled when you're no longer around. Simply choose an option below and provide the details. It's quick, easy, and gives you peace of mind.`}

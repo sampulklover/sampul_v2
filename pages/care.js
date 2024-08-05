@@ -42,28 +42,28 @@ const Care = () => {
         );
       },
     },
-    {
-      name: 'Najiya Ilya - Grief and Loss Therapist',
-      imageUrl: 'images/avatar-najiya.png',
-      bio: 'BSc Psychology – Cardiff University. Developed a mental health resilience guidebook for PETRONAS staffs. Assisted with the mental health first aid kit framework development to equip employees on how to provide immediate first-line mental health assistance.',
-      onClick: () => {
-        window.open(
-          'https://cal.com/sampul/sampul-grief-and-loss-therapist',
-          '_blank'
-        );
-      },
-    },
-    {
-      name: 'Fatiha Shuib - Grief and Loss Therapist',
-      imageUrl: 'images/avatar-fatiha.png',
-      bio: 'BA Islamic Jurisprudence, Jordan. Mental Illness Survivor, Developed mental health and humanitarian movement called 1Moment4Them in 2015. Managed to collaborate with the prominent artists in Malaysia such as Faizal Tahir, Mizz Nina, Noh Salleh and Aizat Amdan.',
-      onClick: () => {
-        window.open(
-          'https://cal.com/sampul/sampul-grief-and-loss-therapist',
-          '_blank'
-        );
-      },
-    },
+    // {
+    //   name: 'Najiya Ilya - Grief and Loss Therapist',
+    //   imageUrl: 'images/avatar-najiya.png',
+    //   bio: 'BSc Psychology – Cardiff University. Developed a mental health resilience guidebook for PETRONAS staffs. Assisted with the mental health first aid kit framework development to equip employees on how to provide immediate first-line mental health assistance.',
+    //   onClick: () => {
+    //     window.open(
+    //       'https://cal.com/sampul/sampul-grief-and-loss-therapist',
+    //       '_blank'
+    //     );
+    //   },
+    // },
+    // {
+    //   name: 'Fatiha Shuib - Grief and Loss Therapist',
+    //   imageUrl: 'images/avatar-fatiha.png',
+    //   bio: 'BA Islamic Jurisprudence, Jordan. Mental Illness Survivor, Developed mental health and humanitarian movement called 1Moment4Them in 2015. Managed to collaborate with the prominent artists in Malaysia such as Faizal Tahir, Mizz Nina, Noh Salleh and Aizat Amdan.',
+    //   onClick: () => {
+    //     window.open(
+    //       'https://cal.com/sampul/sampul-grief-and-loss-therapist',
+    //       '_blank'
+    //     );
+    //   },
+    // },
   ];
 
   const cardContent = () => {
@@ -154,20 +154,7 @@ const Care = () => {
     <SideBar>
       <div class="body-01 default-background-color">
         <div class="inner-body-01" style={{ paddingBottom: 0 }}>
-          <Breadcrumb
-            pageName="Care"
-            rightSection={
-              <button
-                type="button"
-                class="btn btn-primary btn-sm"
-                onClick={() => {
-                  router.push('will');
-                }}
-              >
-                <Loading title="Preview Wasiat" />
-              </button>
-            }
-          />
+          <Breadcrumb pageName="Care" />
           <InnerHeader
             title="Get help when needed."
             subtitle={`Healing takes hard work and time, we are here to join you on this journey. Connect with our support team for personalized support to families, guiding through the administrative and emotional challenges of loss.`}
