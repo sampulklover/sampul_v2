@@ -1,10 +1,17 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-const InnerHeader = ({ title = '', subtitle = '', imageSrc = '' }) => {
+const InnerHeader = ({
+  title = '',
+  subtitle = '',
+  customClass = '',
+  firstSectionClass = null,
+  imageSrc = '',
+  imageStyle = null,
+}) => {
   return (
-    <div class="row text-md-start text-center">
-      <div class="col-lg">
+    <div class={`row text-md-start text-center ${customClass}`}>
+      <div class={`col-lg ${firstSectionClass}`}>
         <div class="heading-01">{title}</div>
         <div class="paragraph-01 mt-4">{subtitle}</div>
       </div>
@@ -16,7 +23,7 @@ const InnerHeader = ({ title = '', subtitle = '', imageSrc = '' }) => {
             width={0}
             height={0}
             sizes="100vw"
-            style={{ width: '80%', height: '80%' }}
+            style={{ width: '80%', height: '80%', ...imageStyle }}
           />
         ) : (
           ''

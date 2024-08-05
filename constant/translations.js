@@ -71,6 +71,7 @@ export default {
         category: 'Category',
         icon_svg: 'Icon (SVG)',
         active: 'Active',
+        featured: 'Featured',
       },
       checkout_button: {
         checkout_now: 'Checkout Now',
@@ -128,10 +129,10 @@ export default {
         instructions: 'Instructions',
         remarks: 'Remarks',
         show_all: 'Show All',
-        no_digital_assets_found: 'No Digital Assets found',
-        digital_assets: 'Digital Assets',
+        no_digital_assets_found: 'No Assets found',
+        digital_assets: 'Assets',
         digital_expenses: 'Digital Expenses',
-        add_digital_asset: 'Add Digital Asset',
+        add_digital_asset: 'Add Asset',
         add_digital_expenses: 'Add Digital Expenses',
         accounts_where_you_keep_:
           'Accounts where you keep your assets with value and can be passed on to your beloved ones.',
@@ -389,7 +390,7 @@ export default {
 
       total_digital_asset: 'Total Digital Asset',
       total_digital_asset_tooltip: 'How much total value of my Digital Asset?',
-      digital_assets: 'Digital Assets',
+      digital_assets: 'Assets',
       digital_assets_tooltip: 'How many Digital Asset that I have?',
       total_digital_expenses: 'Total Digital Expenses',
       total_digital_expenses_tooltip:
@@ -407,7 +408,7 @@ export default {
       click_to_view: 'Click to view',
     },
     digital_assets: {
-      list_down_your_: 'List down your Digital Assets & Expenses',
+      list_down_your_: 'List down your Assets & Expenses',
       ensure_no_asset_: 'Ensure no asset is left behind for your loved ones',
       search: 'Search',
       view_all: 'View all',
@@ -576,6 +577,7 @@ export default {
         category: 'Kategori',
         icon_svg: 'Ikon (SVG)',
         active: 'Aktif',
+        featured: 'Ditampilkan',
       },
       checkout_button: {
         checkout_now: 'Semak Keluar Sekarang',
@@ -592,7 +594,7 @@ export default {
         no_digital_accounts_: 'Tiada Akaun Digital ditemui',
         accounts_where_keep_:
           'Akaun di mana anda menyimpan aset anda dengan nilai dan boleh diberikan kepada orang yang anda sayangi.',
-        add_digital_assets: 'Tambah Aset Digital',
+        add_digital_assets: 'Tambah Aset',
         digital_subscriptions: 'Langganan Digital',
         account_where_make:
           'Akaun di mana anda membuat pembayaran untuk langganan dan akan ditamatkan atau dipindahkan pada saat kematian.',
@@ -634,10 +636,10 @@ export default {
         instructions: 'Arahan',
         remarks: 'Ulasan',
         show_all: 'Tunjukkan Semua',
-        no_digital_assets_found: 'Tiada Aset Digital ditemui',
-        digital_assets: 'Aset Digital',
+        no_digital_assets_found: 'Tiada Aset ditemui',
+        digital_assets: 'Aset',
         digital_expenses: 'Perbelanjaan Digital',
-        add_digital_asset: 'Tambah Aset Digital',
+        add_digital_asset: 'Tambah Aset',
         add_digital_expenses: 'Tambah Perbelanjaan Digital',
         accounts_where_you_keep_:
           'Akaun di mana anda menyimpan aset anda dengan nilai dan boleh diberikan kepada orang yang anda sayangi.',
@@ -897,13 +899,13 @@ export default {
       setup_your_first_: 'Sediakan aset digital pertama anda',
       list_and_register_:
         'List and register all your Digital Assets, keep track of your assets, monitor the performance of your assets and keep track of their value',
-      add_digital_asset: 'Tambah Aset Digital',
+      add_digital_asset: 'Tambah Aset',
       co_sampul_is_your:
         'Co-Sampul ialah orang yang dipercayai anda yang mana semua maklumat dalam Sampul ini akan disampaikan.',
       add_co_sampul: 'Tambah Co-Sampul',
       total_digital_asset: 'Jumlah Aset Digital',
       total_digital_asset_tooltip: 'Berapakah jumlah nilai Aset Digital saya?',
-      digital_assets: 'Aset Digital',
+      digital_assets: 'Aset',
       digital_assets_tooltip: 'Berapa banyak Aset Digital yang saya ada?',
       total_digital_expenses: 'Jumlah Perbelanjaan Digital',
       total_digital_expenses_tooltip:
@@ -921,7 +923,7 @@ export default {
       click_to_view: 'Klik untuk melihat',
     },
     digital_assets: {
-      list_down_your_: 'Senaraikan Aset Digital & Perbelanjaan Anda',
+      list_down_your_: 'Senaraikan Aset & Perbelanjaan Anda',
       ensure_no_asset_:
         'Pastikan tiada aset yang tertinggal untuk orang yang anda sayangi',
       search: 'Cari',
@@ -929,7 +931,7 @@ export default {
       assets: 'Aset',
       expenses: 'Perbelanjaan',
       digital_assets_and_: 'Aset Digital & Perbelanjaan',
-      add_digital_assets_: 'Tambah Aset Digital & Perbelanjaan',
+      add_digital_assets_: 'Tambah Aset & Perbelanjaan',
     },
     physical_assets: {
       physical_assets: 'Aset Fizikal',

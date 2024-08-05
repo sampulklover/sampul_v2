@@ -22,6 +22,7 @@ const BodyDetailsModal = ({ selectedBody, refreshFunction }) => {
           name: document.getElementById('input-body-name'),
           website_url: document.getElementById('input-body-website-url'),
           category: document.getElementById('select-body-category'),
+          featured: document.getElementById('select-body-featured'),
           active: document.getElementById('select-body-active'),
           icon: document.getElementById('input-body-icon'),
         },
@@ -176,6 +177,24 @@ const BodyDetailsModal = ({ selectedBody, refreshFunction }) => {
                     class="form-select"
                   >
                     {bodiesCategory().map((item) => (
+                      <option key={item.value} value={item.value}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <div class="mb-3">
+                <div class="form-field-wrapper">
+                  <label htmlFor="select-body-featured" class="uui-field-label">
+                    {translations[locale].component.body_details_modal.featured}
+                  </label>
+                  <select
+                    id={`select-body-featured`}
+                    required
+                    class="form-select"
+                  >
+                    {trueFalse().map((item) => (
                       <option key={item.value} value={item.value}>
                         {item.name}
                       </option>

@@ -16,12 +16,13 @@ import toast from 'react-hot-toast';
 import Select from 'react-select';
 import { Tooltip } from 'react-tooltip';
 
-const Support = () => {
+const Care = () => {
   const { contextApiData } = useApi();
   const { locale } = useLocale();
   const router = useRouter();
 
-  const supportType = [
+  const careType = [
+    { title: 'Avoid common mistakes' },
     { title: 'Listens Without Judgement' },
     { title: 'Confidential' },
     { title: 'Friendly Casual Support' },
@@ -29,24 +30,39 @@ const Support = () => {
     { title: 'Follow-Ups Available' },
   ];
 
-  const supporterUser = [
+  const careUser = [
     {
-      name: 'Arham Merican (Wasiat/WIill Advisor)',
+      name: 'Arham Merican (Estate Planning Consultant)',
       imageUrl: 'images/avatar-arham.png',
-      bio: 'Arham Merican adalah Penasihat Shariah berdaftar dengan Suruhanjaya Sekuriti Malaysia dan bertugas sebagai Ketua Pegawai Strategi di Sharlife, sebuah platform digital multi-aset untuk pelabur global membuat pelaburan patuh Shariah dan juga Pengasas Sampul Sdn Bhd, sebuah platform wasiat digital untuk aset digital.',
-      onClick: () => {},
+      bio: 'Registered Shariah Advisor under the Securities Commission Malaysia, with over eight years of experience in the Financial industry. He has relevant expertise in estate planning, developing Hibah Amanah for CDS Account for Bursa Malaysia and his personal experience in managing the estate of his late father.',
+      onClick: () => {
+        window.open(
+          'https://cal.com/sampul/sampul-estate-planning-consultant-by-arham-merican',
+          '_blank'
+        );
+      },
     },
     {
-      name: 'Najiya Ilya - SAPOT Warrior',
+      name: 'Najiya Ilya - Grief and Loss Therapist',
       imageUrl: 'images/avatar-najiya.png',
       bio: 'BSc Psychology – Cardiff University. Developed a mental health resilience guidebook for PETRONAS staffs. Assisted with the mental health first aid kit framework development to equip employees on how to provide immediate first-line mental health assistance.',
-      onClick: () => {},
+      onClick: () => {
+        window.open(
+          'https://cal.com/sampul/sampul-grief-and-loss-therapist',
+          '_blank'
+        );
+      },
     },
     {
-      name: 'Fatiha Shuib - SAPOT Warrior',
+      name: 'Fatiha Shuib - Grief and Loss Therapist',
       imageUrl: 'images/avatar-fatiha.png',
       bio: 'BA Islamic Jurisprudence, Jordan. Mental Illness Survivor, Developed mental health and humanitarian movement called 1Moment4Them in 2015. Managed to collaborate with the prominent artists in Malaysia such as Faizal Tahir, Mizz Nina, Noh Salleh and Aizat Amdan.',
-      onClick: () => {},
+      onClick: () => {
+        window.open(
+          'https://cal.com/sampul/sampul-grief-and-loss-therapist',
+          '_blank'
+        );
+      },
     },
   ];
 
@@ -57,7 +73,7 @@ const Support = () => {
           <div class="col">
             <div>
               <div>
-                <span class="heading-02">Our Support team</span>
+                <span class="heading-02">Our Care team</span>
               </div>
               <div class="paragraph-01">
                 <p>
@@ -69,13 +85,13 @@ const Support = () => {
                   doing so.
                 </p>
                 <p>
-                  Choose a date and time that you're both free and lock in that
-                  date! Try a free session with our PFA trained mental health
-                  survivors or really dive in deep with our Certified Peer
-                  Supporters.
+                  Connect with our certified trainers from ImROC UK for
+                  post-loss therapy and get guidance from our experienced
+                  practitioners on administrative matters to avoid common
+                  mistake and ensure smooth estate claim process.
                 </p>
                 <ul>
-                  {supportType.map((item, index) => {
+                  {careType.map((item, index) => {
                     return (
                       <li class="d-flex  align-items-center mb-2" key={index}>
                         <Image
@@ -96,7 +112,7 @@ const Support = () => {
             </div>
           </div>
           <div class="col-lg col-sm-12">
-            {supporterUser.map((item, index) => {
+            {careUser.map((item, index) => {
               return (
                 <div
                   class="mt-lg-0 mt-2 card mb-3"
@@ -136,10 +152,10 @@ const Support = () => {
 
   return (
     <SideBar>
-      <div class="body-01 inner-body-01">
-        <div class="content">
+      <div class="body-01 default-background-color">
+        <div class="inner-body-01" style={{ paddingBottom: 0 }}>
           <Breadcrumb
-            pageName="Support"
+            pageName="Care"
             rightSection={
               <button
                 type="button"
@@ -157,14 +173,17 @@ const Support = () => {
             subtitle={`Healing takes hard work and time, we are here to join you on this journey. Connect with our support team for personalized support to families, guiding through the administrative and emotional challenges of loss.`}
             imageSrc="images/being-at-peace.svg"
           />
-          <div class="text-center">
-            <img
-              src="images/support-marketing-banner.png"
-              alt=""
-              width="80%"
-              height="80%"
-            />
-          </div>
+        </div>
+        <Image
+          src="images/care-marketing-banner.svg"
+          alt="image"
+          width={0}
+          height={0}
+          sizes="100vw"
+          style={{ width: '100%', height: '100%' }}
+          class="me-2"
+        />
+        <div class="content inner-body-01" style={{ paddingTop: 0 }}>
           <div class="row mt-4">{cardContent()}</div>
         </div>
         <Footer />
@@ -173,7 +192,7 @@ const Support = () => {
   );
 };
 
-export default Support;
+export default Care;
 
 // The summary of this page includes:
 // This page allows users to customize their digital estate plans with specific religious obligations and charitable intentions.

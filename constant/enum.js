@@ -254,6 +254,7 @@ export const instructionsAfterDeath = (religion) => {
       value: 'transfer_as_gift',
       theme: 'blue',
       translationKey: 'pass_this_account_',
+      shortName: 'Gift',
     },
     {
       name: 'Terminate',
@@ -261,6 +262,7 @@ export const instructionsAfterDeath = (religion) => {
       value: 'terminate',
       theme: 'orange',
       translationKey: 'account_to_terminated',
+      shortName: 'Terminate',
     },
     {
       name: 'Settle Debts',
@@ -268,6 +270,7 @@ export const instructionsAfterDeath = (religion) => {
       value: 'settle',
       theme: 'orange',
       translationKey: 'account_to_settle_debts',
+      shortName: 'Settle Debts',
     },
   ];
 
@@ -279,6 +282,7 @@ export const instructionsAfterDeath = (religion) => {
       value: 'faraid',
       theme: 'green',
       translationKey: 'beneficiary_liquidate_account',
+      shortName: 'Faraid',
     });
   }
 
