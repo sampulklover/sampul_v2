@@ -8,8 +8,38 @@ const nextConfig = {
     return [
       {
         source: '/',
-        destination: '/html/index.html',
+        destination: '/html/locale/en/index.html',
       },
+      {
+        source: '/bm/company',
+        destination: '/html/locale/bm/company.html',
+      },
+      {
+        source: '/bm/contact',
+        destination: '/html/locale/bm/contact.html',
+      },
+      {
+        source: '/bm',
+        destination: '/html/locale/bm/index.html',
+      },
+      {
+        source: '/bm/policy',
+        destination: '/html/locale/bm/policy.html',
+      },
+      {
+        source: '/bm/price',
+        destination: '/html/locale/bm/price.html',
+      },
+      {
+        source: '/bm/resources',
+        destination: '/html/locale/bm/resources.html',
+      },
+      {
+        source: '/bm/solutions',
+        destination: '/html/locale/bm/solutions.html',
+      },
+
+
       {
         source: '/solutions',
         destination: '/html/solutions.html',
