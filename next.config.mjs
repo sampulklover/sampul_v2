@@ -38,8 +38,6 @@ const nextConfig = {
         source: '/bm/solutions',
         destination: '/html/locale/bm/solutions.html',
       },
-
-
       {
         source: '/solutions',
         destination: '/html/solutions.html',
