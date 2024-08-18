@@ -468,6 +468,109 @@ const ExtraWishes = () => {
     );
   };
 
+  const formNonWaris = () => {
+    return (
+      <>
+        <div class="settings_component-copy">
+          <div class="col">
+            <div>
+              <div class="text-sm-medium-6">
+                <b>1/3 to Non-Waris</b>
+              </div>
+              <div class="smpl_text-sm-regular">
+                Customize your Wasiat by allocating up to 1/3 of your assets to
+                non-heirs ie. foster children, close friends, non-Muslim family
+                members etc, while ensuring the remaining 2/3 follows Faraid
+                distribution.
+              </div>
+              {displayUpgradePlan('charity')}
+            </div>
+          </div>
+          <div
+            class="col-lg col-sm-12 mt-lg-0 mt-2 card"
+            style={{ width: '100%' }}
+          >
+            <form
+              class="mb-3"
+              onSubmit={(event) => {
+                event.preventDefault();
+                onSubmitForm({ keyName: 'charity' });
+              }}
+            >
+              <div class="mb-3">
+                <label
+                  htmlFor="multiselect-extra-wishes-charity-bodies"
+                  class="uui-field-label"
+                >
+                  {translations[locale].extra_wishes.contribute_to_charity_}
+                </label>
+                <Select
+                  instanceId={uniqueId1}
+                  isMulti
+                  value={mutiselectData.charity.selected}
+                  options={contextApiData.bodies.data
+                    .filter((item) => item.category === 'sadaqah_waqaf_zakat')
+                    .map((item) => ({
+                      ...item,
+                      label: item.name,
+                      value: item.id,
+                    }))}
+                  onChange={(newValues) => {
+                    handleChange({
+                      keyName: 'charity',
+                      newValues: newValues,
+                    });
+                  }}
+                  getOptionLabel={getOptionLabelWithIcon}
+                  getOptionValue={(option) => option.label}
+                />
+              </div>
+              {mutiselectData.charity.selected.map((item, index) => {
+                return (
+                  <div class="mb-3" key={index}>
+                    <label
+                      htmlFor={`input-extra-wishes-charity-${item.value}-amount`}
+                      class="uui-field-label"
+                    >
+                      {item.label}
+                      {translations[locale].extra_wishes.s_assets_amout}
+                    </label>
+                    <div class="input-group">
+                      <div class="input-group-text">RM</div>
+                      <input
+                        type="number"
+                        step="0.01"
+                        class="form-control"
+                        id={`input-extra-wishes-charity-${item.value}-amount`}
+                        value={item.amount}
+                        onChange={(event) =>
+                          handleAmountChange(
+                            index,
+                            event.target.value,
+                            'charity'
+                          )
+                        }
+                        required
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+              <div class="text-end">
+                <button type="submit" class="btn btn-primary btn-text">
+                  <Loading
+                    title={translations[locale].extra_wishes.save}
+                    loading={buttonLoading.charity}
+                  />
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </>
+    );
+  };
+
   const form3 = () => {
     return (
       <>
@@ -781,8 +884,6 @@ const ExtraWishes = () => {
     return display;
   };
 
-  // console.log('TEST')
-
   return (
     <SideBar>
       <div class="body-01 inner-body-01">
@@ -803,7 +904,9 @@ const ExtraWishes = () => {
             >
               {form1()}
               {form2()}
+              {/* {formNonWaris()} */}
             </div>
+
             {form3()}
             <div
               style={{
