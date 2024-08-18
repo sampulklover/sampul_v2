@@ -38,39 +38,47 @@ const instructionTypeConfig = {
       title: 'Add Assets to be Faraid',
       description: `Fill in the asset name, it's value, and any additional notes or details.`,
       actionFormLabel: 'Which Assets you want to Faraid?',
+      showInsuranceForm: false,
     },
     terminate: {
       title: 'Add Assets to be Terminate',
       description: `Fill in the asset name, it's value, and any additional notes or details.`,
       actionFormLabel: 'Which Assets you want to Terminate?',
+      showInsuranceForm: false,
     },
     transfer_as_gift: {
       title: 'Add Assets to be Transfer as Gift',
       description: `Fill in the asset name, it's value, and any additional notes or details.`,
       actionFormLabel: 'Which Assets you want to Transfer as Gift?',
+      showInsuranceForm: false,
     },
     settle: {
-      title: 'Add Assets to be Settle Debts',
+      title: 'Add Debt to be Settled',
       description: `Fill in the asset name, it's value, and any additional notes or details.`,
-      actionFormLabel: 'Which Assets you want to Settle Debts?',
+      actionFormLabel: 'Which Debt you want to be settled?',
+      showInsuranceForm: true,
     },
   },
   edit: {
     faraid: {
       title: 'Update Faraid Asset',
       description: `Fill in the asset name, it's value, and any additional notes or details.`,
+      showInsuranceForm: false,
     },
     terminate: {
       title: 'Update Terminate Asset',
       description: `Fill in the asset name, it's value, and any additional notes or details.`,
+      showInsuranceForm: false,
     },
     transfer_as_gift: {
       title: 'Update Transfer as Gift Asset',
       description: `Fill in the asset name, it's value, and any additional notes or details.`,
+      showInsuranceForm: false,
     },
     settle: {
-      title: 'Update Settle Debts Asset',
+      title: 'Update Debt to be Settled',
       description: `Fill in the asset name, it's value, and any additional notes or details.`,
+      showInsuranceForm: true,
     },
   },
 };
@@ -799,7 +807,18 @@ const DigitalAssetsModal = () => {
                     />
                   </div>
                 </div>
-                <div class="form-field-wrapper mt-2">
+                <div
+                  class="form-field-wrapper mt-2"
+                  style={{
+                    display: instructionTypeConfig[keyType][
+                      keyType == 'edit'
+                        ? selectedItem?.instructions_after_death
+                        : tempData.assets.instructionType
+                    ]?.showInsuranceForm
+                      ? 'block'
+                      : 'none',
+                  }}
+                >
                   <label
                     htmlFor={`input-${item.value}-protection`}
                     class="form-label-01"
@@ -818,7 +837,15 @@ const DigitalAssetsModal = () => {
                         'protection'
                       )
                     }
-                    required
+                    required={
+                      instructionTypeConfig[keyType][
+                        keyType == 'edit'
+                          ? selectedItem?.instructions_after_death
+                          : tempData.assets.instructionType
+                      ]?.showInsuranceForm
+                        ? true
+                        : false
+                    }
                   >
                     <option disabled selected value="">
                       Select...

@@ -55,7 +55,7 @@ export default {
         failed_to_create_: 'Failed to create payment session',
         subscription_plan: 'Subscription Plan',
         as_you_embark_:
-          'As you embark on your digital wasiat/will planning adventure, you have the flexibility to upgrade your plan at any time. Unlock premium reatures, sun as Physical Asset, Appointment or Guardian, and Corporate Executor.',
+          'As you embark on your digital wasiat/will planning adventure, you have the flexibility to upgrade your plan at any time.',
         billing: 'Billing',
         manage_your_billing_: 'Manage your billing and payment details',
         the_free_plan_:
@@ -85,7 +85,7 @@ export default {
         to_delete_your_: 'To delete your Sampul account please type',
       },
       digital_assets_card: {
-        no_digital_accounts_: 'No Digital Accounts found',
+        no_digital_accounts_: 'No Accounts found',
         accounts_where_keep_:
           'Accounts where you keep your assets with value and can be passed on to your beloved ones.',
         add_digital_assets: 'Add Assets',
@@ -439,12 +439,12 @@ export default {
       any_amount_of_: 'Any amount of Fidyah due?',
       charity_sadaqah: 'Charity/Sadaqah',
       seamlessly_include_your_:
-        'Seamlessly include your charitable intentions in your digital estate plan with Sampul, ensuring your legacy extends to making a positive impact beyond your lifetime.',
+        'Seamlessly include your charitable intentions up to 1/3 of of your digital estate plan with Sampul, ensuring your legacy extends to making a positive impact beyond your lifetime.',
       contribute_to_charity_: 'Contribute to Charity/Sadaqah Bodies',
       s_assets_amout: 's asset/amount',
       waqf: 'Waqf',
       preserve_your_legacy_:
-        'Preserve your legacy through charitable endowments with Sampul. Securely allocate digital assets to support causes close to your heart and leave a lasting impact on future generations.',
+        'Preserve your legacy through charitable endowments up to 1/3 of your estate with Sampul. Securely allocate digital assets to support causes close to your heart and leave a lasting impact on future generations.',
       contribute_to_waqf_: 'Contribute to Waqf Foundation',
       organ_donor_pledge: 'Organ Donor Pledge',
       at_the_point_: `At the point of death, if you are deemed suitable for organ or tissue donation by Ministry of Health medical experts, consent from your loved ones will be obtained. By agreeing to pledge as an organ donor, please ensure that you have informed your loved ones on your wish.`,
@@ -561,7 +561,7 @@ export default {
         failed_to_create_: 'Gagal membuat sesi pembayaran',
         subscription_plan: 'Pelan Langganan',
         as_you_embark_:
-          'Apabila anda memulakan pengembaraan perancangan wasiat/wasiat digital anda, anda mempunyai fleksibiliti untuk menaik taraf pelan anda pada bila-bila masa. Buka kunci ciri premium seperti Aset Fizikal, Janji Temu atau Penjaga, dan Pelaksana Korporat.',
+          'Apabila anda memulakan pengembaraan perancangan wasiat/wasiat digital anda, anda mempunyai fleksibiliti untuk menaik taraf pelan anda pada bila-bila masa.',
         billing: 'Penagihan',
         manage_your_billing_: 'Urus butiran penagihan dan pembayaran anda',
         the_free_plan_:
@@ -591,7 +591,7 @@ export default {
         to_delete_your_: 'Untuk memadam akaun Sampul anda, sila taip',
       },
       digital_assets_card: {
-        no_digital_accounts_: 'Tiada Akaun Digital ditemui',
+        no_digital_accounts_: 'Tiada Akaun ditemui',
         accounts_where_keep_:
           'Akaun di mana anda menyimpan aset anda dengan nilai dan boleh diberikan kepada orang yang anda sayangi.',
         add_digital_assets: 'Tambah Aset',
@@ -961,12 +961,12 @@ export default {
       any_amount_of_: 'Adakah sebarang jumlah Fidyah yang perlu dibayar?',
       charity_sadaqah: 'Amal/Sadaqah',
       seamlessly_include_your_:
-        'Masukkan niat amal anda dalam rancangan harta digital anda dengan Sampul, memastikan legasi anda memberi kesan positif melebihi hayat anda.',
+        'Sertakan dengan lancar niat amal anda sehingga 1/3 daripada pelan harta pusaka digital anda dengan Sampul, memastikan warisan anda diperluaskan untuk memberi kesan positif di luar jangka hayat anda.',
       contribute_to_charity_: 'Sumbangkan kepada Badan Amal/Sadaqah',
       s_assets_amout: 'aset/jumlah',
       waqf: 'Waqf',
       preserve_your_legacy_:
-        'Pelihara legasi anda melalui endowmen amal dengan Sampul. Alokasikan aset digital dengan selamat untuk menyokong tujuan yang dekat di hati anda dan tinggalkan kesan yang berpanjangan kepada generasi akan datang.',
+        'Pelihara legasi anda melalui wakaf amal sehingga 1/3 harta pusaka anda dengan Sampul. Peruntukkan aset digital dengan selamat untuk menyokong tujuan yang dekat dengan hati anda dan meninggalkan kesan yang berkekalan pada generasi akan datang.',
       contribute_to_waqf_: 'Sumbang kepada Yayasan Waqf',
       organ_donor_pledge: 'Janji Penderma Organ',
       at_the_point_:
