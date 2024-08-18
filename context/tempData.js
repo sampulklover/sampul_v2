@@ -7,13 +7,19 @@ export const useTempData = () => useContext(TempDataContext);
 
 export const TempDataProvider = ({ children }) => {
   const [tempData, setTempData] = useState({
-    digitalAssets: {
+    assets: {
+      key: 'add',
       instructionType: '',
       selectedItem: null,
     },
-    // links: {
-    //   shareUrl: '',
-    // },
+    invite: {
+      selectedItem: null,
+    },
+    beloved: {
+      key: 'add',
+      category: 'co_sampul',
+      selectedItem: null,
+    },
   });
 
   const setValueTempData = (key, passData) => {

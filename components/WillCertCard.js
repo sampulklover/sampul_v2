@@ -83,8 +83,7 @@ const WillCertCard = ({ willData }) => {
               </div>
               <div class="space-xxsmall"></div>
               <div class="text-size-medium centre">
-                Safekeep your digital asset - For your loved ones{' '}
-                {process.env.NEXT_PUBLIC_HOST}
+                Securing Digital Legacies {process.env.NEXT_PUBLIC_HOST}
               </div>
               <div class="space-medium"></div>
               <div class="text-size-medium centre">
