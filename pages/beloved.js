@@ -13,6 +13,8 @@ import {
 import translations from '../constant/translations';
 import { useApi } from '../context/api';
 import { useLocale } from '../context/locale';
+import { useModal } from '../context/modal';
+import { useTempData } from '../context/tempData';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -20,18 +22,9 @@ import toast from 'react-hot-toast';
 const Beloved = () => {
   const { contextApiData } = useApi();
   const { locale } = useLocale();
+  const { isModalOpen, toggleModal } = useModal();
+  const { tempData, setValueTempData } = useTempData();
   const router = useRouter();
-
-  const [belovedModalType, setBelovedModalType] = useState({
-    key: 'add',
-    selectedItem: null,
-    category: 'co_sampul',
-  });
-  const [inviteModalType, setInviteModalType] = useState({
-    key: 'edit',
-    selectedItem: null,
-    category: 'invite',
-  });
 
   const title = () => {
     return (
@@ -52,67 +45,14 @@ const Beloved = () => {
     );
   };
 
-  const inviteModal = (item, category) => {
-    $('#invite-modal')?.modal('show');
-    setInviteModalType({
-      key: 'edit',
-      selectedItem: item ? item : null,
-      category: category,
-    });
-  };
-
-  const belovedModal = (item, category) => {
-    $('#beloved-modal')?.modal('show');
-    setBelovedModalType({
+  const setBelovedModal = (item, category) => {
+    setValueTempData('beloved', {
+      ...tempData.invite,
       key: item ? 'edit' : 'add',
+      category: category ? category : 'co_sampul',
       selectedItem: item ? item : null,
-      category: category,
     });
-
-    // Note: if you make changes into beloved_modal elements, do apply same changes into the BelovedModal.js page.
-    const inputElements = {
-      beloved_modal: {
-        name: document.getElementById('input-beloved-name'),
-        // nric_no: document.getElementById('input-beloved-nric-no'),
-        phone_no: document.getElementById('input-beloved-phone-no'),
-        address_1: document.getElementById('input-beloved-address-1'),
-        address_2: document.getElementById('input-beloved-address-2'),
-        city: document.getElementById('input-beloved-city'),
-        postcode: document.getElementById('input-beloved-postcode'),
-        state: document.getElementById('input-beloved-state'),
-        country: document.getElementById('select-beloved-country'),
-        email: document.getElementById('input-beloved-email'),
-        // relationship: document.getElementById('select-beloved-relationship'),
-        type: document.getElementById('select-beloved-type'),
-        level: document.getElementById('select-beloved-level'),
-        image_path: document.getElementById('preview-beloved-image'),
-      },
-    };
-
-    for (const key in inputElements.beloved_modal) {
-      if (key == 'image_path') {
-        inputElements.beloved_modal[key].src = addUserImg;
-      } else {
-        inputElements.beloved_modal[key].value = '';
-      }
-    }
-
-    if (item) {
-      for (const key in inputElements.beloved_modal) {
-        inputElements.beloved_modal[key].value = item[key];
-
-        if (key == 'image_path') {
-          const imageUrl = item[key]
-            ? `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${item[key]}`
-            : addUserImg;
-          inputElements.beloved_modal.image_path.src = imageUrl;
-        }
-      }
-    } else {
-      if (category) {
-        inputElements.beloved_modal.type.value = category;
-      }
-    }
+    toggleModal('beloved');
   };
 
   const loadingTable = ({ condition }) => {
@@ -187,7 +127,7 @@ const Beloved = () => {
                             <div
                               class="d-flex flex-wrap table-hover py-3 ps-3 px-3"
                               onClick={() => {
-                                belovedModal(item, 'co_sampul');
+                                setBelovedModal(item, 'co_sampul');
                               }}
                             >
                               <div class="dp-image-wrapper">
@@ -245,7 +185,7 @@ const Beloved = () => {
                   class="card-copy cosampul-copy"
                   onClick={() => {
                     if (coSampulData.length < 2) {
-                      belovedModal(null, 'co_sampul');
+                      setBelovedModal(null, 'co_sampul');
                     } else {
                       toast.error(
                         translations[locale].beloved.you_have_reached_,
@@ -342,7 +282,7 @@ const Beloved = () => {
                             <div
                               class="d-flex flex-wrap table-hover py-3 ps-3 px-3"
                               onClick={() => {
-                                belovedModal(item, 'future_owner');
+                                setBelovedModal(item, 'future_owner');
                               }}
                             >
                               <div class="dp-image-wrapper">
@@ -371,7 +311,7 @@ const Beloved = () => {
                 <div
                   class="card-copy cosampul-copy"
                   onClick={() => {
-                    belovedModal(null, 'future_owner');
+                    setBelovedModal(null, 'future_owner');
                   }}
                 >
                   <div class="beloved-block">
@@ -466,7 +406,7 @@ const Beloved = () => {
                             <div
                               class="d-flex flex-wrap table-hover py-3 ps-3 px-3"
                               onClick={() => {
-                                belovedModal(item, 'guardian');
+                                setBelovedModal(item, 'guardian');
                               }}
                             >
                               <div class="dp-image-wrapper">
@@ -506,7 +446,7 @@ const Beloved = () => {
                     if (checkRestriction()) {
                       router.push('settings?tab=nav-billing-tab');
                     } else {
-                      belovedModal(null, 'guardian');
+                      setBelovedModal(null, 'guardian');
                     }
                   }}
                 >
@@ -597,7 +537,11 @@ const Beloved = () => {
                           <div
                             class="d-flex flex-wrap table-hover py-3 ps-3 px-3"
                             onClick={() => {
-                              inviteModal(item, 'invite');
+                              setValueTempData('invite', {
+                                ...tempData.invite,
+                                selectedItem: item ? item : null,
+                              });
+                              toggleModal('invite');
                             }}
                           >
                             <div class="dp-image-wrapper">
@@ -659,16 +603,6 @@ const Beloved = () => {
       <div class="body-01 inner-body-01">
         <div class="content">
           <Breadcrumb pageName={translations[locale].beloved.beloved} />
-          <InviteModal
-            keyType={inviteModalType.key}
-            category={inviteModalType.category}
-            selectedItem={inviteModalType.selectedItem}
-          />
-          <BelovedModal
-            keyType={belovedModalType.key}
-            belovedType={belovedModalType.category}
-            selectedItem={belovedModalType.selectedItem}
-          />
           <div class="mt-4">{title()}</div>
           <div
             class="row mt-4"

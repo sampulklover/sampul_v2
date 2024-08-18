@@ -4,7 +4,6 @@ import DigitalAssetsModal from '../components/DigitalAssetsModal';
 import DigitalSummaryCard from '../components/DigitalSummaryCard';
 import Footer from '../components/Footer';
 import InnerHeader from '../components/InnerHeader';
-import IntroModal from '../components/IntroModal';
 import InviteModal from '../components/InviteModal';
 import Loading from '../components/Laoding';
 import ProfileModal from '../components/ProfileModal';
@@ -12,6 +11,8 @@ import SideBar from '../components/SideBar';
 import translations from '../constant/translations';
 import { useApi } from '../context/api';
 import { useLocale } from '../context/locale';
+import { useModal } from '../context/modal';
+import { useTempData } from '../context/tempData';
 import { formatTimestamp } from '../utils/helpers';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -21,43 +22,20 @@ const Dashboard = () => {
   const { contextApiData } = useApi();
   const { locale } = useLocale();
   const router = useRouter();
-
-  const [inviteModalType, setInviteModalType] = useState({
-    key: 'edit',
-    selectedItem: null,
-    category: 'invite',
-  });
+  const { isModalOpen, toggleModal } = useModal();
+  const { tempData, setValueTempData } = useTempData();
 
   const [belovedCategory, setBelovedCategory] = useState('co_sampul');
 
-  const inviteModal = (item, category) => {
-    $('#invite-modal')?.modal('show');
-    setInviteModalType({
-      key: 'edit',
-      selectedItem: item ? item : null,
-      category: category,
-    });
-  };
-
-  const checkCompleteProfile = () => {
-    var is_completed = false;
-    if (contextApiData.profile.data?.nric_name) {
-      is_completed = true;
-    } else {
-      is_completed = false;
-    }
-    return is_completed;
-  };
-
-  useEffect(() => {
-    if (contextApiData.profile.isLoading == false) {
-      if (checkCompleteProfile() == false) {
-        setTimeout(() => {
-          $('#intro-modal')?.modal('show');
-        }, 1000);
-      }
-    }
-  }, [contextApiData.digitalAssets.isLoading]);
+  // const checkCompleteProfile = () => {
+  //   var is_completed = false;
+  //   if (contextApiData.profile.data?.nric_name) {
+  //     is_completed = true;
+  //   } else {
+  //     is_completed = false;
+  //   }
+  //   return is_completed;
+  // };
 
   const invitedNotification = () => {
     const alerts = [];
@@ -71,7 +49,11 @@ const Dashboard = () => {
             <span
               class="pointer-on-hover"
               onClick={() => {
-                inviteModal(item, 'invite');
+                setValueTempData('invite', {
+                  ...tempData.invite,
+                  selectedItem: item ? item : null,
+                });
+                toggleModal('invite');
               }}
             >
               <b>{translations[locale].dashboard.click_to_view}</b>
@@ -210,17 +192,11 @@ const Dashboard = () => {
             imageSrc="images/diamond-digital-coins.svg"
             imageStyle={{ width: '100%', height: '100%' }}
           />
-          <IntroModal />
           <ProfileModal category={'profile'} />
           <BelovedModal
             keyType={'add'}
             belovedType={belovedCategory}
             selectedItem={null}
-          />
-          <InviteModal
-            keyType={inviteModalType.key}
-            category={inviteModalType.category}
-            selectedItem={inviteModalType.selectedItem}
           />
           <DigitalAssetsModal keyType={'add'} selectedItem={null} />
           {invitedNotification()}

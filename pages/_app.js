@@ -3,9 +3,15 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../styles/global.css';
+import BelovedModal from '../components/BelovedModal';
+import DigitalAssetsModal from '../components/DigitalAssetsModal';
+import IntroModal from '../components/IntroModal';
+import InviteModal from '../components/InviteModal';
+import LogoutModal from '../components/LogoutModal';
 import NavBar from '../components/NavBar';
 import { ApiProvider } from '../context/api';
 import { LocaleProvider } from '../context/locale';
+import { ModalProvider } from '../context/modal';
 import { TempDataProvider } from '../context/tempData';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
@@ -65,11 +71,18 @@ const MyApp = ({ Component, pageProps }) => {
       <LocaleProvider>
         <TempDataProvider>
           <ApiProvider>
-            <DynamicToaster position="top-right" />
-            <NavBar />
-            <main className="main">
-              <Component {...pageProps} />
-            </main>
+            <ModalProvider>
+              <LogoutModal />
+              <IntroModal />
+              <InviteModal />
+              <BelovedModal />
+              <DigitalAssetsModal />
+              <DynamicToaster position="top-right" />
+              <NavBar />
+              <main className="main">
+                <Component {...pageProps} />
+              </main>
+            </ModalProvider>
           </ApiProvider>
         </TempDataProvider>
       </LocaleProvider>

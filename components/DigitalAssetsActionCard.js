@@ -2,13 +2,15 @@ import { bodiesCategory, instructionsAfterDeath } from '../constant/enum';
 import translations from '../constant/translations';
 import { useApi } from '../context/api';
 import { useLocale } from '../context/locale';
+import { useModal } from '../context/modal';
 import { useTempData } from '../context/tempData';
 import Loading from './Laoding';
 import Image from 'next/image';
 
-const DigitalAssetsActionCard = ({ onClickCard = () => {} }) => {
+const DigitalAssetsActionCard = () => {
   const { contextApiData } = useApi();
   const { locale } = useLocale();
+  const { isModalOpen, toggleModal } = useModal();
   const { tempData, setValueTempData } = useTempData();
 
   const instructionTypeConfig = [
@@ -17,48 +19,60 @@ const DigitalAssetsActionCard = ({ onClickCard = () => {} }) => {
       description: 'Distribute your assets according to Islamic law',
       btnTitle: 'Add Assets',
       btnOnClick: () => {
-        onClickCard();
-        setValueTempData('digitalAssets', {
-          ...tempData.digitalAssets,
+        toggleModal('assets');
+        setValueTempData('assets', {
+          ...tempData.assets,
+          key: 'add',
           instructionType: 'faraid',
+          selectedItem: null,
         });
       },
+      isMuslimOnly: true,
     },
     {
       title: 'Terminate Subscriptions',
       description: 'Say goodbye to digital services you no longer need',
       btnTitle: 'Add Assets',
       btnOnClick: () => {
-        onClickCard();
-        setValueTempData('digitalAssets', {
-          ...tempData.digitalAssets,
+        toggleModal('assets');
+        setValueTempData('assets', {
+          ...tempData.assets,
+          key: 'add',
           instructionType: 'terminate',
+          selectedItem: null,
         });
       },
+      isMuslimOnly: false,
     },
     {
       title: 'Transfer as Gift',
       description: 'Share your wealth with your loved ones',
       btnTitle: 'Add Assets',
       btnOnClick: () => {
-        onClickCard();
-        setValueTempData('digitalAssets', {
-          ...tempData.digitalAssets,
+        toggleModal('assets');
+        setValueTempData('assets', {
+          ...tempData.assets,
+          key: 'add',
           instructionType: 'transfer_as_gift',
+          selectedItem: null,
         });
       },
+      isMuslimOnly: false,
     },
     {
       title: 'Settle Debts',
       description: 'Settle any outstanding debts and loans.',
       btnTitle: 'Add Debts',
       btnOnClick: () => {
-        onClickCard();
-        setValueTempData('digitalAssets', {
-          ...tempData.digitalAssets,
+        toggleModal('assets');
+        setValueTempData('assets', {
+          ...tempData.assets,
+          key: 'add',
           instructionType: 'settle',
+          selectedItem: null,
         });
       },
+      isMuslimOnly: false,
     },
   ];
 
@@ -118,39 +132,45 @@ const DigitalAssetsActionCard = ({ onClickCard = () => {} }) => {
     );
   };
 
+  const checkReligion = () => {
+    return contextApiData.profile.data?.religion === 'islam';
+  };
+
   return (
     <>
       <div class="d-flex overflow-auto gap-3 py-3 ps-4 pt-5">
-        {instructionTypeConfig.map((item, index) => (
-          <div
-            class="card card-size-onhover text-center justify-content-center"
-            style={{ minHeight: 200, minWidth: 200 }}
-            key={index}
-          >
-            <div class="gap-2 mb-4 h-100">
-              <div>
-                <Image
-                  src="images/featured-icon.svg"
-                  alt="image"
-                  width={0}
-                  height={0}
-                  sizes="100vw"
-                  style={{ width: 40, height: 40 }}
-                />
-              </div>
-              <span class="heading-02">{item.title}</span>
-              <p class="paragraph-02">{item.description}</p>
-              <div>{featuredIconList()}</div>
-            </div>
-            <button
-              type="button"
-              class="btn btn-primary"
-              onClick={item.btnOnClick}
+        {instructionTypeConfig
+          .filter((item) => checkReligion() || !item.isMuslimOnly)
+          .map((item, index) => (
+            <div
+              class="card card-size-onhover text-center justify-content-center"
+              style={{ minHeight: 200, minWidth: 200 }}
+              key={index}
             >
-              <Loading title={item.btnTitle} />
-            </button>
-          </div>
-        ))}
+              <div class="gap-2 mb-4 h-100">
+                <div>
+                  <Image
+                    src="images/featured-icon.svg"
+                    alt="image"
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    style={{ width: 40, height: 40 }}
+                  />
+                </div>
+                <span class="heading-02">{item.title}</span>
+                <p class="paragraph-02">{item.description}</p>
+                <div>{featuredIconList()}</div>
+              </div>
+              <button
+                type="button"
+                class="btn btn-primary"
+                onClick={item.btnOnClick}
+              >
+                <Loading title={item.btnTitle} />
+              </button>
+            </div>
+          ))}
       </div>
     </>
   );

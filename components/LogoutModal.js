@@ -1,12 +1,15 @@
 import translations from '../constant/translations';
 import { useApi } from '../context/api';
 import { useLocale } from '../context/locale';
+import { useModal } from '../context/modal';
 import Loading from './Laoding';
 import { useState } from 'react';
+import Modal from 'react-bootstrap/Modal';
 
 const LogoutModal = () => {
   const { logout } = useApi();
   const { locale } = useLocale();
+  const { isModalOpen, toggleModal } = useModal();
   const [isLoading, setIsLoading] = useState({
     is_logout: false,
   });
@@ -20,7 +23,8 @@ const LogoutModal = () => {
 
     await logout();
 
-    $('#logout-modal')?.modal('hide');
+    toggleModal('logout');
+
     setIsLoading({
       ...isLoading,
       is_logout: false,
@@ -28,40 +32,35 @@ const LogoutModal = () => {
   };
 
   return (
-    <div class="modal fade" id="logout-modal">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">
-              {translations[locale].component.logout_modal.sign_out}
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <p>
-              {translations[locale].component.logout_modal.are_you_confirm_}
-            </p>
-            <div class="d-grid gap-2">
-              <button
-                type="submit"
-                class="btn btn-primary btn-text"
-                onClick={onClickLogout}
-              >
-                <Loading
-                  title={translations[locale].component.logout_modal.sign_out}
-                  loading={isLoading.is_logout}
-                />
-              </button>
-            </div>
-          </div>
+    <Modal
+      show={isModalOpen.logout}
+      onHide={() => {
+        toggleModal('logout');
+      }}
+    >
+      <Modal.Header closeButton>
+        <Modal.Title>
+          <h5 class="modal-title">
+            {translations[locale].component.logout_modal.sign_out}
+          </h5>
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <p>{translations[locale].component.logout_modal.are_you_confirm_}</p>
+        <div class="d-grid gap-2">
+          <button
+            type="submit"
+            class="btn btn-primary btn-text"
+            onClick={onClickLogout}
+          >
+            <Loading
+              title={translations[locale].component.logout_modal.sign_out}
+              loading={isLoading.is_logout}
+            />
+          </button>
         </div>
-      </div>
-    </div>
+      </Modal.Body>
+    </Modal>
   );
 };
 

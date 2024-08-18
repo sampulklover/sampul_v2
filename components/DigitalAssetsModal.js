@@ -3,6 +3,7 @@ import { instructionsAfterDeath, trueFalse } from '../constant/enum';
 import translations from '../constant/translations';
 import { useApi } from '../context/api';
 import { useLocale } from '../context/locale';
+import { useModal } from '../context/modal';
 import { useTempData } from '../context/tempData';
 import { deleteImage, getOptionLabelWithIcon } from '../utils/helpers';
 import { supabase } from '../utils/supabase';
@@ -11,6 +12,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState, useEffect, useId } from 'react';
+import Modal from 'react-bootstrap/Modal';
 import toast from 'react-hot-toast';
 import Select from 'react-select';
 import { Tooltip } from 'react-tooltip';
@@ -73,12 +75,14 @@ const instructionTypeConfig = {
   },
 };
 
-const DigitalAssetsModal = ({ keyType = 'add' }) => {
-  const { contextApiData, getDigitalAssets } = useApi();
+const DigitalAssetsModal = () => {
+  const { contextApiData, getDigitalAssets, addDigitalAssetsApi } = useApi();
   const { locale } = useLocale();
   const { tempData, setValueTempData } = useTempData();
+  const { isModalOpen, toggleModal } = useModal();
 
-  const selectedItem = tempData.digitalAssets.selectedItem;
+  const keyType = tempData.assets.key;
+  const selectedItem = tempData.assets.selectedItem;
 
   const useUniqueId = () => {
     const [id, setId] = useState('');
@@ -124,47 +128,50 @@ const DigitalAssetsModal = ({ keyType = 'add' }) => {
         content: true,
       });
 
-      setTimeout(() => {
-        if (selectedItem?.new_service_platform_name) {
-          handleChangeMultiSelect({
-            keyName: 'platform',
-            newValues: {
-              isCustom: true,
-              instructionsAfterDeath: selectedItem.instructions_after_death,
-              platformName: selectedItem.new_service_platform_name,
-              websiteUrl: selectedItem.new_service_platform_url,
-              amount: selectedItem.declared_value_myr,
-              protection: selectedItem.protection,
-              remarks: selectedItem.remarks,
-            },
-          });
-        } else {
-          if (contextApiData.bodies.data.length > 0) {
-            var foundObject = contextApiData.bodies.data.find(
-              (obj) => obj.id === selectedItem.bodies_id
-            );
-
-            if (foundObject) {
-              foundObject.label = foundObject.name;
-              foundObject.value = foundObject.id;
-              foundObject.instructionsAfterDeath =
-                selectedItem.instructions_after_death;
-              foundObject.amount = selectedItem.declared_value_myr;
-              foundObject.protection = selectedItem.protection;
-              foundObject.remarks = selectedItem.remarks;
-
-              handleChangeMultiSelect({
-                keyName: 'platform',
-                newValues: foundObject,
-              });
-            }
-          }
-        }
+      if (selectedItem?.new_service_platform_name) {
+        handleChangeMultiSelect({
+          keyName: 'platform',
+          newValues: {
+            isCustom: true,
+            instructionsAfterDeath: selectedItem.instructions_after_death,
+            platformName: selectedItem.new_service_platform_name,
+            websiteUrl: selectedItem.new_service_platform_url,
+            amount: selectedItem.declared_value_myr,
+            protection: selectedItem.protection,
+            remarks: selectedItem.remarks,
+          },
+        });
         setIsLoading({
           ...isLoading,
           content: false,
         });
-      }, 1000);
+      } else {
+        if (contextApiData.bodies.data?.length > 0) {
+          var foundObject = contextApiData.bodies.data.find(
+            (obj) => obj.id === selectedItem.bodies_id
+          );
+
+          if (foundObject) {
+            foundObject.label = foundObject.name;
+            foundObject.value = foundObject.id;
+            foundObject.instructionsAfterDeath =
+              selectedItem.instructions_after_death;
+            foundObject.amount = selectedItem.declared_value_myr;
+            foundObject.protection = selectedItem.protection;
+            foundObject.remarks = selectedItem.remarks;
+
+            handleChangeMultiSelect({
+              keyName: 'platform',
+              newValues: foundObject,
+            });
+
+            setIsLoading({
+              ...isLoading,
+              content: false,
+            });
+          }
+        }
+      }
     }
   }, [selectedItem]);
 
@@ -174,8 +181,8 @@ const DigitalAssetsModal = ({ keyType = 'add' }) => {
         selected: [],
       },
     });
-    setValueTempData('digitalAssets', {
-      ...tempData.digitalAssets,
+    setValueTempData('assets', {
+      ...tempData.assets,
       selectedItem: null,
     });
   };
@@ -185,7 +192,7 @@ const DigitalAssetsModal = ({ keyType = 'add' }) => {
     mutiselectData.platform.selected.map((item) => {
       const baseData = {
         uuid: contextApiData.user.data?.id,
-        instructions_after_death: tempData.digitalAssets.instructionType,
+        instructions_after_death: tempData.assets.instructionType,
         declared_value_myr: item.amount,
         protection: item?.protection || null,
         remarks: item?.remarks || '',
@@ -205,29 +212,22 @@ const DigitalAssetsModal = ({ keyType = 'add' }) => {
       }
     });
 
-    const { data: returnData, error } = await supabase
-      .from('digital_assets')
-      .insert(addData)
-      .select();
+    const result = await addDigitalAssetsApi(addData);
 
-    if (error) {
-      toast.error(error.message);
+    if (result) {
+      toast.success(translations[locale].global.successfully_submitted);
+      toggleModal('assets');
+    } else {
       setIsLoading({
         ...isLoading,
         update: false,
       });
-      return;
     }
-
-    $('#digital-assets-modal')?.modal('hide');
-    toast.success(translations[locale].global.successfully_submitted);
 
     setIsLoading({
       ...isLoading,
       update: false,
     });
-
-    getDigitalAssets();
   };
 
   const editDigitalAssets = async () => {
@@ -262,7 +262,8 @@ const DigitalAssetsModal = ({ keyType = 'add' }) => {
       return;
     }
 
-    $('#digital-assets-modal')?.modal('hide');
+    toggleModal('assets');
+
     toast.success(translations[locale].global.successfully_updated);
 
     getDigitalAssets();
@@ -296,7 +297,8 @@ const DigitalAssetsModal = ({ keyType = 'add' }) => {
         return;
       }
 
-      $('#digital-assets-modal')?.modal('hide');
+      toggleModal('assets');
+
       toast.success(translations[locale].global.successfully_deleted);
 
       getDigitalAssets();
@@ -306,43 +308,6 @@ const DigitalAssetsModal = ({ keyType = 'add' }) => {
         delete: false,
       });
     }
-  };
-
-  const checkRestriction = async () => {
-    var restricted = false;
-
-    setIsLoading({
-      ...isLoading,
-      update: true,
-    });
-
-    const { data, count } = await supabase
-      .from('digital_assets')
-      .select('*', { count: 'exact', head: true })
-      .eq('uuid', contextApiData.user.data?.id);
-
-    if (
-      contextApiData.account.data?.products?.access_control?.pages.digital.asset
-        .limited
-    ) {
-      var max =
-        contextApiData.account.data?.products.access_control.pages.digital.asset
-          .maximum;
-      if (count >= max) {
-        toast.error(
-          `${translations[locale].component.digital_assets_modal.you_can_store_} ${max} ${translations[locale].component.digital_assets_modal.digital_assets_to_}`
-        );
-        setIsLoading({
-          ...isLoading,
-          update: false,
-        });
-        restricted = true;
-      }
-    } else {
-      restricted = false;
-    }
-
-    return restricted;
   };
 
   const onSubmitAddDigitalAssets = async (event) => {
@@ -355,16 +320,7 @@ const DigitalAssetsModal = ({ keyType = 'add' }) => {
       });
 
       if (keyType == 'add') {
-        checkRestriction().then(async (restricted) => {
-          if (restricted == false) {
-            await addDigitalAssets();
-          } else {
-            setIsLoading({
-              ...isLoading,
-              update: false,
-            });
-          }
-        });
+        await addDigitalAssets();
       }
       if (keyType == 'edit') {
         await editDigitalAssets();
@@ -594,342 +550,337 @@ const DigitalAssetsModal = ({ keyType = 'add' }) => {
   };
 
   return (
-    <div class="modal fade" id="digital-assets-modal">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header border-0">
-            <Image
-              src="images/flag-icon.svg"
-              alt="image"
-              width={0}
-              height={0}
-              sizes="100vw"
-              style={{ width: 40, height: 40 }}
-            />
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+    <Modal
+      show={isModalOpen.assets}
+      onHide={() => {
+        toggleModal('assets');
+        clearSelectedItem();
+      }}
+    >
+      <Modal.Header closeButton>
+        <Modal.Title>
+          <Image
+            src="images/flag-icon.svg"
+            alt="image"
+            width={0}
+            height={0}
+            sizes="100vw"
+            style={{ width: 40, height: 40 }}
+          />
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <div class="mb-0 modal-title-01">
+          {keyType == 'edit'
+            ? instructionTypeConfig[keyType][
+                selectedItem?.instructions_after_death
+              ]?.title
+            : instructionTypeConfig[keyType][tempData.assets.instructionType]
+                ?.title}
+        </div>
+        <div class="modal-subtitle-01">
+          {keyType == 'edit'
+            ? instructionTypeConfig[keyType][
+                selectedItem?.instructions_after_death
+              ]?.description
+            : instructionTypeConfig[keyType][tempData.assets.instructionType]
+                ?.description}
+        </div>
+        {isLoading.content ? (
+          <div class="text-center mt-5 mb-5">
+            <Loading loading={true} />
           </div>
-          <div class="modal-body">
-            <div class="mb-0 modal-title-01">
-              {keyType == 'edit'
-                ? instructionTypeConfig[keyType][
-                    selectedItem?.instructions_after_death
-                  ]?.title
-                : instructionTypeConfig[keyType][
-                    tempData.digitalAssets.instructionType
-                  ]?.title}
-            </div>
-            <div class="modal-subtitle-01">
-              {keyType == 'edit'
-                ? instructionTypeConfig[keyType][
-                    selectedItem?.instructions_after_death
-                  ]?.description
-                : instructionTypeConfig[keyType][
-                    tempData.digitalAssets.instructionType
-                  ]?.description}
-            </div>
-            {isLoading.content ? (
-              <div class="text-center mt-5 mb-5">
-                <Loading loading={true} />
-              </div>
+        ) : (
+          ''
+        )}
+        {keyType == 'add' ? featuredIconList() : ''}
+        <form onSubmit={onSubmitAddDigitalAssets}>
+          <div class="form-field-wrapper mb-3">
+            <label class="form-label-01">
+              {
+                instructionTypeConfig[keyType][tempData.assets.instructionType]
+                  ?.actionFormLabel
+              }
+            </label>
+            {keyType == 'add' ? (
+              <>
+                <Select
+                  instanceId={uniqueId}
+                  isMulti
+                  value={mutiselectData.platform.selected}
+                  options={getBodyData()}
+                  onChange={(newValues) => {
+                    handleChangeMultiSelect({
+                      keyName: 'platform',
+                      newValues: newValues,
+                    });
+                  }}
+                  getOptionLabel={getOptionLabelWithIcon}
+                  getOptionValue={(option) => option.label}
+                />
+                <span class="form-under-label-01">
+                  <Image
+                    src="images/small-plus.svg"
+                    alt="image"
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    style={{ width: 17, height: 17 }}
+                    class="me-1"
+                  />
+                  {
+                    translations[locale].component.digital_assets_modal
+                      .Cannot_find_your_
+                  }{' '}
+                  <b
+                    class="text-primary pointer-on-hover"
+                    onClick={() => {
+                      handleChangeMultiSelect({
+                        keyName: 'platform',
+                        newValues: {
+                          isCustom: true,
+                          platformName: '',
+                          websiteUrl: '',
+                          amount: '',
+                          value: '',
+                        },
+                      });
+                    }}
+                  >
+                    {
+                      translations[locale].component.digital_assets_modal
+                        .add_a_new_
+                    }
+                  </b>
+                </span>
+              </>
             ) : (
               ''
             )}
-            {keyType == 'add' ? featuredIconList() : ''}
-            <form onSubmit={onSubmitAddDigitalAssets}>
-              <div class="form-field-wrapper mb-3">
-                <label class="form-label-01">
-                  {
-                    instructionTypeConfig[keyType][
-                      tempData.digitalAssets.instructionType
-                    ]?.actionFormLabel
-                  }
+          </div>
+          {mutiselectData.platform.selected?.map((item, index) => {
+            return (
+              <div class="mb-3 card card-muted-01" key={index}>
+                <label class="d-flex align-items-center">
+                  <img
+                    loading="lazy"
+                    src={
+                      item?.icon
+                        ? `data:image/svg+xml,${encodeURIComponent(item.icon)}`
+                        : '/images/Displacement-p-500.png'
+                    }
+                    alt=""
+                    class="avatar-8 me-2"
+                    style={{ width: 40, height: 40 }}
+                  />{' '}
+                  <span class="rounded-icon-title-01">
+                    {item?.label ? item.label : 'Platform'}
+                  </span>
                 </label>
-                {keyType == 'add' ? (
+                {keyType == 'edit' ? (
+                  <div class="form-field-wrapper mt-2">
+                    <label
+                      htmlFor={`input-${item.value}-instruction-after-death`}
+                      class="form-label-01"
+                    >
+                      Instruction After Death
+                    </label>
+                    <select
+                      id={`input-${item.value}-instruction-after-death`}
+                      class="form-select"
+                      value={item.instructionsAfterDeath}
+                      onChange={(event) =>
+                        handleMultiSelectInputChange(
+                          index,
+                          event.target.value,
+                          'platform',
+                          'instructionsAfterDeath'
+                        )
+                      }
+                      required
+                    >
+                      <option disabled selected value="">
+                        Select...
+                      </option>
+                      {instructionsAfterDeath(
+                        contextApiData?.profile?.data?.religion
+                      ).map((item) => (
+                        <option key={item.value} value={item.value}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                ) : (
+                  ''
+                )}
+                {item?.isCustom ? (
                   <>
-                    <Select
-                      instanceId={uniqueId}
-                      isMulti
-                      value={mutiselectData.platform.selected}
-                      options={getBodyData()}
-                      onChange={(newValues) => {
-                        handleChangeMultiSelect({
-                          keyName: 'platform',
-                          newValues: newValues,
-                        });
-                      }}
-                      getOptionLabel={getOptionLabelWithIcon}
-                      getOptionValue={(option) => option.label}
-                    />
-                    <span class="form-under-label-01">
-                      <Image
-                        src="images/small-plus.svg"
-                        alt="image"
-                        width={0}
-                        height={0}
-                        sizes="100vw"
-                        style={{ width: 17, height: 17 }}
-                        class="me-1"
-                      />
-                      {
-                        translations[locale].component.digital_assets_modal
-                          .Cannot_find_your_
-                      }{' '}
-                      <b
-                        class="text-primary pointer-on-hover"
-                        onClick={() => {
-                          handleChangeMultiSelect({
-                            keyName: 'platform',
-                            newValues: {
-                              isCustom: true,
-                              platformName: '',
-                              websiteUrl: '',
-                              amount: '',
-                              value: '',
-                            },
-                          });
-                        }}
+                    <div class="form-field-wrapper mt-2">
+                      <label
+                        htmlFor={`input-${item.value}-new-service-platform-name`}
+                        class="form-label-01"
                       >
                         {
                           translations[locale].component.digital_assets_modal
-                            .add_a_new_
+                            .service_provider
                         }
-                      </b>
-                    </span>
+                      </label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id={`input-${item.value}-new-service-platform-name`}
+                        value={item?.platformName}
+                        onChange={(event) =>
+                          handleMultiSelectInputChange(
+                            index,
+                            event.target.value,
+                            'platform',
+                            'platformName'
+                          )
+                        }
+                        required
+                      />
+                    </div>
+                    <div class="form-field-wrapper mt-2">
+                      <label
+                        htmlFor={`input-${item.value}-new-service-platform-url`}
+                        class="form-label-01"
+                      >
+                        {
+                          translations[locale].component.digital_assets_modal
+                            .website_url
+                        }
+                      </label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id={`input-${item.value}-new-service-platform-url`}
+                        value={item?.websiteUrl}
+                        onChange={(event) =>
+                          handleMultiSelectInputChange(
+                            index,
+                            event.target.value,
+                            'platform',
+                            'websiteUrl'
+                          )
+                        }
+                        required
+                      />
+                    </div>
                   </>
                 ) : (
                   ''
                 )}
-              </div>
-              {mutiselectData.platform.selected?.map((item, index) => {
-                return (
-                  <div class="mb-3 card card-muted-01" key={index}>
-                    <label class="d-flex align-items-center">
-                      <img
-                        loading="lazy"
-                        src={
-                          item?.icon
-                            ? `data:image/svg+xml,${encodeURIComponent(
-                                item.icon
-                              )}`
-                            : '/images/Displacement-p-500.png'
-                        }
-                        alt=""
-                        class="avatar-8 me-2"
-                        style={{ width: 40, height: 40 }}
-                      />{' '}
-                      <span class="rounded-icon-title-01">
-                        {item?.label ? item.label : 'Platform'}
-                      </span>
-                    </label>
-                    {keyType == 'edit' ? (
-                      <div class="form-field-wrapper mt-2">
-                        <label
-                          htmlFor={`input-${item.value}-instruction-after-death`}
-                          class="form-label-01"
-                        >
-                          Instruction After Death
-                        </label>
-                        <select
-                          id={`input-${item.value}-instruction-after-death`}
-                          class="form-select"
-                          value={item.instructionsAfterDeath}
-                          onChange={(event) =>
-                            handleMultiSelectInputChange(
-                              index,
-                              event.target.value,
-                              'platform',
-                              'instructionsAfterDeath'
-                            )
-                          }
-                          required
-                        >
-                          <option disabled selected value="">
-                            Select...
-                          </option>
-                          {instructionsAfterDeath().map((item) => (
-                            <option key={item.value} value={item.value}>
-                              {item.name}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    ) : (
-                      ''
-                    )}
-                    {item?.isCustom ? (
-                      <>
-                        <div class="form-field-wrapper mt-2">
-                          <label
-                            htmlFor={`input-${item.value}-new-service-platform-name`}
-                            class="form-label-01"
-                          >
-                            {
-                              translations[locale].component
-                                .digital_assets_modal.service_provider
-                            }
-                          </label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            id={`input-${item.value}-new-service-platform-name`}
-                            value={item?.platformName}
-                            onChange={(event) =>
-                              handleMultiSelectInputChange(
-                                index,
-                                event.target.value,
-                                'platform',
-                                'platformName'
-                              )
-                            }
-                            required
-                          />
-                        </div>
-                        <div class="form-field-wrapper mt-2">
-                          <label
-                            htmlFor={`input-${item.value}-new-service-platform-url`}
-                            class="form-label-01"
-                          >
-                            {
-                              translations[locale].component
-                                .digital_assets_modal.website_url
-                            }
-                          </label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            id={`input-${item.value}-new-service-platform-url`}
-                            value={item?.websiteUrl}
-                            onChange={(event) =>
-                              handleMultiSelectInputChange(
-                                index,
-                                event.target.value,
-                                'platform',
-                                'websiteUrl'
-                              )
-                            }
-                            required
-                          />
-                        </div>
-                      </>
-                    ) : (
-                      ''
-                    )}
-                    <div class="form-field-wrapper mt-2">
-                      <label
-                        htmlFor={`input-platform-${item.value}-estimate-value`}
-                        class="form-label-01"
-                      >
-                        Estimation Value
-                      </label>
-                      <div class="input-group">
-                        <div class="input-group-text">RM</div>
-                        <input
-                          type="number"
-                          step="0.01"
-                          class="form-control"
-                          id={`input-platform-${item.value}-estimate-value`}
-                          value={item.amount}
-                          onChange={(event) =>
-                            handleMultiSelectInputChange(
-                              index,
-                              event.target.value,
-                              'platform',
-                              'amount'
-                            )
-                          }
-                          required
-                        />
-                      </div>
-                    </div>
-                    <div class="form-field-wrapper mt-2">
-                      <label
-                        htmlFor={`input-${item.value}-protection`}
-                        class="form-label-01"
-                      >
-                        Is this asset protected under insurance or takaful?
-                      </label>
-                      <select
-                        id={`input-${item.value}-protection`}
-                        class="form-select"
-                        value={item.protection}
-                        onChange={(event) =>
-                          handleMultiSelectInputChange(
-                            index,
-                            event.target.value,
-                            'platform',
-                            'protection'
-                          )
-                        }
-                        required
-                      >
-                        <option disabled selected value="">
-                          Select...
-                        </option>
-                        {trueFalse().map((item) => (
-                          <option key={item.value} value={item.value}>
-                            {item.name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    <div class="form-field-wrapper mt-2">
-                      <label
-                        htmlFor={`input-${item.value}-remarks`}
-                        class="form-label-01"
-                      >
-                        Anything else you would like to share?
-                      </label>
-                      <textarea
-                        class="form-control"
-                        id={`input-${item.value}-remarks`}
-                        value={item.remarks}
-                        onChange={(event) =>
-                          handleMultiSelectInputChange(
-                            index,
-                            event.target.value,
-                            'platform',
-                            'remarks'
-                          )
-                        }
-                      />
-                    </div>
-                  </div>
-                );
-              })}
-              <div class="mt-3">
-                <div class="d-grid gap-2">
-                  <button type="submit" class="btn btn-primary btn-text">
-                    <Loading
-                      title={digitalAssetsTypeName[keyType].button_title}
-                      loading={isLoading.update}
+                <div class="form-field-wrapper mt-2">
+                  <label
+                    htmlFor={`input-platform-${item.value}-estimate-value`}
+                    class="form-label-01"
+                  >
+                    Estimation Value
+                  </label>
+                  <div class="input-group">
+                    <div class="input-group-text">RM</div>
+                    <input
+                      type="number"
+                      step="0.01"
+                      class="form-control"
+                      id={`input-platform-${item.value}-estimate-value`}
+                      value={item.amount}
+                      onChange={(event) =>
+                        handleMultiSelectInputChange(
+                          index,
+                          event.target.value,
+                          'platform',
+                          'amount'
+                        )
+                      }
+                      required
                     />
-                  </button>
-                  {digitalAssetsTypeName[keyType].allow_delete ? (
-                    <button
-                      type="button"
-                      class="btn btn-light btn-text"
-                      onClick={deleteDigitalAssets}
-                    >
-                      <Loading
-                        title={translations[locale].global.delete}
-                        loading={isLoading.delete}
-                      />
-                    </button>
-                  ) : (
-                    ''
-                  )}
+                  </div>
+                </div>
+                <div class="form-field-wrapper mt-2">
+                  <label
+                    htmlFor={`input-${item.value}-protection`}
+                    class="form-label-01"
+                  >
+                    Is this asset protected under insurance or takaful?
+                  </label>
+                  <select
+                    id={`input-${item.value}-protection`}
+                    class="form-select"
+                    value={item.protection}
+                    onChange={(event) =>
+                      handleMultiSelectInputChange(
+                        index,
+                        event.target.value,
+                        'platform',
+                        'protection'
+                      )
+                    }
+                    required
+                  >
+                    <option disabled selected value="">
+                      Select...
+                    </option>
+                    {trueFalse().map((item) => (
+                      <option key={item.value} value={item.value}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div class="form-field-wrapper mt-2">
+                  <label
+                    htmlFor={`input-${item.value}-remarks`}
+                    class="form-label-01"
+                  >
+                    Anything else you would like to share?
+                  </label>
+                  <textarea
+                    class="form-control"
+                    id={`input-${item.value}-remarks`}
+                    value={item.remarks}
+                    onChange={(event) =>
+                      handleMultiSelectInputChange(
+                        index,
+                        event.target.value,
+                        'platform',
+                        'remarks'
+                      )
+                    }
+                  />
                 </div>
               </div>
-            </form>
+            );
+          })}
+          <div class="mt-3">
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary btn-text">
+                <Loading
+                  title={digitalAssetsTypeName[keyType].button_title}
+                  loading={isLoading.update}
+                />
+              </button>
+              {digitalAssetsTypeName[keyType].allow_delete ? (
+                <button
+                  type="button"
+                  class="btn btn-light btn-text"
+                  onClick={deleteDigitalAssets}
+                >
+                  <Loading
+                    title={translations[locale].global.delete}
+                    loading={isLoading.delete}
+                  />
+                </button>
+              ) : (
+                ''
+              )}
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
+        </form>
+      </Modal.Body>
+    </Modal>
   );
 };
 

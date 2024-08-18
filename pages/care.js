@@ -30,16 +30,28 @@ const Care = () => {
     { title: 'Follow-Ups Available' },
   ];
 
+  const checkRestriction = (keyName) => {
+    const access =
+      contextApiData.account.data?.products?.access_control?.pages?.care[
+        keyName
+      ]?.access;
+    return access;
+  };
+
   const careUser = [
     {
       name: 'Arham Merican (Estate Planning Consultant)',
       imageUrl: 'images/avatar-arham.png',
       bio: 'Registered Shariah Advisor under the Securities Commission Malaysia, with over eight years of experience in the Financial industry. He has relevant expertise in estate planning, developing Hibah Amanah for CDS Account for Bursa Malaysia and his personal experience in managing the estate of his late father.',
       onClick: () => {
-        window.open(
-          'https://cal.com/sampul/sampul-estate-planning-consultant-by-arham-merican',
-          '_blank'
-        );
+        if (checkRestriction('appointment')) {
+          window.open(
+            'https://cal.com/sampul/sampul-estate-planning-consultant-by-arham-merican',
+            '_blank'
+          );
+        } else {
+          toast.error(translations[locale].extra_wishes.you_need_to_);
+        }
       },
     },
     // {

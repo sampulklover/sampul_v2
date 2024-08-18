@@ -3,15 +3,15 @@ import { systemLanguages } from '../constant/enum';
 import translations from '../constant/translations';
 import { useApi } from '../context/api';
 import { useLocale } from '../context/locale';
-import LogoutModal from './LogoutModal';
+import { useModal } from '../context/modal';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import toast from 'react-hot-toast';
 
 const SideBar = ({ children }) => {
   const router = useRouter();
   const { locale, changeLocale } = useLocale();
   const { contextApiData } = useApi();
+  const { toggleModal } = useModal();
 
   useEffect(() => {
     if (contextApiData.profile.data?.system_language) {
@@ -295,11 +295,7 @@ const SideBar = ({ children }) => {
       page: '',
       display: true,
       action: () => {
-        try {
-          $('#logout-modal')?.modal('show');
-        } catch (error) {
-          toast.error(translations[locale].global.something_went_wrong_);
-        }
+        toggleModal('logout');
       },
       icon: (
         <svg
@@ -323,7 +319,6 @@ const SideBar = ({ children }) => {
 
   return (
     <>
-      <LogoutModal />
       <div>
         <div class="row flex-nowrap">
           <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 align-self-start align-self-stretch nav-bg-custom">

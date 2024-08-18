@@ -2,15 +2,15 @@ import { bodiesCategory, instructionsAfterDeath } from '../constant/enum';
 import translations from '../constant/translations';
 import { useApi } from '../context/api';
 import { useLocale } from '../context/locale';
+import { useModal } from '../context/modal';
+import { useTempData } from '../context/tempData';
 import Loading from './Laoding';
 
-const DigitalAssetsCard = ({
-  typeName = '',
-  editFunction,
-  searchInput = '',
-}) => {
+const DigitalAssetsCard = ({ typeName = '', searchInput = '' }) => {
   const { contextApiData } = useApi();
   const { locale } = useLocale();
+  const { isModalOpen, toggleModal } = useModal();
+  const { tempData, setValueTempData } = useTempData();
 
   if (contextApiData.digitalAssets.isLoading == false) {
     if (
@@ -85,7 +85,12 @@ const DigitalAssetsCard = ({
                   key={index}
                   class="col"
                   onClick={() => {
-                    editFunction(item);
+                    toggleModal('assets');
+                    setValueTempData('assets', {
+                      ...tempData.assets,
+                      key: item ? 'edit' : 'add',
+                      selectedItem: item ? item : null,
+                    });
                   }}
                 >
                   <div>
@@ -258,23 +263,6 @@ const DigitalAssetsCard = ({
               </div>
             </div>
           </div>
-          {/* <div class="mt-3">
-            <button
-              type="button"
-              class="btn btn-primary btn-text"
-              onClick={() => {
-                editFunction(null);
-              }}
-            >
-              <Loading
-                title={
-                  translations[locale].component.digital_assets_card
-                    .add_digital_assets
-                }
-                loading={false}
-              />
-            </button>
-          </div> */}
         </div>
       </>
     );

@@ -3,17 +3,19 @@ import { belovedLevel, beneficiaryTypes, countries } from '../constant/enum';
 import translations from '../constant/translations';
 import { useApi } from '../context/api';
 import { useLocale } from '../context/locale';
+import { useModal } from '../context/modal';
+import { useTempData } from '../context/tempData';
 import { deleteImage, replaceOrAddImage } from '../utils/helpers';
 import { supabase } from '../utils/supabase';
 import Loading from './Laoding';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import Modal from 'react-bootstrap/Modal';
 import toast from 'react-hot-toast';
 import { Tooltip } from 'react-tooltip';
 import { v4 as uuidv4 } from 'uuid';
 
 const getElements = () => {
-  // Note: if you make changes into beloved_modal elements, do apply same changes into the beloved.js page.
   // Note: align also with clearForms() function
   const inputElements = {
     beloved_modal: {
@@ -37,9 +39,15 @@ const getElements = () => {
   return inputElements;
 };
 
-const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
+const BelovedModal = () => {
   const { contextApiData, getBeloved, getDigitalAssets } = useApi();
   const { locale } = useLocale();
+  const { isModalOpen, toggleModal } = useModal();
+  const { tempData, setValueTempData } = useTempData();
+
+  const keyType = tempData.beloved.key;
+  const belovedType = tempData.beloved.category;
+  const selectedItem = tempData.beloved.selectedItem;
 
   const [isLoading, setIsLoading] = useState({
     update: false,
@@ -56,11 +64,42 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
     url: addUserImg,
   });
 
+  useEffect(() => {
+    if (isModalOpen.beloved && selectedItem) {
+      var element = getElements().beloved_modal;
+
+      for (const key in element) {
+        if (key == 'image_path') {
+          element[key].src = addUserImg;
+        } else {
+          element[key].value = '';
+        }
+      }
+
+      if (selectedItem) {
+        for (const key in element) {
+          element[key].value = selectedItem[key];
+
+          if (key == 'image_path') {
+            const imageUrl = selectedItem[key]
+              ? `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${selectedItem[key]}`
+              : addUserImg;
+            element.image_path.src = imageUrl;
+          }
+        }
+      } else {
+        if (category) {
+          element.type.value = category;
+        }
+      }
+    }
+  }, [isModalOpen.beloved]);
+
   const resendEmail = async () => {
     const returnBeloved = selectedItem;
     const returnInvite = selectedItem.beloved_invites[0];
 
-    if (belovedConfig[belovedType].verifyEmail) {
+    if (belovedConfig[belovedType]?.verifyEmail) {
       if (returnBeloved?.email) {
         await sendInviteBeloveEmail({
           to_email: returnBeloved.email,
@@ -75,8 +114,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
           invite_uuid: returnInvite.invite_uuid,
           beloved_id: returnBeloved.id,
         });
-
-        $('#beloved-modal')?.modal('hide');
+        toggleModal('beloved');
         setTimeout(() => {
           clearForms();
           getBeloved();
@@ -366,8 +404,8 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
 
       if (
         createMore.status == true &&
-        belovedConfig[belovedType].current_user?.length + 1 !==
-          belovedConfig[belovedType].max_create_more
+        belovedConfig[belovedType]?.current_user?.length + 1 !==
+          belovedConfig[belovedType]?.max_create_more
       ) {
         setCreateMore((prev) => ({
           ...prev,
@@ -380,7 +418,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
           }));
         }, 1000);
       } else {
-        $('#beloved-modal')?.modal('hide');
+        toggleModal('beloved');
       }
 
       setSelectedImage({
@@ -388,7 +426,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
         url: addUserImg,
       });
 
-      if (belovedConfig[belovedType].verifyEmail) {
+      if (belovedConfig[belovedType]?.verifyEmail) {
         if (returnBeloved?.email) {
           await sendInviteBeloveEmail({
             to_email: returnBeloved.email,
@@ -508,7 +546,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
       isUpdateByReturnId: true,
     });
 
-    if (belovedConfig[belovedType].verifyEmail) {
+    if (belovedConfig[belovedType]?.verifyEmail) {
       var element = getElements().beloved_modal;
 
       if (element.email.value !== selectedItem?.beloved_invites[0]?.email) {
@@ -541,7 +579,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
       }
     }
 
-    $('#beloved-modal')?.modal('hide');
+    toggleModal('beloved');
     toast.success(
       translations[locale].component.beloved_modal.successfully_updated
     );
@@ -599,7 +637,7 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
         returnData: returnData,
       });
 
-      $('#beloved-modal')?.modal('hide');
+      toggleModal('beloved');
       toast.success(
         translations[locale].component.beloved_modal.successfully_deleted
       );
@@ -644,71 +682,69 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
   };
 
   return (
-    <div class="modal fade" id="beloved-modal">
-      <div
-        class={`modal-dialog modal-dialog-centered ${
-          createMore.animated ? 'pulse-modal' : ''
-        }`}
-      >
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">
-              {translations[locale].component.beloved_modal.beloved}
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div class="modal-header-2 mb-3">
-              <div class="content-32">
-                <div class="smpl-icon-featured-outline-large">
-                  <div class="uui-icon-1x1-xsmall-2 w-embed">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M19 21V15M16 18H22M12 15H8C6.13623 15 5.20435 15 4.46927 15.3045C3.48915 15.7105 2.71046 16.4892 2.30448 17.4693C2 18.2044 2 19.1362 2 21M15.5 3.29076C16.9659 3.88415 18 5.32131 18 7C18 8.67869 16.9659 10.1159 15.5 10.7092M13.5 7C13.5 9.20914 11.7091 11 9.5 11C7.29086 11 5.5 9.20914 5.5 7C5.5 4.79086 7.29086 3 9.5 3C11.7091 3 13.5 4.79086 13.5 7Z"
-                        stroke="#3118D3"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      ></path>
-                    </svg>
-                  </div>
-                </div>
-                <div class="text-and-supporting-text-18">
-                  <div class="text-lg-semibold-4">
-                    {belovedConfig[belovedType].title}
-                  </div>
-                  <div class="text-sm-regular-6">
-                    {belovedConfig[belovedType].subtitle}
-                  </div>
-                </div>
+    <Modal
+      show={isModalOpen.beloved}
+      onHide={() => {
+        toggleModal('beloved');
+      }}
+      class={`modal-dialog modal-dialog-centered ${
+        createMore.animated ? 'pulse-modal' : ''
+      }`}
+    >
+      <Modal.Header closeButton>
+        <Modal.Title>
+          <h5 class="modal-title">
+            {translations[locale].component.beloved_modal.beloved}
+          </h5>
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <div class="modal-header-2 mb-3">
+          <div class="content-32">
+            <div class="smpl-icon-featured-outline-large">
+              <div class="uui-icon-1x1-xsmall-2 w-embed">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19 21V15M16 18H22M12 15H8C6.13623 15 5.20435 15 4.46927 15.3045C3.48915 15.7105 2.71046 16.4892 2.30448 17.4693C2 18.2044 2 19.1362 2 21M15.5 3.29076C16.9659 3.88415 18 5.32131 18 7C18 8.67869 16.9659 10.1159 15.5 10.7092M13.5 7C13.5 9.20914 11.7091 11 9.5 11C7.29086 11 5.5 9.20914 5.5 7C5.5 4.79086 7.29086 3 9.5 3C11.7091 3 13.5 4.79086 13.5 7Z"
+                    stroke="#3118D3"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  ></path>
+                </svg>
               </div>
-              <div class="padding-bottom-3"></div>
             </div>
-            <form onSubmit={onSubmitAddBeloved}>
-              <div class="form-field-wrapper mb-3">
-                <label htmlFor={`input-beloved-name`} class="uui-field-label">
-                  {translations[locale].component.beloved_modal.name_nickname}
-                </label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id={`input-beloved-name`}
-                  placeholder="e.g. Along, Angah, Acik"
-                  required
-                />
+            <div class="text-and-supporting-text-18">
+              <div class="text-lg-semibold-4">
+                {belovedConfig[belovedType]?.title}
               </div>
-              {/* <div class="form-field-wrapper">
+              <div class="text-sm-regular-6">
+                {belovedConfig[belovedType]?.subtitle}
+              </div>
+            </div>
+          </div>
+          <div class="padding-bottom-3"></div>
+        </div>
+        <form onSubmit={onSubmitAddBeloved}>
+          <div class="form-field-wrapper mb-3">
+            <label htmlFor={`input-beloved-name`} class="uui-field-label">
+              {translations[locale].component.beloved_modal.name_nickname}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              id={`input-beloved-name`}
+              placeholder="e.g. Along, Angah, Acik"
+              required
+            />
+          </div>
+          {/* <div class="form-field-wrapper">
                   <label
                     htmlFor={`input-beloved-nric-no`}
                     class="uui-field-label"
@@ -723,163 +759,150 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                   />
                 </div>
                  */}
-              <div class="form-field-wrapper mb-3">
-                <label htmlFor={`input-beloved-email`} class="uui-field-label">
-                  {translations[locale].component.beloved_modal.email}
-                </label>
-                <input
-                  type="email"
-                  class="form-control"
-                  id={`input-beloved-email`}
-                  required={belovedConfig[belovedType].email_required}
-                />
-                <small>{belovedConfig[belovedType].email_status}</small>
-              </div>
-              <div
-                class="form-field-wrapper mb-3"
-                style={{
-                  display: belovedConfig[belovedType].display_phone_number,
-                }}
-              >
-                <label
-                  htmlFor={`input-beloved-phone-no`}
-                  class="uui-field-label"
-                >
-                  {translations[locale].component.beloved_modal.phone_number}
-                </label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id={`input-beloved-phone-no`}
-                  required={belovedConfig[belovedType].phone_number_required}
-                />
-              </div>
-              <div
-                class="form-field-wrapper mb-3"
-                style={{
-                  display: belovedConfig[belovedType].display_address,
-                }}
-              >
-                <label
-                  htmlFor="input-beloved-address-1"
-                  class="uui-field-label"
-                >
-                  {translations[locale].component.beloved_modal.address}
-                </label>
-                <div>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="input-beloved-address-1"
-                    placeholder={
-                      translations[locale].component.beloved_modal.address_1
-                    }
-                  />
+          <div class="form-field-wrapper mb-3">
+            <label htmlFor={`input-beloved-email`} class="uui-field-label">
+              {translations[locale].component.beloved_modal.email}
+            </label>
+            <input
+              type="email"
+              class="form-control"
+              id={`input-beloved-email`}
+              required={belovedConfig[belovedType]?.email_required}
+            />
+            <small>{belovedConfig[belovedType]?.email_status}</small>
+          </div>
+          <div
+            class="form-field-wrapper mb-3"
+            style={{
+              display: belovedConfig[belovedType]?.display_phone_number,
+            }}
+          >
+            <label htmlFor={`input-beloved-phone-no`} class="uui-field-label">
+              {translations[locale].component.beloved_modal.phone_number}
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              id={`input-beloved-phone-no`}
+              required={belovedConfig[belovedType]?.phone_number_required}
+            />
+          </div>
+          <div
+            class="form-field-wrapper mb-3"
+            style={{
+              display: belovedConfig[belovedType]?.display_address,
+            }}
+          >
+            <label htmlFor="input-beloved-address-1" class="uui-field-label">
+              {translations[locale].component.beloved_modal.address}
+            </label>
+            <div>
+              <input
+                type="text"
+                class="form-control"
+                id="input-beloved-address-1"
+                placeholder={
+                  translations[locale].component.beloved_modal.address_1
+                }
+              />
+              <input
+                type="text"
+                class="form-control mt-2"
+                id="input-beloved-address-2"
+                placeholder={
+                  translations[locale].component.beloved_modal.address_2
+                }
+              />
+              <div class="form-content-2">
+                <div class="form-field-wrapper">
                   <input
                     type="text"
                     class="form-control mt-2"
-                    id="input-beloved-address-2"
+                    id="input-beloved-city"
                     placeholder={
-                      translations[locale].component.beloved_modal.address_2
+                      translations[locale].component.beloved_modal.city
                     }
                   />
-                  <div class="form-content-2">
-                    <div class="form-field-wrapper">
-                      <input
-                        type="text"
-                        class="form-control mt-2"
-                        id="input-beloved-city"
-                        placeholder={
-                          translations[locale].component.beloved_modal.city
-                        }
-                      />
-                    </div>
-                    <div class="form-field-wrapper mr-2">
-                      <input
-                        type="text"
-                        class="form-control mt-2"
-                        id="input-beloved-postcode"
-                        placeholder={
-                          translations[locale].component.beloved_modal.postcode
-                        }
-                      />
-                    </div>
-                  </div>
-                  <div class="form-content-2 mb-3">
-                    <div class="form-field-wrapper">
-                      <input
-                        type="text"
-                        class="form-control mt-2"
-                        id="input-beloved-state"
-                        placeholder={
-                          translations[locale].component.beloved_modal.state
-                        }
-                      />
-                    </div>
-                    <div class="form-field-wrapper">
-                      <select
-                        id="select-beloved-country"
-                        class="form-select mt-2"
-                      >
-                        {countries().map((item) => (
-                          <option key={item.value} value={item.value}>
-                            {item.name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
+                </div>
+                <div class="form-field-wrapper mr-2">
+                  <input
+                    type="text"
+                    class="form-control mt-2"
+                    id="input-beloved-postcode"
+                    placeholder={
+                      translations[locale].component.beloved_modal.postcode
+                    }
+                  />
                 </div>
               </div>
-              <div class="mb-3">
-                <div
-                  class="form-field-wrapper"
-                  style={{ display: belovedConfig[belovedType].display_level }}
-                >
-                  <label
-                    htmlFor={`select-beloved-level`}
-                    class="uui-field-label"
-                  >
-                    <span
-                      data-tooltip-id="my-tooltip-level"
-                      data-tooltip-html={
-                        belovedConfig[belovedType]?.level_info_tooltip_content
-                      }
-                    >
-                      {translations[locale].component.beloved_modal.level}{' '}
-                      {belovedConfig[belovedType]
-                        ?.level_info_tooltip_content ? (
-                        <i class="bi bi-info-circle"></i>
-                      ) : (
-                        ''
-                      )}
-                    </span>
-                    <Tooltip
-                      id="my-tooltip-level"
-                      place="bottom"
-                      style={{
-                        textAlign: 'justify',
-                        maxWidth: '300px',
-                        backgroundColor: 'black',
-                        color: 'white',
-                        'border-radius': '10px',
-                        'z-index': '10',
-                      }}
-                    />
-                  </label>
-                  <select
-                    id={`select-beloved-level`}
-                    required={belovedConfig[belovedType].level_required}
-                    class="form-select"
-                  >
-                    {belovedConfig[belovedType].beloved_list.map((item) => (
+              <div class="form-content-2 mb-3">
+                <div class="form-field-wrapper">
+                  <input
+                    type="text"
+                    class="form-control mt-2"
+                    id="input-beloved-state"
+                    placeholder={
+                      translations[locale].component.beloved_modal.state
+                    }
+                  />
+                </div>
+                <div class="form-field-wrapper">
+                  <select id="select-beloved-country" class="form-select mt-2">
+                    {countries().map((item) => (
                       <option key={item.value} value={item.value}>
-                        {translations[locale]?.global[item.value]}
+                        {item.name}
                       </option>
                     ))}
                   </select>
                 </div>
-                {/* <div class="form-field-wrapper">
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <div
+              class="form-field-wrapper"
+              style={{ display: belovedConfig[belovedType]?.display_level }}
+            >
+              <label htmlFor={`select-beloved-level`} class="uui-field-label">
+                <span
+                  data-tooltip-id="my-tooltip-level"
+                  data-tooltip-html={
+                    belovedConfig[belovedType]?.level_info_tooltip_content
+                  }
+                >
+                  {translations[locale].component.beloved_modal.level}{' '}
+                  {belovedConfig[belovedType]?.level_info_tooltip_content ? (
+                    <i class="bi bi-info-circle"></i>
+                  ) : (
+                    ''
+                  )}
+                </span>
+                <Tooltip
+                  id="my-tooltip-level"
+                  place="bottom"
+                  style={{
+                    textAlign: 'justify',
+                    maxWidth: '300px',
+                    backgroundColor: 'black',
+                    color: 'white',
+                    'border-radius': '10px',
+                    'z-index': '10',
+                  }}
+                />
+              </label>
+              <select
+                id={`select-beloved-level`}
+                required={belovedConfig[belovedType]?.level_required}
+                class="form-select"
+              >
+                {belovedConfig[belovedType]?.beloved_list.map((item) => (
+                  <option key={item.value} value={item.value}>
+                    {translations[locale]?.global[item.value]}
+                  </option>
+                ))}
+              </select>
+            </div>
+            {/* <div class="form-field-wrapper">
                   <label
                     htmlFor={`select-beloved-relationship`}
                     class="uui-field-label"
@@ -898,76 +921,64 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                     ))}
                   </select>
                 </div> */}
+          </div>
+          <div class="form-content-2 mb-3">
+            <div class="form-field-wrapper" style={{ display: 'none' }}>
+              <label htmlFor={`select-beloved-type`} class="uui-field-label">
+                {translations[locale].component.beloved_modal.beneficiary_type}
+              </label>
+              <select id={`select-beloved-type`} required class="form-select">
+                {beneficiaryTypes().map((item) => (
+                  <option key={item.value} value={item.value}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div class="w-layout-grid settings_component">
+            <div class="text-and-supporting-text-14">
+              <label class="uui-field-label">
+                {translations[locale].component.beloved_modal.profile_photo}
+              </label>
+              <div class="text-size-tiny">
+                {translations[locale].component.beloved_modal.this_will_be}
               </div>
-              <div class="form-content-2 mb-3">
-                <div class="form-field-wrapper" style={{ display: 'none' }}>
-                  <label
-                    htmlFor={`select-beloved-type`}
-                    class="uui-field-label"
-                  >
-                    {
-                      translations[locale].component.beloved_modal
-                        .beneficiary_type
+            </div>
+            <div class="avatar-and-actions">
+              <img
+                loading="lazy"
+                src={selectedImage.url}
+                alt=""
+                class="avatar-7"
+                id="preview-beloved-image"
+                onClick={() => {
+                  document.getElementById('input-beloved-image').click();
+                }}
+              />
+              <input
+                type="file"
+                id="input-beloved-image"
+                accept="image/*"
+                style={{ display: 'none' }}
+                onChange={(event) => {
+                  try {
+                    let imageURL = URL.createObjectURL(event.target.files[0]);
+                    if (imageURL) {
+                      setSelectedImage({
+                        data: event.target.files[0],
+                        url: imageURL,
+                      });
                     }
-                  </label>
-                  <select
-                    id={`select-beloved-type`}
-                    required
-                    class="form-select"
-                  >
-                    {beneficiaryTypes().map((item) => (
-                      <option key={item.value} value={item.value}>
-                        {item.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-              <div class="w-layout-grid settings_component">
-                <div class="text-and-supporting-text-14">
-                  <label class="uui-field-label">
-                    {translations[locale].component.beloved_modal.profile_photo}
-                  </label>
-                  <div class="text-size-tiny">
-                    {translations[locale].component.beloved_modal.this_will_be}
-                  </div>
-                </div>
-                <div class="avatar-and-actions">
-                  <img
-                    loading="lazy"
-                    src={selectedImage.url}
-                    alt=""
-                    class="avatar-7"
-                    id="preview-beloved-image"
-                    onClick={() => {
-                      document.getElementById('input-beloved-image').click();
-                    }}
-                  />
-                  <input
-                    type="file"
-                    id="input-beloved-image"
-                    accept="image/*"
-                    style={{ display: 'none' }}
-                    onChange={(event) => {
-                      try {
-                        let imageURL = URL.createObjectURL(
-                          event.target.files[0]
-                        );
-                        if (imageURL) {
-                          setSelectedImage({
-                            data: event.target.files[0],
-                            url: imageURL,
-                          });
-                        }
-                      } catch {
-                        console.log('Cancelled');
-                      }
-                    }}
-                  />
-                </div>
-              </div>
+                  } catch {
+                    console.log('Cancelled');
+                  }
+                }}
+              />
+            </div>
+          </div>
 
-              {/* <>
+          {/* <>
                 <div class="mt-4">
                   <div class="form-check">
                     <input
@@ -1042,90 +1053,80 @@ const BelovedModal = ({ keyType, belovedType, selectedItem }) => {
                 </div>
               </> */}
 
-              <div class="mt-3">
-                <div class="form-check">
+          <div class="mt-3">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="checkbox-beloved"
+                required
+              />
+              <label class="form-check-label" htmlFor="flexCheckChecked">
+                {translations[locale].component.beloved_modal.you_agree_to}{' '}
+                <Link href="policy" target="_blank">
+                  {translations[locale].component.beloved_modal.privacy_policy_}
+                </Link>
+              </label>
+            </div>
+          </div>
+          <div class="mt-5">
+            {belovedTypeName[keyType]?.show_create_more &&
+            belovedConfig[belovedType]?.current_user?.length + 1 !==
+              belovedConfig[belovedType]?.max_create_more ? (
+              <div className="form-field-wrapper mb-3">
+                <div className="form-check form-switch">
                   <input
-                    class="form-check-input"
+                    className="form-check-input"
                     type="checkbox"
-                    value=""
-                    id="checkbox-beloved"
-                    required
+                    role="switch"
+                    id="checkbox-beloved-create-more"
+                    checked={createMore.status}
+                    onChange={(e) =>
+                      setCreateMore((prev) => ({
+                        ...prev,
+                        status: e.target.checked,
+                      }))
+                    }
                   />
-                  <label class="form-check-label" htmlFor="flexCheckChecked">
-                    {translations[locale].component.beloved_modal.you_agree_to}{' '}
-                    <Link href="policy" target="_blank">
-                      {
-                        translations[locale].component.beloved_modal
-                          .privacy_policy_
-                      }
-                    </Link>
+                  <label
+                    className="form-check-label small"
+                    htmlFor="checkbox-beloved-create-more"
+                  >
+                    {translations[locale].component.beloved_modal.create_more}
                   </label>
                 </div>
               </div>
-              <div class="mt-5">
-                {belovedTypeName[keyType].show_create_more &&
-                belovedConfig[belovedType].current_user?.length + 1 !==
-                  belovedConfig[belovedType].max_create_more ? (
-                  <div className="form-field-wrapper mb-3">
-                    <div className="form-check form-switch">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        role="switch"
-                        id="checkbox-beloved-create-more"
-                        checked={createMore.status}
-                        onChange={(e) =>
-                          setCreateMore((prev) => ({
-                            ...prev,
-                            status: e.target.checked,
-                          }))
-                        }
-                      />
-                      <label
-                        className="form-check-label small"
-                        htmlFor="checkbox-beloved-create-more"
-                      >
-                        {
-                          translations[locale].component.beloved_modal
-                            .create_more
-                        }
-                      </label>
-                    </div>
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </div>
-
-              <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary btn-text">
-                  <Loading
-                    title={belovedTypeName[keyType].button_title}
-                    loading={isLoading.update}
-                  />
-                </button>
-                {belovedTypeName[keyType].allow_delete ? (
-                  <button
-                    type="button"
-                    class="btn btn-light btn-text"
-                    onClick={deleteBeloved}
-                  >
-                    <Loading
-                      title={
-                        translations[locale].component.beloved_modal.delete
-                      }
-                      loading={isLoading.delete}
-                    />
-                  </button>
-                ) : (
-                  ''
-                )}
-              </div>
-            </form>
+            ) : (
+              <></>
+            )}
           </div>
-        </div>
-      </div>
-    </div>
+
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary btn-text">
+              <Loading
+                title={belovedTypeName[keyType]?.button_title}
+                loading={isLoading.update}
+              />
+            </button>
+            {belovedTypeName[keyType]?.allow_delete ? (
+              <button
+                type="button"
+                class="btn btn-light btn-text"
+                onClick={deleteBeloved}
+              >
+                <Loading
+                  title={translations[locale].component.beloved_modal.delete}
+                  loading={isLoading.delete}
+                />
+              </button>
+            ) : (
+              ''
+            )}
+          </div>
+        </form>
+      </Modal.Body>
+    </Modal>
   );
 };
 

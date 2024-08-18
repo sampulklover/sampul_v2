@@ -239,9 +239,16 @@ export const ApiProvider = ({ children }) => {
       },
     }));
     try {
-      const data = await getDigitalAssetsApi({
-        uuid: contextApiData.user.data.id,
-      });
+      const { data: data, error: error } = await supabase
+        .from('digital_assets')
+        .select('*')
+        .eq('uuid', contextApiData.user.data.id)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        throw error;
+      }
+
       setContextApiData((prevData) => ({
         ...prevData,
         digitalAssets: {
@@ -250,7 +257,7 @@ export const ApiProvider = ({ children }) => {
         },
       }));
     } catch (error) {
-      console.error(error);
+      toast.error(error.message);
       setContextApiData((prevData) => ({
         ...prevData,
         digitalAssets: {
@@ -259,6 +266,42 @@ export const ApiProvider = ({ children }) => {
         },
       }));
       Sentry.captureException(error);
+    }
+  };
+
+  const addDigitalAssetsApi = async (addData) => {
+    try {
+      const { data, error } = await supabase
+        .from('digital_assets')
+        .insert(addData)
+        .select();
+
+      if (error) {
+        throw error;
+      }
+
+      const { data: data1, error: error1 } = await supabase
+        .from('digital_assets')
+        .select('*')
+        .eq('uuid', contextApiData.user.data.id)
+        .order('created_at', { ascending: false });
+
+      if (error1) {
+        throw error1;
+      }
+
+      setContextApiData((prevData) => ({
+        ...prevData,
+        digitalAssets: {
+          data: data1,
+          isLoading: false,
+        },
+      }));
+      return true;
+    } catch (error) {
+      toast.error(error.message);
+      Sentry.captureException(error);
+      return false;
     }
   };
 
@@ -577,6 +620,7 @@ export const ApiProvider = ({ children }) => {
         getProfile,
         getBodies,
         getDigitalAssets,
+        addDigitalAssetsApi,
         getBeloved,
         getInvites,
         getExtraWishes,

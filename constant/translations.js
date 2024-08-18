@@ -55,7 +55,7 @@ export default {
         failed_to_create_: 'Failed to create payment session',
         subscription_plan: 'Subscription Plan',
         as_you_embark_:
-          'As you embark on your digital wasiat/will planning adventure, you have the flexibility to upgrade your plan at any time. Unlock premium reatures, sun as Frysical Asset, Appointment or Guardian, and Corporate Executor.',
+          'As you embark on your digital wasiat/will planning adventure, you have the flexibility to upgrade your plan at any time. Unlock premium reatures, sun as Physical Asset, Appointment or Guardian, and Corporate Executor.',
         billing: 'Billing',
         manage_your_billing_: 'Manage your billing and payment details',
         the_free_plan_:

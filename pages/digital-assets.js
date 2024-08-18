@@ -8,6 +8,7 @@ import Loading from '../components/Laoding';
 import SideBar from '../components/SideBar';
 import translations from '../constant/translations';
 import { useLocale } from '../context/locale';
+import { useModal } from '../context/modal';
 import { useTempData } from '../context/tempData';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
@@ -15,13 +16,9 @@ import { useState, useEffect } from 'react';
 const DigitalAssets = () => {
   const { locale } = useLocale();
   const router = useRouter();
-  const [digitalAssetsModalType, setDigitalAssetsModalType] = useState({
-    key: 'add',
-  });
 
   const [searchInput, setSearchInput] = useState('');
   const [filteredValue, setFilteredValue] = useState('');
-  const { tempData, setValueTempData } = useTempData();
 
   useEffect(() => {
     const delayTimer = setTimeout(() => {
@@ -33,19 +30,6 @@ const DigitalAssets = () => {
 
   const handleInputChange = (e) => {
     setSearchInput(e.target.value);
-  };
-
-  const digitalAssetsModal = (item) => {
-    $('#digital-assets-modal')?.modal('show');
-
-    setDigitalAssetsModalType({
-      key: item ? 'edit' : 'add',
-    });
-
-    setValueTempData('digitalAssets', {
-      ...tempData.digitalAssets,
-      selectedItem: item ? item : null,
-    });
   };
 
   const tabConfig = [
@@ -127,7 +111,6 @@ const DigitalAssets = () => {
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                   <DigitalAssetsCard
                     typeName={item.type}
-                    editFunction={digitalAssetsModal}
                     searchInput={filteredValue}
                   />
                 </div>
@@ -149,12 +132,7 @@ const DigitalAssets = () => {
             subtitle={`Your assets are an important part of your legacy. Here, you can make thoughtful decisions about how your digital and physical assets will be handled when you're no longer around. Simply choose an option below and provide the details. It's quick, easy, and gives you peace of mind.`}
             imageSrc="images/treasure-chest.svg"
           />
-          <DigitalAssetsModal keyType={digitalAssetsModalType.key} />
-          <DigitalAssetsActionCard
-            onClickCard={() => {
-              digitalAssetsModal(null);
-            }}
-          />
+          <DigitalAssetsActionCard />
           {tabSection()}
           <Footer />
         </div>

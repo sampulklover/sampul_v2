@@ -144,70 +144,101 @@ const WillDetailsCard = () => {
           description: `Jika perlu, ${myInfo.secondary_co_sampul.name}, ${myInfo.secondary_co_sampul.nric_no} akan bertindak sebagai Co-Sampul Ganti.`,
         },
         {
-          title: '7. Pengagihan Aset Digital',
+          title: '7. Penyelesaian Hutang dan Tanggungjawab Berkaitan Hutang',
           description: (
             <div>
               <p>
-                Penerima Khusus: Aset tertentu ditetapkan untuk penerima
-                tertentu atau berdasarkan Faraid seperti di [Jadual 1].
+                Saya berharap waris tersayang saya akan melunaskan hutang-hutang
+                saya yang tidak mempunyai perlindungan Takaful seperti yang
+                disenaraikan dalam Jadual 1 dan juga melunaskan tanggungjawab
+                berkaitan hutang yang lain seperti Nazar/Kaffarah/Fidyah saya
+                yang berbaki yang tidak sempat saya sempurnakan ketika hidup dan
+                diambil daripada harta pusaka saya seperti berikut:
               </p>
-              <p>
-                Baki Harta: Selebihnya aset digital saya yang tidak dinyatakan
-                secara khusus akan diagihkan sewajarnya sama ada kepada penerima
-                tertentu atau berdasarkan Faraid.
-              </p>
-              <p>
+              <ul>
+                <li>
+                  Nazar/Kaffarah: {myInfo.extra_wishes.nazar.title}
+                  <br />
+                  Anggaran Kos: {myInfo.extra_wishes.nazar.amount}
+                </li>
+                <li>
+                  Fidyah: {myInfo.extra_wishes.fidyah.dayLeft} hari Anggaran
+                  <br />
+                  Kos: {myInfo.extra_wishes.fidyah.amount}
+                </li>
+                <li>
+                  Derma Organ: Saya dengan ini{' '}
+                  {myInfo.extra_wishes.organDonor.agree
+                    ? 'bersetuju'
+                    : 'tidak bersetuju'}{' '}
+                  sebagai penderma organ.
+                </li>
+              </ul>
+              {/* <p>
                 {myInfo.additional_request_view
                   ? `Wasiat Tambahan: Untuk waqaf, sedekah, sedekah, [Waqaf/Badan Amal] ditetapkan mengikut [Jadual 2]`
                   : 'Wasiat Tambahan: N/A'}
-              </p>
+              </p>{' '} */}
             </div>
           ),
           addBreak: true,
         },
         {
-          title: '8. Nazar/Kaffarah/Fidyah & Derma Organ',
+          title:
+            '8. Penjelasan Kos Pentadbiran Harta Pusaka dan Agihan Pendahuluan',
           description: (
             <div>
               <p>
-                Saya berharap waris tersayang saya akan menyempurnakan
-                Nazar/Kaffarah/Fidyah saya yang berbaki yang tidak sempat saya
-                sempurnakan ketika hidup dan diambil daripada harta pusaka saya
-                seperti berikut:
-                <ul>
-                  <li>
-                    Nazar/Kaffarah: {myInfo.extra_wishes.nazar.title}
-                    <br />
-                    Anggaran Kos: {myInfo.extra_wishes.nazar.amount}
-                  </li>
-                  <li>
-                    Fidyah: {myInfo.extra_wishes.fidyah.dayLeft} hari Anggaran
-                    <br />
-                    Kos: {myInfo.extra_wishes.fidyah.amount}
-                  </li>
-                  <li>
-                    Derma Organ: Saya dengan ini{' '}
-                    {myInfo.extra_wishes.organDonor.agree
-                      ? 'bersetuju'
-                      : 'tidak bersetuju'}{' '}
-                    sebagai penderma organ.
-                  </li>
-                </ul>
+                Saya membenarkan waris saya setelah melantik pentadbir atau
+                pemegang amanah atau Wasi untuk menjelaskan segala perbelanjaan
+                bagi pentadbiran harta pusaka daripada harta pusaka saya. Saya
+                juga membenarkan sekiranya perlu dikeluarkan satu jumlah yang
+                muhasabah sebagai nafkah perbelanjaan bulanan bagi waris di
+                bawah tanggungan saya dan jumlah itu ditolak daripada bahagian
+                harta pusaka yang akan diterima oleh waris saya semasa agihan
+                akhir sekiranya proses tuntutan pusaka mengambil masa yang lama
+                daripada sepatutnya.
               </p>
             </div>
           ),
           addBreak: true,
         },
         {
-          title: '9. Penjagaan Anak',
+          title: '9. Pengagihan Aset ',
+          description: (
+            <div>
+              <p>
+                Sehingga ⅓: Aset tertentu kepada bukan waris atau disedekahkan
+                atau diwaqafkan kepada pihak tertentu seperti di [Jadual 2].
+              </p>
+              <p>
+                Penerima Hadiah (Hibah): Aset tertentu ditetapkan untuk penerima
+                tertentu secara terus tertakluk kepada persetujuan waris Faraid
+                yang berhak seperti di [Jadual 1]
+              </p>
+              <p>
+                Faraid: Aset tertentu ditetapkan untuk penerima tertentu
+                berdasarkan pembahagian Faraid seperti di [Jadual 1].
+              </p>
+              <p>
+                Baki Harta: Selebihnya aset saya yang tidak dinyatakan secara
+                khusus akan diagihkan sewajarnya sama ada kepada penerima
+                tertentu tertakluk kepada persetujuan waris Faraid atau
+                berdasarkan pembahagian Faraid.
+              </p>
+            </div>
+          ),
+        },
+        {
+          title: '10. Penjagaan Anak',
           description:
             myInfo.primary_guardian.isExist == false &&
             myInfo.secondary_guardian.isExist == false
               ? 'N/A'
-              : `Jika pasangan saya meninggal dunia sebelum saya atau tidak berkemampuan, ${myInfo.primary_guardian.name}, beralamatkan email ${myInfo.primary_guardian.email} dilantik untuk anak-anak saya yang masih di bawah umur, dengan ${myInfo.secondary_guardian.name}, beralamatkan email ${myInfo.secondary_guardian.email} sebagai pengganti.`,
+              : `Jika pasangan saya meninggal dunia sebelum saya atau tidak berkemampuan, ${myInfo.primary_guardian.name}, beralamatkan email ${myInfo.primary_guardian.email} dilantik untuk anak-anak saya yang masih di bawah umur, dengan ${myInfo.secondary_guardian.name}, beralamatkan email ${myInfo.secondary_guardian.email} sebagai pengganti seperti [Jadual 1].`,
         },
         {
-          title: '10. Ditandatangani oleh',
+          title: '11. Disediakan oleh',
           description: `${myInfo.nric_name},
           ${myInfo.nric_no}
           pada ${myInfo.last_updated}`,
@@ -217,7 +248,7 @@ const WillDetailsCard = () => {
           title: '11.	Saksi',
           description: (
             <div>
-              <strong>Disaksikan oleh</strong>
+              <strong>Diperakui oleh</strong>
               <br />
               Muhammad Arham Munir Merican bin Amir Feisal Merican
               <br />
@@ -228,7 +259,7 @@ const WillDetailsCard = () => {
               pada {myInfo.last_updated}
               <br />
               <br />
-              <strong>Disaksikan oleh</strong>
+              <strong>Diperakui oleh</strong>
               <br />
               Mohammad Aiman bin Sulaiman
               <br />
