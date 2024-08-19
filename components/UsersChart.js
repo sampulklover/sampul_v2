@@ -8,9 +8,21 @@ const ReactApexChart = dynamic(() => import('react-apexcharts'), {
   ssr: false,
 });
 
+const planConfig = {
+  basic: {
+    planName: 'P0001',
+  },
+  protect: {
+    planName: 'P0002',
+  },
+  secure: {
+    planName: 'P0003',
+  },
+};
+
 const UsersChart = ({ summary }) => {
   const { locale } = useLocale();
-  const [selectedType, setSelectedType] = useState('all');
+  const [selectedType, setSelectedType] = useState(planConfig.basic.planName);
   const [selectedRange, setSelectedRange] = useState('fullYear');
   const [chartOptions, setChartOptions] = useState({
     chart: {
@@ -90,7 +102,25 @@ const UsersChart = ({ summary }) => {
     return labels;
   };
 
-  const getChartData = ({ type = 'all', labels }) => {
+  const getDataByMonth = (type, monthData = []) => {
+    if (type === planConfig.basic.planName) {
+      monthData = monthData.filter(
+        (user) => user?.accounts?.ref_product_key == planConfig.basic.planName
+      );
+    } else if (type === planConfig.protect.planName) {
+      monthData = monthData.filter(
+        (user) => user?.accounts?.ref_product_key == planConfig.protect.planName
+      );
+    } else if (type === planConfig.secure.planName) {
+      monthData = monthData.filter(
+        (user) => user?.accounts?.ref_product_key == planConfig.secure.planName
+      );
+    }
+
+    return monthData;
+  };
+
+  const getChartData = ({ type = planConfig.protect.planName, labels }) => {
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth();
@@ -103,68 +133,25 @@ const UsersChart = ({ summary }) => {
 
     let allMonthData = currentYearData;
 
-    if (type === 'all') {
-      allMonthData = allMonthData;
-    }
-    if (type === 'unsubscribed') {
-      allMonthData = allMonthData.filter(
-        (user) => !user?.accounts?.is_subscribed
-      );
-    } else if (type === 'subscribed') {
-      allMonthData = allMonthData.filter(
-        (user) => user?.accounts?.is_subscribed
-      );
-    }
+    const newAllMonth = getDataByMonth(type, allMonthData);
 
     let lastMonthData = currentYearData.filter((user) => {
       const userMonth = new Date(user.created_at).getMonth();
       return userMonth === lastMonth;
     });
-
-    if (type === 'all') {
-      lastMonthData = lastMonthData;
-    }
-    if (type === 'unsubscribed') {
-      lastMonthData = lastMonthData.filter(
-        (user) => !user?.accounts?.is_subscribed
-      );
-    } else if (type === 'subscribed') {
-      lastMonthData = lastMonthData.filter(
-        (user) => user?.accounts?.is_subscribed
-      );
-    }
+    const newLastMonth = getDataByMonth(type, lastMonthData);
 
     let currentMonthData = currentYearData.filter((user) => {
       const userMonth = new Date(user.created_at).getMonth();
       return userMonth === currentMonth;
     });
-
-    if (type === 'all') {
-      currentMonthData = currentMonthData;
-    }
-    if (type === 'unsubscribed') {
-      currentMonthData = currentMonthData.filter(
-        (user) => !user?.accounts?.is_subscribed
-      );
-    } else if (type === 'subscribed') {
-      currentMonthData = currentMonthData.filter(
-        (user) => user?.accounts?.is_subscribed
-      );
-    }
+    const newCurrentMonth = getDataByMonth(type, currentMonthData);
 
     var monthlyUser = [];
+
     if (labels) {
       const temptMonthlyUser = labels.map((month) => {
-        let filteredUsers = currentYearData;
-        if (type === 'unsubscribed') {
-          filteredUsers = currentYearData.filter(
-            (user) => !user?.accounts?.is_subscribed
-          );
-        } else if (type === 'subscribed') {
-          filteredUsers = currentYearData.filter(
-            (user) => user?.accounts?.is_subscribed
-          );
-        }
+        const filteredUsers = getDataByMonth(type, currentYearData);
 
         return filteredUsers.filter((user) => {
           const userMonth = new Date(user.created_at).getMonth();
@@ -177,9 +164,9 @@ const UsersChart = ({ summary }) => {
 
     return {
       monthlyUser: monthlyUser,
-      lastMonthUserCounts: lastMonthData.length,
-      currentMonthUserCounts: currentMonthData.length,
-      allMonthUserCounts: allMonthData.length,
+      lastMonthUserCounts: newLastMonth.length,
+      currentMonthUserCounts: newCurrentMonth.length,
+      allMonthUserCounts: newAllMonth.length,
     };
   };
 
@@ -197,24 +184,27 @@ const UsersChart = ({ summary }) => {
       labels,
       series: [
         {
-          name: translations[locale].component.users_chart.protect_users,
+          name: 'Basic',
           data:
-            selectedType == 'subscribed' || selectedType == 'all'
-              ? getChartData({ type: 'subscribed', labels })?.monthlyUser
+            selectedType == planConfig.basic.planName
+              ? getChartData({ type: planConfig.basic.planName, labels })
+                  ?.monthlyUser
               : [],
         },
         {
-          name: translations[locale].component.users_chart.basic_users,
+          name: 'Protect',
           data:
-            selectedType == 'unsubscribed' || selectedType == 'all'
-              ? getChartData({ type: 'unsubscribed', labels })?.monthlyUser
+            selectedType == planConfig.protect.planName
+              ? getChartData({ type: planConfig.protect.planName, labels })
+                  ?.monthlyUser
               : [],
         },
         {
-          name: translations[locale].component.users_chart.total_users,
+          name: 'Secure',
           data:
-            selectedType == 'all'
-              ? getChartData({ type: 'all', labels })?.monthlyUser
+            selectedType == planConfig.secure.planName
+              ? getChartData({ type: planConfig.secure.planName, labels })
+                  ?.monthlyUser
               : [],
         },
       ],
@@ -272,7 +262,7 @@ const UsersChart = ({ summary }) => {
     );
   };
 
-  const getPercentageDifferent = (type = 'all') => {
+  const getPercentageDifferent = (type = planConfig.basic.planName) => {
     const countResult = getChartData({ type: type });
     const lastMonth = countResult.lastMonthUserCounts;
     const currentMonth = countResult.currentMonthUserCounts;
@@ -409,34 +399,40 @@ const UsersChart = ({ summary }) => {
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
           <button class="nav-link active" data-bs-toggle="tab">
             {chartMenuCard({
-              title: translations[locale].component.users_chart.total_users,
-              value: getChartData({ type: 'all' })?.allMonthUserCounts,
-              percentage: getPercentageDifferent('all')?.percentage,
-              status: getPercentageDifferent('all').theme,
+              title: 'Basic Users',
+              value: getChartData({ type: planConfig.basic.planName })
+                ?.allMonthUserCounts,
+              percentage: getPercentageDifferent(planConfig.basic.planName)
+                ?.percentage,
+              status: getPercentageDifferent(planConfig.basic.planName).theme,
               onClick: () => {
-                setSelectedType('all');
+                setSelectedType(planConfig.basic.planName);
               },
             })}
           </button>
           <button class="nav-link" data-bs-toggle="tab">
             {chartMenuCard({
-              title: translations[locale].component.users_chart.basic_users,
-              value: getChartData({ type: 'unsubscribed' })?.allMonthUserCounts,
-              percentage: getPercentageDifferent('unsubscribed')?.percentage,
-              status: getPercentageDifferent('unsubscribed').theme,
+              title: 'Protect Users',
+              value: getChartData({ type: planConfig.protect.planName })
+                ?.allMonthUserCounts,
+              percentage: getPercentageDifferent(planConfig.protect.planName)
+                ?.percentage,
+              status: getPercentageDifferent(planConfig.protect.planName).theme,
               onClick: () => {
-                setSelectedType('unsubscribed');
+                setSelectedType(planConfig.protect.planName);
               },
             })}
           </button>
           <button class="nav-link" data-bs-toggle="tab">
             {chartMenuCard({
-              title: translations[locale].component.users_chart.protect_users,
-              value: getChartData({ type: 'subscribed' })?.allMonthUserCounts,
-              percentage: getPercentageDifferent('subscribed')?.percentage,
-              status: getPercentageDifferent('subscribed').theme,
+              title: 'Secure Users',
+              value: getChartData({ type: planConfig.secure.planName })
+                ?.allMonthUserCounts,
+              percentage: getPercentageDifferent(planConfig.secure.planName)
+                ?.percentage,
+              status: getPercentageDifferent(planConfig.secure.planName).theme,
               onClick: () => {
-                setSelectedType('subscribed');
+                setSelectedType(planConfig.secure.planName);
               },
             })}
           </button>
