@@ -119,7 +119,7 @@ const Admin = () => {
   const chartSection2 = () => {
     return (
       <div>
-        <span class={adminStyles.sectionTitle}>Digital Accounts</span>
+        <span class={adminStyles.sectionTitle}>Assets</span>
         <AccountsChart summary={summary} refreshFunction={fetchData} />
       </div>
     );

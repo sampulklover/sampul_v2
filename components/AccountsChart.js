@@ -15,65 +15,143 @@ const AccountsChart = ({ summary }) => {
   const { locale } = useLocale();
 
   const [chartData, setChartData] = useState({
-    digital_account: [],
-    subscription_account: [],
-    count_value_digital: 0,
-    count_value_subscription: 0,
+    assets_data: [],
+    faraid_data: [],
+    terminate_data: [],
+    transfer_as_gift_data: [],
+    settle_data: [],
+    assets_data_count: 0,
+    faraid_data_count: 0,
+    terminate_data_count: 0,
+    transfer_as_gift_data_count: 0,
+    settle_data_count: 0,
+    total_sum_all_type: 0,
   });
-  const [chartSeries, setChartSeries] = useState([0, 0]);
+  const [chartSeries, setChartSeries] = useState([0, 0, 0, 0]);
 
   useEffect(() => {
     if (summary.data.profiles.length !== 0) {
       const singleData = {
-        digital_account: [],
-        subscription_account: [],
-        count_value_digital: 0,
-        count_value_subscription: 0,
+        assets_data: [],
+        insurance_data: [],
+        faraid_data: [],
+        terminate_data: [],
+        transfer_as_gift_data: [],
+        settle_data: [],
+        assets_data_count: 0,
+        faraid_data_count: 0,
+        terminate_data_count: 0,
+        transfer_as_gift_data_count: 0,
+        settle_data_count: 0,
+        total_sum_all_type: 0,
       };
 
       summary.data.profiles.forEach((profile) => {
         profile.digital_assets.forEach((asset) => {
-          if (asset.account_type === 'non_subscription') {
-            singleData.digital_account.push(asset);
-          }
-          if (asset.account_type === 'subscription') {
-            singleData.subscription_account.push(asset);
-          }
+          singleData.assets_data.push(asset);
         });
       });
 
-      singleData.count_value_digital = singleData.digital_account.reduce(
-        (acc, val) => acc + val.declared_value_myr,
-        0
+      singleData.assets_data.map((item) => {
+        if (item.instructions_after_death == 'faraid') {
+          singleData.faraid_data.push(item);
+        }
+        if (item.instructions_after_death == 'terminate') {
+          singleData.terminate_data.push(item);
+        }
+        if (item.instructions_after_death == 'transfer_as_gift') {
+          singleData.transfer_as_gift_data.push(item);
+        }
+        if (item.instructions_after_death == 'settle') {
+          singleData.settle_data.push(item);
+        }
+      });
+
+      const countTotalDeclareValue = (passData) => {
+        const result = passData.reduce(
+          (acc, val) => acc + val.declared_value_myr,
+          0
+        );
+        return result;
+      };
+
+      singleData.assets_data_count = countTotalDeclareValue(
+        singleData.assets_data
+      );
+      singleData.faraid_data_count = countTotalDeclareValue(
+        singleData.faraid_data
+      );
+      singleData.terminate_data_count = countTotalDeclareValue(
+        singleData.terminate_data
+      );
+      singleData.transfer_as_gift_data_count = countTotalDeclareValue(
+        singleData.transfer_as_gift_data
+      );
+      singleData.settle_data_count = countTotalDeclareValue(
+        singleData.settle_data
       );
 
-      const totalSubValue = singleData.subscription_account.reduce(
-        (acc, val) => {
-          const valueToAdd =
-            val.frequency === 'yearly'
-              ? val.declared_value_myr * 1
-              : val.declared_value_myr * 12;
-          return acc + valueToAdd;
-        },
-        0
-      );
+      singleData.total_sum_all_type =
+        singleData.faraid_data_count +
+        singleData.terminate_data_count +
+        singleData.transfer_as_gift_data_count +
+        singleData.settle_data_count;
 
-      singleData.count_value_subscription = totalSubValue;
+      console.log('singleData', singleData);
       setChartData(singleData);
-      const digitalPercentage = convertValue(
-        'digital',
-        singleData.count_value_digital,
-        singleData.count_value_subscription
-      )?.percentage;
-      const subscriptionPercentage = convertValue(
-        'subscription',
-        singleData.count_value_digital,
-        singleData.count_value_subscription
-      )?.percentage;
 
-      setChartSeries([digitalPercentage, subscriptionPercentage]);
+      setChartSeries([
+        parseFloat(
+          (
+            (singleData.faraid_data_count / singleData.total_sum_all_type) *
+            100
+          ).toFixed(2)
+        ),
+        parseFloat(
+          (
+            (singleData.terminate_data_count / singleData.total_sum_all_type) *
+            100
+          ).toFixed(2)
+        ),
+        parseFloat(
+          (
+            (singleData.transfer_as_gift_data_count /
+              singleData.total_sum_all_type) *
+            100
+          ).toFixed(2)
+        ),
+        parseFloat(
+          (
+            (singleData.settle_data_count / singleData.total_sum_all_type) *
+            100
+          ).toFixed(2)
+        ),
+      ]);
     }
   }, [summary.data.profiles]);
+
+  const assetsConfig = {
+    faraid: {
+      title: 'Faraid',
+      color: '#8d7ff0',
+      value: chartData.faraid_data_count,
+    },
+    terminate: {
+      title: 'Terminate',
+      color: '#1e0f84',
+      value: chartData.terminate_data_count,
+    },
+    gift: {
+      title: 'Gift',
+      color: '#533de8',
+      value: chartData.transfer_as_gift_data_count,
+    },
+    settle: {
+      title: 'Settle',
+      color: '#ddd7fb',
+      value: chartData.settle_data_count,
+    },
+  };
 
   const chartOptions = {
     chart: {
@@ -109,34 +187,18 @@ const AccountsChart = ({ summary }) => {
     stroke: {
       lineCap: 'round',
     },
-    labels: ['Assets', 'Expenses'],
-    colors: ['#2F1DA9', '#3118D3'],
-  };
-
-  const convertValue = (
-    type = 'digital',
-    digitalValue = 0,
-    subscriptionValue = 0
-  ) => {
-    const totalValue = digitalValue + subscriptionValue;
-
-    var valueConfig = {
-      digital: {
-        currencyValue: `RM ${digitalValue.toLocaleString()}`,
-        percentage: parseFloat(((digitalValue / totalValue) * 100).toFixed(2)),
-      },
-      subscription: {
-        currencyValue: `RM ${subscriptionValue.toLocaleString()}`,
-        percentage: parseFloat(
-          ((subscriptionValue / totalValue) * 100).toFixed(2)
-        ),
-      },
-    };
-
-    return {
-      currencyValue: valueConfig[type].currencyValue,
-      percentage: valueConfig[type].percentage,
-    };
+    labels: [
+      assetsConfig.faraid.title,
+      assetsConfig.terminate.title,
+      assetsConfig.gift.title,
+      assetsConfig.settle.title,
+    ],
+    colors: [
+      assetsConfig.faraid.color,
+      assetsConfig.terminate.color,
+      assetsConfig.gift.color,
+      assetsConfig.settle.color,
+    ],
   };
 
   return (
@@ -151,44 +213,57 @@ const AccountsChart = ({ summary }) => {
         />
       </div>
       <div class="row">
-        <div class="col d-flex justify-content-center">
+        <div class="col">
           <div>
             <div class={adminStyles.radialChartLabelContainer}>
-              <div class={adminStyles.assetsPointCircle} />
-              <span class={adminStyles.radialChartLabelTitle}>
-                {translations[locale].component.accounts_chart.assets}
-              </span>
+              <span class={adminStyles.radialChartLabelTitle}>Total Count</span>
             </div>
             <p class={adminStyles.radialChartLabelValue}>
-              {
-                convertValue(
-                  'digital',
-                  chartData.count_value_digital,
-                  chartData.count_value_subscription
-                )?.currencyValue
-              }
+              {chartData.assets_data.length}
             </p>
           </div>
         </div>
-        <div class="col d-flex justify-content-center">
+        <div class="col">
           <div>
             <div class={adminStyles.radialChartLabelContainer}>
-              <div class={adminStyles.expensesPointCircle} />
-              <span class={adminStyles.radialChartLabelTitle}>
-                {translations[locale].component.accounts_chart.expenses}
-              </span>
+              <span class={adminStyles.radialChartLabelTitle}>Total Value</span>
             </div>
             <p class={adminStyles.radialChartLabelValue}>
-              {
-                convertValue(
-                  'subscription',
-                  chartData.count_value_digital,
-                  chartData.count_value_subscription
-                )?.currencyValue
-              }
+              {`RM ${chartData.assets_data_count.toLocaleString()}`}
             </p>
           </div>
         </div>
+      </div>
+      <div>
+        {Object.entries(assetsConfig)
+          .reduce((rows, [key, value], index) => {
+            // Create a new row every 2 items
+            if (index % 2 === 0) {
+              rows.push([]); // Start a new row
+            }
+            rows[rows.length - 1].push(
+              <div className="col" key={key}>
+                <div className={adminStyles.radialChartLabelContainer}>
+                  <div
+                    className={adminStyles.assetsPointCircle}
+                    style={{ backgroundColor: assetsConfig[key].color }} // Set the background color dynamically
+                  />
+                  <span className={adminStyles.radialChartLabelTitle}>
+                    {assetsConfig[key].title}
+                  </span>
+                </div>
+                <p className={adminStyles.radialChartLabelValue}>
+                  {`RM ${assetsConfig[key].value.toLocaleString() || 0}`}{' '}
+                </p>
+              </div>
+            );
+            return rows;
+          }, [])
+          .map((row, rowIndex) => (
+            <div className="row" key={rowIndex}>
+              {row}
+            </div>
+          ))}
       </div>
     </div>
   );
