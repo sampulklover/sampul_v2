@@ -55,7 +55,7 @@ export default {
         failed_to_create_: 'Failed to create payment session',
         subscription_plan: 'Subscription Plan',
         as_you_embark_:
-          'As you embark on your digital wasiat/will planning adventure, you have the flexibility to upgrade your plan at any time.',
+          'As you embark on your wasiat/will planning adventure, you have the flexibility to upgrade your plan at any time.',
         billing: 'Billing',
         manage_your_billing_: 'Manage your billing and payment details',
         the_free_plan_:
@@ -89,15 +89,15 @@ export default {
         accounts_where_keep_:
           'Accounts where you keep your assets with value and can be passed on to your beloved ones.',
         add_digital_assets: 'Add Assets',
-        digital_subscriptions: 'Digital Subscriptions',
+        digital_subscriptions: 'Subscriptions',
         account_where_make:
           'Account where you make payment for subscription and to be terminated or transferred at the point of death.',
       },
       digital_assets_modal: {
         you_can_store_: 'You can store up to',
-        digital_assets_to_: 'digital assets. To add more, upgrade your plan.',
+        digital_assets_to_: 'assets. To add more, upgrade your plan.',
         appoint_my_trusted_: 'Appoint my trusted person',
-        digital_assets_expenses: 'Digital Assets & Expenses',
+        digital_assets_expenses: 'Assets & Expenses',
         account_details: 'Account Details',
         help_us_to_:
           'Help us to ensure no asset is left behind for your loved one by filling out this form:',
@@ -131,9 +131,9 @@ export default {
         show_all: 'Show All',
         no_digital_assets_found: 'No Assets found',
         digital_assets: 'Assets',
-        digital_expenses: 'Digital Expenses',
+        digital_expenses: 'Expenses',
         add_digital_asset: 'Add Asset',
-        add_digital_expenses: 'Add Digital Expenses',
+        add_digital_expenses: 'Add Expenses',
         accounts_where_you_keep_:
           'Accounts where you keep your assets with value and can be passed on to your beloved ones.',
         account_where_you_make_:
@@ -292,7 +292,7 @@ export default {
         user_role: 'User role',
         beloved: 'Beloved',
         type: 'Type',
-        digital_assets_list: 'Digital Assets List',
+        digital_assets_list: 'Assets List',
         platforms: 'Platforms',
       },
       users_chart: {
@@ -310,7 +310,7 @@ export default {
       },
       will_details_card: {
         please_setup_your_: 'Please setup your Primary or secondary beloved',
-        list_of_digital_: 'List of Digital Assets',
+        list_of_digital_: 'List of Assets',
         list_of_accounts_: 'List of accounts where you keep your assets.',
         list_of_additional_: 'List of Additional Bequests',
       },
@@ -341,7 +341,7 @@ export default {
         failed_to_send_: 'Failed to send invitation email',
         confirmation_email_has_: 'Confirmation email has been sent to',
         successfully_updated: 'Successfully updated!',
-        confirm_deletion_this_: `Confirm deletion? this action will permanently remove user's information and linked digital assets. Please remember to regenerate your wasiat/will afterwards.`,
+        confirm_deletion_this_: `Confirm deletion? this action will permanently remove user's information and linked assets. Please remember to regenerate your wasiat/will afterwards.`,
         the_user_cannot_:
           'The user cannot be removed as they are associated with your inform death record. Please assign the record to someone else and try to delete again.',
         successfully_deleted: 'Successfully deleted!',
@@ -382,22 +382,21 @@ export default {
       add_beneficiary: 'Add Beneficiary',
       setup_your_first_: 'Setup your first assets',
       list_and_register_:
-        'List and register all your Digital Assets, keep track of your assets, monitor the performance of your assets and keep track of their value',
+        'List and register all your Assets, keep track of your assets, monitor the performance of your assets and keep track of their value',
       add_digital_asset: 'Add Asset',
       co_sampul_is_your:
         'Co-Sampul is your trusted person for whom which all information in this Sampul will be passed on.',
       add_co_sampul: 'Add Co-Sampul',
 
-      total_digital_asset: 'Total Digital Asset',
-      total_digital_asset_tooltip: 'How much total value of my Digital Asset?',
+      total_digital_asset: 'Total Asset',
+      total_digital_asset_tooltip: 'How much total value of my Asset?',
       digital_assets: 'Assets',
-      digital_assets_tooltip: 'How many Digital Asset that I have?',
-      total_digital_expenses: 'Total Digital Expenses',
+      digital_assets_tooltip: 'How many Asset that I have?',
+      total_digital_expenses: 'Total Expenses',
       total_digital_expenses_tooltip:
-        'How much total value of my Digital Expenses Account per annum?',
-      digital_expenses: 'Digital Expenses',
-      digital_expenses_tooltips:
-        'How many Digital Expenses Account that I have?',
+        'How much total value of my Expenses Account per annum?',
+      digital_expenses: 'Expenses',
+      digital_expenses_tooltips: 'How many Expenses Account that I have?',
       accounts_where_you_keep_:
         'Accounts where you keep your assets with value and can be passed on to your beloved ones.',
       account_where_you_make_:
@@ -414,7 +413,7 @@ export default {
       view_all: 'View all',
       assets: 'Assets',
       expenses: 'Expenses',
-      digital_assets_and_: 'Digital Assets & Expenses',
+      digital_assets_and_: 'Assets & Expenses',
       add_digital_assets_: 'Add Assets & Expenses',
     },
     physical_assets: {
@@ -439,12 +438,12 @@ export default {
       any_amount_of_: 'Any amount of Fidyah due?',
       charity_sadaqah: 'Charity/Sadaqah',
       seamlessly_include_your_:
-        'Seamlessly include your charitable intentions up to 1/3 of of your digital estate plan with Sampul, ensuring your legacy extends to making a positive impact beyond your lifetime.',
+        'Seamlessly include your charitable intentions up to 1/3 of of your estate plan with Sampul, ensuring your legacy extends to making a positive impact beyond your lifetime.',
       contribute_to_charity_: 'Contribute to Charity/Sadaqah Bodies',
       s_assets_amout: 's asset/amount',
       waqf: 'Waqf',
       preserve_your_legacy_:
-        'Preserve your legacy through charitable endowments up to 1/3 of your estate with Sampul. Securely allocate digital assets to support causes close to your heart and leave a lasting impact on future generations.',
+        'Preserve your legacy through charitable endowments up to 1/3 of your estate with Sampul. Securely allocate assets to support causes close to your heart and leave a lasting impact on future generations.',
       contribute_to_waqf_: 'Contribute to Waqf Foundation',
       organ_donor_pledge: 'Organ Donor Pledge',
       at_the_point_: `At the point of death, if you are deemed suitable for organ or tissue donation by Ministry of Health medical experts, consent from your loved ones will be obtained. By agreeing to pledge as an organ donor, please ensure that you have informed your loved ones on your wish.`,
@@ -561,7 +560,7 @@ export default {
         failed_to_create_: 'Gagal membuat sesi pembayaran',
         subscription_plan: 'Pelan Langganan',
         as_you_embark_:
-          'Apabila anda memulakan pengembaraan perancangan wasiat/wasiat digital anda, anda mempunyai fleksibiliti untuk menaik taraf pelan anda pada bila-bila masa.',
+          'Apabila anda memulakan pengembaraan perancangan wasiat/wasiat anda, anda mempunyai fleksibiliti untuk menaik taraf pelan anda pada bila-bila masa.',
         billing: 'Penagihan',
         manage_your_billing_: 'Urus butiran penagihan dan pembayaran anda',
         the_free_plan_:
@@ -595,7 +594,7 @@ export default {
         accounts_where_keep_:
           'Akaun di mana anda menyimpan aset anda dengan nilai dan boleh diberikan kepada orang yang anda sayangi.',
         add_digital_assets: 'Tambah Aset',
-        digital_subscriptions: 'Langganan Digital',
+        digital_subscriptions: 'Langganan',
         account_where_make:
           'Akaun di mana anda membuat pembayaran untuk langganan dan akan ditamatkan atau dipindahkan pada saat kematian.',
       },
@@ -604,7 +603,7 @@ export default {
         digital_assets_to_:
           'aset digital. Untuk menambah lebih banyak, naik taraf pelan anda.',
         appoint_my_trusted_: 'Lantik orang kepercayaan saya',
-        digital_assets_expenses: 'Aset & Perbelanjaan Digital',
+        digital_assets_expenses: 'Aset & Perbelanjaan',
         account_details: 'Butiran Akaun',
         help_us_to_:
           'Bantu kami memastikan tiada aset yang tertinggal untuk orang yang anda sayangi dengan mengisi borang ini:',
@@ -638,9 +637,9 @@ export default {
         show_all: 'Tunjukkan Semua',
         no_digital_assets_found: 'Tiada Aset ditemui',
         digital_assets: 'Aset',
-        digital_expenses: 'Perbelanjaan Digital',
+        digital_expenses: 'Perbelanjaan',
         add_digital_asset: 'Tambah Aset',
-        add_digital_expenses: 'Tambah Perbelanjaan Digital',
+        add_digital_expenses: 'Tambah Perbelanjaan',
         accounts_where_you_keep_:
           'Akaun di mana anda menyimpan aset anda dengan nilai dan boleh diberikan kepada orang yang anda sayangi.',
         account_where_you_make_:
@@ -803,7 +802,7 @@ export default {
         user_role: 'Peranan pengguna',
         beloved: 'Kesayangan',
         type: 'Jenis',
-        digital_assets_list: 'Senarai Aset Digital',
+        digital_assets_list: 'Senarai Aset',
         platforms: 'Platform',
       },
       users_chart: {
@@ -821,7 +820,7 @@ export default {
       },
       will_details_card: {
         please_setup_your_: 'Sila sediakan Kesayangan Utama atau sekunder anda',
-        list_of_digital_: 'Senarai Aset Digital',
+        list_of_digital_: 'Senarai Aset',
         list_of_accounts_: 'Senarai akaun di mana anda menyimpan aset anda.',
         list_of_additional_: 'Senarai Bequest Tambahan',
       },
@@ -855,7 +854,7 @@ export default {
         confirmation_email_has_: 'Email pengesahan telah dihantar kepada',
         successfully_updated: 'Berjaya dikemas kini!',
         confirm_deletion_this_:
-          'Sahkan pemadaman? tindakan ini akan mengeluarkan maklumat pengguna secara kekal dan aset digital yang dikaitkan. Sila ingat untuk menjana semula wasiat/wasiat anda selepas itu.',
+          'Sahkan pemadaman? tindakan ini akan mengeluarkan maklumat pengguna secara kekal dan aset yang dikaitkan. Sila ingat untuk menjana semula wasiat/wasiat anda selepas itu.',
         the_user_cannot_:
           'Pengguna tidak dapat dipadamkan kerana mereka dikaitkan dengan rekod pemberitahuan kematian anda. Sila serahkan rekod tersebut kepada orang lain dan cuba padam semula.',
         successfully_deleted: 'Berjaya dipadam!',
@@ -889,30 +888,30 @@ export default {
       getting_started: 'Mula',
       complete_profile: 'Lengkapkan biodata',
       register_beneficiary: 'Senaraikan penerima aset',
-      setup_your_first: 'Lindungi aset digital pertama anda',
+      setup_your_first: 'Lindungi aset pertama anda',
       appoint_your_co_sampul: 'Lantik Co-Sampul anda',
       complete_the_information_:
         'Lengkapkan maklumat biodata anda dan dapatkan pengesahan untuk menjana dan memuat turun wasiat anda',
       edit_profile: 'Kemaskini Biodata',
       the_future_owner_: 'Pemilik masa depan aset anda',
       add_beneficiary: 'Tambah Penerima Aset',
-      setup_your_first_: 'Sediakan aset digital pertama anda',
+      setup_your_first_: 'Sediakan aset pertama anda',
       list_and_register_:
-        'List and register all your Digital Assets, keep track of your assets, monitor the performance of your assets and keep track of their value',
+        'List and register all your Assets, keep track of your assets, monitor the performance of your assets and keep track of their value',
       add_digital_asset: 'Tambah Aset',
       co_sampul_is_your:
         'Co-Sampul ialah orang yang dipercayai anda yang mana semua maklumat dalam Sampul ini akan disampaikan.',
       add_co_sampul: 'Tambah Co-Sampul',
-      total_digital_asset: 'Jumlah Aset Digital',
-      total_digital_asset_tooltip: 'Berapakah jumlah nilai Aset Digital saya?',
+      total_digital_asset: 'Jumlah Aset',
+      total_digital_asset_tooltip: 'Berapakah jumlah nilai Aset saya?',
       digital_assets: 'Aset',
-      digital_assets_tooltip: 'Berapa banyak Aset Digital yang saya ada?',
-      total_digital_expenses: 'Jumlah Perbelanjaan Digital',
+      digital_assets_tooltip: 'Berapa banyak Aset yang saya ada?',
+      total_digital_expenses: 'Jumlah Perbelanjaan',
       total_digital_expenses_tooltip:
-        'Berapakah jumlah nilai Akaun Perbelanjaan Digital saya setahun?',
-      digital_expenses: 'Perbelanjaan Digital',
+        'Berapakah jumlah nilai Akaun Perbelanjaan saya setahun?',
+      digital_expenses: 'Perbelanjaan',
       digital_expenses_tooltips:
-        'Berapa banyak Akaun Perbelanjaan Digital yang saya ada?',
+        'Berapa banyak Akaun Perbelanjaan yang saya ada?',
       accounts_where_you_keep_:
         'Akaun di mana anda menyimpan aset anda yang bernilai dan boleh diwariskan kepada orang tersayang.',
       account_where_you_make_:
@@ -930,7 +929,7 @@ export default {
       view_all: 'Lihat semua',
       assets: 'Aset',
       expenses: 'Perbelanjaan',
-      digital_assets_and_: 'Aset Digital & Perbelanjaan',
+      digital_assets_and_: 'Aset & Perbelanjaan',
       add_digital_assets_: 'Tambah Aset & Perbelanjaan',
     },
     physical_assets: {
@@ -961,12 +960,12 @@ export default {
       any_amount_of_: 'Adakah sebarang jumlah Fidyah yang perlu dibayar?',
       charity_sadaqah: 'Amal/Sadaqah',
       seamlessly_include_your_:
-        'Sertakan dengan lancar niat amal anda sehingga 1/3 daripada pelan harta pusaka digital anda dengan Sampul, memastikan warisan anda diperluaskan untuk memberi kesan positif di luar jangka hayat anda.',
+        'Sertakan dengan lancar niat amal anda sehingga 1/3 daripada pelan harta pusaka anda dengan Sampul, memastikan warisan anda diperluaskan untuk memberi kesan positif di luar jangka hayat anda.',
       contribute_to_charity_: 'Sumbangkan kepada Badan Amal/Sadaqah',
       s_assets_amout: 'aset/jumlah',
       waqf: 'Waqf',
       preserve_your_legacy_:
-        'Pelihara legasi anda melalui wakaf amal sehingga 1/3 harta pusaka anda dengan Sampul. Peruntukkan aset digital dengan selamat untuk menyokong tujuan yang dekat dengan hati anda dan meninggalkan kesan yang berkekalan pada generasi akan datang.',
+        'Pelihara legasi anda melalui wakaf amal sehingga 1/3 harta pusaka anda dengan Sampul. Peruntukkan aset dengan selamat untuk menyokong tujuan yang dekat dengan hati anda dan meninggalkan kesan yang berkekalan pada generasi akan datang.',
       contribute_to_waqf_: 'Sumbang kepada Yayasan Waqf',
       organ_donor_pledge: 'Janji Penderma Organ',
       at_the_point_:

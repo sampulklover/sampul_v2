@@ -117,15 +117,15 @@ const WillDetailsCard = () => {
 
   const will_settings = {
     muslim: {
-      title: 'WASIAT ASET DIGITAL SAYA',
+      title: 'WASIAT ASET SAYA',
       info: [
         {
           title: '1. Mukaddimah',
-          description: `Dengan nama Allah, Yang Maha Pengasih, Lagi Maha Penyayang, saya, ${myInfo.nric_name}, memegang NRIC ${myInfo.nric_no}, bermastautin di ${myInfo.address}, mengisytiharkan dokumen ini sebagai wasiat terakhir saya, memberi tumpuan kepada pengurusan aset digital saya.`,
+          description: `Dengan nama Allah, Yang Maha Pengasih, Lagi Maha Penyayang, saya, ${myInfo.nric_name}, memegang NRIC ${myInfo.nric_no}, bermastautin di ${myInfo.address}, mengisytiharkan dokumen ini sebagai wasiat terakhir saya, memberi tumpuan kepada pengurusan aset saya.`,
         },
         {
           title: '2. Pengisytiharan',
-          description: `Mengakui kepercayaan Islam saya, saya berazam untuk mengisytiharkan wasiat terakhir saya untuk aset digital saya, yang ditulis pada ${myInfo.last_updated}.`,
+          description: `Mengakui kepercayaan Islam saya, saya berazam untuk mengisytiharkan wasiat terakhir saya untuk aset saya, yang ditulis pada ${myInfo.last_updated}.`,
         },
         {
           title: '3. Permintaan',
@@ -133,11 +133,11 @@ const WillDetailsCard = () => {
         },
         {
           title: '4. Pembatalan',
-          description: `Dokumen ini menggantikan semua wasiat terdahulu pada aset digital.`,
+          description: `Dokumen ini menggantikan semua wasiat terdahulu pada aset.`,
         },
         {
           title: '5. Co-Sampul Utama',
-          description: `${myInfo.primary_co_sampul.name}, ${myInfo.primary_co_sampul.nric_no} dilantik untuk menyimpan dan menyampaikan wasiat aset digital saya ini kepada waris saya.`,
+          description: `${myInfo.primary_co_sampul.name}, ${myInfo.primary_co_sampul.nric_no} dilantik untuk menyimpan dan menyampaikan wasiat aset saya ini kepada waris saya.`,
         },
         {
           title: '6. Co-Sampul Ganti',
@@ -282,26 +282,26 @@ const WillDetailsCard = () => {
       },
     },
     non_muslim: {
-      title: 'LAST WILL AND TESTAMENT FOR DIGITAL ASSETS',
+      title: 'LAST WILL AND TESTAMENT FOR ASSETS',
       info: [
         {
           title: '1. Declaration',
-          description: `I, ${myInfo.nric_name}, ${myInfo.nric_no}, ${myInfo.address} declare this document, created on ${myInfo.last_updated}, as my Last Will and Testament for my digital assets.`,
+          description: `I, ${myInfo.nric_name}, ${myInfo.nric_no}, ${myInfo.address} declare this document, created on ${myInfo.last_updated}, as my Last Will and Testament for my assets.`,
         },
         {
           title: '2. Revocation',
-          description: `All previous Wills related to my digital assets are revoked.`,
+          description: `All previous Wills related to my assets are revoked.`,
         },
         {
           title: '3. Main Co-Sampul',
-          description: `${myInfo.primary_co_sampul.name}, ${myInfo.primary_co_sampul.nric_no} is appointed to safekeep and deliver this Will and Testament of  my digital assets to my beneficiaries.`,
+          description: `${myInfo.primary_co_sampul.name}, ${myInfo.primary_co_sampul.nric_no} is appointed to safekeep and deliver this Will and Testament of  my assets to my beneficiaries.`,
         },
         {
           title: '4. Substitute Co-Sampul',
           description: `If necessary, ${myInfo.secondary_co_sampul.name}, ${myInfo.secondary_co_sampul.nric_no} will act as Substitute Co-Sampul.`,
         },
         {
-          title: '5. Digital Assets Distribution',
+          title: '5. Assets Distribution',
           description: (
             <div>
               <p>
@@ -309,7 +309,7 @@ const WillDetailsCard = () => {
                 beneficiaries as per [Table 1].
               </p>
               <p>
-                Residual Estate: The rest of my digital assets not specifically
+                Residual Estate: The rest of my assets not specifically
                 mentioned are to be distributed accordingly.
               </p>
               <p>
