@@ -97,7 +97,6 @@ const AccountsChart = ({ summary }) => {
         singleData.transfer_as_gift_data_count +
         singleData.settle_data_count;
 
-      console.log('singleData', singleData);
       setChartData(singleData);
 
       setChartSeries([
@@ -167,7 +166,7 @@ const AccountsChart = ({ summary }) => {
         dataLabels: {
           showOn: 'always',
           total: {
-            show: true,
+            show: false,
             label: 'TOTAL',
           },
           name: {
