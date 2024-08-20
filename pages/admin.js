@@ -3,6 +3,7 @@ import AllUser from '../components/AllUser';
 import Breadcrumb from '../components/Breadcrumb';
 import Footer from '../components/Footer';
 import ManageBodies from '../components/ManageBodies';
+import RequestedBodies from '../components/RequestedBodies';
 import SideBar from '../components/SideBar';
 import UsersChart from '../components/UsersChart';
 import { useApi } from '../context/api';
@@ -154,6 +155,18 @@ const Admin = () => {
             >
               Manage Bodies
             </button>
+            <button
+              class="nav-link"
+              id="nav-requested-bodies-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#nav-requested-bodies"
+              type="button"
+              role="tab"
+              aria-controls="nav-requested-bodies"
+              aria-selected="false"
+            >
+              Requested Bodies
+            </button>
           </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -172,6 +185,14 @@ const Admin = () => {
             aria-labelledby="nav-bodies-tab"
           >
             <ManageBodies summary={summary} refreshFunction={fetchData} />
+          </div>
+          <div
+            class="tab-pane fade"
+            id="nav-requested-bodies"
+            role="tabpanel"
+            aria-labelledby="nav-requested-bodies-tab"
+          >
+            <RequestedBodies summary={summary} refreshFunction={fetchData} />
           </div>
         </div>
       </div>
