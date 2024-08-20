@@ -96,7 +96,7 @@ const ManageBodies = ({ summary, refreshFunction }) => {
       />
       <div class="row">
         <div class="col-lg"></div>
-        <div class="col text-end mt-md-0 mt-3">
+        <div class="col text-end mt-md-0 mt-3 mb-3">
           <button
             class="btn btn-primary btn-text"
             onClick={() => {
