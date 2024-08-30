@@ -1,0 +1,262 @@
+[33mcommit 039ba8c8b8db4c74ead84f95cf6088d8d737494c[m[33m ([m[1;36mHEAD -> [m[1;32mtest-branch[m[33m)[m
+Author: Danish Imran <IamDanishImran@users.noreply.github.com>
+Date:   Mon Aug 12 13:48:18 2024 +0800
+
+    Modified by Danish
+
+[33mcommit 6a0a07f9a0bfa68ba60c64d959f0249e11691fe4[m
+Author: Danish Imran <IamDanishImran@users.noreply.github.com>
+Date:   Tue Aug 6 12:17:19 2024 +0800
+
+    Made changes by Danish
+
+[33mcommit a9404b56718c8cc45c61b155be34c7552606a5dd[m[33m ([m[1;32mmain[m[33m, [m[1;32mWebflow-translation[m[33m)[m
+Merge: 33b8421 6dc56fb
+Author: sampulklover <155284386+sampulklover@users.noreply.github.com>
+Date:   Tue Jul 30 15:53:16 2024 +0800
+
+    Merge pull request #161 from sampulklover/dev_01
+    
+    v1.2.17
+
+[33mcommit 6dc56fb90df5e7677bae329a726c84c1e0ecd7af[m
+Author: iklankerjakosongmalaysia <134831327+devOneGithub@users.noreply.github.com>
+Date:   Tue Jul 30 15:49:37 2024 +0800
+
+    v1.2.17
+
+[33mcommit ed418ffef624d7a226eb63192ea0dc7ce80743fe[m
+Author: iklankerjakosongmalaysia <134831327+devOneGithub@users.noreply.github.com>
+Date:   Tue Jul 30 15:40:08 2024 +0800
+
+    v1.2.16
+
+[33mcommit 33b84216e86385f3bee07b510dca89477b3e7b41[m
+Merge: d12d649 eca7b44
+Author: sampulklover <155284386+sampulklover@users.noreply.github.com>
+Date:   Mon Jul 29 00:13:10 2024 +0800
+
+    Merge pull request #160 from sampulklover/dev_01
+    
+    v1.2.15
+
+[33mcommit eca7b44a727871cfeb04cb5d76ac34654b66b5cd[m
+Author: iklankerjakosongmalaysia <134831327+devOneGithub@users.noreply.github.com>
+Date:   Mon Jul 29 00:06:48 2024 +0800
+
+    v1.2.15
+
+[33mcommit d12d64944520c40b7231e8af1db53ed508b398ab[m
+Merge: 7ad5d53 a2dd0c3
+Author: sampulklover <155284386+sampulklover@users.noreply.github.com>
+Date:   Sun Jul 28 23:47:06 2024 +0800
+
+    Merge pull request #159 from sampulklover/dev_01
+    
+    v1.2.12
+
+[33mcommit a2dd0c3850823476bbc1617ffb6881848711bdd8[m
+Author: iklankerjakosongmalaysia <134831327+devOneGithub@users.noreply.github.com>
+Date:   Sun Jul 28 23:42:54 2024 +0800
+
+    v1.2.14
+
+[33mcommit 960715c5edc6351cc44f16a0bf3fc484ac721a9d[m
+Author: iklankerjakosongmalaysia <134831327+devOneGithub@users.noreply.github.com>
+Date:   Sun Jul 28 23:38:47 2024 +0800
+
+    v1.2.13
+
+[33mcommit f15a46ada7910c2120f505c3e0deef1260c5e208[m
+Author: iklankerjakosongmalaysia <134831327+devOneGithub@users.noreply.github.com>
+Date:   Sun Jul 28 23:21:56 2024 +0800
+
+    v1.2.12
+
+[33mcommit 7ad5d539b94c6c2458b5aa522fda4a78ba9e322f[m
+Merge: 6ea2bd5 d74d8f6
+Author: sampulklover <155284386+sampulklover@users.noreply.github.com>
+Date:   Sun Jul 28 23:15:58 2024 +0800
+
+    Merge pull request #158 from sampulklover/dev_01
+    
+    v1.2.11
+
+[33mcommit d74d8f6b56969e747959b4da99be3a1d102f7e7d[m
+Author: iklankerjakosongmalaysia <134831327+devOneGithub@users.noreply.github.com>
+Date:   Sun Jul 28 23:10:02 2024 +0800
+
+    v1.2.11
+
+[33mcommit 6ea2bd500c51a37aa90fd8d2379f8cfdde398c25[m
+Merge: 9427bd3 ea2857a
+Author: sampulklover <155284386+sampulklover@users.noreply.github.com>
+Date:   Sun Jul 28 23:06:02 2024 +0800
+
+    Merge pull request #157 from sampulklover/dev_01
+    
+    v1.2.10
+
+[33mcommit ea2857a69e026af0db1dfdb9ed6e14511321b9f4[m
+Author: iklankerjakosongmalaysia <134831327+devOneGithub@users.noreply.github.com>
+Date:   Sun Jul 28 17:59:09 2024 +0800
+
+    v1.2.10
+
+[33mcommit bff4afabe17281aa80012c919a00f5b2671c0631[m
+Author: iklankerjakosongmalaysia <134831327+devOneGithub@users.noreply.github.com>
+Date:   Sun Jul 28 15:23:45 2024 +0800
+
+    v1.2.9
+
+[33mcommit 1d007b8a23ed03ca2c03b35dda8cf38a30c9d24e[m
+Author: iklankerjakosongmalaysia <134831327+devOneGithub@users.noreply.github.com>
+Date:   Sun Jul 28 15:21:12 2024 +0800
+
+    v1.2.8
+
+[33mcommit fb9038b361ca3c80891c76b9a645f4f35dab2e50[m
+Author: iklankerjakosongmalaysia <134831327+devOneGithub@users.noreply.github.com>
+Date:   Sun Jul 28 15:16:52 2024 +0800
+
+    v1.2.7
+
+[33mcommit e43710defaf3ab573621e7970dc3b9673b782f82[m
+Author: iklankerjakosongmalaysia <134831327+devOneGithub@users.noreply.github.com>
+Date:   Mon Jul 22 16:53:10 2024 +0800
+
+    v1.2.6
+
+[33mcommit 6a286639621b6fa1a6e529f311a4faa2912d5e81[m
+Author: iklankerjakosongmalaysia <134831327+devOneGithub@users.noreply.github.com>
+Date:   Mon Jul 22 16:41:50 2024 +0800
+
+    v1.2.5
+
+[33mcommit 99ae07ea5001f2287cd63fa7893faeb119a41893[m
+Author: iklankerjakosongmalaysia <134831327+devOneGithub@users.noreply.github.com>
+Date:   Fri Jul 12 22:33:29 2024 +0800
+
+    v1.2.4
+
+[33mcommit d6f8818d6ea36572cd451dabc2289d1a78028286[m
+Author: iklankerjakosongmalaysia <134831327+devOneGithub@users.noreply.github.com>
+Date:   Fri Jul 12 22:26:19 2024 +0800
+
+    v1.2.3
+
+[33mcommit 63e58bd49a7178252114b56101835e5d7e44fc0f[m
+Author: iklankerjakosongmalaysia <134831327+devOneGithub@users.noreply.github.com>
+Date:   Tue Jul 9 00:49:27 2024 +0800
+
+    v1.2.2
+
+[33mcommit e1dd4178defcf52a4c0cb26333af15723747079c[m
+Author: iklankerjakosongmalaysia <134831327+devOneGithub@users.noreply.github.com>
+Date:   Tue Jul 9 00:40:09 2024 +0800
+
+    v1.2.1
+
+[33mcommit 135a4d669ef5cdad918fbbdecf451c91241fdfad[m
+Author: iklankerjakosongmalaysia <134831327+devOneGithub@users.noreply.github.com>
+Date:   Mon Jul 8 18:13:58 2024 +0800
+
+    v1.2.0
+
+[33mcommit 9427bd3d607e44f107ec2370753908fc2d80df3a[m
+Merge: d9f884d 248b228
+Author: sampulklover <155284386+sampulklover@users.noreply.github.com>
+Date:   Wed Jun 26 14:57:25 2024 +0800
+
+    Merge pull request #156 from devOneGithub/main
+    
+    v1.1.68
+
+[33mcommit 248b22871e35284673b5d18e62a20cc4c00f1bcd[m
+Author: iklankerjakosongmalaysia <134831327+devOneGithub@users.noreply.github.com>
+Date:   Wed Jun 26 14:52:43 2024 +0800
+
+    v1.1.68
+
+[33mcommit d9f884daf8a727cef8a47337292744fadb555473[m
+Merge: 7bf6fc7 8e9e1a5
+Author: sampulklover <155284386+sampulklover@users.noreply.github.com>
+Date:   Tue Jun 25 01:40:58 2024 +0800
+
+    Merge pull request #155 from devOneGithub/main
+    
+    v1.1.67
+
+[33mcommit 8e9e1a5d4ff0f66b91d7e8907140aebe5f91e5be[m
+Author: iklankerjakosongmalaysia <134831327+devOneGithub@users.noreply.github.com>
+Date:   Tue Jun 25 01:35:27 2024 +0800
+
+    v1.1.67
+
+[33mcommit 7bf6fc7f94a0bc1a71d062563d840c3b48aed9bb[m
+Merge: 69a9bd9 0110674
+Author: sampulklover <155284386+sampulklover@users.noreply.github.com>
+Date:   Tue Jun 4 13:12:27 2024 +0800
+
+    Merge pull request #154 from devOneGithub/main
+    
+    v1.1.66
+
+[33mcommit 0110674af001f6a2e879ad3c9971fbf6c3979c8d[m
+Author: iklankerjakosongmalaysia <134831327+devOneGithub@users.noreply.github.com>
+Date:   Tue Jun 4 13:08:34 2024 +0800
+
+    v1.1.66
+
+[33mcommit 69a9bd9a17b0190e83ee4e1d9d87c6d4ba273b5c[m
+Merge: 3c3db92 0a93227
+Author: sampulklover <155284386+sampulklover@users.noreply.github.com>
+Date:   Tue Jun 4 12:54:33 2024 +0800
+
+    Merge pull request #153 from devOneGithub/main
+    
+    v1.1.65
+
+[33mcommit 0a93227c8781f636f91ca7e3f7790cf4af15ae2b[m
+Author: iklankerjakosongmalaysia <134831327+devOneGithub@users.noreply.github.com>
+Date:   Tue Jun 4 12:49:28 2024 +0800
+
+    v1.1.65
+
+[33mcommit 3c3db9256172c5685ac8c4b63e41e405c9ffd8ed[m
+Merge: 41ff9f6 4984cff
+Author: sampulklover <155284386+sampulklover@users.noreply.github.com>
+Date:   Sun May 12 02:51:00 2024 +0800
+
+    Merge pull request #152 from devOneGithub/main
+    
+    v1.1.64
+
+[33mcommit 4984cff0c818fcfa4dc237ebc9e35a7b9f3b44fb[m
+Author: iklankerjakosongmalaysia <134831327+devOneGithub@users.noreply.github.com>
+Date:   Sun May 12 02:48:09 2024 +0800
+
+    v1.1.64
+
+[33mcommit 41ff9f69b111b40b1e863b4101bde01100ce07ce[m
+Merge: 7069f05 20eb544
+Author: sampulklover <155284386+sampulklover@users.noreply.github.com>
+Date:   Sun May 12 02:27:21 2024 +0800
+
+    Merge pull request #151 from devOneGithub/main
+    
+    v1.1.63
+
+[33mcommit 20eb5448296010cd211d431f43225583db37c634[m
+Author: iklankerjakosongmalaysia <134831327+devOneGithub@users.noreply.github.com>
+Date:   Sun May 12 02:24:07 2024 +0800
+
+    v1.1.63
+
+[33mcommit 7069f054211fa9e35a96385b98cefe3e882bd94a[m
+Merge: 1ac0b54 56f51d8
+Author: sampulklover <155284386+sampulklover@users.noreply.github.com>
+Date:   Sat May 11 04:49:13 2024 +0800
+
+    Merge pull request #150 from devOneGithub/main
+  
