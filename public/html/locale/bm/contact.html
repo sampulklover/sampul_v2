@@ -124,6 +124,18 @@
         </button>
         <div class="collapse navbar-collapse" id="mynavbar">
           <ul class="navbar-nav ms-auto">
+            <div class="language-switcher">
+              <div class="language-labels" style="display:flex;flex-direction:row-reverse;">
+                <span class="en-label">EN</span>
+              </div>
+              <input type="checkbox" id="language-toggle" class="checkbox">
+              <label for="language-toggle" class="toggle">
+                <span class="toggle-button"></span>
+              </label>
+              <div class="language-labels">
+                <span class="bm-label">BM</span>
+              </div>
+            </div>
             <li class="nav-item pe-2">
               <a href="signin" class="btn btn-light btn-text" type="button">
                 Sign in
@@ -427,7 +439,7 @@
                           class="smpl-button w-button"
                           id="btn-contact-us-add-form"
                         >
-                        Hantar mesej 
+                        Hantar mesej
                         </button>
                       </div>
                     </form>
@@ -476,3 +488,110 @@
     <script src="../../static/js/contact.js"></script>
   </body>
 </html>
+
+<style>
+  .language-switcher {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .language-labels {
+    display: flex;
+    justify-content: space-between;
+    width: 40px;
+  }
+
+  .bm-label, .en-label {
+    font-size: 14px;
+  }
+
+  .checkbox {
+    display: none;
+  }
+
+  .toggle {
+    position: relative;
+    width: 50px;
+    height: 30px;
+    background-color: #ccc;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .toggle-button {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 24px;
+    height: 24px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: left 0.3s;
+  }
+
+  .checkbox:checked + .toggle {
+    background-color: #ccc;
+  }
+
+  .checkbox:checked + .toggle .toggle-button {
+    left: 23px;
+  }
+
+</style>
+
+<script>
+
+  var currentUrl = window.location.href;
+
+  document.getElementById('language-toggle').addEventListener('change', async function () {
+    console.log('changed clicked..')
+    if (this.checked) {
+      try {
+        await localStorage.setItem('lang', "bm");
+      } catch (error) {
+        console.error('Error saving data', error);
+      }
+      $("#language-toggle").prop("checked", true);
+      const newUrl = currentUrl.replace('/contact', '/bm/contact');
+      window.location.href = newUrl;
+    } else {
+      try {
+        await localStorage.setItem('lang', "en");
+      } catch (error) {
+        console.error('Error saving data', error);
+      }
+      $("#language-toggle").prop("checked", false);
+      const newUrl = currentUrl.replace('/bm/contact','/contact');
+      window.location.href = newUrl;
+    }
+  });
+
+  //$("#language-toggle").prop("checked", true);
+
+  const isLocaleEn = localStorage.getItem('lang') === 'en'
+  const isToggleChecked = $("#language-toggle").prop("checked") === true
+
+  if (isLocaleEn && isToggleChecked) {
+    console.log('in 1342')
+    $("#language-toggle").prop("checked", false);
+
+    if (currentUrl.includes('/bm/contact')) {
+      const newUrl = currentUrl.replace('/bm/contact', '/contact');
+      window.location.href = newUrl;
+    }
+
+  } else if (!isLocaleEn && !isToggleChecked) {
+    console.log('in 1345')
+    $("#language-toggle").prop("checked", true);
+
+    if (!currentUrl.includes('/bm/contact')) {
+      console.log('inside here')
+      const newUrl = currentUrl.replace('/contact', '/bm/contact');
+      window.location.href = newUrl;
+    }
+  }
+
+</script>
+

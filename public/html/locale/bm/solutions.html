@@ -233,6 +233,18 @@
         </button>
         <div class="collapse navbar-collapse" id="mynavbar">
           <ul class="navbar-nav ms-auto">
+            <div class="language-switcher">
+              <div class="language-labels" style="display:flex;flex-direction:row-reverse;">
+                <span class="en-label">EN</span>
+              </div>
+              <input type="checkbox" id="language-toggle" class="checkbox">
+              <label for="language-toggle" class="toggle">
+                <span class="toggle-button"></span>
+              </label>
+              <div class="language-labels">
+                <span class="bm-label">BM</span>
+              </div>
+            </div>
             <li class="nav-item pe-2">
               <a href="signin" class="btn btn-light btn-text" type="button">
                 Sign in
@@ -740,10 +752,10 @@
                 class="service-description"
               >
                 <div class="body-display">
-                    SAMPUL bertindak sebagai pusat untuk menguruskan semua aset digital. 
-                    Pengguna boleh mengkategorikan dan menyusun aset mereka dengan mudah, 
-                    menjamin pengawasan aset pusaka digital mereka. Tambahan pula, SAMPUL menyediakan 
-                    penyimpanan selamat untuk dokumen penting, seperti wasiat dan sijil undang-undang, 
+                    SAMPUL bertindak sebagai pusat untuk menguruskan semua aset digital.
+                    Pengguna boleh mengkategorikan dan menyusun aset mereka dengan mudah,
+                    menjamin pengawasan aset pusaka digital mereka. Tambahan pula, SAMPUL menyediakan
+                    penyimpanan selamat untuk dokumen penting, seperti wasiat dan sijil undang-undang,
                     memastikan maklumat penting mudah diakses oleh waris yang ditetapkan.
                 </div>
               </div>
@@ -752,8 +764,8 @@
                 class="service-description"
               >
                 <div class="body-display">
-                    Platform ini memudahkan penentuan waris, membolehkan pengguna menentukan dengan 
-                    mudah siapa yang harus mewarisi setiap aset. Ciri ini menggalakkan ketelusan dan kejelasan 
+                    Platform ini memudahkan penentuan waris, membolehkan pengguna menentukan dengan
+                    mudah siapa yang harus mewarisi setiap aset. Ciri ini menggalakkan ketelusan dan kejelasan
                     dalam proses pengagihan aset, memastikan aset diagihkan seperti yang dihasratkan.
                 </div>
               </div>
@@ -1184,9 +1196,9 @@
                 class="service-description"
               >
                 <div class="body-display">
-                    SAMPUL memperkasakan anda untuk membuat wasiat digital yang teliti, 
-                    tidak meninggalkan aset digital terbiar ditentukan oleh orang lain. 
-                    Anda boleh menentukan arahan tepat untuk setiap aset dan akaun, memastikan aset 
+                    SAMPUL memperkasakan anda untuk membuat wasiat digital yang teliti,
+                    tidak meninggalkan aset digital terbiar ditentukan oleh orang lain.
+                    Anda boleh menentukan arahan tepat untuk setiap aset dan akaun, memastikan aset
                     atas talian anda diurus mengikut hasrat anda.
                 </div>
               </div>
@@ -1195,10 +1207,10 @@
                 class="service-description"
               >
                 <div class="body-display">
-                    SAMPUL membantu anda menyenaraikan secara menyeluruh aset digital anda, 
-                    memastikan tiada aset yang berharga terlepas pandang. 
-                    Pendekatan proaktif dalam perancangan legasi ini menjamin peralihan 
-                    lancar aset digital dan memori anda kepada yang tersayang, menjamin legasi 
+                    SAMPUL membantu anda menyenaraikan secara menyeluruh aset digital anda,
+                    memastikan tiada aset yang berharga terlepas pandang.
+                    Pendekatan proaktif dalam perancangan legasi ini menjamin peralihan
+                    lancar aset digital dan memori anda kepada yang tersayang, menjamin legasi
                     digital yang berterusan.
                 </div>
               </div>
@@ -1483,11 +1495,11 @@
                 class="service-description"
               >
                 <div class="body-display">
-                    SAMPUL menjadikan perancangan aset pusaka digital sebagai usaha bersama. 
-                    Anda boleh melantik Co-SAMPUL, orang yang dipercayai seperti ahli keluarga, 
-                    kawan, atau penasihat, untuk membantu dengan wasiat digital anda. Sekiranya anda 
-                    meninggal dunia, peranan mereka adalah untuk memaklumkan SAMPUL, yang kemudiannya akan 
-                    membuka kunci dan menyampaikan wasiat digital anda. Aset dan hasrat anda kekal rahsia dan 
+                    SAMPUL menjadikan perancangan aset pusaka digital sebagai usaha bersama.
+                    Anda boleh melantik Co-SAMPUL, orang yang dipercayai seperti ahli keluarga,
+                    kawan, atau penasihat, untuk membantu dengan wasiat digital anda. Sekiranya anda
+                    meninggal dunia, peranan mereka adalah untuk memaklumkan SAMPUL, yang kemudiannya akan
+                    membuka kunci dan menyampaikan wasiat digital anda. Aset dan hasrat anda kekal rahsia dan
                     terjamin sepanjang masa.
                 </div>
               </div>
@@ -1496,8 +1508,8 @@
                 class="service-description"
               >
                 <div class="body-display">
-                    SAMPUL juga membolehkan perkongsian selamat wasiat digital dan maklumat aset 
-                    anda dengan individu yang dipilih, memastikan peralihan lancar aset digital 
+                    SAMPUL juga membolehkan perkongsian selamat wasiat digital dan maklumat aset
+                    anda dengan individu yang dipilih, memastikan peralihan lancar aset digital
                     anda apabila tiba masanya. Pendekatan kerjasama ini memudahkan pengurusan legasi digital.
                 </div>
               </div>
@@ -1624,3 +1636,105 @@
     <script src="../../static/js/global-config.js"></script>
   </body>
 </html>
+
+<style>
+  .language-switcher {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .language-labels {
+    display: flex;
+    justify-content: space-between;
+    width: 40px;
+  }
+
+  .bm-label, .en-label {
+    font-size: 14px;
+  }
+
+  .checkbox {
+    display: none;
+  }
+
+  .toggle {
+    position: relative;
+    width: 50px;
+    height: 30px;
+    background-color: #ccc;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .toggle-button {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 24px;
+    height: 24px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: left 0.3s;
+  }
+
+  .checkbox:checked + .toggle {
+    background-color: #ccc;
+  }
+
+  .checkbox:checked + .toggle .toggle-button {
+    left: 23px;
+  }
+
+</style>
+
+<script>
+
+  var currentUrl = window.location.href;
+
+  document.getElementById('language-toggle').addEventListener('change', async function () {
+    if (this.checked) {
+      try {
+        await localStorage.setItem('lang', "bm");
+      } catch (error) {
+        console.error('Error saving data', error);
+      }
+      $("#language-toggle").prop("checked", true);
+      const newUrl = currentUrl.replace('/solutions', '/bm/solutions');
+      window.location.href = newUrl;
+    } else {
+      try {
+        await localStorage.setItem('lang', "en");
+      } catch (error) {
+        console.error('Error saving data', error);
+      }
+      $("#language-toggle").prop("checked", false);
+      const newUrl = currentUrl.replace('/bm/solutions','/solutions');
+      window.location.href = newUrl;
+    }
+  });
+
+  //$("#language-toggle").prop("checked", true);
+
+  const isLocaleEn = localStorage.getItem('lang') === 'en'
+  const isToggleChecked = $("#language-toggle").prop("checked") === true
+
+  if (isLocaleEn && isToggleChecked) {
+    $("#language-toggle").prop("checked", false);
+
+    if (currentUrl.includes('/bm/solutions')) {
+      const newUrl = currentUrl.replace('/bm/solutions', '/solutions');
+      window.location.href = newUrl;
+    }
+
+  } else if (!isLocaleEn && !isToggleChecked) {
+    $("#language-toggle").prop("checked", true);
+
+    if (!currentUrl.includes('/bm/solutions')) {
+      const newUrl = currentUrl.replace('/solutions', '/bm/solutions');
+      window.location.href = newUrl;
+    }
+  }
+
+</script>

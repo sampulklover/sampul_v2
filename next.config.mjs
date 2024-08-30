@@ -11,24 +11,44 @@ const nextConfig = {
         destination: '/html/locale/en/index.html',
       },
       {
+        source: '/bm',
+        destination: '/html/locale/bm/index.html',
+      },
+      {
+        source: '/company',
+        destination: '/html/locale/en/company.html',
+      },
+      {
         source: '/bm/company',
         destination: '/html/locale/bm/company.html',
+      },
+      {
+        source: '/contact',
+        destination: '/html/locale/en/contact.html',
       },
       {
         source: '/bm/contact',
         destination: '/html/locale/bm/contact.html',
       },
       {
-        source: '/bm',
-        destination: '/html/locale/bm/index.html',
+        source: '/policy',
+        destination: '/html/locale/en/policy.html',
       },
       {
         source: '/bm/policy',
         destination: '/html/locale/bm/policy.html',
       },
       {
+        source: '/price',
+        destination: '/html/locale/en/price.html',
+      },
+      {
         source: '/bm/price',
         destination: '/html/locale/bm/price.html',
+      },
+      {
+        source: '/resources',
+        destination: '/html/locale/en/resources.html',
       },
       {
         source: '/bm/resources',
@@ -40,27 +60,47 @@ const nextConfig = {
       },
       {
         source: '/solutions',
-        destination: '/html/solutions.html',
+        destination: '/html/locale/en/solutions.html',
       },
       {
         source: '/price',
-        destination: '/html/price.html',
+        destination: '/html/locale/en/price.html',
+      },
+      {
+        source: '/bm/price',
+        destination: '/html/locale/bm/price.html',
+      },
+      {
+        source: '/bm/company',
+        destination: '/html/locale/bm/company.html',
       },
       {
         source: '/company',
-        destination: '/html/company.html',
+        destination: '/html/locale/en/company.html',
       },
       {
         source: '/resources',
-        destination: '/html/resources.html',
+        destination: '/html/locale/en/resources.html',
+      },
+      {
+        source: '/bm/resources',
+        destination: '/html/locale/bm/resources.html',
       },
       {
         source: '/contact',
-        destination: '/html/contact.html',
+        destination: '/html/locale/en/contact.html',
+      },
+      {
+        source: '/bm/contact',
+        destination: '/html/locale/bm/contact.html',
       },
       {
         source: '/policy',
-        destination: '/html/policy.html',
+        destination: '/html/locale/en/policy.html',
+      },
+      {
+        source: '/bm/policy',
+        destination: '/html/locale/bm/policy.html',
       },
     ];
   },
