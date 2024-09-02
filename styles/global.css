@@ -476,6 +476,13 @@
 }
 
 
+.stepper-line {
+  height: 1px;
+  background-color: #b1b1b1;
+  width: 100px;
+  position: relative;
+}
+
 /* webflow */
 
 .uui-contact05_image {

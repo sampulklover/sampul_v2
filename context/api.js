@@ -110,7 +110,12 @@ export const ApiProvider = ({ children }) => {
     }
   };
 
-  const getProfile = async () => {
+  const getProfile = async (refresh = false) => {
+    if (!refresh && contextApiData.profile.data) {
+      console.log('Using cached profile data.');
+      return;
+    }
+
     setContextApiData((prevData) => ({
       ...prevData,
       profile: {
@@ -118,8 +123,10 @@ export const ApiProvider = ({ children }) => {
         isLoading: true,
       },
     }));
+
     try {
       const data = await getProfileApi({ uuid: contextApiData.user.data.id });
+
       setContextApiData((prevData) => ({
         ...prevData,
         profile: {

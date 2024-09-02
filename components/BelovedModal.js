@@ -39,7 +39,7 @@ const getElements = () => {
   return inputElements;
 };
 
-const BelovedModal = () => {
+const BelovedModal = ({ isModalView = true, onSuccess = () => {} }) => {
   const { contextApiData, getBeloved, getDigitalAssets } = useApi();
   const { locale } = useLocale();
   const { isModalOpen, toggleModal } = useModal();
@@ -418,7 +418,11 @@ const BelovedModal = () => {
           }));
         }, 1000);
       } else {
-        toggleModal('beloved');
+        if (onSuccess) {
+          onSuccess();
+        } else {
+          toggleModal('beloved');
+        }
       }
 
       setSelectedImage({
@@ -579,7 +583,12 @@ const BelovedModal = () => {
       }
     }
 
-    toggleModal('beloved');
+    if (onSuccess) {
+      onSuccess();
+    } else {
+      toggleModal('beloved');
+    }
+
     toast.success(
       translations[locale].component.beloved_modal.successfully_updated
     );
@@ -637,7 +646,12 @@ const BelovedModal = () => {
         returnData: returnData,
       });
 
-      toggleModal('beloved');
+      if (onSuccess) {
+        onSuccess();
+      } else {
+        toggleModal('beloved');
+      }
+
       toast.success(
         translations[locale].component.beloved_modal.successfully_deleted
       );
@@ -681,24 +695,9 @@ const BelovedModal = () => {
     }
   };
 
-  return (
-    <Modal
-      show={isModalOpen.beloved}
-      onHide={() => {
-        toggleModal('beloved');
-      }}
-      class={`modal-dialog modal-dialog-centered ${
-        createMore.animated ? 'pulse-modal' : ''
-      }`}
-    >
-      <Modal.Header closeButton>
-        <Modal.Title>
-          <h5 class="modal-title">
-            {translations[locale].component.beloved_modal.beloved}
-          </h5>
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
+  const bodyContent = () => {
+    return (
+      <>
         <div class="modal-header-2 mb-3">
           <div class="content-32">
             <div class="smpl-icon-featured-outline-large">
@@ -744,21 +743,6 @@ const BelovedModal = () => {
               required
             />
           </div>
-          {/* <div class="form-field-wrapper">
-                  <label
-                    htmlFor={`input-beloved-nric-no`}
-                    class="uui-field-label"
-                  >
-                    NRIC
-                  </label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id={`input-beloved-nric-no`}
-                    required
-                  />
-                </div>
-                 */}
           <div class="form-field-wrapper mb-3">
             <label htmlFor={`input-beloved-email`} class="uui-field-label">
               {translations[locale].component.beloved_modal.email}
@@ -902,25 +886,6 @@ const BelovedModal = () => {
                 ))}
               </select>
             </div>
-            {/* <div class="form-field-wrapper">
-                  <label
-                    htmlFor={`select-beloved-relationship`}
-                    class="uui-field-label"
-                  >
-                    Relationship
-                  </label>
-                  <select
-                    id={`select-beloved-relationship`}
-                    required
-                    class="form-select"
-                  >
-                    {relationships().map((item) => (
-                      <option key={item.value} value={item.value}>
-                        {item.name}
-                      </option>
-                    ))}
-                  </select>
-                </div> */}
           </div>
           <div class="form-content-2 mb-3">
             <div class="form-field-wrapper" style={{ display: 'none' }}>
@@ -977,82 +942,6 @@ const BelovedModal = () => {
               />
             </div>
           </div>
-
-          {/* <>
-                <div class="mt-4">
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="checkbox-beloved-0"
-                      required
-                    />
-                    <label class="form-check-label" htmlFor="checkbox-beloved-0">
-                      <small>
-                        CO-SAMPUL IS A TRUSTED PERSON FOR WHICH MY WASIAT/WILL
-                        WITH ALL THE ASSET INFORMATION AND WISHES WILL BE PASSED
-                        ON UPON MY DEATH.
-                      </small>
-                    </label>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="checkbox-beloved-1"
-                      required
-                    />
-                    <label class="form-check-label" htmlFor="checkbox-beloved-1">
-                      <small>
-                        MY TRUSTED CO-SAMPUL WILL ONLY BE GIVEN ACCESS AFTER MY
-                        DEATH TO ASSIST MY LOVED ONES IN MANAGING THE ESTATE. I
-                        AM ALLOWED TO CHANGE MY CO-SAMPUL AT ANYTIME IF NEEDED.
-                      </small>
-                    </label>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="checkbox-beloved-2"
-                      required
-                    />
-                    <label class="form-check-label" htmlFor="checkbox-beloved-2">
-                      <small>CO-SAMPUL MUST BE 18 YEARS OLD AND ABOVE</small>
-                    </label>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="checkbox-beloved-3"
-                      required
-                    />
-                    <label class="form-check-label" htmlFor="checkbox-beloved-3">
-                      <small>
-                        I HAVE EXPLAIN ON SAMPUL AND SEEK CONSENT FROM MY
-                        APPOINTED CO-SAMPUL TO SHARE HIS/HER PERSONAL
-                        INFORMATION WITH SAMPUL. READ OUR{' '}
-                        <Link href="policy" target="_blank">PRIVACY POLICY.</Link>
-                      </small>
-                    </label>
-                  </div>
-                </div>
-              </> */}
-
           <div class="mt-3">
             <div class="form-check">
               <input
@@ -1071,7 +960,8 @@ const BelovedModal = () => {
             </div>
           </div>
           <div class="mt-5">
-            {belovedTypeName[keyType]?.show_create_more &&
+            {isModalView &&
+            belovedTypeName[keyType]?.show_create_more &&
             belovedConfig[belovedType]?.current_user?.length + 1 !==
               belovedConfig[belovedType]?.max_create_more ? (
               <div className="form-field-wrapper mb-3">
@@ -1101,7 +991,6 @@ const BelovedModal = () => {
               <></>
             )}
           </div>
-
           <div class="d-grid gap-2">
             <button type="submit" class="btn btn-primary btn-text">
               <Loading
@@ -1125,9 +1014,34 @@ const BelovedModal = () => {
             )}
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
-  );
+      </>
+    );
+  };
+
+  if (isModalView) {
+    return (
+      <Modal
+        show={isModalOpen.beloved}
+        onHide={() => {
+          toggleModal('beloved');
+        }}
+        class={`modal-dialog modal-dialog-centered ${
+          createMore.animated ? 'pulse-modal' : ''
+        }`}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <h5 class="modal-title">
+              {translations[locale].component.beloved_modal.beloved}
+            </h5>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{bodyContent()}</Modal.Body>
+      </Modal>
+    );
+  } else {
+    return bodyContent();
+  }
 };
 
 export default BelovedModal;

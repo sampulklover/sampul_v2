@@ -18,7 +18,7 @@ import Loading from './Laoding';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
-const MyDetails = ({ isModal = false }) => {
+const MyDetails = ({ isModalView = false, onSuccess = () => {} }) => {
   const { contextApiData, getProfile, getWill } = useApi();
   const { locale, changeLocale } = useLocale();
 
@@ -125,18 +125,22 @@ const MyDetails = ({ isModal = false }) => {
       isSaving: false,
     });
 
-    if (isModal) {
+    if (isModalView) {
       $('#profile-modal')?.modal('hide');
     }
 
+    if (onSuccess) {
+      onSuccess();
+    }
+
     setTimeout(() => {
-      getProfile();
+      getProfile(true);
       getWill();
     }, 1500);
   };
 
   const checkView = ({ labelDiv1, inputDiv1, labelDiv2, inputDiv2 }) => {
-    if (isModal) {
+    if (isModalView) {
       return (
         <div class="form-content-2 mb-3">
           <div class="form-field-wrapper">
@@ -174,7 +178,7 @@ const MyDetails = ({ isModal = false }) => {
           onSubmitForm();
         }}
       >
-        {isModal ? (
+        {isModalView ? (
           ''
         ) : (
           <div class="row mb-4">
@@ -373,13 +377,13 @@ const MyDetails = ({ isModal = false }) => {
           ),
         })}
 
-        <div class={`${isModal ? '' : 'row'} align-items-start`}>
+        <div class={`${isModalView ? '' : 'row'} align-items-start`}>
           <div class="col-lg">
             <label htmlFor="input-my-details-address-1" class="uui-field-label">
               {translations[locale].component.my_details.address}
             </label>
           </div>
-          <div class={isModal ? 'mt-2' : 'col'}>
+          <div class={isModalView ? 'mt-2' : 'col'}>
             <input
               type="text"
               class="form-control"
@@ -466,7 +470,7 @@ const MyDetails = ({ isModal = false }) => {
             </select>
           ),
         })} */}
-        {isModal ? (
+        {isModalView ? (
           <div class="d-grid gap-2 mt-5">
             <button type="submit" class="btn btn-primary btn-text">
               <Loading

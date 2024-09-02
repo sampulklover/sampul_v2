@@ -69,4 +69,16 @@ export const pages = [
       auth: true,
     },
   },
+  {
+    onboard: {
+      route: '/onboard',
+      auth: true,
+    },
+  },
+  {
+    care: {
+      route: '/care',
+      auth: true,
+    },
+  },
 ];
