@@ -41,7 +41,7 @@ function footer() {
                   <div class="uui-logo_component">
                     <div class="uui-logo_logomark">
                       <img
-                        src="images/Logomark.svg"
+                        src="../images/Logomark.svg"
                         loading="lazy"
                         alt=""
                         class="uui-styleguide_logomark-bg"
@@ -49,7 +49,7 @@ function footer() {
                       <div class="uui-logo_logomark-blur"></div>
                     </div>
                     <img
-                      src="images/Logo.svg"
+                      src="../images/Logo.svg"
                       loading="lazy"
                       alt="Untitled UI logotext"
                       class="uui-logo_logotype"
