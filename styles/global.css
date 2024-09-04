@@ -483,6 +483,55 @@
   position: relative;
 }
 
+/* styles/globals.css */
+
+.stepper {
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
+
+.stepper-item {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  padding-bottom: 10px;
+  font-size: 18px;
+}
+
+.stepper-item::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  background-color: #e9ecef;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: -1;
+}
+
+.stepper-item.completed::after {
+  background-color: #0d6efd;
+}
+
+.stepper-item.active {
+  font-weight: bold;
+}
+
+.stepper-item:not(:last-child)::after {
+  right: -50%;
+}
+
+.stepper-item:not(:first-child)::after {
+  left: 50%;
+}
+
+.stepper-item.active::after {
+  background-color: #0d6efd;
+}
+
+
 /* webflow */
 
 .uui-contact05_image {

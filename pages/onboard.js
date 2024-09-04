@@ -1,9 +1,11 @@
 import BelovedModal from '../components/BelovedModal';
 import DigitalAssetsActionCard from '../components/DigitalAssetsActionCard';
 import DigitalAssetsCard from '../components/DigitalAssetsCard';
+import DigitalAssetsModal from '../components/DigitalAssetsModal';
 import Loading from '../components/Laoding';
 import MyDetails from '../components/MyDetails';
 import SideBar from '../components/SideBar';
+import Stepper from '../components/stepper';
 import { emptyUserImg } from '../constant/element';
 import { belovedInviteStatus, belovedLevel } from '../constant/enum';
 import translations from '../constant/translations';
@@ -20,20 +22,7 @@ const Onboard = () => {
   const router = useRouter();
   const { isModalOpen, toggleModal } = useModal();
   const { tempData, setValueTempData } = useTempData();
-
   const [currentStep, setCurrentStep] = useState(0);
-
-  const nextStep = () => {
-    if (currentStep < steps.length - 1) {
-      setCurrentStep(currentStep + 1);
-    }
-  };
-
-  const prevStep = () => {
-    if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
-    }
-  };
 
   var coSampulData = [];
 
@@ -59,110 +48,24 @@ const Onboard = () => {
     toggleModal('beloved');
   };
 
-  const [filteredValue, setFilteredValue] = useState('');
+  const nextStep = () => {
+    if (currentStep < steps.length - 1) {
+      setCurrentStep(currentStep + 1);
+    }
+  };
 
-  const tabConfig = [
-    {
-      title: 'View all',
-      type: '',
-    },
-    {
-      title: 'Terminate',
-      type: 'terminate',
-    },
-    {
-      title: 'Gift',
-      type: 'gift',
-    },
-    {
-      title: 'Faraid',
-      type: 'faraid',
-    },
-    {
-      title: 'Settle',
-      type: 'settle',
-    },
-  ];
-
-  const [selectedTab, setSelectedTab] = useState('');
-
-  const tabSection = () => {
-    return (
-      <>
-        <div class="text-center mt-3">
-          <span class="heading-03">Your Registered Assets</span>
-        </div>
-        <ul
-          class="nav nav-pills justify-content-center tab-background mt-3"
-          id="pills-tab"
-          role="tablist"
-        >
-          {tabConfig.map((item, index) => {
-            return (
-              <li class="nav-item" role="presentation" key={index}>
-                <button
-                  class={`nav-link smpl_text-sm-semibold ${
-                    selectedTab == item.type ? 'active' : ''
-                  }`}
-                  id={`pills-${item.type}-tab`}
-                  data-bs-toggle="pill"
-                  data-bs-target={`#pills-${item.type}`}
-                  type="button"
-                  role="tab"
-                  aria-controls={`pills-${item.type}`}
-                  aria-selected={selectedTab == item.type ? true : false}
-                  onClick={() => {
-                    setSelectedTab(item.type);
-                  }}
-                >
-                  {item.title}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-        <div
-          class="tab-content mt-5"
-          id="pills-tabContent"
-          style={{ minHeight: 300 }}
-        >
-          {tabConfig.map((item, index) => {
-            return (
-              <div
-                class={`tab-pane fade ${
-                  selectedTab == item.type ? 'show active' : ''
-                }`}
-                id={`pills-${item.type}`}
-                role="tabpanel"
-                aria-labelledby={`pills-${item.type}-tab`}
-                key={index}
-              >
-                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                  <DigitalAssetsCard
-                    typeName={item.type}
-                    searchInput={filteredValue}
-                  />
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </>
-    );
+  const prevStep = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+    }
   };
 
   const steps = [
     {
-      title: 'Decide what happens to your assets',
-      heading: 'Decide what happens to your assets',
-      subheading:
-        'Your assets—both digital and physical—are a crucial part of the legacy you leave behind. At Sampul.co, you have the power to decide what happens to them. Do you want to follow as faraid, pass them on as a gift, settle any debts, or simply close down subscriptions you no longer need? Choose an option that best suits your wishes, and we’ll guide you through the process of securing your assets. It’s simple, straightforward, and gives you peace of mind knowing your asset is in good hands.',
-      view: (
-        <div>
-          <DigitalAssetsActionCard />
-          {tabSection()}
-        </div>
-      ),
+      title: 'Your Details',
+      heading: 'Complete Your Wasiat Profile',
+      subheading: `Life changes, and so do your plans. Keep your Wasiat profile current by updating your personal information whenever necessary.`,
+      view: <MyDetails isModal onSuccess={nextStep} />,
     },
     {
       title: 'Appoint your trusted person',
@@ -317,10 +220,24 @@ const Onboard = () => {
       ),
     },
     {
-      title: 'Your Details',
-      heading: 'Complete Your Wasiat Profile',
-      subheading: `Life changes, and so do your plans. Keep your Wasiat profile current by updating your personal information whenever necessary.`,
-      view: <MyDetails isModal onSuccess={nextStep} />,
+      title: 'Decide what happens to your assets',
+      heading: 'Decide what happens to your assets',
+      subheading:
+        'Your assets—both digital and physical—are a crucial part of the legacy you leave behind. At Sampul.co, you have the power to decide what happens to them. Do you want to follow as faraid, pass them on as a gift, settle any debts, or simply close down subscriptions you no longer need? Choose an option that best suits your wishes, and we’ll guide you through the process of securing your assets. It’s simple, straightforward, and gives you peace of mind knowing your asset is in good hands.',
+      view: (
+        <div>
+          {contextApiData.digitalAssets.data.length > 0 &&
+          !contextApiData.digitalAssets.isLoading ? (
+            <>
+              <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                <DigitalAssetsCard typeName={''} searchInput={''} />
+              </div>
+            </>
+          ) : (
+            <DigitalAssetsModal isModalView={false} onSuccess={nextStep} />
+          )}
+        </div>
+      ),
     },
   ];
 
@@ -328,68 +245,18 @@ const Onboard = () => {
     <div className="default-background-color">
       <div className="px-5 pb-5">
         <div className="py-5">
-          {/* <div className="container mt-5 justify-content-center">
-            {steps.map((step, index) => (
-              <div key={index} className="text-center">
-                <div class="row">
-                  <div class="col">
-                    <div class="d-flex justify-content-center">
-                      <div
-                        className={`rounded-circle p-3 ${
-                          index <= currentStep
-                            ? 'bg-primary text-white'
-                            : 'bg-secondary text-muted'
-                        }`}
-                        style={{
-                          width: '50px',
-                          height: '50px',
-                          margin: '0 20px',
-                        }} // Added margin for spacing
-                      >
-                        {index + 1}
-                      </div>
-                    </div>
-                    <p
-                      className={`mt-2 ${
-                        index === currentStep ? 'fw-bold' : ''
-                      }`}
-                    >
-                      {step.title}
-                    </p>
-                  </div>
-                  {index !== steps.length - 1 && (
-                    <div class="col d-flex align-items-center justify-content-center">
-                      <div class="stepper-line"></div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div> */}
-          {/* <div className="d-flex justify-content-between mt-4">
-            <button
-              className="btn btn-secondary"
-              onClick={prevStep}
-              disabled={currentStep === 0}
-              aria-label="Previous step"
-            >
-              Previous
-            </button>
-            <button
-              className="btn btn-primary"
-              onClick={nextStep}
-              disabled={currentStep === steps.length - 1}
-              aria-label="Next step"
-            >
-              Next
-            </button>
-          </div> */}
-          {/* <div class="text-center mt-4">
+          <Stepper
+            steps={steps}
+            currentStep={currentStep}
+            nextStep={nextStep}
+            prevStep={prevStep}
+          />
+          <div class="text-center mt-4">
             <span className="heading-03">{steps[currentStep].heading}</span>
             <p className="paragraph-01">{steps[currentStep].subheading}</p>
-          </div> */}
+          </div>
         </div>
-        {/* <div className="card">{steps[currentStep].view}</div> */}
+        <div className="card">{steps[currentStep].view}</div>
       </div>
     </div>
   );

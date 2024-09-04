@@ -83,7 +83,7 @@ const instructionTypeConfig = {
   },
 };
 
-const DigitalAssetsModal = () => {
+const DigitalAssetsModal = ({ isModalView = true, onSuccess = () => {} }) => {
   const { contextApiData, getDigitalAssets, addDigitalAssetsApi } = useApi();
   const { locale } = useLocale();
   const { tempData, setValueTempData } = useTempData();
@@ -200,7 +200,9 @@ const DigitalAssetsModal = () => {
     mutiselectData.platform.selected.map((item) => {
       const baseData = {
         uuid: contextApiData.user.data?.id,
-        instructions_after_death: tempData.assets.instructionType,
+        instructions_after_death: item?.instructionsAfterDeath
+          ? item.instructionsAfterDeath
+          : tempData.assets.instructionType,
         declared_value_myr: item.amount,
         protection: item?.protection || null,
         remarks: item?.remarks || '',
@@ -224,7 +226,12 @@ const DigitalAssetsModal = () => {
 
     if (result) {
       toast.success(translations[locale].global.successfully_submitted);
-      toggleModal('assets');
+
+      if (onSuccess) {
+        onSuccess();
+      } else {
+        toggleModal('assets');
+      }
     } else {
       setIsLoading({
         ...isLoading,
@@ -557,27 +564,9 @@ const DigitalAssetsModal = () => {
     );
   };
 
-  return (
-    <Modal
-      show={isModalOpen.assets}
-      onHide={() => {
-        toggleModal('assets');
-        clearSelectedItem();
-      }}
-    >
-      <Modal.Header closeButton>
-        <Modal.Title>
-          <Image
-            src="images/flag-icon.svg"
-            alt="image"
-            width={0}
-            height={0}
-            sizes="100vw"
-            style={{ width: 40, height: 40 }}
-          />
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
+  const bodyContent = () => {
+    return (
+      <>
         <div class="mb-0 modal-title-01">
           {keyType == 'edit'
             ? instructionTypeConfig[keyType][
@@ -685,7 +674,7 @@ const DigitalAssetsModal = () => {
                     {item?.label ? item.label : 'Platform'}
                   </span>
                 </label>
-                {keyType == 'edit' ? (
+                {keyType == 'edit' || !isModalView ? (
                   <div class="form-field-wrapper mt-2">
                     <label
                       htmlFor={`input-${item.value}-instruction-after-death`}
@@ -906,9 +895,37 @@ const DigitalAssetsModal = () => {
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
-  );
+      </>
+    );
+  };
+
+  if (isModalView) {
+    return (
+      <Modal
+        show={isModalOpen.assets}
+        onHide={() => {
+          toggleModal('assets');
+          clearSelectedItem();
+        }}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <Image
+              src="images/flag-icon.svg"
+              alt="image"
+              width={0}
+              height={0}
+              sizes="100vw"
+              style={{ width: 40, height: 40 }}
+            />
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{bodyContent()}</Modal.Body>
+      </Modal>
+    );
+  } else {
+    return bodyContent();
+  }
 };
 
 export default DigitalAssetsModal;
