@@ -132,7 +132,7 @@ function newsletterForm_BM() {
                   </div>
                 </div>
                 <div class="uui-footer02_right-wrapper">
-                  <div class="uui-footer02_heading">Join our newsletter</div>
+                  <div class="uui-footer02_heading">Sertai surat berita kami.</div>
                   <div class="uui-text-size-small">
                     Sertai surat berita kami untuk sentiasa dikemaskini mengenai keluaran.
                   </div>
