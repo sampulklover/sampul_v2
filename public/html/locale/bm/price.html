@@ -124,6 +124,18 @@
         </button>
         <div class="collapse navbar-collapse" id="mynavbar">
           <ul class="navbar-nav ms-auto">
+            <div class="language-switcher">
+              <div class="language-labels" style="display:flex;flex-direction:row-reverse;">
+                <span class="en-label">EN</span>
+              </div>
+              <input type="checkbox" id="language-toggle" class="checkbox">
+              <label for="language-toggle" class="toggle">
+                <span class="toggle-button"></span>
+              </label>
+              <div class="language-labels">
+                <span class="bm-label">BM</span>
+              </div>
+            </div>
             <li class="nav-item pe-2">
               <a href="signin" class="btn btn-light btn-text" type="button">
                 Log masuk
@@ -450,7 +462,7 @@
                                 >
                               </div>
                               <div class="uui-text-size-small-7">
-                                Sangat bermanfaat untuk pasangan dengan anak-anak, menawarkan keselamatan yang lebih 
+                                Sangat bermanfaat untuk pasangan dengan anak-anak, menawarkan keselamatan yang lebih
                                 tinggi untuk orang yang disayangi dan melindungi kedua-dua aset fizikal dan digital.
                               </div>
                             </div>
@@ -1999,7 +2011,9 @@
         <!-- auto generate -->
       </div>
     </div>
-    <script src="../../static/component/bm/footer.js"></script>
+    <div id="footer-container">
+      <!-- auto generate -->
+    </div>
     <script
       src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=651503a226dcd604df8a350d"
       type="text/javascript"
@@ -2061,9 +2075,111 @@
       type="text/css"
     />
     <script src="../../static/component/nav-bar.js"></script>
-    <script src="../../static/component/footer.js"></script>
+    <script src="../../static/component/bm/footer.js"></script>
     <script src="../../static/js/constant.js"></script>
     <script src="../../static/js/global-functions.js"></script>
     <script src="../../static/js/global-config.js"></script>
   </body>
 </html>
+
+<style>
+  .language-switcher {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .language-labels {
+    display: flex;
+    justify-content: space-between;
+    width: 40px;
+  }
+
+  .bm-label, .en-label {
+    font-size: 14px;
+  }
+
+  .checkbox {
+    display: none;
+  }
+
+  .toggle {
+    position: relative;
+    width: 50px;
+    height: 30px;
+    background-color: #ccc;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .toggle-button {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 24px;
+    height: 24px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: left 0.3s;
+  }
+
+  .checkbox:checked + .toggle {
+    background-color: #ccc;
+  }
+
+  .checkbox:checked + .toggle .toggle-button {
+    left: 23px;
+  }
+
+</style>
+
+<script>
+
+  var currentUrl = window.location.href;
+
+  document.getElementById('language-toggle').addEventListener('change', async function () {
+    if (this.checked) {
+      try {
+        await localStorage.setItem('lang', "bm");
+      } catch (error) {
+        console.error('Error saving data', error);
+      }
+      $("#language-toggle").prop("checked", true);
+      const newUrl = currentUrl.replace('/price', '/bm/price');
+      window.location.href = newUrl;
+    } else {
+      try {
+        await localStorage.setItem('lang', "en");
+      } catch (error) {
+        console.error('Error saving data', error);
+      }
+      $("#language-toggle").prop("checked", false);
+      const newUrl = currentUrl.replace('/bm/price','/price');
+      window.location.href = newUrl;
+    }
+  });
+
+  //$("#language-toggle").prop("checked", true);
+
+  const isLocaleEn = localStorage.getItem('lang') === 'en'
+  const isToggleChecked = $("#language-toggle").prop("checked") === true
+
+  if (isLocaleEn && isToggleChecked) {
+    $("#language-toggle").prop("checked", false);
+
+    if (currentUrl.includes('/bm/price')) {
+      const newUrl = currentUrl.replace('/bm/price', '/price');
+      window.location.href = newUrl;
+    }
+
+  } else if (!isLocaleEn && !isToggleChecked) {
+    $("#language-toggle").prop("checked", true);
+
+    if (!currentUrl.includes('/bm/price')) {
+      const newUrl = currentUrl.replace('/price', '/bm/price');
+      window.location.href = newUrl;
+    }
+  }
+
+</script>

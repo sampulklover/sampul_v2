@@ -2,10 +2,6 @@ const formConfigs = [
   {
     containerId: 'footer-container',
     formFunction: footer,
-  },
-  {
-    containerId: 'footer_BM',
-    formFunction: BM_footer,
   }
 ];
 
