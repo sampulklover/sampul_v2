@@ -67,7 +67,7 @@ function newsletterForm_BM() {
                       href="solutions"
                       class="uui-footer02_link w-inline-block"
                     >
-                      <div>Penyelesaian</div>
+                      <div>Solusi</div>
                       <div class="uui-badge-small-success">
                         <div>Baharu</div>
                       </div>
