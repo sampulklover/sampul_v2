@@ -20,7 +20,7 @@ function newsletterForm() {
   `;
 }
 
-function BI_footer() {
+function footer() {
   return `
   <div
   data-w-id="5bf44bd6-19a3-d974-dcf1-e2e7da6c3d3c"
