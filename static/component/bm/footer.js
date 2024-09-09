@@ -19,8 +19,8 @@ function newsletterForm_BM() {
   </form>
     `;
   }
-  
-  function BM_footer() {
+
+  function footer() {
     return `
     <div
     data-w-id="5bf44bd6-19a3-d974-dcf1-e2e7da6c3d3c"
@@ -245,20 +245,20 @@ function newsletterForm_BM() {
   </div>
     `;
   }
-  
+
   function newsletterFormAddAPI() {
     document
       .getElementById('add-newsletter-form')
       .addEventListener('submit', async function (event) {
         event.preventDefault();
-  
+
         let useBtn = document.getElementById('btn-newsletter-add-form');
         let defaultBtnText = useBtn.innerHTML;
         useBtn.disabled = true;
         useBtn.innerHTML = spinnerLoading(useBtn.innerHTML);
-  
+
         var email_input = document.getElementById('input-newsletter-email');
-  
+
         try {
           const response = await fetch(
             `${STATIC_PUBLIC_HOST}/api/newsletter/subscribe`,
@@ -272,25 +272,24 @@ function newsletterForm_BM() {
               }),
             }
           );
-  
+
           if (!response.ok) {
             const data = await response.json();
             showToast('alert-toast-container', data.message, 'danger');
             useBtn.disabled = false;
             useBtn.innerHTML = defaultBtnText;
-  
+
             return;
           }
-  
+
           showToast('alert-toast-container', 'Subscribed!', 'success');
         } catch (error) {
           showToast('alert-toast-container', error.message, 'danger');
           useBtn.disabled = false;
           useBtn.innerHTML = defaultBtnText;
         }
-  
+
         useBtn.disabled = false;
         useBtn.innerHTML = defaultBtnText;
       });
   }
-  
