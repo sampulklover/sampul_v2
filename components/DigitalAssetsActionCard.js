@@ -138,13 +138,13 @@ const DigitalAssetsActionCard = () => {
 
   return (
     <>
-      <div class="d-flex overflow-auto gap-3 py-3 ps-4 pt-5">
+      <div class="d-flex overflow-auto gap-3 py-3 ps-4">
         {instructionTypeConfig
           .filter((item) => checkReligion() || !item.isMuslimOnly)
           .map((item, index) => (
             <div
               class="card card-size-onhover text-center justify-content-center"
-              style={{ minHeight: 200, minWidth: 200 }}
+              style={{ minHeight: 200, minWidth: 250, maxWidth: 300 }}
               key={index}
             >
               <div class="gap-2 mb-4 h-100">

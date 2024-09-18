@@ -1,6 +1,7 @@
 import translations from '../constant/translations';
 import { useApi } from '../context/api';
 import { useLocale } from '../context/locale';
+import { useModal } from '../context/modal';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -9,6 +10,7 @@ const NavBar = () => {
   const { contextApiData } = useApi();
   const { locale } = useLocale();
   const router = useRouter();
+  const { toggleModal } = useModal();
 
   return (
     // <nav className="flex py-4 px-6 border-b border-gray-200">
@@ -32,7 +34,7 @@ const NavBar = () => {
             class="d-inline-block align-text-top"
           />
         </a>
-        {contextApiData.user.data?.id ? (
+        {contextApiData.user.data?.id && router?.route !== '/onboard' ? (
           <>
             <button
               class="navbar-toggler"
@@ -69,30 +71,46 @@ const NavBar = () => {
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="mynavbar">
-              <ul class="navbar-nav ms-auto">
-                {router?.route == '/signin' ? (
-                  ''
-                ) : (
+              {router?.route == '/onboard' ? (
+                <ul class="navbar-nav ms-auto">
                   <li class="nav-item pe-2">
-                    <Link href="signin">
-                      <button class="btn btn-light btn-text" type="button">
-                        {translations[locale].component.nav_bar.sign_in}
-                      </button>
-                    </Link>
+                    <button
+                      class="btn btn-light btn-text"
+                      type="button"
+                      onClick={() => {
+                        toggleModal('logout');
+                      }}
+                    >
+                      {translations[locale].component.nav_bar.sign_out}
+                    </button>
                   </li>
-                )}
-                {router?.route == '/signup' ? (
-                  ''
-                ) : (
-                  <li class="nav-item">
-                    <Link href="signup">
-                      <button class="btn btn-primary btn-text" type="button">
-                        {translations[locale].component.nav_bar.sign_up}
-                      </button>
-                    </Link>
-                  </li>
-                )}
-              </ul>
+                </ul>
+              ) : (
+                <ul class="navbar-nav ms-auto">
+                  {router?.route == '/signin' ? (
+                    ''
+                  ) : (
+                    <li class="nav-item pe-2">
+                      <Link href="signin">
+                        <button class="btn btn-light btn-text" type="button">
+                          {translations[locale].component.nav_bar.sign_in}
+                        </button>
+                      </Link>
+                    </li>
+                  )}
+                  {router?.route == '/signup' ? (
+                    ''
+                  ) : (
+                    <li class="nav-item">
+                      <Link href="signup">
+                        <button class="btn btn-primary btn-text" type="button">
+                          {translations[locale].component.nav_bar.sign_up}
+                        </button>
+                      </Link>
+                    </li>
+                  )}
+                </ul>
+              )}
             </div>
           </>
         )}
