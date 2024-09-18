@@ -39,7 +39,7 @@ const getElements = () => {
   return inputElements;
 };
 
-const BelovedModal = ({ isModalView = true, onSuccess = () => {} }) => {
+const BelovedModal = ({ isModalView = true }) => {
   const { contextApiData, getBeloved, getDigitalAssets } = useApi();
   const { locale } = useLocale();
   const { isModalOpen, toggleModal } = useModal();
@@ -243,6 +243,8 @@ const BelovedModal = ({ isModalView = true, onSuccess = () => {} }) => {
       display_address: 'none',
       level_required: true,
       email_required: true,
+      email_small_info: `We’ll email your Co-Sampul to accept their role. Once they agree,
+              they’ll receive your information when you're no longer here.`,
       beloved_list: belovedLevel().filter(
         (option) => option.value !== 'others'
       ),
@@ -266,6 +268,7 @@ const BelovedModal = ({ isModalView = true, onSuccess = () => {} }) => {
       display_address: '',
       level_required: false,
       email_required: false,
+      email_small_info: null,
       beloved_list: belovedLevel(),
       verifyEmail: false,
       max_create_more: 1000,
@@ -283,6 +286,7 @@ const BelovedModal = ({ isModalView = true, onSuccess = () => {} }) => {
       display_address: '',
       level_required: true,
       email_required: false,
+      email_small_info: null,
       beloved_list: belovedLevel().filter(
         (option) => option.value !== 'others'
       ),
@@ -418,11 +422,7 @@ const BelovedModal = ({ isModalView = true, onSuccess = () => {} }) => {
           }));
         }, 1000);
       } else {
-        if (onSuccess) {
-          onSuccess();
-        } else {
-          toggleModal('beloved');
-        }
+        toggleModal('beloved');
       }
 
       setSelectedImage({
@@ -583,11 +583,7 @@ const BelovedModal = ({ isModalView = true, onSuccess = () => {} }) => {
       }
     }
 
-    if (onSuccess) {
-      onSuccess();
-    } else {
-      toggleModal('beloved');
-    }
+    toggleModal('beloved');
 
     toast.success(
       translations[locale].component.beloved_modal.successfully_updated
@@ -646,11 +642,7 @@ const BelovedModal = ({ isModalView = true, onSuccess = () => {} }) => {
         returnData: returnData,
       });
 
-      if (onSuccess) {
-        onSuccess();
-      } else {
-        toggleModal('beloved');
-      }
+      toggleModal('beloved');
 
       toast.success(
         translations[locale].component.beloved_modal.successfully_deleted
@@ -754,6 +746,13 @@ const BelovedModal = ({ isModalView = true, onSuccess = () => {} }) => {
               required={belovedConfig[belovedType]?.email_required}
             />
             <small>{belovedConfig[belovedType]?.email_status}</small>
+            {belovedConfig[belovedType]?.email_small_info ? (
+              <div class="text-size-tiny">
+                {belovedConfig[belovedType]?.email_small_info}
+              </div>
+            ) : (
+              ''
+            )}
           </div>
           <div
             class="form-field-wrapper mb-3"

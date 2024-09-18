@@ -15,10 +15,14 @@ import {
 } from '../utils/helpers';
 import { supabase } from '../utils/supabase';
 import Loading from './Laoding';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import toast from 'react-hot-toast';
 
-const MyDetails = ({ isModalView = false, onSuccess = () => {} }) => {
+const MyDetails = ({
+  parentPage = 'settings',
+  onSubmitToggle = false,
+  onSuccess = () => {},
+}) => {
   const { contextApiData, getProfile, getWill } = useApi();
   const { locale, changeLocale } = useLocale();
 
@@ -41,6 +45,25 @@ const MyDetails = ({ isModalView = false, onSuccess = () => {} }) => {
       });
     }
   }, [contextApiData.profile]);
+
+  const pageConfig = {
+    settings: {
+      showCard: false,
+      showHeader: true,
+      isColumnLayout: false,
+      showFooter: false,
+      isModalView: false,
+      submitBtnTitle: translations[locale].global.save,
+    },
+    onboard: {
+      showCard: true,
+      showHeader: false,
+      isColumnLayout: false,
+      showFooter: false,
+      isModalView: false,
+      submitBtnTitle: 'Save Changes',
+    },
+  };
 
   const elementList = () => {
     const inputElements = {
@@ -125,22 +148,19 @@ const MyDetails = ({ isModalView = false, onSuccess = () => {} }) => {
       isSaving: false,
     });
 
-    if (isModalView) {
+    if (pageConfig[parentPage]?.isModalView) {
       $('#profile-modal')?.modal('hide');
-    }
-
-    if (onSuccess) {
-      onSuccess();
     }
 
     setTimeout(() => {
       getProfile(true);
       getWill();
+      onSuccess();
     }, 1500);
   };
 
   const checkView = ({ labelDiv1, inputDiv1, labelDiv2, inputDiv2 }) => {
-    if (isModalView) {
+    if (pageConfig[parentPage]?.isColumnLayout) {
       return (
         <div class="form-content-2 mb-3">
           <div class="form-field-wrapper">
@@ -169,321 +189,345 @@ const MyDetails = ({ isModalView = false, onSuccess = () => {} }) => {
     );
   };
 
+  const formRef = useRef(null);
+
+  const submitFormProgrammatically = () => {
+    formRef.current?.requestSubmit();
+  };
+
+  useEffect(() => {
+    if (onSubmitToggle) {
+      submitFormProgrammatically();
+    }
+  }, [onSubmitToggle]);
+
   return (
-    <>
+    <div>
+      <span
+        onClick={() => {
+          submitFormProgrammatically();
+        }}
+      ></span>
       <form
-        class="mt-4"
+        ref={formRef}
         onSubmit={(event) => {
           event.preventDefault();
           onSubmitForm();
         }}
       >
-        {isModalView ? (
-          ''
-        ) : (
-          <div class="row mb-4">
-            <div class="col-lg">
-              <div class="smpl_text-sm-semibold">
-                {translations[locale].component.my_details.profile}{' '}
-                <Loading loading={contextApiData.profile.isLoading} />
+        <div class={pageConfig[parentPage]?.showCard ? 'card' : ''}>
+          {pageConfig[parentPage]?.showHeader ? (
+            <div class="row mb-4 mt-4">
+              <div class="col-lg">
+                <div class="smpl_text-sm-semibold">
+                  {translations[locale].component.my_details.profile}{' '}
+                  <Loading loading={contextApiData.profile.isLoading} />
+                </div>
+                <div class="smpl_text-sm-regular">
+                  {
+                    translations[locale].component.my_details
+                      .update_your_personal_
+                  }
+                </div>
               </div>
-              <div class="smpl_text-sm-regular">
-                {
-                  translations[locale].component.my_details
-                    .update_your_personal_
-                }
+              <div class="col text-end mt-md-0 mt-3">
+                <button type="submit" class="btn btn-primary btn-text">
+                  <Loading
+                    title={pageConfig[parentPage]?.submitBtnTitle}
+                    loading={summary.isSaving}
+                  />
+                </button>
               </div>
             </div>
-            <div class="col text-end mt-md-0 mt-3">
+          ) : (
+            ''
+          )}
+          <div class="row mb-4">
+            <div class="col-lg">
+              <label class="uui-field-label">
+                {translations[locale].component.my_details.your_photo_}
+              </label>
+              <small class="smpl_text-sm-regular">
+                {translations[locale].component.my_details.this_will_be_}
+              </small>
+            </div>
+            <div class="col">
+              <img
+                loading="lazy"
+                src={selectedImage.url}
+                alt=""
+                class="avatar-7"
+                id="preview-my-details-image"
+                onClick={() => {
+                  document.getElementById('input-my-details-image').click();
+                }}
+              />
+              <input
+                type="file"
+                id="input-my-details-image"
+                name=""
+                accept="image/*"
+                style={{ display: 'none' }}
+                onChange={(event) => {
+                  try {
+                    let imageURL = URL.createObjectURL(event.target.files[0]);
+                    if (imageURL) {
+                      setSelectedImage({
+                        data: event.target.files[0],
+                        url: imageURL,
+                      });
+                    }
+                  } catch {
+                    console.log('Cancelled');
+                  }
+                }}
+              />
+            </div>
+          </div>
+          {checkView({
+            labelDiv1: (
+              <label
+                htmlFor="input-my-details-username"
+                class="uui-field-label"
+              >
+                {translations[locale].component.my_details.username}
+              </label>
+            ),
+            inputDiv1: (
+              <input
+                type="text"
+                class="form-control"
+                id="input-my-details-username"
+                required
+              />
+            ),
+            labelDiv2: (
+              <label
+                htmlFor="input-my-details-nric-name"
+                class="uui-field-label"
+              >
+                {translations[locale].component.my_details.name_as_per_}
+              </label>
+            ),
+            inputDiv2: (
+              <input
+                type="text"
+                class="form-control"
+                id="input-my-details-nric-name"
+                required
+              />
+            ),
+          })}
+          {checkView({
+            labelDiv1: (
+              <label htmlFor="input-my-details-nric-no" class="uui-field-label">
+                {translations[locale].component.my_details.nric}
+              </label>
+            ),
+            inputDiv1: (
+              <input
+                type="text"
+                class="form-control"
+                id="input-my-details-nric-no"
+                required
+              />
+            ),
+            labelDiv2: (
+              <label htmlFor="input-my-details-dob" class="uui-field-label">
+                {translations[locale].component.my_details.date_of_birth}
+              </label>
+            ),
+            inputDiv2: (
+              <input
+                type="date"
+                class="form-control"
+                id="input-my-details-dob"
+                required
+              />
+            ),
+          })}
+          {checkView({
+            labelDiv1: (
+              <label htmlFor="input-my-details-email" class="uui-field-label">
+                {translations[locale].component.my_details.email}
+              </label>
+            ),
+            inputDiv1: (
+              <input
+                type="email"
+                class="form-control"
+                id="input-my-details-email"
+                required
+                disabled
+              />
+            ),
+            labelDiv2: (
+              <label
+                htmlFor="input-my-details-phone-no"
+                class="uui-field-label"
+              >
+                {translations[locale].component.my_details.contact}
+              </label>
+            ),
+            inputDiv2: (
+              <input
+                type="text"
+                class="form-control"
+                id="input-my-details-phone-no"
+                required
+              />
+            ),
+          })}
+          {checkView({
+            labelDiv1: (
+              <label
+                htmlFor="select-my-details-religion"
+                class="uui-field-label"
+              >
+                {translations[locale].component.my_details.religion}
+              </label>
+            ),
+            inputDiv1: (
+              <select
+                id="select-my-details-religion"
+                required
+                class="form-select"
+              >
+                {religions().map((item) => (
+                  <option key={item.value} value={item.value}>
+                    {translations[locale]?.global[item.value]}
+                  </option>
+                ))}
+              </select>
+            ),
+            labelDiv2: (
+              <label
+                htmlFor="select-my-details-marital-status"
+                class="uui-field-label"
+              >
+                {translations[locale].component.my_details.marital_status}
+              </label>
+            ),
+            inputDiv2: (
+              <select
+                id="select-my-details-marital-status"
+                required
+                class="form-select"
+              >
+                {maritalStatus().map((item) => (
+                  <option key={item.value} value={item.value}>
+                    {translations[locale]?.global[item.value]}
+                  </option>
+                ))}
+              </select>
+            ),
+          })}
+          <div
+            class={`${
+              pageConfig[parentPage]?.isColumnLayout ? '' : 'row'
+            } align-items-start`}
+          >
+            <div class="col-lg">
+              <label
+                htmlFor="input-my-details-address-1"
+                class="uui-field-label"
+              >
+                {translations[locale].component.my_details.address}
+              </label>
+            </div>
+            <div
+              class={pageConfig[parentPage]?.isColumnLayout ? 'mt-2' : 'col'}
+            >
+              <input
+                type="text"
+                class="form-control"
+                id="input-my-details-address-1"
+                required
+                placeholder={
+                  translations[locale].component.my_details.address_1
+                }
+              />
+              <input
+                type="text"
+                class="form-control mt-2"
+                id="input-my-details-address-2"
+                placeholder={
+                  translations[locale].component.my_details.address_2
+                }
+              />
+
+              <div class="form-content-2">
+                <div class="form-field-wrapper">
+                  <input
+                    type="text"
+                    class="form-control mt-2"
+                    id="input-my-details-city"
+                    required
+                    placeholder={translations[locale].component.my_details.city}
+                  />
+                </div>
+                <div class="form-field-wrapper mr-2">
+                  <input
+                    type="text"
+                    class="form-control mt-2"
+                    id="input-my-details-postcode"
+                    required
+                    placeholder={
+                      translations[locale].component.my_details.postcode
+                    }
+                  />
+                </div>
+              </div>
+
+              <div class="form-content-2 mb-3">
+                <div class="form-field-wrapper">
+                  <input
+                    type="text"
+                    class="form-control mt-2"
+                    id="input-my-details-state"
+                    required
+                    placeholder={
+                      translations[locale].component.my_details.state
+                    }
+                  />
+                </div>
+                <div class="form-field-wrapper">
+                  <select
+                    id="select-my-details-country"
+                    required
+                    class="form-select mt-2"
+                  >
+                    {countries().map((item) => (
+                      <option key={item.value} value={item.value}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          {pageConfig[parentPage]?.showFooter ? (
+            <div
+              class={
+                pageConfig[parentPage]?.isColumnLayout
+                  ? 'd-grid gap-2 mt-5'
+                  : 'text-end'
+              }
+            >
               <button type="submit" class="btn btn-primary btn-text">
                 <Loading
-                  title={translations[locale].global.save}
+                  title={pageConfig[parentPage]?.submitBtnTitle}
                   loading={summary.isSaving}
                 />
               </button>
             </div>
-          </div>
-        )}
-        <div class="row mb-4">
-          <div class="col-lg">
-            <label class="uui-field-label">
-              {translations[locale].component.my_details.your_photo_}
-            </label>
-            <small class="smpl_text-sm-regular">
-              {translations[locale].component.my_details.this_will_be_}
-            </small>
-          </div>
-          <div class="col">
-            <img
-              loading="lazy"
-              src={selectedImage.url}
-              alt=""
-              class="avatar-7"
-              id="preview-my-details-image"
-              onClick={() => {
-                document.getElementById('input-my-details-image').click();
-              }}
-            />
-            <input
-              type="file"
-              id="input-my-details-image"
-              name=""
-              accept="image/*"
-              style={{ display: 'none' }}
-              onChange={(event) => {
-                try {
-                  let imageURL = URL.createObjectURL(event.target.files[0]);
-                  if (imageURL) {
-                    setSelectedImage({
-                      data: event.target.files[0],
-                      url: imageURL,
-                    });
-                  }
-                } catch {
-                  console.log('Cancelled');
-                }
-              }}
-            />
-          </div>
+          ) : (
+            ''
+          )}
         </div>
-
-        {checkView({
-          labelDiv1: (
-            <label htmlFor="input-my-details-username" class="uui-field-label">
-              {translations[locale].component.my_details.username}
-            </label>
-          ),
-          inputDiv1: (
-            <input
-              type="text"
-              class="form-control"
-              id="input-my-details-username"
-              required
-            />
-          ),
-          labelDiv2: (
-            <label htmlFor="input-my-details-nric-name" class="uui-field-label">
-              {translations[locale].component.my_details.name_as_per_}
-            </label>
-          ),
-          inputDiv2: (
-            <input
-              type="text"
-              class="form-control"
-              id="input-my-details-nric-name"
-              required
-            />
-          ),
-        })}
-
-        {checkView({
-          labelDiv1: (
-            <label htmlFor="input-my-details-nric-no" class="uui-field-label">
-              {translations[locale].component.my_details.nric}
-            </label>
-          ),
-          inputDiv1: (
-            <input
-              type="text"
-              class="form-control"
-              id="input-my-details-nric-no"
-              required
-            />
-          ),
-          labelDiv2: (
-            <label htmlFor="input-my-details-dob" class="uui-field-label">
-              {translations[locale].component.my_details.date_of_birth}
-            </label>
-          ),
-          inputDiv2: (
-            <input
-              type="date"
-              class="form-control"
-              id="input-my-details-dob"
-              required
-            />
-          ),
-        })}
-
-        {checkView({
-          labelDiv1: (
-            <label htmlFor="input-my-details-email" class="uui-field-label">
-              {translations[locale].component.my_details.email}
-            </label>
-          ),
-          inputDiv1: (
-            <input
-              type="email"
-              class="form-control"
-              id="input-my-details-email"
-              required
-              disabled
-            />
-          ),
-          labelDiv2: (
-            <label htmlFor="input-my-details-phone-no" class="uui-field-label">
-              {translations[locale].component.my_details.contact}
-            </label>
-          ),
-          inputDiv2: (
-            <input
-              type="text"
-              class="form-control"
-              id="input-my-details-phone-no"
-              required
-            />
-          ),
-        })}
-
-        {checkView({
-          labelDiv1: (
-            <label htmlFor="select-my-details-religion" class="uui-field-label">
-              {translations[locale].component.my_details.religion}
-            </label>
-          ),
-          inputDiv1: (
-            <select
-              id="select-my-details-religion"
-              required
-              class="form-select"
-            >
-              {religions().map((item) => (
-                <option key={item.value} value={item.value}>
-                  {translations[locale]?.global[item.value]}
-                </option>
-              ))}
-            </select>
-          ),
-          labelDiv2: (
-            <label
-              htmlFor="select-my-details-marital-status"
-              class="uui-field-label"
-            >
-              {translations[locale].component.my_details.marital_status}
-            </label>
-          ),
-          inputDiv2: (
-            <select
-              id="select-my-details-marital-status"
-              required
-              class="form-select"
-            >
-              {maritalStatus().map((item) => (
-                <option key={item.value} value={item.value}>
-                  {translations[locale]?.global[item.value]}
-                </option>
-              ))}
-            </select>
-          ),
-        })}
-
-        <div class={`${isModalView ? '' : 'row'} align-items-start`}>
-          <div class="col-lg">
-            <label htmlFor="input-my-details-address-1" class="uui-field-label">
-              {translations[locale].component.my_details.address}
-            </label>
-          </div>
-          <div class={isModalView ? 'mt-2' : 'col'}>
-            <input
-              type="text"
-              class="form-control"
-              id="input-my-details-address-1"
-              required
-              placeholder={translations[locale].component.my_details.address_1}
-            />
-            <input
-              type="text"
-              class="form-control mt-2"
-              id="input-my-details-address-2"
-              placeholder={translations[locale].component.my_details.address_2}
-            />
-
-            <div class="form-content-2">
-              <div class="form-field-wrapper">
-                <input
-                  type="text"
-                  class="form-control mt-2"
-                  id="input-my-details-city"
-                  required
-                  placeholder={translations[locale].component.my_details.city}
-                />
-              </div>
-              <div class="form-field-wrapper mr-2">
-                <input
-                  type="text"
-                  class="form-control mt-2"
-                  id="input-my-details-postcode"
-                  required
-                  placeholder={
-                    translations[locale].component.my_details.postcode
-                  }
-                />
-              </div>
-            </div>
-
-            <div class="form-content-2 mb-3">
-              <div class="form-field-wrapper">
-                <input
-                  type="text"
-                  class="form-control mt-2"
-                  id="input-my-details-state"
-                  required
-                  placeholder={translations[locale].component.my_details.state}
-                />
-              </div>
-              <div class="form-field-wrapper">
-                <select
-                  id="select-my-details-country"
-                  required
-                  class="form-select mt-2"
-                >
-                  {countries().map((item) => (
-                    <option key={item.value} value={item.value}>
-                      {item.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* {checkView({
-          labelDiv1: (
-            <label
-              htmlFor="select-my-details-system-language"
-              class="uui-field-label"
-            >
-              {translations[locale].component.my_details.system_language}
-            </label>
-          ),
-          inputDiv1: (
-            <select
-              id="select-my-details-system-language"
-              required
-              class="form-select"
-            >
-              {systemLanguages().map((item) => (
-                <option key={item.value} value={item.value}>
-                  {item.name}
-                </option>
-              ))}
-            </select>
-          ),
-        })} */}
-        {isModalView ? (
-          <div class="d-grid gap-2 mt-5">
-            <button type="submit" class="btn btn-primary btn-text">
-              <Loading
-                title={translations[locale].global.save}
-                loading={summary.isSaving}
-              />
-            </button>
-          </div>
-        ) : (
-          ''
-        )}
       </form>
-    </>
+    </div>
   );
 };
 

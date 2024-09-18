@@ -1,11 +1,13 @@
 import BelovedModal from '../components/BelovedModal';
+import Billing from '../components/Billing';
 import DigitalAssetsActionCard from '../components/DigitalAssetsActionCard';
 import DigitalAssetsCard from '../components/DigitalAssetsCard';
 import DigitalAssetsModal from '../components/DigitalAssetsModal';
+import InnerHeader from '../components/InnerHeader';
 import Loading from '../components/Laoding';
 import MyDetails from '../components/MyDetails';
 import SideBar from '../components/SideBar';
-import Stepper from '../components/stepper';
+import Stepper from '../components/Stepper';
 import { emptyUserImg } from '../constant/element';
 import { belovedInviteStatus, belovedLevel } from '../constant/enum';
 import translations from '../constant/translations';
@@ -13,11 +15,14 @@ import { useApi } from '../context/api';
 import { useLocale } from '../context/locale';
 import { useModal } from '../context/modal';
 import { useTempData } from '../context/tempData';
+import { formatTimestamp } from '../utils/helpers';
+import { supabase } from '../utils/supabase';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import toast from 'react-hot-toast';
 
 const Onboard = () => {
-  const { contextApiData } = useApi();
+  const { contextApiData, getProfile } = useApi();
   const { locale } = useLocale();
   const router = useRouter();
   const { isModalOpen, toggleModal } = useModal();
@@ -37,6 +42,16 @@ const Onboard = () => {
 
     return '';
   };
+
+  useEffect(() => {
+    if (currentStep !== 0) {
+      try {
+        window.scrollTo(0, 0);
+      } catch (error) {
+        console.error('Error scrolling to top:', error);
+      }
+    }
+  }, [currentStep]);
 
   const setBelovedModal = (item, category) => {
     setValueTempData('beloved', {
@@ -60,23 +75,98 @@ const Onboard = () => {
     }
   };
 
+  const [onSubmitToggleMyDetails, setOnSubmitToggleMyDetails] = useState(false);
+
+  const [isLoading, setIsLoading] = useState({
+    steps: {
+      myDetails: false,
+    },
+  });
+
   const steps = [
     {
+      cardStyle: { paddingLeft: '20%', paddingRight: '20%' },
+      stageTitle: '1',
       title: 'Your Details',
       heading: 'Complete Your Wasiat Profile',
       subheading: `Life changes, and so do your plans. Keep your Wasiat profile current by updating your personal information whenever necessary.`,
-      view: <MyDetails isModal onSuccess={nextStep} />,
+      view: (
+        <MyDetails
+          parentPage="onboard"
+          onSubmitToggle={onSubmitToggleMyDetails}
+          setOnSubmitToggle={setOnSubmitToggleMyDetails}
+          onSuccess={nextStep}
+        />
+      ),
+      allowPrev: false,
+      onNext: () => {
+        setIsLoading((prevState) => ({
+          ...prevState,
+          steps: {
+            ...prevState.steps,
+            step1: true,
+          },
+        }));
+        setOnSubmitToggleMyDetails(true);
+
+        const waitPromises = new Promise((resolve) => {
+          setTimeout(() => {
+            resolve();
+          }, 2000);
+        });
+
+        waitPromises
+          .then(() => {
+            setOnSubmitToggleMyDetails(false);
+          })
+          .catch((error) => {
+            console.error('Error in waitPromises:', error);
+          })
+          .finally(() => {
+            setIsLoading((prevState) => ({
+              ...prevState,
+              steps: {
+                ...prevState.steps,
+                step1: false,
+              },
+            }));
+          });
+      },
+      nextBtnTitle: 'Save & Continue',
+      isLoading: isLoading.steps.step1,
     },
     {
-      title: 'Appoint your trusted person',
+      cardStyle: { paddingLeft: '20%', paddingRight: '20%' },
+      stageTitle: '2',
+      title: 'My Plan',
+      heading: 'Find the perfect plan for your Sampul',
+      subheading: `Simple, transparent pricing that grows with you. Upgrade your plan anytime to better fit your needs.`,
+      view: (
+        <>
+          <Billing onSuccess={nextStep} />
+        </>
+      ),
+      allowPrev: true,
+      onPrev: () => {
+        prevStep();
+      },
+      onNext: () => {
+        nextStep();
+      },
+      nextBtnTitle: 'Skip',
+      isLoading: isLoading.steps.step2,
+    },
+    {
+      cardStyle: { paddingLeft: '20%', paddingRight: '20%' },
+      stageTitle: '3',
+      title: 'Appoint trusted person',
       heading: 'Trusted Hands',
       subheading:
         'Select a person you trust to handle your important information and carry out your wishes. Your Co-Sampul will ensure everything is taken care of just as you planned.',
       view: (
         <div>
-          {loadingTable({ condition: !contextApiData.beloved.isLoading })}
-          {contextApiData.beloved.data.length > 0 &&
-          !contextApiData.beloved.isLoading ? (
+          <div class="card mb-3">
+            {loadingTable({ condition: !contextApiData.beloved.isLoading })}
             <div class="pointer-on-hover">
               <table class="table table-hover mb-0">
                 <tbody>
@@ -206,57 +296,184 @@ const Onboard = () => {
                 </div>
               </div>
             </div>
-          ) : (
-            <>
-              {contextApiData.beloved.data.length == 0 &&
-              !contextApiData.beloved.isLoading ? (
-                <BelovedModal isModalView={false} onSuccess={nextStep} />
-              ) : (
-                ''
-              )}
-            </>
-          )}
+          </div>
         </div>
       ),
+      allowPrev: true,
+      onPrev: () => {
+        prevStep();
+      },
+      onNext: () => {
+        if (
+          contextApiData.beloved.data.length > 0 &&
+          !contextApiData.beloved.isLoading &&
+          contextApiData.beloved.data.some(
+            (dataItem) => dataItem.type === 'co_sampul'
+          )
+        ) {
+          nextStep();
+        } else {
+          toast.error('Please add Co-Sampul to proceed.');
+        }
+      },
+      nextBtnTitle: 'Next',
+      isLoading: isLoading.steps.step3,
     },
     {
-      title: 'Decide what happens to your assets',
-      heading: 'Decide what happens to your assets',
-      subheading:
-        'Your assets—both digital and physical—are a crucial part of the legacy you leave behind. At Sampul.co, you have the power to decide what happens to them. Do you want to follow as faraid, pass them on as a gift, settle any debts, or simply close down subscriptions you no longer need? Choose an option that best suits your wishes, and we’ll guide you through the process of securing your assets. It’s simple, straightforward, and gives you peace of mind knowing your asset is in good hands.',
+      stageTitle: '4',
+      title: 'Add assets',
+      heading: <span class="px-2">Decide what happens to your assets</span>,
+      subheading: (
+        <span class="px-2">
+          Your digital and physical assets are essential components of the
+          legacy you create.
+        </span>
+      ),
       view: (
-        <div>
-          {contextApiData.digitalAssets.data.length > 0 &&
-          !contextApiData.digitalAssets.isLoading ? (
-            <>
-              <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                <DigitalAssetsCard typeName={''} searchInput={''} />
-              </div>
-            </>
-          ) : (
-            <DigitalAssetsModal isModalView={false} onSuccess={nextStep} />
-          )}
+        <div class="pb-5">
+          <div class="px-5">
+            <DigitalAssetsActionCard />
+          </div>
+          <div class="text-center mt-5">
+            <span class="heading-03">Your Registered Assets</span>
+          </div>
+          <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-3 mt-3 px-5">
+            <DigitalAssetsCard typeName={''} searchInput={''} />
+          </div>
         </div>
       ),
+      allowPrev: true,
+      onPrev: () => {
+        prevStep();
+      },
+      onNext: async () => {
+        if (
+          contextApiData.digitalAssets.data.length > 0 &&
+          !contextApiData.digitalAssets.isLoading
+        ) {
+          setIsLoading((prevState) => ({
+            ...prevState,
+            steps: {
+              ...prevState.steps,
+              step4: true,
+            },
+          }));
+
+          const { data: returnData, error } = await supabase
+            .from('profiles')
+            .update({
+              isOnboard: true,
+            })
+            .eq('uuid', contextApiData.user.data?.id);
+
+          if (error) {
+            toast.error(error.message);
+          }
+
+          setTimeout(() => {
+            getProfile(true);
+          }, 1000);
+
+          const waitPromises = new Promise((resolve) => {
+            setTimeout(() => {
+              resolve();
+            }, 3000);
+          });
+
+          waitPromises
+            .then(() => {
+              router.push({
+                pathname: '/will',
+                query: { generate: true },
+              });
+            })
+            .catch((error) => {
+              console.error('Error in waitPromises:', error);
+            })
+            .finally(() => {
+              setIsLoading((prevState) => ({
+                ...prevState,
+                steps: {
+                  ...prevState.steps,
+                  step4: false,
+                },
+              }));
+            });
+        } else {
+          toast.error('Please add asset to proceed.');
+        }
+      },
+      nextBtnTitle: 'Generate Wasiat/Will',
+      isLoading: isLoading.steps.step4,
+    },
+    {
+      stageTitle: '5',
+      title: 'Generate Wasiat/Will',
+      stepIcon: <i class="bi bi-file-earmark-text"></i>,
+      heading: '-',
+      subheading: '-',
+      view: <div></div>,
+      allowPrev: true,
+      onPrev: () => {
+        prevStep();
+      },
+      onNext: () => {},
+      nextBtnTitle: 'Next',
+      isLoading: isLoading.steps.step5,
     },
   ];
 
   return (
-    <div className="default-background-color">
-      <div className="px-5 pb-5">
-        <div className="py-5">
-          <Stepper
-            steps={steps}
-            currentStep={currentStep}
-            nextStep={nextStep}
-            prevStep={prevStep}
-          />
-          <div class="text-center mt-4">
-            <span className="heading-03">{steps[currentStep].heading}</span>
-            <p className="paragraph-01">{steps[currentStep].subheading}</p>
-          </div>
+    <div className="vh-100 default-background-color">
+      <div className="pt-5">
+        <Stepper
+          steps={steps}
+          currentStep={currentStep}
+          nextStep={nextStep}
+          prevStep={prevStep}
+        />
+      </div>
+      <div
+        className="default-background-color pb-5 pr-100"
+        style={steps[currentStep].cardStyle} // mobile 10%
+      >
+        <div class="text-center mt-5">
+          <span className="heading-03">{steps[currentStep].heading}</span>
+          <p className="paragraph-01">{steps[currentStep].subheading}</p>
         </div>
-        <div className="card">{steps[currentStep].view}</div>
+        <div class="pb-5">{steps[currentStep].view}</div>
+        <footer className="bg-white border-top text-end py-3 px-3 fixed-bottom">
+          <span class="text-muted me-3">
+            {steps[currentStep].title} {steps[currentStep].stageTitle}/
+            {steps.length - 1}
+          </span>
+          {steps[currentStep].allowPrev ? (
+            <button
+              type="button"
+              class="btn btn-light btn-text me-2"
+              onClick={() => steps[currentStep].onPrev()}
+            >
+              Back
+            </button>
+          ) : (
+            ''
+          )}
+          <button
+            type="button"
+            class="btn btn-primary btn-text"
+            onClick={() => steps[currentStep].onNext()}
+          >
+            <Loading
+              title={
+                <>
+                  {steps[currentStep].nextBtnTitle}{' '}
+                  <i class="bi bi-arrow-right ms-1"></i>
+                </>
+              }
+              loading={steps[currentStep].isLoading}
+            />
+          </button>
+        </footer>
       </div>
     </div>
   );

@@ -134,6 +134,11 @@ export const ApiProvider = ({ children }) => {
           isLoading: false,
         },
       }));
+
+      const routerPath = router?.pathname;
+      if (!data.isOnboard && routerPath !== '/onboard') {
+        router.push('onboard');
+      }
     } catch (error) {
       console.error(error);
       setContextApiData((prevData) => ({

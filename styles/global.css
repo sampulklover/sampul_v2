@@ -428,7 +428,7 @@
 
 .heading-01 {
   color: var(--colors-text-text-primary-900, #101828);
-  font-size: 45px;
+  font-size: 40px;
   font-style: normal;
   font-weight: 600;
   letter-spacing: -1.2px;
@@ -481,6 +481,22 @@
   background-color: #b1b1b1;
   width: 100px;
   position: relative;
+}
+
+.plan-description {
+  height: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.form-switch.form-switch-lg .form-check-input {
+  height: 2rem;
+  width: calc(3rem + 0.75rem);
+  border-radius: 4rem;
+}
+
+.form-check-input:checked {
+  background-color: #533de9 !important;
 }
 
 /* styles/globals.css */

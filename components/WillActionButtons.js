@@ -295,6 +295,19 @@ const WillActionButtons = ({ viewOnly = false }) => {
     );
   };
 
+  useEffect(() => {
+    if (router?.query?.generate == 'true') {
+      setTimeout(() => {
+        var is_completed = checkCompleteProfile();
+        if (is_completed) {
+          generateWill();
+        } else {
+          showNotCompleteToast();
+        }
+      }, 2000);
+    }
+  }, []);
+
   return (
     <>
       {showAnimation && (

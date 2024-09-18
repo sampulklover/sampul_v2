@@ -1,6 +1,9 @@
 import React from 'react';
 
 const Stepper = ({ steps, currentStep, nextStep, prevStep }) => {
+  const primaryColor = '#DDD8FB';
+  const secondaryColor = '#2F1DA9';
+
   const containerStyles = {
     display: 'flex',
     flexDirection: 'column',
@@ -25,20 +28,25 @@ const Stepper = ({ steps, currentStep, nextStep, prevStep }) => {
     alignItems: 'center',
     position: 'relative',
     width: '100%',
-    color: isCompleted || isActive ? '#0d6efd' : '#6c757d',
+    color: isCompleted || isActive ? primaryColor : '#6c757d',
   });
 
   const stepCircleStyles = (isActive, isCompleted) => ({
     width: '50px',
     height: '50px',
     borderRadius: '50%',
-    backgroundColor: isCompleted ? '#0d6efd' : isActive ? '#0d6efd' : '#e9ecef',
-    color: isCompleted || isActive ? '#fff' : '#000',
+    backgroundColor: isCompleted
+      ? primaryColor
+      : isActive
+      ? primaryColor
+      : '#e9ecef',
+    color: isCompleted || isActive ? secondaryColor : '#000',
+    fontWeight: isActive ? 'bold' : 'normal',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: '10px',
-    fontSize: '18px',
+    fontSize: isActive ? '24px' : '18px',
     zIndex: '1',
   });
 
@@ -48,8 +56,13 @@ const Stepper = ({ steps, currentStep, nextStep, prevStep }) => {
     left: 'calc(50% + 25px)', // Adjusted for larger circles
     right: '-50%',
     height: '4px',
-    backgroundColor: isCompleted ? '#0d6efd' : '#e9ecef',
+    backgroundColor: isCompleted ? primaryColor : '#e9ecef',
     zIndex: '0',
+  });
+
+  const stepperTitle = (isActive, isCompleted) => ({
+    color: isCompleted || isActive ? secondaryColor : '#000',
+    fontWeight: isActive ? 'bold' : 'normal',
   });
 
   return (
@@ -62,18 +75,25 @@ const Stepper = ({ steps, currentStep, nextStep, prevStep }) => {
             return (
               <li key={index} style={stepperItemStyles(isActive, isCompleted)}>
                 <div style={stepCircleStyles(isActive, isCompleted)}>
-                  {index + 1}
+                  {step.stepIcon ? step.stepIcon : index + 1}
                 </div>
                 {index !== steps.length - 1 && (
                   <div style={stepLineStyles(isCompleted)} />
                 )}
-                <div>{step.title}</div>
+                <div style={stepperTitle(isActive, isCompleted)}>
+                  {step.title}{' '}
+                  {isCompleted ? (
+                    <i class="bi bi-check-circle-fill text-success ms-1 h5"></i>
+                  ) : (
+                    ''
+                  )}
+                </div>
               </li>
             );
           })}
         </ul>
       </div>
-      <div className="d-flex justify-content-between mt-4">
+      {/* <div className="d-flex justify-content-between mt-4">
         <button
           className="btn btn-secondary"
           onClick={prevStep}
@@ -90,7 +110,7 @@ const Stepper = ({ steps, currentStep, nextStep, prevStep }) => {
         >
           Next
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };

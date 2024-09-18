@@ -239,6 +239,7 @@ export default {
       nav_bar: {
         sign_in: 'Sign in',
         sign_up: 'Sign up',
+        sign_out: 'Sign out',
       },
       password: {
         password_do_not_: 'Password do not match!',
@@ -748,6 +749,7 @@ export default {
       nav_bar: {
         sign_in: 'Log Masuk',
         sign_up: 'Daftar',
+        sign_out: 'Log Keluar',
       },
       password: {
         password_do_not_: 'Kata laluan tidak sepadan!',

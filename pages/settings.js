@@ -139,7 +139,7 @@ const Settings = () => {
             role="tabpanel"
             aria-labelledby="nav-my-details-tab"
           >
-            <MyDetails />
+            <MyDetails parentPage="settings" />
           </div>
           <div
             class="tab-pane fade"
@@ -163,7 +163,10 @@ const Settings = () => {
             role="tabpanel"
             aria-labelledby="nav-billing-tab"
           >
-            <Billing />
+            <div class="mt-3 px-3">
+              <Billing />
+            </div>
+
             {/* <UnderMaintenance /> */}
           </div>
           <div
@@ -184,7 +187,7 @@ const Settings = () => {
       <div class="body-01 inner-body-01">
         <div class="content">
           <Breadcrumb pageName={translations[locale].settings.settings} />
-          <div class="mt-4">{title()}</div>
+          {/* <div class="mt-4">{title()}</div> */}
           <div class="row mt-4">{tabSection()}</div>
         </div>
         <Footer />

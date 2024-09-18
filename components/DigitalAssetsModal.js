@@ -83,7 +83,7 @@ const instructionTypeConfig = {
   },
 };
 
-const DigitalAssetsModal = ({ isModalView = true, onSuccess = () => {} }) => {
+const DigitalAssetsModal = ({ isModalView = true }) => {
   const { contextApiData, getDigitalAssets, addDigitalAssetsApi } = useApi();
   const { locale } = useLocale();
   const { tempData, setValueTempData } = useTempData();
@@ -226,11 +226,12 @@ const DigitalAssetsModal = ({ isModalView = true, onSuccess = () => {} }) => {
 
     if (result) {
       toast.success(translations[locale].global.successfully_submitted);
+      toggleModal('assets');
 
-      if (onSuccess) {
-        onSuccess();
-      } else {
-        toggleModal('assets');
+      try {
+        window.scrollTo(0, document.body.scrollHeight);
+      } catch (error) {
+        console.error('Error scrolling to bottom:', error);
       }
     } else {
       setIsLoading({

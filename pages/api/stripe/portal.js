@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { uuid } = req.body;
+    const { uuid, callbackURL } = req.body;
     const supabase = getServiceSupabase();
 
     const { data } = await supabase
@@ -24,7 +24,7 @@ export default async function handler(req, res) {
     if (data && data.stripe_customer) {
       const session = await stripe.billingPortal.sessions.create({
         customer: data.stripe_customer,
-        return_url: `${process.env.NEXT_PUBLIC_HOST}/settings`,
+        return_url: callbackURL,
       });
 
       res.status(200).json({ url: session.url });
