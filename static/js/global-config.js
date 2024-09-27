@@ -1,12 +1,20 @@
 const formConfigs = [
   {
     containerId: 'footer-container',
-    formFunction: footer(),
-  },
+    formFunction: footer,
+  }
 ];
 
 formConfigs.forEach((item) => {
-  document.getElementById(item.containerId).innerHTML = item.formFunction;
+  const element = document.getElementById(item.containerId);
+
+  const isBM = element === "BI_footer"
+
+  if (element) {
+    element.innerHTML = item.formFunction();
+  } else {
+    console.error(`Element with ID ${item.containerId} not found.`);
+  }
 });
 
 newsletterFormAddAPI();

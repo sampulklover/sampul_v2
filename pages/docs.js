@@ -86,7 +86,7 @@ const Docs = () => {
           </div>
           <div class="col-auto text-muted sticky-item pe-5 stick-to-top">
             <strong class="d-block h6 my-2 pb-2 border-bottom text-primary">
-              Table of contents
+            Kandungan
             </strong>
             <nav class="table-content-text">
               <ul>

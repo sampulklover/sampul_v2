@@ -1,7 +1,7 @@
 // IMPORTANT: IF YOU MAKE ANY CHANGES, PLEASE UPDATE docs-content-summary.js TO MATCH WITH CURRENT CONTENT
 export const docsContent = [
   {
-    mainTitle: 'About Us',
+    mainTitle: 'Tentang Kami',
     key: 'about-us',
     icon: (
       <svg
@@ -22,7 +22,7 @@ export const docsContent = [
     ),
     content: [
       {
-        title: 'What is Sampul',
+        title: 'Apakah itu Sampul?',
         subKey: 'what-is-sampul',
         summary: `Sampul is Malaysia's first digital wasiat for digital asset app,
         designed to protect and manage your digital assets, like online
@@ -35,14 +35,15 @@ export const docsContent = [
         content: (
           <>
             <p>
-              Sampul is Malaysia's first digital wasiat for digital asset app,
-              designed to protect and manage your digital assets, like online
-              accounts and cryptocurrencies, with ease. By creating a digital
-              wasiat or will, Sampul ensures your digital legacy is passed on
-              according to your wishes, safeguarding your digital treasures for
-              future generations. It's a smart choice for Malaysians looking to
-              secure their digital footprint and preserve their online presence,
-              ensuring no asset is left behind.
+            Sampul adalah aplikasi wasiat digital pertama di Malaysia untuk aset digital, 
+            direka khas untuk melindungi dan menguruskan aset digital anda, 
+            seperti akaun atas talian dan mata wang kripto, dengan mudah. 
+            Dengan mewujudkan wasiat digital, Sampul memastikan aset digital anda 
+            diwariskan mengikut kehendak anda, melindungi aset digital anda untuk 
+            yang tersayang dan generasi akan datang. Ia adalah pilihan bijak untuk 
+            rakyat Malaysia yang ingin melindungi aset digital mereka dan memelihara 
+            aset atas talian mereka, memastikan tiada aset yang tertinggal daripada 
+            proses tuntutan harta pusaka..
             </p>
             <p>
               <img
@@ -56,73 +57,65 @@ export const docsContent = [
         ),
       },
       {
-        title: 'Why use Sampul',
+        title: 'Mengapa menggunakan Sampul?',
         subKey: 'why-use-sampul',
         content: (
           <>
             <p>
-              Sampul is key for Malaysians to safeguard digital wealth, aiming
-              to secure digital assets like cryptocurrencies and e-wallets for
-              future generations. It addresses the challenge of RM 100 billion
-              in unclaimed assets and frozen monies, extending concern into the
-              digital realm. Sampul's digital wasiat/will creation ensures your
-              digital assets are managed as you desire, brings clarity to your
-              beneficiarys, simplifies digital asset transfer, and preserves
-              your online legacy, offering peace of mind in the digital age.
+            Sampul penting demi rakyat Malaysia untuk melindungi kekayaan digital, 
+            bertujuan untuk memastikan aset digital seperti mata wang kripto 
+            dan e-dompet untuk kepentingan yang tersayang dan generasi akan datang. 
+            Ia menangani masalah RM 100 bilion aset yang tidak dituntut dan sedang beku. 
+            Penciptaan wasiat digital Sampul memastikan aset digital anda diuruskan seperti 
+            yang anda inginkan, memberi kejelasan kepada waris yang tersayang, memudahkan 
+            pemindahan aset digital, dan memelihara legasi aset atas talian anda, menawarkan 
+            ketenangan jiwa dalam era digital.
             </p>
             <p>
-              Creating a digital wasiat/will through SAMPUL offers several
-              advantages, including:
+            Mewujudkan wasiat digital dengan SAMPUL menawarkan beberapa kelebihan, termasuk:
             </p>
             <ul>
-              <li>Ensuring your digital assets are managed as you wish.</li>
+              <li>Memastikan aset digital anda diuruskan seperti yang anda inginkan.</li>
               <li>
-                Providing clarity to your loved ones about your online accounts.
+                Memberi kejelasan kepada orang tersayang anda tentang akaun atas talian anda.
               </li>
               <li>
-                Simplifying the process of accessing and transferring digital
-                assets.
+                Memudahkan proses mengakses dan memindahkan aset digital.
               </li>
               <li>
-                Preserving your online presence and memories for future
-                generations.
+                Memelihara aset atas talian dan memori anda untuk yang tersayang .
               </li>
             </ul>
           </>
         ),
       },
       {
-        title: 'How experienced is Sampul’s team',
+        title: 'Sejauh mana pengalaman pasukan Sampul?',
         subKey: 'how-experienced-is-sampuls-team',
         content: (
           <>
             <p>
-              Sampul's achievements spotlight its credibility and innovation in
-              Malaysia's digital space. Being a finalist in prestigious programs
-              like the Unit Peneraju Agenda Bumiputera (TERAJU) SUPERB 2021,
-              1337 Ventures FWD Startup Studio 2022, and the FIKRA ACE
-              Accelerator by the Securities Commission Malaysia in 2023,
-              demonstrates Sampul's potential and recognition in enhancing
-              digital estate planning. These accolades underline Sampul's
-              commitment to excellence and innovation, making it a trusted
-              choice for managing digital assets.
+            Pencapaian Sampul menyerlahkan kredibiliti dan inovasi dalam ruang platform digital 
+            di Malaysia. Menjadi finalis dalam program berprestij seperti Unit Peneraju Agenda Bumiputera 
+            (TERAJU) SUPERB 2021, 1337 Ventures FWD Startup Studio 2022, dan FIKRA ACE Accelerator
+            oleh Suruhanjaya Sekuriti Malaysia pada 2023, menunjukkan potensi dan pengiktirafan 
+            Sampul dalam menawarkan khidmat perancangan aset pusaka digital. Pengiktirafan ini 
+            menggariskan komitmen Sampul terhadap ketelusan dan inovasi, menjadikannya pilihan yang 
+            dipercayai untuk menguruskan aset digital.
             </p>
             <p>
-              Creating a digital wasiat/will through SAMPUL offers several
-              advantages, including:
+              Mewujudkan wasiat digital dengan SAMPUL menawarkan beberapa kelebihan, termasuk:
             </p>
             <ul>
-              <li>Ensuring your digital assets are managed as you wish.</li>
+              <li>Memastikan aset digital anda diuruskan seperti yang anda inginkan.</li>
               <li>
-                Providing clarity to your loved ones about your online accounts.
+                  Memberi kejelasan kepada orang tersayang anda tentang akaun atas talian anda.
               </li>
               <li>
-                Simplifying the process of accessing and transferring digital
-                assets.
+                  Memudahkan proses mengakses dan memindahkan aset digital.
               </li>
               <li>
-                Preserving your online presence and memories for future
-                generations.
+                  Memelihara aset atas talian dan memori anda untuk yang tersayang.
               </li>
             </ul>
           </>
@@ -131,7 +124,7 @@ export const docsContent = [
     ],
   },
   {
-    mainTitle: 'Getting Started',
+    mainTitle: 'Mula sekarang',
     key: 'getting-started',
     icon: (
       <svg
@@ -163,63 +156,58 @@ export const docsContent = [
     ),
     content: [
       {
-        title: 'What is Wasiat/Will',
+        title: 'Apakah itu Wasiat?',
         subKey: 'what-is-wasiat-will',
         content: (
           <>
             <p>
-              Wasiat is a declaration of a person made during his lifetime with
-              respect to his physical and digital assets, to be carried out for
-              the purpose of distribution, charity or for any other purpose
-              permissible by Islamic Law, after demise. With a Wasiat, you are
-              able to:
+            Wasiat adalah pengisytiharan seseorang yang dibuat semasa hayatnya berkenaan dengan 
+            aset fizikal dan digitalnya, untuk dilaksanakan bagi tujuan pengagihan, 
+            amal jariah atau apa-apa tujuan lain yang dibenarkan oleh Islam, selepas kematian. 
+            Dengan mempunyai Wasiat, anda dapat:Wasiat adalah pengisytiharan seseorang yang dibuat 
+            semasa hayatnya berkenaan dengan aset fizikal dan digitalnya, untuk dilaksanakan bagi 
+            tujuan pengagihan, amal jariah atau apa-apa tujuan lain yang dibenarkan oleh Islam, 
+            selepas kematian. Dengan mempunyai Wasiat, anda dapat:
             </p>
             <ul>
               <li>
-                List down your assets and wishes as to how to deal with the
-                assets either to be terminated, liquidated, transferred or
-                distributed based on Faraid.
+              Senaraikan aset dan hasrat anda tentang cara menguruskan aset sama ada untuk ditamatkan, 
+              dijual, dipindahkan melalui Hibah atau diagihkan berdasarkan Faraid.
               </li>
               <li>
-                To remunerate persons in conducting specific tasks stipulated in
-                the Wasiat, e.g. terminate account, pay Zakat due etc.
+              Memberi arahan untuk orang melaksanakan tugas-tugas khusus yang ditetapkan dalam Wasiat, 
+              contohnya menamatkan akaun, membayar Zakat yang tertunggak semasa hidup dan sebagainya.
               </li>
               <li>
-                Appoint an Executor of your choice. Your Executor can be an
-                individual or corporation, authorised by you to deal with your
-                assets and should be experienced, independent, trustworthy and
-                impartial so as to ensure proper administration and distribution
-                of your estate
+              Melantik pentadbir pilihan anda. Pentadbir anda boleh menjadi individu atau syarikat, 
+              yang diberi kuasa oleh anda untuk menguruskan aset anda dan seharusnya berpengalaman, 
+              bebas, boleh dipercayai dan tidak berat sebelah untuk memastikan pentadbiran dan 
+              pengagihan aset pusaka anda yang betul.
               </li>
               <li>
-                Appoint the Guardian of your minor children (below 18 years of
-                age) or special child. The Guardian will be the primary
-                caretaker of your children who's responsible for their
-                well-being
+              Melantik Penjaga anak-anak bawah umur anda (di bawah 18 tahun) atau anak istimewa. 
+              Penjaga akan menjadi penjaga utama anak-anak anda yang bertanggungjawab terhadap 
+              kesejahteraan mereka.
               </li>
               <li>
-                To ensure that the distribution of your estate will be fast and
-                efficient, as there are fewer formalities, thus avoiding
-                possible erosion of the value of your estate.
+              Memastikan pengagihan aset pusaka anda dengan cepat dan efisien, kerana kejelasan 
+              seterusnya mengelakkan kemungkinan berkurangnya nilai aset pusaka anda.
               </li>
             </ul>
             <p>
-              For non-Muslims in Malaysia, the distribution of assets and
-              execution of final wishes through a Will becomes effective after
-              their passing. This allows for personal choice in asset
-              distribution, requiring only that the individual be of legal age
-              and mentally competent when making the Will. An appointed executor
-              manages the estate according to the Will's instructions after the
-              individual's passing, ensuring assets are allocated as desired.
+            Bagi bukan Islam di Malaysia, pengagihan aset dan pelaksanaan wasiat terakhir berkuat 
+            kuasa selepas kematian mereka. Ini membolehkan pilihan peribadi dalam pengagihan aset, 
+            hanya memerlukan individu tersebut melebihi umur sah dan berkelayakan serta sihat secara 
+            fizikal dan mental semasa membuat Wasiat. Pentadbir yang dilantik menguruskan aset 
+            pusaka mengikut arahan Wasiat selepas kematian individu tersebut, memastikan aset 
+            diagihkan seperti yang dikehendaki.
             </p>
             <p>
-              Sampul allows you to list your digital or physical assets,
-              ensuring no valuable item is overlooked. Then, appoint a trusted
-              Co-SAMPUL who will oversee your digital wasiat/will according to
-              your wishes. Finally, SAMPUL transforms your asset inventory and
-              preferences into a digital wasiat or will. SAMPUL securely stores
-              this information and helps your chosen Co-SAMPUL carry out your
-              wishes when the time comes.
+            Sampul membolehkan anda menyenaraikan aset digital atau fizikal anda, memastikan tiada aset 
+            berharga yang terlepas pandang. Kemudian, lantik Co-SAMPUL yang dipercayai yang akan 
+            menyelia wasiat digital anda mengikut hasrat anda. Akhirnya, SAMPUL memasukkan senarai 
+            aset dan hasrat anda ke dalam wasiat digital. SAMPUL menyimpan maklumat ini dengan 
+            selamat dan membantu Co-SAMPUL pilihan anda melaksanakan hasrat anda apabila tiba masanya.
             </p>
           </>
         ),
@@ -230,57 +218,53 @@ export const docsContent = [
         content: (
           <>
             <p>
-              Co-SAMPUL is your trusted person, holds the key to your digital
-              will upon your passing. This entrusted individual can be your
-              spouse, sibling, relative, trusted friend, legal counsel, or
-              financial advisor. Their pivotal responsibility is to notify us in
-              the unfortunate event of your demise. Only then do we unlock and
-              deliver your digital will, preserving your wishes as a cherished
-              secret until the very end, ensuring your legacy remains secure and
-              confidential.
+            Co-SAMPUL adalah orang yang anda percayai, memegang kunci kepada wasiat digital 
+            anda selepas kematian anda. Individu yang dipercayai ini boleh jadi pasangan anda, 
+            adik-beradik, saudara-mara, kawan yang dipercayai, penasihat undang-undang, atau 
+            penasihat kewangan. Tanggungjawab penting mereka adalah untuk memberitahu kami 
+            sekiranya berlaku kematian anda. Hanya pada ketika itu kami membuka kunci dan 
+            menyampaikan wasiat digital anda, menjaga amanah anda sehingga akhir, memastikan 
+            legasi anda selamat dan terjamin.
             </p>
           </>
         ),
       },
       {
-        title: 'Beneficiary',
+        title: 'Ahli waris',
         subKey: 'beneficiary',
         content: (
           <>
             <p>
-              Beneficiary is the future owner of your asset. Beneficiaries may
-              be anybody who you wish even if he/she is not your family member
-              ie. adopted child, friend, colleague etc. For Muslim, you can
-              appoint anybody as beneficiary and the wasiat may be executed
-              provided that all eligible beneficiaries based on the ruling of
-              Faraid does not contest the distribution wishes.
+            Benefisiari adalah pemilik masa depan aset anda. Benefisiari boleh jadi sesiapa sahaja 
+            yang anda inginkan walaupun dia bukan ahli keluarga anda seperti anak angkat, 
+            kawan, rakan sekerja dan sebagainya. Bagi orang Islam, anda boleh melantik sesiapa 
+            sahaja sebagai benefisiari dan wasiat boleh dilaksanakan dengan syarat semua 
+            benefisiari yang layak berdasarkan hukum Faraid tidak mempertikaikan keinginan pengagihan.
             </p>
           </>
         ),
       },
       {
-        title: 'Guardian',
+        title: 'Penjaga',
         subKey: 'guardian',
         content: (
           <>
             <p>
-              The appointment of a trusted guardian through a wasiat/will will
-              ensure the welfare of underaged children after your death. At the
-              same time, it will also reduce the burden of the beneficiaries who
-              are left behind.
+            Pelantikan penjaga yang dipercayai melalui wasiat akan memastikan kebajikan 
+            anak-anak di bawah umur selepas kematian anda. Pada masa yang sama, 
+            ia juga akan mengurangkan beban waris yang ditinggalkan.
             </p>
             <p>
-              Also it is good to state source of fund or specific fund
-              allocation to be given to the guardian for the purpose of their
-              upbringing until they are adults.
+            Juga anda digalakkan untuk menyatakan sumber dana atau peruntukan dana khusus 
+            yang akan diberikan kepada penjaga untuk tujuan membesarkan mereka sehingga dewasa.
             </p>
             <p>
-              Read more:{' '}
+              Baca lanjut:{' '}
               <a
                 href="https://www.malaysia.gov.my/portal/content/27675"
                 target="_blank"
               >
-                Managing Will/Wasiat
+                Menguruskan Wasiat
               </a>
             </p>
           </>
@@ -289,7 +273,7 @@ export const docsContent = [
     ],
   },
   {
-    mainTitle: 'About Islamic Inheritance',
+    mainTitle: 'Tentang Hukum Pewarisan dalam Islam',
     key: 'about-islamic-inheritance',
     icon: (
       <svg
@@ -318,15 +302,15 @@ export const docsContent = [
         content: (
           <>
             <p>
-              Faraid is the Islamic inheritance law, guiding the distribution of
-              a deceased's estate among beneficiaries based on the Quran and
-              Hadith. This system specifies fixed shares for each beneficiary,
-              ensuring a divinely mandated allocation.
+            Faraid adalah hukum pewarisan pusaka dalam Islam, membimbing pengagihan aset pusaka 
+            si mati dalam kalangan waris berdasarkan Al-Quran dan Hadith. 
+            Sistem ini menentukan bahagian tetap untuk setiap waris,  peruntukan yang 
+            ditetapkan oleh Allah.
             </p>
             <p>
-              In Arabic, it is known as ‘Al-Faraid’ which literally means fixed
-              portions. Technically, the term denotes the quantum of shares
-              allocated to the lawful beneficiaries as determined by Shari’ah.
+            Dalam bahasa Arab, ia dikenali sebagai 'Al-Faraid' yang secara literal bermaksud bahagian tetap. 
+            Istilah ini merujuk kepada peratusan pembahagian yang diperuntukkan kepada waris yang sah 
+            seperti yang ditetapkan oleh Syarak.
             </p>
           </>
         ),
@@ -337,18 +321,18 @@ export const docsContent = [
         content: (
           <>
             <p>
-              Hibah refers to a voluntary transfer of property or assets from
-              one person to another without compensation, operational while the
-              giver is alive or after passing. In Malaysia, it's a key part of
-              Islamic estate planning, ensuring assets smoothly transition to
-              beneficiaries.
+            Hibah merujuk kepada pindah milik secara sukarela sesuatu aset daripada satu orang 
+            kepada yang lain tanpa pampasan, terlaksana semasa pemberi masih hidup atau 
+            selepas meninggal dunia. Di Malaysia, ia adalah bahagian penting dalam 
+            perancangan pusaka dalam Islam, memastikan aset dipindahmilik dengan 
+            lancar kepada waris.
             </p>
-            <p>In Arabic, Hibah is translated as a gift.</p>
+            <p>Dalam bahasa Arab, Hibah diterjemahkan sebagai hadiah.</p>
           </>
         ),
       },
       {
-        title: 'Differences between Faraid vs Wasiat vs Hibah',
+        title: 'Perbezaan antara Faraid vs Wasiat vs Hibah',
         subKey: 'differences-between-faraid-vs-wasiat-vs-hibah',
         content: (
           <>
@@ -356,7 +340,7 @@ export const docsContent = [
               <table class="table table-bordered">
                 <thead>
                   <tr>
-                    <th>DIFFERENCE</th>
+                    <th>PERBEZAAN</th>
                     <th>FARAID</th>
                     <th>WASIAT</th>
                     <th>HIBAH</th>
@@ -365,66 +349,65 @@ export const docsContent = [
                 <tbody>
                   <tr>
                     <td>
-                      <strong>Definition</strong>
+                      <strong>Definisi</strong>
                     </td>
                     <td>
-                      Distribution of a Muslim’s estate based on the Al-Quran
-                      and Sunnah which specifies fixed shares for each
-                      beneficiary, ensuring a divinely mandated allocation.
+                    Pengagihan aset pusaka orang Islam berdasarkan Al-Quran dan Sunnah yang 
+                    menentukan bahagian tetap untuk setiap benefisiari, memastikan peruntukan 
+                    yang ditentukan secara ilahi.
                     </td>
                     <td>
-                      A declaration of a person made during his lifetime with
-                      respect to his assets, to be carried out for the purpose
-                      of distribution, charity or for any other purpose
-                      permissible by Islamic Law, after demise.
+                    Pengisytiharan seseorang yang dibuat semasa hayatnya berkenaan dengan asetnya, untuk 
+                    dilaksanakan bagi tujuan pengagihan, amal jariah atau apa-apa tujuan lain yang 
+                    dibenarkan oleh Hukum Syarak, selepas kematian.
                     </td>
                     <td>
-                      A gift given to someone during the donor’s lifetime.
+                    Hadiah yang diberikan kepada seseorang semasa hayat penderma.
                     </td>
                   </tr>
                   <tr>
                     <td>
-                      <strong>Distribution Rate</strong>
+                      <strong>Kadar Pengagihan</strong>
                     </td>
                     <td>
-                      As has been laid out in the Al-Qu’ran in Surah An-Nisa
-                      verse 11, 12 & 176.
+                    Seperti yang telah dinyatakan dalam Al-Quran dalam Surah An-Nisa ayat 
+                    11, 12 & 176.
                     </td>
                     <td>
-                      Unlimited subject to beneficiary’s consent. However, if
-                      the value is below 1/3 of the estate’s value, no consent
-                      is required.
+                    Tidak terhad tertakluk kepada persetujuan ahli waris. 
+                    Walau bagaimanapun, jika nilainya kurang daripada 1/3 daripada nilai aset pusaka, 
+                    tiada persetujuan diperlukan.
                     </td>
                     <td>
-                      Unlimited and does not require beneficiary’s consent.
+                    Tidak terhad dan tidak memerlukan persetujuan ahli waris.
                     </td>
                   </tr>
                   <tr>
                     <td>
-                      <strong>Heir’s consent</strong>
+                      <strong>Persetujuan waris</strong>
                     </td>
-                    <td>Not necessary.</td>
+                    <td>Tidak perlu. </td>
                     <td>
                       <p>
-                        Not necessary if wasiat is only 1/3 of the estate. If it
-                        exceeds, other beneficiarys’ consent is required.
+                      Tidak perlu jika wasiat hanya 1/3 daripada aset pusaka. Jika melebihi 1/3, 
+                      persetujuan ahli waris lain diperlukan.
                       </p>
                       <p>
-                        If beneficiary does not consent, therefore only entitled
-                        to 1/3 of the estate only.
+                      Jika ahli waris tidak bersetuju, maka hanya tertakluk 
+                      kepada 1/3 daripada aset pusaka sahaja.
                       </p>
                     </td>
-                    <td>Not necessary.</td>
+                    <td>Tidak perlu.</td>
                   </tr>
                   <tr>
                     <td>
-                      <strong>Beneficiary</strong>
+                      <strong>Ahli waris</strong>
                     </td>
                     <td>
-                      Eligible beneficiaries based in the Al-Quran and Sunnah.
+                    Ahli waris yang layak berdasarkan Al-Quran dan Sunnah.
                     </td>
-                    <td>Anyone other than eligible beneficiaries.</td>
-                    <td>Anyone other than eligible beneficiaries.</td>
+                    <td>Sesiapa sahaja selain ahli waris yang layak.</td>
+                    <td>Sesiapa sahaja selain ahli waris yang layak.</td>
                   </tr>
                 </tbody>
               </table>
@@ -435,7 +418,7 @@ export const docsContent = [
     ],
   },
   {
-    mainTitle: 'How To',
+    mainTitle: 'Cara-cara',
     key: 'how-to',
     icon: (
       <svg
@@ -456,75 +439,75 @@ export const docsContent = [
     ),
     content: [
       {
-        title: 'How to Add/Amend Personal Details',
+        title: 'Bagaimana Menambah/Menukar Biodata',
         subKey: 'how-to-add-amend-personal-details',
         content: (
           <>
-            <p>[Tutorial Video Coming Soon]</p>
+            <p>[Video Tutorial Akan Datang]</p>
           </>
         ),
       },
       {
-        title: 'How to Add/Amend Digital Asset',
+        title: 'Bagaimana Menambah/Menukar Aset Digital',
         subKey: 'how-to-add-amend-digital-asset',
         content: (
           <>
-            <p>[Tutorial Video Coming Soon]</p>
+            <p>[Video Tutorial Akan Datang]</p>
           </>
         ),
       },
       {
-        title: 'How to Add/Amend Co-Sampul',
+        title: 'Bagaimana Menambah/Menukar Co-Sampul',
         subKey: 'how-to-add-amend-co-sampul',
         content: (
           <>
-            <p>[Tutorial Video Coming Soon]</p>
+            <p>[Video Tutorial Akan Datang]</p>
           </>
         ),
       },
       {
-        title: 'How to Add/Amend Beneficiary',
+        title: 'Bagaimana Menambah/Menukar Ahli Waris',
         subKey: 'how-to-add-amend-beneficiary',
         content: (
           <>
-            <p>[Tutorial Video Coming Soon]</p>
+            <p>[Video Tutorial Akan Datang]</p>
           </>
         ),
       },
       {
-        title: 'How to Add/Amend Guardian',
+        title: 'Bagaimana Menambah/Menukar Penjaga',
         subKey: 'how-to-add-amend-guardian',
         content: (
           <>
-            <p>[Tutorial Video Coming Soon]</p>
+            <p>[Video Tutorial Akan Datang]</p>
           </>
         ),
       },
       {
-        title: 'How to Inform Death',
+        title: 'Bagaimana memaklumkan kematian',
         subKey: 'how-to-inform-death',
         content: (
           <>
-            <p>[Tutorial Video Coming Soon]</p>
+            <p>[Video Tutorial Akan Datang]</p>
           </>
         ),
       },
       {
-        title: 'Forget Password',
+        title: 'Terlupa Kata Laluan',
         subKey: 'forget-password',
         content: (
           <>
-            <p>[Tutorial Video Coming Soon]</p>
+            <p>[Video Tutorial Akan Datang]</p>
           </>
         ),
       },
       {
-        title: 'How to contact Sampul?',
+        title: 'Bagaimana untuk menghubungi Sampul?',
         subKey: 'contact-sampul',
         content: (
           <>
             <div>
-              Business Address:
+            Alamat Perniagaan
               <br />
               Sampul Sdn Bhd
               <br />
@@ -546,7 +529,7 @@ export const docsContent = [
     ],
   },
   {
-    mainTitle: 'Additional Wishes',
+    mainTitle: 'Hasrat Tambahan',
     key: 'additional-wishes',
     icon: (
       <svg
@@ -570,47 +553,46 @@ export const docsContent = [
     ),
     content: [
       {
-        title: 'What is Nazar',
+        title: 'Apakah itu Nazar?',
         subKey: 'what-is-nazar',
         content: (
           <>
             <p>
-              Nazar is a vow made to Allah to perform certain actions if certain
-              conditions are met. For example: “I wish to go for Umrah if I have
-              a son.” Umrah is compulsory if a son was borned and if he/she does
-              not have the chance to do it while still alive, his/her
-              beneficiaries are obliged to do it on tbeneficiary behalf and the
-              expenses can be taken from one’s estate.
+            Nazar adalah sumpah yang dibuat kepada Allah untuk melakukan amal kebaikan tertentu jika syarat tertentu dipenuhi. Contohnya: 
+            "Saya berhasrat untuk pergi Umrah jika saya mendapat anak lelaki." Umrah adalah wajib jika anak lelaki dilahirkan 
+            dan jika dia tidak berpeluang melakukannya semasa masih hidup, ahli warisnya wajib melunaskannya bagi pihak si mati 
+            dan perbelanjaan boleh diambil daripada aset pusakanya.
             </p>
             <p>
-              If the beneficiaries are unable to perform the nazar, they may opt
-              for a kaffarah or fidyah if it is a nazar to do fasting.
+            Jika ahli waris tidak dapat melaksanakan Nazar, mereka boleh memilih untuk membayar Kaffarah atau 
+            Fidyah jika ia adalah Nazar untuk berpuasa.
             </p>
             <p>
-              Read more:{' '}
+              Baca lanjut:{' '}
               <a
                 href="https://muftiwp.gov.my/ms/artikel/al-kafi-li-al-fatawi/3833-al-kafi-1446-bagaimanakah-cara-puasa-nazar-dan-kaffarah-sumpah-si-mati-ditunaikan-oleh-warisnya"
                 target="_blank"
               >
-                AL-KAFI #1446: BAGAIMANAKAH CARA PUASA NAZAR DAN KAFFARAH SUMPAH
-                SI MATI DITUNAIKAN OLEH WARISNYA
+                AL-KAFI #1446: BAGAIMANAKAH CARA PUASA NAZAR DAN KAFFARAH 
+                SUMPAH SI MATI DITUNAIKAN OLEH WARISNYA
               </a>
             </p>
           </>
         ),
       },
       {
-        title: 'What is Kaffarah',
+        title: 'Apakah itu Kaffarah?',
         subKey: 'what-is-kaffarah',
         content: (
           <>
             <p>
-              Kaffarah is compensation paid for unfulfilled nazar or sin
-              committed. Kaffarah is paid by opting to feed or clothe ten poor
-              people. Kaffarah payment can be made to religious bodies of
-              authorities such as State Islamic Religious Council. If a person
-              is unable to pay the three kaffarah stated, then he has to fast
-              for three days.
+            Kaffarah adalah pampasan yang dibayar untuk Nazar yang tidak 
+            dipenuhi atau dosa yang dilakukan. Kaffarah dibayar dengan 
+            memilih untuk memberi makan atau pakaian kepada sepuluh orang 
+            miskin. Pembayaran Kaffarah boleh dibuat kepada badan-badan 
+            agama seperti Majlis Agama Islam Negeri. Jika seseorang 
+            tidak mampu membayar tiga jenis Kaffarah yang dinyatakan, 
+            maka dia perlu berpuasa selama tiga hari.
             </p>
             <p>
               Another type of Kaffarah is Kaffarah on couple who have sexual
@@ -623,7 +605,7 @@ export const docsContent = [
               to Allah that should be settled and may be taken from one’s
               estate.
             </p>
-            <p>Read more:</p>
+            <p>Baca lanjut:</p>
             <ul>
               <li>
                 <a
@@ -639,9 +621,8 @@ export const docsContent = [
                   href="https://www.muftiwp.gov.my/en/artikel/irsyad-fatwa/irsyad-fatwa-khas-ramadhan-cat/4452-irsyad-al-fatwa-khas-ramadhan-siri-ke-161-kaffarah-bagi-orang-yang-melakukan-persetubuhan-ketika-berpuasa-ramadhan-dalam-keadaan-jahil"
                   target="_blank"
                 >
-                  IRSYAD AL-FATWA RAMADHAN EDITION SERIES 161: KAFFARAH FOR
-                  THOSE WHO HAD INTERCOURSE WHILST FASTING, IGNORANT OF ITS
-                  PROHIBITION
+                  IRSYAD AL-FATWA EDISI RAMADHAN SERI 161: KAFFARAH BAGI MEREKA YANG MELAKUKAN HUBUNGAN 
+                  SEKSUAL SEMASA BERPUASA, TANPA MENGETAHUI HUKUMANNYA.
                 </a>
               </li>
             </ul>
@@ -649,145 +630,109 @@ export const docsContent = [
         ),
       },
       {
-        title: 'What is Fidyah',
+        title: 'Apakah itu Fidyah?',
         subKey: 'what-is-fidyah',
         content: (
           <>
             <p>
-              When someone cannot fast in Ramadhan and can’t make up the lost
-              days afterwards (for example, because of a long-term health
-              condition or if she is pregnant and concerned on her baby), then
-              they should pay (Fidyah) for someone else to be fed.
+            Apabila seseorang tidak dapat berpuasa di bulan Ramadhan dan tidak dapat menggantikan hari yang tertinggal selepas itu (contohnya, kerana masalah kesihatan jangka panjang atau jika dia hamil dan bimbang tentang bayinya), maka mereka perlu membayar (Fidyah) untuk memberi makan kepada orang lain.
             </p>
             <p>
-              If the Fidyah has not been settled during lifetime, it is a debt
-              to Allah that should be settled and may be taken from one’s
-              estate.
+            Jika Fidyah tidak diselesaikan semasa hayat, ia adalah hutang kepada Allah yang perlu diselesaikan dan boleh diambil daripada aset pusaka seseorang.
             </p>
             <p>
-              Read more:{' '}
+              Baca lanjut:{' '}
               <a href="https://www.maij.gov.my/?page_id=485" target="_blank">
-                Click here
+                Tekan sini
               </a>
             </p>
           </>
         ),
       },
       {
-        title: 'What is Zakat',
+        title: 'Apakah itu Zakat?',
         subKey: 'what-is-zakat',
         content: (
           <>
             <p>
-              Zakat is translated from the Arabic term which means growth,
-              multiplicity, or increase. The foundation of Islam is held up by
-              the five pillars, and Zakat forms the third pillar. It refers to
-              the determined share of wealth prescribed by Allah s.w.t, to be
-              distributed to the eight groups of beneficiaries (asnaf). It is a
-              form of worship (ibadah) in terms of wealth.
+            Zakat diterjemahkan daripada istilah Arab yang bermaksud pertumbuhan, pergandaan, atau peningkatan. Asas Islam ditegakkan oleh lima rukun, dan Zakat membentuk rukun ketiga. Ia merujuk kepada bahagian kekayaan yang ditentukan oleh Allah s.w.t, untuk diagihkan kepada lapan kumpulan penerima (asnaf). Ia adalah satu bentuk ibadah yang melibatkan harta.
             </p>
             <p>
-              If Zakat has not been settled during lifetime, it is a debt to
-              Allah that should be settled and may be taken from one’s estate.
+            Jika Zakat tidak diselesaikan semasa hayat, ia adalah hutang kepada Allah yang perlu diselesaikan dan boleh diambil daripada aset pusaka seseorang.
             </p>
             <p>
-              Read more:{' '}
+              Baca lanjut:{' '}
               <a
                 href="https://www.muftiwp.gov.my/en/artikel/al-kafi-li-al-fatawi/4299-al-kafi-1649-hukum-orang-yang-meninggal-dunia-sebelum-sempat-menunaikan-zakat#:~:text=According%20to%20the%20opinion%20of,be%20paid%20from%20his%20inheritance."
                 target="_blank"
               >
-                Click here
+                Tekan sini
               </a>
             </p>
           </>
         ),
       },
       {
-        title: 'What is Sadaqah/Charity',
+        title: 'Apakah itu Sedekah/Sumbangan?',
         subKey: 'what-is-sadaqah-charity',
         content: (
           <>
             <p>
-              Charity is voluntary provision of assistance to those in need,
-              serves as a humanitarian act, and is unmotivated by self-interest.
+            Sumbangan adalah pemberian bantuan secara sukarela kepada mereka yang memerlukan, berfungsi untuk tujuan kemanusiaan, 
+            dan tidak didorong oleh kepentingan diri.
             </p>
             <p>
-              For Muslim, the term Sadaqah is used for the same. Muslim can
-              indicate a Sadaqah amount and gain reward beyond the grave and
-              that amount to a maximum of 1/3 of the estate. If it’s more than
-              ⅓, all beneficiaries of the estate have to agree on the amount for
-              it to be distributed.
+            Bagi umat Islam, istilah Sedekah digunakan untuk maksud dan perkara yang sama. 
+            Muslim boleh menentukan jumlah Sedekah dan mendapat ganjaran selepas 
+            kematian dengan jumlah maksimum 1/3 daripada aset pusaka. Jika lebih daripada ⅓, 
+            semua ahli waris perlu bersetuju dengan jumlah tersebut untuk diagihkan.
             </p>
           </>
         ),
       },
       {
-        title: 'What is Waqaf',
+        title: 'Apakah itu Waqaf?',
         subKey: 'what-is-waqaf',
         content: (
           <>
             <p>
-              Waqaf is a sustainable and ongoing charitable fund and commonly
-              called sadaqah jariyah which is defined as an act of voluntarily
-              making a long-term charitable contribution that will continue to
-              benefit others.
+            Wakaf adalah dana amal yang berkekalan dan berterusan dan biasanya dipanggil sedekah jariah yang ditakrifkan sebagai tindakan sukarela membuat sumbangan amal jangka panjang dan berkekalan yang akan terus memberi manfaat kepada orang lain.
             </p>
             <p>
-              Throughout Islamic history, waqaf has contributed to the
-              construction of mosques, schools, universities and scientific
-              institutions around the world, as well as the associated expenses
-              of such facilities, including student accommodation and teachers’
-              salaries.
+            Sepanjang sejarah Islam, Wakaf telah menyumbang kepada pembinaan masjid, sekolah, universiti dan institusi saintifik di seluruh dunia, serta perbelanjaan berkaitan kemudahan tersebut, termasuk penginapan pelajar dan gaji guru.
             </p>
             <p>
-              As long as the Waqaf asset exists, the reward will continuously
-              flow. Muslim can indicate a Waqaf amount or asset and gain reward
-              beyond the grave and that amount to a maximum of 1/3 of the
-              estate. If it’s more than ⅓, all beneficiaries of the estate have
-              to agree on the amount for it to be distributed.
+            Selagi aset Wakaf wujud, ganjaran akan terus mengalir. Muslim boleh menentukan jumlah atau aset Wakaf dan mendapat ganjaran selepas kematian dengan jumlah maksimum 1/3 daripada aset pusaka. Jika lebih daripada ⅓, semua ahli waris perlu bersetuju dengan jumlah tersebut untuk diagihkan.
             </p>
           </>
         ),
       },
       {
-        title: 'How is the Organ Donation Process',
+        title: 'Bagaimanakah Proses Pendermaan Organ?',
         subKey: 'organ-donation-process',
         content: (
           <>
             <p>
-              Organ donation is a noble practice. It is not new in Malaysia as
-              it is a treatment method that has been accepted in our country.
-              The number of patients who need organ transplants is increasing
-              from year to year, but the number of pledgers who want to donate
-              after death is low.
+            Pendermaan organ adalah amalan mulia. Ia bukan perkara baru di Malaysia kerana ia adalah kaedah rawatan yang telah diterima di negara kita. Bilangan pesakit yang memerlukan pemindahan organ semakin meningkat dari tahun ke tahun, tetapi bilangan penderma yang ingin menderma selepas kematian adalah rendah.
             </p>
             <p>
-              Organ donation is strictly managed by Ministry of Health via the
-              National Transplant Resource Centre which serves as a central
-              donor registry and keeps a database of all potential donors.
+            Pendermaan organ diuruskan secara ketat oleh Kementerian Kesihatan melalui Pusat Sumber Transplan Nasional yang berfungsi sebagai pendaftar penderma dan menyimpan pangkalan data semua penderma berpotensi.
             </p>
             <p>
-              For more information on organ donation, you can visit the website
-              of the National Transplant Resource Centre at
-              www.dermaorgan.gov.my or call toll free 1-800-88-9080 or email to{' '}
+            Untuk maklumat lanjut mengenai pendermaan organ, anda boleh melayari laman web Pusat Sumber Transplan Nasional 
+            di www.dermaorgan.gov.my atau menghubungi talian bebas tol 1-800-88-9080 atau e-mel{' '}
               <a href="mailto: ntrc@moh.gov.my">ntrc@moh.gov.my</a>
             </p>
             <p>
-              Fatwa regarding organ transplantation was issued in 1970 by the
-              National Fatwa Council. The fatwa is used as reference for matters
-              pertaining to organ transplantation and donation in Malaysia, and
-              is adopted by states which do not have a specific fatwa regarding
-              the issue. States with their own fatwa regarding organ
-              transplantation and donation are Perlis (1965), Sarawak (1996),
-              Selangor (2000), Johor (2001), and Penang (2010).
+            Fatwa mengenai pemindahan organ telah dikeluarkan pada tahun 1970 oleh Majlis Fatwa Kebangsaan. Fatwa tersebut digunakan sebagai rujukan untuk perkara berkaitan pemindahan dan pendermaan organ di Malaysia, dan diterima pakai oleh negeri-negeri yang tidak mempunyai fatwa khusus mengenai isu tersebut. Negeri-negeri yang mempunyai fatwa sendiri mengenai pemindahan dan pendermaan organ ialah Perlis (1965), Sarawak (1996), Selangor (2000), Johor (2001), dan Pulau Pinang (2010).
             </p>
             <p>
-              Read more:{' '}
+              Baca lanjut:{' '}
               <a
                 href="https://www.moh.gov.my/moh/resources/auto%20download%20images/589d7ab14fcd6.pdf"
                 target="_blank"
               >
-                ORGAN TRANSPLANTATION FROM THE ISLAMIC PERSPECTIVE
+                PENGAN TRANSPLANTASI ORGAN DARI PERSPEKTIF ISLAM
               </a>
             </p>
           </>
@@ -796,7 +741,7 @@ export const docsContent = [
     ],
   },
   {
-    mainTitle: 'Shariah & Legal',
+    mainTitle: 'Syariah & Undang-undang',
     key: 'shariah-and-legal',
     icon: (
       <svg
@@ -820,105 +765,89 @@ export const docsContent = [
     ),
     content: [
       {
-        title: 'Privacy Policy',
+        title: 'Polisi Privasi',
         subKey: 'privacy-policy',
         content: (
           <>
             <p>
-              Read more:{' '}
+              Baca lanjut:{' '}
               <a
                 href="https://docs.google.com/document/d/158mRNHFLpoEyJnWWkVYOqIUBLJ0aTkiEtBzzSnxV4xQ/edit?usp=share_link"
                 target="_blank"
               >
-                Click here
+                Tekan sini
               </a>
             </p>
           </>
         ),
       },
       {
-        title: 'Terms and Conditions',
+        title: 'Terma dan Syarat',
         subKey: 'terms-and-conditions',
         content: (
           <>
             <p>
-              Read more:{' '}
+              Baca lanjut:{' '}
               <a
                 href="https://docs.google.com/document/d/1qQmaBdGlcB1cl8e18ZRdT5LCWzhDnj1eG7YOUqV0t_k/edit?usp=share_link"
                 target="_blank"
               >
-                Click here
+                Tekan sini
               </a>
             </p>
           </>
         ),
       },
       {
-        title: 'Does Sampul comply with Shariah requirements?',
+        title: 'Adakah Sampul mematuhi Syariah?',
         subKey: 'does-sampul-comply-with-shariah-requirements',
         content: (
           <>
             <p>
-              Sampul is inspired by the authentic Hadith recorded in Sahih
-              Bukhari narrated by Abdullah bin Umar:
+            Sampul diilhamkan oleh Hadis sahih yang direkodkan dalam Sahih Bukhari 
+            yang diriwayatkan oleh Abdullah bin Umar:
             </p>
             <p>
               <i>
-                Allah's Messenger said, "It is not permissible for any Muslim
-                who has something to will to stay for two nights without having
-                his last wasiat and testament written and kept ready with him."
+              Rasulullah bersabda, "Tidak dibenarkan bagi mana-mana Muslim yang mempunyai sesuatu 
+              untuk diwasiatkan untuk berlalu dua malam tanpa menulis wasiat terakhirnya dan menyimpannya bersamanya."
               </i>
             </p>
             <p>
-              The objective of having a wasiat is to ensure that no asset is
-              left behind during the distribution process after demise. It is
-              also used to state wishes for loved ones including the method on
-              how the asset is to be distributed and donated to sadaqah or
-              waqaf.
+            Objektif mempunyai wasiat adalah untuk memastikan tiada aset yang tertinggal semasa proses pengagihan selepas kematian. 
+            Ia juga digunakan untuk menyatakan hasrat untuk orang tersayang termasuk 
+            kaedah bagaimana aset akan diagihkan dan didermakan kepada sedekah atau wakaf.
             </p>
             <p>
-              All assets and wishes in Sampul may be executed provided all
-              beneficiaries do not object to it.
+            Semua aset dan hasrat dalam Sampul boleh dilaksanakan dengan syarat semua ahli waris tidak membantahnya.
             </p>
             <p>
-              The Shariah ruling of wasiat is that consent is not required if
-              wasiat is only 1/3 of the estate. If it exceeds, other
-              beneficiaries' consent is required.
+            Hukum Syariah mengenai wasiat adalah bahawa persetujuan tidak diperlukan jika wasiat hanya 1/3 daripada aset pusaka. Jika melebihinya, persetujuan ahli waris lain diperlukan.
             </p>
             <p>
-              In addition, Sampul adopted the concept of Takharuj. The word
-              Takharuj is taken from the Arabic word Kharaja which means exit.
-              In the context of estate planning, it means withdrawal from
-              accepting the share of the estate either partially or wholly by
-              giving its share to a person or several persons or all other
-              beneficiaries.
+            Selain itu, Sampul mengamalkan konsep Takharuj. Perkataan Takharuj diambil daripada perkataan Arab 'kharaja' yang bermaksud keluar. Dalam konteks perancangan aset pusaka, ia bermaksud pengeluaran daripada menerima bahagian aset pusaka sama ada sebahagian atau keseluruhannya dengan memberikan bahagiannya kepada seseorang atau beberapa orang atau semua ahli waris lain.
             </p>
           </>
         ),
       },
       {
-        title: 'Does Sampul comply with Malaysian legal requirements?',
+        title: 'Adakah Sampul mematuhi Syariah?',
         subKey: 'does-sampul-comply-with-malaysian-legal-requirements',
         content: (
           <>
             <p>
-              Yes. In Malaysia, a wasiat is governed by the Shariah Law and a
-              non-Muslim Will is governed by the Wills Act 1959.
+            Ya. Di Malaysia, wasiat dikawal oleh Undang-undang Syariah dan 'Will' bagi bukan Muslim dikawal oleh Akta Wasiat 1959.
             </p>
             <p>
-              Our Wasiat format is designed to be efficient and straightforward
-              to help expedite the legal process for probate, letter of
-              administration and Faraid certificate application ensuring no
-              asset is left behind.
+            Format Wasiat kami direka untuk menjadi ringkas dan mudah untuk membantu mempercepatkan proses undang-undang bagi permohonan probet, surat pentadbiran dan sijil Faraid serta memastikan tiada aset yang tertinggal.
             </p>
             <p>
-              For Will, according to Malaysia's Wills Act 1959, you can write
-              your own will as long as you meet the following criteria.
+              Menurut Akta Wasiat 1959 Malaysia, anda boleh menulis wasiat anda sendiri selagi anda memenuhi kriteria berikut:
             </p>
             <ul>
-              <li>At least 18 years old.</li>
-              <li>Be of sound mind.</li>
-              <li>Have the will signed by you and two witnesses.</li>
+              <li>Berumur sekurang-kurangnya 18 tahun.</li>
+              <li>Berakal waras.</li>
+              <li>Mempunyai wasiat yang ditandatangani oleh anda dan dua orang saksi.</li>
             </ul>
           </>
         ),
