@@ -25,6 +25,16 @@ const nextConfig = {
         destination: '/signup',
         permanent: false,
       },
+      {
+        source: '/bm/docs',
+        destination: '/docs',
+        permanent: false,
+      },
+      {
+        source: '/en/docs',
+        destination: '/docs',
+        permanent: false,
+      },
       // --- next.js
     ];
   },
