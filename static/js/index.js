@@ -6,7 +6,8 @@ const formConfigs = [
 ];
 
 formConfigs.forEach((item) => {
-  document.getElementById(item.containerId).innerHTML = item.formFunction;
+  console.log('item ==', item)
+  // document.getElementById(item.containerId).innerHTML = item.formFunction;
 });
 
 newsletterFormAddAPI();
