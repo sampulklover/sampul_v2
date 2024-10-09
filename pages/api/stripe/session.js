@@ -16,6 +16,7 @@ export default async function handler(req, res) {
       const session = await stripe.checkout.sessions.create({
         customer: body.stripe_customer_id,
         mode: 'subscription',
+        allow_promotion_codes: true,
         line_items: lineItems,
         // {CHECKOUT_SESSION_ID} is a string literal; do not change it!
         // the actual Session ID is returned in the query parameter when your customer
