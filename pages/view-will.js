@@ -122,7 +122,7 @@ const ViewWill = () => {
   };
 
   return (
-    <div class="body">
+    <div class="body-01 p-5">
       <div class="content">
         {/* <Breadcrumb pageName={'Wasiat/Will'} /> */}
         <div class="mt-4">{title()}</div>

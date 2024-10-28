@@ -34,9 +34,9 @@ const ChangePassword = () => {
   };
 
   return (
-    <div class="body">
+    <div class="body-01">
       <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-4 px-5 py-5">
           <h2 class="uui-heading-medium-10">
             <strong class="smpl-heading-large fw-semibold">
               Change Password
