@@ -67,31 +67,39 @@ const Billing = ({ onSuccess = () => {} }) => {
 
   const features = {
     assets: {
-      title: 'Overview',
+      title: translations[locale].component.billing.overview,
       body: {
         // beneficiaries: 'Beneficiaries for each asset',
-        assets: 'Assets',
-        amendments: 'Amendments',
-        generation_of_will: 'Generation of Digital Wasiat/Will',
-        nazar: 'Nazar/Fidyah Clause',
-        waris: '1/3 to non-waris',
-        charity: 'Charity/Sadaqah/Waqf Clause',
-        organ: 'Organ Donation Clause',
-        guidance: '30 minutes post-loss guidance (Limited Offer)',
-        // therapy: '30 minutes post-loss therapy session (Limited Offer)',
-        guardian: 'Appointment of Guardian',
+        assets: translations[locale].component.billing.assets,
+        amendments: translations[locale].component.billing.amendments,
+        generation_of_will:
+          translations[locale].component.billing.generation_of_digital_,
+        nazar: translations[locale].component.billing.nazar_fidyah_clause,
+        waris: translations[locale].component.billing.one_three_to_,
+        charity: translations[locale].component.billing.charity_sadaqah_clause,
+        organ: translations[locale].component.billing.organ_donation_clause,
+        guidance: translations[locale].component.billing.post_loss_guidance_,
+        // therapy:  translations[locale].component.billing.post_loss_therapy_,
+        guardian:
+          translations[locale].component.billing.appointment_of_guardian,
       },
     },
     overview: {
-      title: 'Others',
+      title: translations[locale].component.billing.others,
       body: {
-        appoint_co_sampul: 'Appointment of Co-Sampul',
-        digital_cert: 'Digital Wasiat/Will Certificate',
-        witness_timestamp: 'Digital Wasiat/Will with witnesses & timestamp',
-        will_generator: 'Digital Wasiat/Will Generator',
-        full_day_access: '24 hours access',
-        simple_dashboard: 'Simplified Dashboard',
-        support: 'Support',
+        appoint_co_sampul:
+          translations[locale].component.billing.appointment_of_cosampul,
+        digital_cert:
+          translations[locale].component.billing.digital_wasiat_will_,
+        witness_timestamp:
+          translations[locale].component.billing.will_witnesses_timestamp_,
+        will_generator:
+          translations[locale].component.billing.wasiat_will_generator,
+        full_day_access:
+          translations[locale].component.billing.twenty_four_hours_,
+        simple_dashboard:
+          translations[locale].component.billing.simplified_dashboard,
+        support: translations[locale].component.billing.support,
       },
     },
   };
@@ -362,18 +370,24 @@ const Billing = ({ onSuccess = () => {} }) => {
     setIsYearly(!isYearly);
   };
 
+  const unlimitedText = translations[locale].component.billing.up_to_ten;
+
   const planConfig = {
     plan1: createPlanConfig(
       'plan1',
       PRICE_1_ID,
       ['2', true, true, true, true, true, true],
-      ['Up to 5', 'Unlimited', 'Unlimited']
+      [
+        translations[locale].component.billing.up_to_five,
+        unlimitedText,
+        unlimitedText,
+      ]
     ),
     // plan2: createPlanConfig(
     //   'plan2',
     //   isYearly ? PRICE_2_YEARLY_ID : PRICE_2_MONTHLY_ID,
     //   ['2', true, true, true, true, true, true],
-    //   [true, 'Up to 10', 'Unlimited', 'Unlimited'],
+    //   [true, translations[locale].component.billing.up_to_ten, unlimitedText, unlimitedText],
     //   [true, true, true, true, true, true, true, false, false]
     // ),
     plan3: createPlanConfig(
@@ -381,9 +395,9 @@ const Billing = ({ onSuccess = () => {} }) => {
       isYearly ? PRICE_3_YEARLY_ID : PRICE_3_MONTHLY_ID,
       ['2', true, true, true, true, true, true],
       [
-        'Unlimited',
-        'Unlimited',
-        'Unlimited',
+        unlimitedText,
+        unlimitedText,
+        unlimitedText,
         true,
         true,
         true,
@@ -400,7 +414,7 @@ const Billing = ({ onSuccess = () => {} }) => {
         <div>
           <div className="d-flex align-items-center mb-2">
             <span style={{ fontWeight: isYearly ? 'normal' : 'bold' }}>
-              Billed monthly
+              {translations[locale].component.billing.billed_monthly}
             </span>
             <div className="form-check form-switch form-switch-lg mx-3">
               <input
@@ -412,12 +426,12 @@ const Billing = ({ onSuccess = () => {} }) => {
               />
             </div>
             <span style={{ fontWeight: isYearly ? 'bold' : 'normal' }}>
-              Billed yearly
+              {translations[locale].component.billing.billed_yearly}
             </span>
           </div>
           <div className="d-flex justify-content-center align-items-center">
             <small className="text-muted">
-              (Save up to 20% with yearly billing)
+              {translations[locale].component.billing.save_up_to_}
             </small>
           </div>
         </div>
@@ -478,11 +492,16 @@ const Billing = ({ onSuccess = () => {} }) => {
                       title={
                         plan.isMyPlan ? (
                           <>
-                            <span class="text-primary">Subscribed</span>
+                            <span class="text-primary">
+                              {
+                                translations[locale].component.billing
+                                  .subscribed
+                              }
+                            </span>
                             <i class="bi bi-check2 text-success ms-1 h5"></i>
                           </>
                         ) : (
-                          'Subscribe'
+                          translations[locale].component.billing.subscribe
                         )
                       }
                       loading={plan.isBtnLoading}
@@ -560,11 +579,13 @@ const Billing = ({ onSuccess = () => {} }) => {
                 >
                   {showMore[planKey] ? (
                     <>
-                      See Less <i class="bi bi-chevron-up"></i>
+                      {translations[locale].component.billing.see_less}{' '}
+                      <i class="bi bi-chevron-up"></i>
                     </>
                   ) : (
                     <>
-                      See More <i class="bi bi-chevron-down"></i>
+                      {translations[locale].component.billing.see_more}{' '}
+                      <i class="bi bi-chevron-down"></i>
                     </>
                   )}
                 </button>
@@ -577,7 +598,8 @@ const Billing = ({ onSuccess = () => {} }) => {
         class="text-primary mt-3 text-center text-muted pointer-on-hover"
         onClick={() => getStripePortal()}
       >
-        Manage my subscription <Loading loading={isLoading.manageButton} />
+        {translations[locale].component.billing.manage_my_subscription}{' '}
+        <Loading loading={isLoading.manageButton} />
       </div>
     </>
   );

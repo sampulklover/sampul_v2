@@ -161,7 +161,13 @@ const DigitalAssetsCard = ({ typeName = '', searchInput = '' }) => {
                                   </div>
                                   <div>
                                     <div class="smpl_text-sm-regular crop-text">
-                                      <span>{iadObject.name}</span>
+                                      <span>
+                                        {
+                                          translations[locale].global[
+                                            iadObject.translationKey1
+                                          ]
+                                        }
+                                      </span>
                                     </div>
                                   </div>
                                 </div>

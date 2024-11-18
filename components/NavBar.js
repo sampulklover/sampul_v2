@@ -54,7 +54,7 @@ const NavBar = () => {
                       router.push('will');
                     }}
                   >
-                    Preview Wasiat
+                    {translations[locale].dashboard.preview_wasiat}
                   </button>
                 </li>
               </ul>

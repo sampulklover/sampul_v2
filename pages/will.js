@@ -58,6 +58,7 @@ const Will = () => {
         (b) => b.level === 'primary' && b.type === 'co_sampul'
       ),
       name: 'Primary Co-Sampul',
+      translationKey: 'primary_co_sampul',
       isRequired: true,
       inviteStatus: belovedData.find(
         (b) => b.level === 'primary' && b.type === 'co_sampul'
@@ -68,6 +69,7 @@ const Will = () => {
         (b) => b.level === 'secondary' && b.type === 'co_sampul'
       ),
       name: 'Secondary Co-Sampul',
+      translationKey: 'secondary_co_sampul',
       isRequired: true,
       inviteStatus: belovedData.find(
         (b) => b.level === 'secondary' && b.type === 'co_sampul'
@@ -135,7 +137,9 @@ const Will = () => {
           <div key={category} className="alert alert-danger" role="alert">
             {`${translations[locale].will.your_request_for} `}
             <b>{belovedCat[category].data.name}</b>{' '}
-            {`${translations[locale].will.s_approval_to_} ${belovedCat[category].name} `}{' '}
+            {`${translations[locale].will.s_approval_to_} ${
+              translations[locale].global[belovedCat[category].translationKey]
+            } `}{' '}
             {displayStatusInfo[belovedCat[category].inviteStatus]}.
           </div>
         );

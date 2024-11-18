@@ -206,7 +206,7 @@ const SideBar = ({ children }) => {
       ),
     },
     {
-      title: 'Care',
+      title: translations[locale].component.side_bar.care,
       page: 'care',
       display: true,
       action: () => {

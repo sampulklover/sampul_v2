@@ -34,23 +34,23 @@ const DigitalAssets = () => {
 
   const tabConfig = [
     {
-      title: 'View all',
+      title: translations[locale].digital_assets.view_all,
       type: '',
     },
     {
-      title: 'Terminate',
+      title: translations[locale].digital_assets.terminate,
       type: 'terminate',
     },
     {
-      title: 'Gift',
+      title: translations[locale].digital_assets.gift,
       type: 'gift',
     },
     {
-      title: 'Faraid',
+      title: translations[locale].digital_assets.faraid,
       type: 'faraid',
     },
     {
-      title: 'Settle',
+      title: translations[locale].digital_assets.settle,
       type: 'settle',
     },
   ];
@@ -61,7 +61,9 @@ const DigitalAssets = () => {
     return (
       <>
         <div class="text-center mt-3">
-          <span class="heading-03">Your Registered Assets</span>
+          <span class="heading-03">
+            {translations[locale].digital_assets.your_registered_assets}
+          </span>
         </div>
         <ul
           class="nav nav-pills justify-content-center tab-background mt-3"
@@ -128,8 +130,8 @@ const DigitalAssets = () => {
         <div class="content">
           <Breadcrumb pageName="Manage Assets" />
           <InnerHeader
-            title="Decide What Happens  to Your Asset"
-            subtitle={`Your assets are an important part of your legacy. Here, you can make thoughtful decisions about how your digital and physical assets will be handled when you're no longer around. Simply choose an option below and provide the details. It's quick, easy, and gives you peace of mind.`}
+            title={translations[locale].digital_assets.decide_what_happens_}
+            subtitle={translations[locale].digital_assets.your_assets_are_}
             imageSrc="images/treasure-chest.svg"
           />
           <DigitalAssetsActionCard />

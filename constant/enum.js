@@ -254,6 +254,7 @@ export const instructionsAfterDeath = (religion) => {
       value: 'transfer_as_gift',
       theme: 'blue',
       translationKey: 'pass_this_account_',
+      translationKey1: 'transfer_as_gift',
       shortName: 'Gift',
     },
     {
@@ -262,6 +263,7 @@ export const instructionsAfterDeath = (religion) => {
       value: 'terminate',
       theme: 'orange',
       translationKey: 'account_to_terminated',
+      translationKey1: 'terminate',
       shortName: 'Terminate',
     },
     {
@@ -270,6 +272,7 @@ export const instructionsAfterDeath = (religion) => {
       value: 'settle',
       theme: 'orange',
       translationKey: 'account_to_settle_debts',
+      translationKey1: 'settle_debts',
       shortName: 'Settle Debts',
     },
   ];
@@ -282,6 +285,7 @@ export const instructionsAfterDeath = (religion) => {
       value: 'faraid',
       theme: 'green',
       translationKey: 'beneficiary_liquidate_account',
+      translationKey1: 'faraid',
       shortName: 'Faraid',
     });
   }
@@ -327,9 +331,19 @@ export const beneficiaryTypes = () => {
 
 export const belovedLevel = () => {
   const options = [
-    { name: 'Primary', value: 'primary' },
-    { name: 'Secondary', value: 'secondary' },
-    { name: 'Others', value: 'others' },
+    {
+      name: 'Primary',
+      value: 'primary',
+      translationKey: 'primary',
+      translationKey2: 'primary_co_sampul',
+    },
+    {
+      name: 'Secondary',
+      value: 'secondary',
+      translationKey: 'secondary',
+      translationKey2: 'secondary_co_sampul',
+    },
+    { name: 'Others', value: 'others', translationKey: 'others' },
   ];
 
   return options;
@@ -404,9 +418,9 @@ export const waqfBodies = () => {
 
 export const belovedInviteStatus = () => {
   const options = [
-    { name: 'Pending', value: 'pending' },
-    { name: 'Accepted', value: 'accepted' },
-    { name: 'Rejected', value: 'rejected' },
+    { name: 'Pending', value: 'pending', translationKey: 'pending' },
+    { name: 'Accepted', value: 'accepted', translationKey: 'accepted' },
+    { name: 'Rejected', value: 'rejected', translationKey: 'rejected' },
   ];
 
   return options;
