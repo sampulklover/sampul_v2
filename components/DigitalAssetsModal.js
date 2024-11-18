@@ -17,72 +17,6 @@ import toast from 'react-hot-toast';
 import Select from 'react-select';
 import { Tooltip } from 'react-tooltip';
 
-const digitalAssetsTypeName = {
-  add: {
-    key: 'add',
-    button_title: 'Add',
-    allow_delete: false,
-    show_create_more: true,
-  },
-  edit: {
-    key: 'edit',
-    button_title: 'Update',
-    allow_delete: true,
-    show_create_more: false,
-  },
-};
-
-const instructionTypeConfig = {
-  add: {
-    faraid: {
-      title: 'Add Assets to be Faraid',
-      description: `Fill in the asset name, it's value, and any additional notes or details.`,
-      actionFormLabel: 'Which Assets you want to Faraid?',
-      showInsuranceForm: false,
-    },
-    terminate: {
-      title: 'Add Assets to be Terminate',
-      description: `Fill in the asset name, it's value, and any additional notes or details.`,
-      actionFormLabel: 'Which Assets you want to Terminate?',
-      showInsuranceForm: false,
-    },
-    transfer_as_gift: {
-      title: 'Add Assets to be Transfer as Gift',
-      description: `Fill in the asset name, it's value, and any additional notes or details.`,
-      actionFormLabel: 'Which Assets you want to Transfer as Gift?',
-      showInsuranceForm: false,
-    },
-    settle: {
-      title: 'Add Debt to be Settled',
-      description: `Fill in the asset name, it's value, and any additional notes or details.`,
-      actionFormLabel: 'Which Debt you want to be settled?',
-      showInsuranceForm: true,
-    },
-  },
-  edit: {
-    faraid: {
-      title: 'Update Faraid Asset',
-      description: `Fill in the asset name, it's value, and any additional notes or details.`,
-      showInsuranceForm: false,
-    },
-    terminate: {
-      title: 'Update Terminate Asset',
-      description: `Fill in the asset name, it's value, and any additional notes or details.`,
-      showInsuranceForm: false,
-    },
-    transfer_as_gift: {
-      title: 'Update Transfer as Gift Asset',
-      description: `Fill in the asset name, it's value, and any additional notes or details.`,
-      showInsuranceForm: false,
-    },
-    settle: {
-      title: 'Update Debt to be Settled',
-      description: `Fill in the asset name, it's value, and any additional notes or details.`,
-      showInsuranceForm: true,
-    },
-  },
-};
-
 const DigitalAssetsModal = ({ isModalView = true }) => {
   const { contextApiData, getDigitalAssets, addDigitalAssetsApi } = useApi();
   const { locale } = useLocale();
@@ -91,6 +25,102 @@ const DigitalAssetsModal = ({ isModalView = true }) => {
 
   const keyType = tempData.assets.key;
   const selectedItem = tempData.assets.selectedItem;
+
+  const digitalAssetsTypeName = {
+    add: {
+      key: 'add',
+      button_title: translations[locale].global.add,
+      allow_delete: false,
+      show_create_more: true,
+    },
+    edit: {
+      key: 'edit',
+      button_title: translations[locale].global.update,
+      allow_delete: true,
+      show_create_more: false,
+    },
+  };
+
+  const instructionTypeConfig = {
+    add: {
+      faraid: {
+        title:
+          translations[locale].component.digital_assets_modal
+            .add_faraid_assets_,
+        description:
+          translations[locale].component.digital_assets_modal.fill_in_the_,
+        actionFormLabel:
+          translations[locale].component.digital_assets_modal
+            .which_faraid_assets_,
+        showInsuranceForm: false,
+      },
+      terminate: {
+        title:
+          translations[locale].component.digital_assets_modal
+            .add_terminate_assets_,
+        description:
+          translations[locale].component.digital_assets_modal.fill_in_the_,
+        actionFormLabel:
+          translations[locale].component.digital_assets_modal
+            .which_terminate_assets_,
+        showInsuranceForm: false,
+      },
+      transfer_as_gift: {
+        title:
+          translations[locale].component.digital_assets_modal
+            .add_transfer_gift_,
+        description:
+          translations[locale].component.digital_assets_modal.fill_in_the_,
+        actionFormLabel:
+          translations[locale].component.digital_assets_modal
+            .which_gift_transfer_,
+        showInsuranceForm: false,
+      },
+      settle: {
+        title: translations[locale].component.digital_assets_modal.add_debt_to_,
+        description:
+          translations[locale].component.digital_assets_modal.fill_in_the_,
+        actionFormLabel:
+          translations[locale].component.digital_assets_modal
+            .which_debt_settled_,
+        showInsuranceForm: true,
+      },
+    },
+    edit: {
+      faraid: {
+        title:
+          translations[locale].component.digital_assets_modal
+            .update_faraid_asset,
+        description:
+          translations[locale].component.digital_assets_modal
+            .update_faraid_asset,
+        showInsuranceForm: false,
+      },
+      terminate: {
+        title:
+          translations[locale].component.digital_assets_modal
+            .update_terminate_asset,
+        description:
+          translations[locale].component.digital_assets_modal.fill_in_the_,
+        showInsuranceForm: false,
+      },
+      transfer_as_gift: {
+        title:
+          translations[locale].component.digital_assets_modal
+            .update_transfer_as_,
+        description:
+          translations[locale].component.digital_assets_modal.fill_in_the_,
+        showInsuranceForm: false,
+      },
+      settle: {
+        title:
+          translations[locale].component.digital_assets_modal.update_debt_to_,
+        description:
+          translations[locale].component.digital_assets_modal.fill_in_the_,
+        showInsuranceForm: true,
+      },
+    },
+  };
 
   const useUniqueId = () => {
     const [id, setId] = useState('');
@@ -681,7 +711,10 @@ const DigitalAssetsModal = ({ isModalView = true }) => {
                       htmlFor={`input-${item.value}-instruction-after-death`}
                       class="form-label-01"
                     >
-                      Instruction After Death
+                      {
+                        translations[locale].component.digital_assets_modal
+                          .instruction_after_death
+                      }
                     </label>
                     <select
                       id={`input-${item.value}-instruction-after-death`}
@@ -698,13 +731,13 @@ const DigitalAssetsModal = ({ isModalView = true }) => {
                       required
                     >
                       <option disabled selected value="">
-                        Select...
+                        {translations[locale].global.select_}
                       </option>
                       {instructionsAfterDeath(
                         contextApiData?.profile?.data?.religion
                       ).map((item) => (
                         <option key={item.value} value={item.value}>
-                          {item.name}
+                          {translations[locale].global[item.translationKey1]}
                         </option>
                       ))}
                     </select>
@@ -775,7 +808,10 @@ const DigitalAssetsModal = ({ isModalView = true }) => {
                     htmlFor={`input-platform-${item.value}-estimate-value`}
                     class="form-label-01"
                   >
-                    Estimation Value
+                    {
+                      translations[locale].component.digital_assets_modal
+                        .estimation_value
+                    }
                   </label>
                   <div class="input-group">
                     <div class="input-group-text">RM</div>
@@ -813,7 +849,10 @@ const DigitalAssetsModal = ({ isModalView = true }) => {
                     htmlFor={`input-${item.value}-protection`}
                     class="form-label-01"
                   >
-                    Is this asset protected under insurance or takaful?
+                    {
+                      translations[locale].component.digital_assets_modal
+                        .is_this_asset_
+                    }
                   </label>
                   <select
                     id={`input-${item.value}-protection`}
@@ -838,7 +877,7 @@ const DigitalAssetsModal = ({ isModalView = true }) => {
                     }
                   >
                     <option disabled selected value="">
-                      Select...
+                      {translations[locale].global.select_}
                     </option>
                     {trueFalse().map((item) => (
                       <option key={item.value} value={item.value}>
@@ -852,7 +891,10 @@ const DigitalAssetsModal = ({ isModalView = true }) => {
                     htmlFor={`input-${item.value}-remarks`}
                     class="form-label-01"
                   >
-                    Anything else you would like to share?
+                    {
+                      translations[locale].component.digital_assets_modal
+                        .anything_else_you_
+                    }
                   </label>
                   <textarea
                     class="form-control"

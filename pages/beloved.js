@@ -563,7 +563,13 @@ const Beloved = () => {
                             <div class="beloved-tag">
                               {status_invites ? (
                                 <div class="badge is-badge-small">
-                                  <span>{status_invites.name}</span>
+                                  <span>
+                                    {
+                                      translations[locale]?.global[
+                                        status_invites.value
+                                      ]
+                                    }
+                                  </span>
                                 </div>
                               ) : (
                                 <></>

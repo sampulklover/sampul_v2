@@ -15,9 +15,9 @@ const DigitalAssetsActionCard = () => {
 
   const instructionTypeConfig = [
     {
-      title: 'Follow Faraid',
-      description: 'Distribute your assets according to Islamic law',
-      btnTitle: 'Add Assets',
+      title: translations[locale].digital_assets.follow_faraid,
+      description: translations[locale].digital_assets.distribute_your_assets_,
+      btnTitle: translations[locale].digital_assets.add_assets,
       btnOnClick: () => {
         toggleModal('assets');
         setValueTempData('assets', {
@@ -30,9 +30,9 @@ const DigitalAssetsActionCard = () => {
       isMuslimOnly: true,
     },
     {
-      title: 'Terminate Subscriptions',
-      description: 'Say goodbye to digital services you no longer need',
-      btnTitle: 'Add Assets',
+      title: translations[locale].digital_assets.terminate_subscriptions,
+      description: translations[locale].digital_assets.say_goodbye_to_,
+      btnTitle: translations[locale].digital_assets.add_assets,
       btnOnClick: () => {
         toggleModal('assets');
         setValueTempData('assets', {
@@ -45,9 +45,9 @@ const DigitalAssetsActionCard = () => {
       isMuslimOnly: false,
     },
     {
-      title: 'Transfer as Gift',
-      description: 'Share your wealth with your loved ones',
-      btnTitle: 'Add Assets',
+      title: translations[locale].digital_assets.transfer_as_gift,
+      description: translations[locale].digital_assets.share_your_wealth_,
+      btnTitle: translations[locale].digital_assets.add_assets,
       btnOnClick: () => {
         toggleModal('assets');
         setValueTempData('assets', {
@@ -60,9 +60,9 @@ const DigitalAssetsActionCard = () => {
       isMuslimOnly: false,
     },
     {
-      title: 'Settle Debts',
-      description: 'Settle any outstanding debts and loans.',
-      btnTitle: 'Add Debts',
+      title: translations[locale].digital_assets.settle_debts,
+      description: translations[locale].digital_assets.settle_any_outstanding_,
+      btnTitle: translations[locale].digital_assets.add_debts,
       btnOnClick: () => {
         toggleModal('assets');
         setValueTempData('assets', {

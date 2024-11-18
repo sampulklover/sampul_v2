@@ -35,7 +35,7 @@ const InviteModal = () => {
     if (item?.invite_status) {
       status_invites = belovedInviteStatus().find(
         (x) => x.value === item.invite_status
-      ).name;
+      ).translationKey;
     }
 
     return status_invites;
@@ -88,6 +88,9 @@ const InviteModal = () => {
       ?.name,
     type: beneficiaryTypes().find((x) => x.value === belovedItem.data?.type)
       ?.name,
+    translationKey: belovedLevel().find(
+      (x) => x.value === belovedItem.data?.level
+    )?.translationKey2,
     from_nric_name: belovedItem.data?.profiles?.nric_name,
   };
 
@@ -220,7 +223,7 @@ const InviteModal = () => {
               <div class="text-and-supporting-text-18">
                 <div class="text-lg-semibold-4">
                   {/* {type_title[category].title}  */}
-                  {keyValue.level} {keyValue.type}
+                  {translations[locale].global[keyValue.translationKey]}
                 </div>
                 <div class="text-sm-regular-6">
                   {/* {type_title[category].subtitle} */}
@@ -228,8 +231,8 @@ const InviteModal = () => {
                     {
                       translations[locale].component.invite_modal
                         .we_are_delighted_
-                    }
-                    {keyValue.level} {keyValue.type}{' '}
+                    }{' '}
+                    {translations[locale].global[keyValue.translationKey]}{' '}
                     {translations[locale].component.invite_modal.for}{' '}
                     {keyValue.from_nric_name}.{' '}
                     {translations[locale].component.invite_modal.we_hope_that_}{' '}
@@ -257,7 +260,13 @@ const InviteModal = () => {
                 </div>
                 <div class="text-sm-regular-6">
                   {translations[locale].component.invite_modal.current_status_}{' '}
-                  <b>{currentStatus(selectedItem)}</b>
+                  <b>
+                    {
+                      translations[locale].component.invite_modal[
+                        currentStatus(selectedItem)
+                      ]
+                    }
+                  </b>
                 </div>
               </div>
             ) : (

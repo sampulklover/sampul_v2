@@ -87,9 +87,9 @@ const Onboard = () => {
     {
       cardStyle: { paddingLeft: '20%', paddingRight: '20%' },
       stageTitle: '1',
-      title: 'Your Details',
-      heading: 'Complete Your Wasiat Profile',
-      subheading: `Life changes, and so do your plans. Keep your Wasiat profile current by updating your personal information whenever necessary.`,
+      title: translations[locale].onboard.your_details,
+      heading: translations[locale].onboard.complete_your_wasiat,
+      subheading: translations[locale].onboard.life_changes_and_,
       view: (
         <MyDetails
           parentPage="onboard"
@@ -132,15 +132,15 @@ const Onboard = () => {
             }));
           });
       },
-      nextBtnTitle: 'Save & Continue',
+      nextBtnTitle: translations[locale].onboard.save_and_continue,
       isLoading: isLoading.steps.step1,
     },
     {
       cardStyle: { paddingLeft: '20%', paddingRight: '20%' },
       stageTitle: '2',
-      title: 'My Plan',
-      heading: 'Find the perfect plan for your Sampul',
-      subheading: `Simple, transparent pricing that grows with you. Upgrade your plan anytime to better fit your needs.`,
+      title: translations[locale].onboard.my_plan,
+      heading: translations[locale].onboard.find_the_perfect_,
+      subheading: translations[locale].onboard.simple_transparent_pricing,
       view: (
         <>
           <Billing onSuccess={nextStep} />
@@ -153,16 +153,15 @@ const Onboard = () => {
       onNext: () => {
         nextStep();
       },
-      nextBtnTitle: 'Skip',
+      nextBtnTitle: translations[locale].onboard.skip,
       isLoading: isLoading.steps.step2,
     },
     {
       cardStyle: { paddingLeft: '20%', paddingRight: '20%' },
       stageTitle: '3',
-      title: 'Appoint trusted person',
-      heading: 'Trusted Hands',
-      subheading:
-        'Select a person you trust to handle your important information and carry out your wishes. Your Co-Sampul will ensure everything is taken care of just as you planned.',
+      title: translations[locale].onboard.appoint_trusted_person,
+      heading: translations[locale].onboard.trusted_hands,
+      subheading: translations[locale].onboard.select_a_person_,
       view: (
         <div>
           <div class="card mb-3">
@@ -313,20 +312,23 @@ const Onboard = () => {
         ) {
           nextStep();
         } else {
-          toast.error('Please add Co-Sampul to proceed.');
+          toast.error(translations[locale].onboard.please_add_cosampul_);
         }
       },
-      nextBtnTitle: 'Next',
+      nextBtnTitle: translations[locale].onboard.next,
       isLoading: isLoading.steps.step3,
     },
     {
       stageTitle: '4',
-      title: 'Add assets',
-      heading: <span class="px-2">Decide what happens to your assets</span>,
+      title: translations[locale].onboard.add_assets,
+      heading: (
+        <span class="px-2">
+          {translations[locale].onboard.decide_what_happens_}
+        </span>
+      ),
       subheading: (
         <span class="px-2">
-          Your digital and physical assets are essential components of the
-          legacy you create.
+          {translations[locale].onboard.your_digital_and_}
         </span>
       ),
       view: (
@@ -335,7 +337,9 @@ const Onboard = () => {
             <DigitalAssetsActionCard />
           </div>
           <div class="text-center mt-5">
-            <span class="heading-03">Your Registered Assets</span>
+            <span class="heading-03">
+              {translations[locale].onboard.your_registered_assets}
+            </span>
           </div>
           <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-3 mt-3 px-5">
             <DigitalAssetsCard typeName={''} searchInput={''} />
@@ -400,15 +404,15 @@ const Onboard = () => {
               }));
             });
         } else {
-          toast.error('Please add asset to proceed.');
+          toast.error(translations[locale].onboard.please_add_asset_);
         }
       },
-      nextBtnTitle: 'Generate Wasiat/Will',
+      nextBtnTitle: translations[locale].onboard.generate_wasiat_will,
       isLoading: isLoading.steps.step4,
     },
     {
       stageTitle: '5',
-      title: 'Generate Wasiat/Will',
+      title: translations[locale].onboard.generate_wasiat_will,
       stepIcon: <i class="bi bi-file-earmark-text"></i>,
       heading: '-',
       subheading: '-',
@@ -418,7 +422,7 @@ const Onboard = () => {
         prevStep();
       },
       onNext: () => {},
-      nextBtnTitle: 'Next',
+      nextBtnTitle: translations[locale].onboard.next,
       isLoading: isLoading.steps.step5,
     },
   ];
@@ -453,7 +457,7 @@ const Onboard = () => {
               class="btn btn-light btn-text me-2"
               onClick={() => steps[currentStep].onPrev()}
             >
-              Back
+              {translations[locale].onboard.back}
             </button>
           ) : (
             ''

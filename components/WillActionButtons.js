@@ -193,7 +193,7 @@ const WillActionButtons = ({ viewOnly = false }) => {
         return;
       }
 
-      toast.success('Successfully generated!', {
+      toast.success(translations[locale].global.successfully_generated, {
         duration: 5000,
       });
       setButtonLoading({
@@ -223,7 +223,7 @@ const WillActionButtons = ({ viewOnly = false }) => {
         return;
       }
 
-      toast.success('Successfully generated!', {
+      toast.success(translations[locale].global.successfully_generated, {
         duration: 5000,
       });
       setButtonLoading({
@@ -291,7 +291,7 @@ const WillActionButtons = ({ viewOnly = false }) => {
 
   const showNotCompleteToast = () => {
     toast.error(
-      'Complete your profile to begin generating your will. You can do this on the settings page'
+      translations[locale].component.will_action_btn.complete_your_profile_
     );
   };
 

@@ -86,9 +86,9 @@ const MyDetails = ({
           state: document.getElementById('input-my-details-state'),
           country: document.getElementById('select-my-details-country'),
           image_path: document.getElementById('preview-my-details-image'),
-          // system_language: document.getElementById(
-          //   'select-my-details-system-language'
-          // ),
+          system_language: document.getElementById(
+            'select-my-details-system-language'
+          ),
         },
       },
     };
@@ -112,12 +112,12 @@ const MyDetails = ({
       .single();
 
     if (returnData?.system_language) {
-      // let langguageUse = systemLanguages().find(
-      //   (x) => x.value === returnData.system_language
-      // );
-      // if (langguageUse?.langCode) {
-      //   changeLocale({ lang: langguageUse?.langCode });
-      // }
+      let langguageUse = systemLanguages().find(
+        (x) => x.value === returnData.system_language
+      );
+      if (langguageUse?.langCode) {
+        changeLocale({ lang: langguageUse?.langCode });
+      }
     }
 
     if (error) {
@@ -507,6 +507,29 @@ const MyDetails = ({
               </div>
             </div>
           </div>
+          {checkView({
+            labelDiv1: (
+              <label
+                htmlFor="select-my-details-system-language"
+                class="uui-field-label"
+              >
+                {translations[locale].component.my_details.system_language}
+              </label>
+            ),
+            inputDiv1: (
+              <select
+                id="select-my-details-system-language"
+                required
+                class="form-select"
+              >
+                {systemLanguages().map((item) => (
+                  <option key={item.value} value={item.value}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+            ),
+          })}
           {pageConfig[parentPage]?.showFooter ? (
             <div
               class={

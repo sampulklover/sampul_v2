@@ -249,7 +249,11 @@ const DigitalSummaryCard = ({
                         <td>
                           <div class="custom-table-cell">
                             <span class={`my-badge-${instructions?.theme}`}>
-                              {instructions?.shortName}
+                              {
+                                translations[locale].global[
+                                  instructions.translationKey1
+                                ]
+                              }
                             </span>
                           </div>
                         </td>

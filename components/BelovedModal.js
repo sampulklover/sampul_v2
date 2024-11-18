@@ -243,8 +243,8 @@ const BelovedModal = ({ isModalView = true }) => {
       display_address: 'none',
       level_required: true,
       email_required: true,
-      email_small_info: `We’ll email your Co-Sampul to accept their role. Once they agree,
-              they’ll receive your information when you're no longer here.`,
+      email_small_info:
+        translations[locale].component.beloved_modal.we_will_email_,
       beloved_list: belovedLevel().filter(
         (option) => option.value !== 'others'
       ),

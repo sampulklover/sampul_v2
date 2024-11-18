@@ -68,16 +68,16 @@ const Dashboard = () => {
 
   const actionButtonConfig = [
     {
-      title: 'Add your Assets to your wasiat',
-      subtitle: 'Decide what happens to your assets',
+      title: translations[locale].dashboard.add_your_assets_,
+      subtitle: translations[locale].dashboard.decide_what_happens_,
       imageUrl: 'images/featured-icon-box.svg',
       onClick: () => {
         router.push('digital-assets');
       },
     },
     {
-      title: 'Add your Beloved',
-      subtitle: 'Appoint the future owner of your assets',
+      title: translations[locale].dashboard.add_your_beloved,
+      subtitle: translations[locale].dashboard.appoint_the_future_,
       imageUrl: 'images/user-plus-icon-box.svg',
       onClick: () => {
         router.push('beloved');
@@ -127,11 +127,11 @@ const Dashboard = () => {
               />
             </div>
             <div class="mt-4">
-              <span class="heading-04">The Sampul Care team</span>
+              <span class="heading-04">
+                {translations[locale].dashboard.the_sampul_care_}
+              </span>
               <p class="paragraph-02 px-3">
-                Connect with Sampul Care team for end-to-end guidance and
-                therapy session. Start meaningful conversations and find our
-                voice while doing so.
+                {translations[locale].dashboard.connect_with_sampul_}
               </p>
             </div>
           </div>
@@ -143,7 +143,7 @@ const Dashboard = () => {
               router.push('care');
             }}
           >
-            <Loading title="Chat with us" />
+            <Loading title={translations[locale].dashboard.chat_with_us} />
           </button>
         </div>
       </div>
@@ -153,7 +153,9 @@ const Dashboard = () => {
   const column2 = () => {
     return (
       <div class="card h-100">
-        <span class="heading-04">Recent Assets List</span>
+        <span class="heading-04">
+          {translations[locale].dashboard.recent_assets_list}
+        </span>
         <div class="card p-0 border-0 pt-1 mt-3">
           <DigitalSummaryCard typeName="all" showAll={false} />
         </div>
@@ -167,11 +169,11 @@ const Dashboard = () => {
         <div class="content">
           <Breadcrumb pageName={translations[locale].dashboard.pageTitle} />
           <InnerHeader
-            title="Start Wasiat in minutes"
+            title={translations[locale].dashboard.start_wasiat_in_}
             subtitle={
               <>
                 <p>
-                  Last wasiat update:{' '}
+                  {translations[locale].dashboard.last_wasiat_update}{' '}
                   {contextApiData.will.data?.last_updated
                     ? formatTimestamp(contextApiData.will.data?.last_updated)
                     : '-'}
@@ -183,7 +185,9 @@ const Dashboard = () => {
                     router.push('will');
                   }}
                 >
-                  <Loading title="Preview Wasiat" />
+                  <Loading
+                    title={translations[locale].dashboard.preview_wasiat}
+                  />
                 </button>
               </>
             }

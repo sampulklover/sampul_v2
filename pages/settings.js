@@ -34,37 +34,6 @@ const Settings = () => {
     }
   }, [router.isReady]);
 
-  // useEffect(() => {
-  //   if (contextApiData.profile.data) {
-  //     const langNow = contextApiData.profile?.data?.system_language; // malay
-  //     const lObject = systemLanguages().find((x) => x.value === langNow);
-  //     const currentPage = router.pathname;
-  //     const currentPath = router.asPath.replace(/^\/[^/]+/, '');
-  //     if (lObject?.langCode) {
-  //       router.push(`/${lObject.langCode}${currentPath}/${currentPage}`);
-  //     }
-  //   }
-  // }, [contextApiData.profile]);
-
-  const title = () => {
-    return (
-      <>
-        <div class="row text-md-start text-center">
-          <div class="col-lg">
-            <div class="smpl_display-sm-semibold">
-              {translations[locale].settings.settings}
-            </div>
-            <div class="smpl_text-md-regular">
-              {translations[locale].settings.manage_your_account_}
-            </div>
-          </div>
-          <div class="col text-end"></div>
-        </div>
-        {/* <div class="border-top my-3"></div> */}
-      </>
-    );
-  };
-
   const tabSection = () => {
     return (
       <div class="project-tab">
@@ -187,7 +156,6 @@ const Settings = () => {
       <div class="body-01 inner-body-01">
         <div class="content">
           <Breadcrumb pageName={translations[locale].settings.settings} />
-          {/* <div class="mt-4">{title()}</div> */}
           <div class="row mt-4">{tabSection()}</div>
         </div>
         <Footer />
