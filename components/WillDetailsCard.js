@@ -4,6 +4,9 @@ import { useLocale } from '../context/locale';
 import { formatTimestamp } from '../utils/helpers';
 import DigitalSummaryCard from './DigitalSummaryCard';
 import ExtraWishesTable from './ExtraWishesTable';
+import Loading from './Laoding';
+import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
@@ -245,7 +248,7 @@ const WillDetailsCard = () => {
           addBreak: true,
         },
         {
-          title: '11.	Saksi',
+          title: '12.	Saksi',
           description: (
             <div>
               <strong>Diperakui oleh</strong>
@@ -438,28 +441,108 @@ const WillDetailsCard = () => {
     }
   };
 
+  const [buttonLoading, setButtonLoading] = useState({
+    generate: false,
+    download: false,
+  });
+
+  const downloadCert = async () => {
+    setButtonLoading({
+      ...buttonLoading,
+      download: true,
+    });
+
+    const element = document.getElementById('certificate-details-container');
+
+    if (!element) {
+      toast.error('Container not found!');
+      setButtonLoading({
+        ...buttonLoading,
+        download: false,
+      });
+      return;
+    }
+
+    try {
+      const canvas = await html2canvas(element, { scale: 2 });
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'pt', 'a4');
+
+      const imgWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const bottomMargin = 50; // Adjust bottom margin as needed
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      while (heightLeft > 0) {
+        pdf.addImage(
+          imgData,
+          'PNG',
+          0,
+          position + bottomMargin,
+          imgWidth,
+          imgHeight
+        );
+
+        heightLeft -= pageHeight;
+        position -= pageHeight;
+
+        if (heightLeft > 0) {
+          pdf.addPage();
+        }
+      }
+
+      pdf.save('Details.pdf');
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setButtonLoading({
+        ...buttonLoading,
+        download: false,
+      });
+    }
+  };
+
   return (
     <>
-      <div class="will_details_bg p-4">
+      <div class="text-end">
+        <button
+          type="button"
+          class={`btn btn-light btn-text me-1 mb-1`}
+          onClick={() => {
+            downloadCert();
+          }}
+        >
+          <Loading title="Download Details" loading={buttonLoading.download} />
+        </button>
+      </div>
+      <div class="will_details_bg" id="certificate-details-container">
         <div class="text-size-medium-wasiat align-center wasit-intro">
           <strong>{will_settings[checkReligion()].title}</strong>
         </div>
-        {will_settings[checkReligion()]?.info?.map((item, index) => {
+        {will_settings[checkReligion()]?.info?.map((item, index, array) => {
           return (
             <div key={index}>
-              <div class="wasiat_content first">
-                <div class="uui-faq03_question">
-                  <div class="wasiat_heading">{item.title}</div>
+              <div className="wasiat_content first">
+                <div className="uui-faq03_question">
+                  <div className="wasiat_heading">{item.title}</div>
                 </div>
                 <div
-                  class={`text-size-medium-wasiat ${
+                  className={`text-size-medium-wasiat ${
                     item?.addBreak ? 'break-text' : ''
                   }`}
                 >
                   <span>{item.description}</span>
                 </div>
               </div>
-              <div class="border-top my-3"></div>
+              <div
+                className="border-top"
+                style={{
+                  display: index === array.length - 1 ? 'none' : 'block',
+                }}
+              ></div>
             </div>
           );
         })}

@@ -1,3 +1,8 @@
+import Loading from './Laoding';
+import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
 import QRCode from 'react-qr-code';
 
 const WillCertCard = ({ willData }) => {
@@ -41,8 +46,86 @@ const WillCertCard = ({ willData }) => {
     return display;
   };
 
+  const [buttonLoading, setButtonLoading] = useState({
+    generate: false,
+    download: false,
+  });
+
+  const downloadCert = async () => {
+    setButtonLoading({
+      ...buttonLoading,
+      download: true,
+    });
+
+    const element = document.getElementById('certificate-container');
+
+    if (!element) {
+      toast.error('Container not found!');
+      setButtonLoading({
+        ...buttonLoading,
+        download: false,
+      });
+      return;
+    }
+
+    try {
+      const canvas = await html2canvas(element, { scale: 2 });
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'pt', 'a4');
+
+      const imgWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const bottomMargin = 20; // Adjust bottom margin as needed
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      while (heightLeft > 0) {
+        pdf.addImage(
+          imgData,
+          'PNG',
+          0,
+          position + bottomMargin,
+          imgWidth,
+          imgHeight
+        );
+
+        heightLeft -= pageHeight;
+        position -= pageHeight;
+
+        if (heightLeft > 0) {
+          pdf.addPage();
+        }
+      }
+
+      pdf.save('Certificate.pdf');
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setButtonLoading({
+        ...buttonLoading,
+        download: false,
+      });
+    }
+  };
+
   return (
     <>
+      <div class="text-end">
+        <button
+          type="button"
+          class={`btn btn-light btn-text me-1 mb-1`}
+          onClick={() => {
+            downloadCert();
+          }}
+        >
+          <Loading
+            title="Download Certificate"
+            loading={buttonLoading.download}
+          />
+        </button>
+      </div>
       <div class="wasiat-cert-preview" id="certificate-container">
         <div class="wasiat-cert_content p-3">
           <div class="wasiat-cert_wrapper">
