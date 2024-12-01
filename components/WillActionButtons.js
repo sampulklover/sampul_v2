@@ -243,6 +243,7 @@ const WillActionButtons = ({ viewOnly = false }) => {
     });
 
     var element = document.getElementById('certificate-container');
+    console.log('element', element);
     let pdf = new jsPDF('p', 'pt', 'a4');
 
     const contentWidth = element.offsetWidth;
@@ -394,7 +395,7 @@ const WillActionButtons = ({ viewOnly = false }) => {
             </g>
           </svg>
         </button>
-        {/* <button
+        <button
           type="button"
           class={`btn ${
             viewOnly ? 'btn-primary' : 'btn-light '
@@ -402,11 +403,11 @@ const WillActionButtons = ({ viewOnly = false }) => {
           onClick={() => {
             var is_completed = checkCompleteProfile();
             if (is_completed) {
-              if (showQrModal) {
-                router.push('will?download=true');
-              } else {
-                downloadCert();
-              }
+              // if (showQrModal) {
+              //   router.push('will?download=true');
+              // } else {
+              downloadCert();
+              // }
             } else {
               if (router?.pathname == '/view-will') {
                 downloadCert();
@@ -417,7 +418,7 @@ const WillActionButtons = ({ viewOnly = false }) => {
           }}
         >
           <Loading title="Download PDF" loading={buttonLoading.download} />
-        </button> */}
+        </button>
         {viewOnly ? (
           ''
         ) : (

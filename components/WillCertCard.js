@@ -63,6 +63,7 @@ const WillCertCard = ({ willData }) => {
                 class="draft-image"
               ></img>
             )} */}
+
             <div class="wasiat-cert_content-centre">
               <h2 class="heading-xsmall centre">
                 {will_settings[checkReligion()].title}
@@ -76,7 +77,6 @@ const WillCertCard = ({ willData }) => {
                 <span>{myInfo.nric_name}</span>
               </div>
               <div class="space-medium"></div>
-
               <div class="text-size-medium centre">
                 Will ID :{' '}
                 <span id="view-certificate-will-code">{myInfo.will_code}</span>
