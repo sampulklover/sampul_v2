@@ -241,7 +241,41 @@ const WillDetailsCard = () => {
               : `Jika pasangan saya meninggal dunia sebelum saya atau tidak berkemampuan, ${myInfo.primary_guardian.name}, beralamatkan email ${myInfo.primary_guardian.email} dilantik untuk anak-anak saya yang masih di bawah umur, dengan ${myInfo.secondary_guardian.name}, beralamatkan email ${myInfo.secondary_guardian.email} sebagai pengganti seperti [Jadual 1].`,
         },
         {
-          title: '11.	Saksi',
+          title: '11.	Tanda Tangan',
+          description: (
+            <div>
+              <strong>Disediakan oleh</strong>
+              <br />
+              <br />
+              <br />
+              <br />
+              ____________________
+              <br />
+              {myInfo.nric_name}
+              <br />
+              {myInfo.nric_no}
+              <br />
+              pada {myInfo.last_updated}
+            </div>
+          ),
+        },
+        {
+          title: '12.	Notis',
+          description: (
+            <div>
+              Walaupun platform kami menyediakan perkhidmatan digital untuk
+              membuat wasiat, kami amat menggalakkan anda mencetak wasiat yang
+              telah dilengkapkan dan menandatanganinya secara fizikal untuk
+              simpanan peribadi anda. Sekiranya timbul sebarang pertikaian pada
+              masa hadapan, salinan wasiat yang ditandatangani secara fizikal
+              akan memberikan kepastian undang-undang. Salinan bercetak dan
+              bertandatangan ini boleh bertindak sebagai sandaran kepada rekod
+              digital anda.
+            </div>
+          ),
+        },
+        {
+          title: '13.	Saksi',
           description: (
             <div>
               <strong>Diperakui oleh</strong>
@@ -264,39 +298,6 @@ const WillDetailsCard = () => {
               Pengasas Bersama, SAMPUL
               <br />
               pada {myInfo.last_updated}
-            </div>
-          ),
-        },
-        {
-          title: '12.	Tanda Tangan',
-          description: (
-            <div>
-              <strong>Disediakan oleh</strong>
-              <br />
-              <br />
-              <br />
-              <br />
-              ____________________
-              <br />
-              {myInfo.nric_name}
-              <br />
-              {myInfo.nric_no}
-              <br />
-              pada {myInfo.last_updated}
-              <br />
-              <br />
-              <small>
-                <i>
-                  Walaupun platform kami menyediakan perkhidmatan digital untuk
-                  membuat wasiat, kami amat menggalakkan anda mencetak wasiat
-                  yang telah dilengkapkan dan menandatanganinya secara fizikal
-                  untuk simpanan peribadi anda. Sekiranya timbul sebarang
-                  pertikaian pada masa hadapan, salinan wasiat yang
-                  ditandatangani secara fizikal akan memberikan kepastian
-                  undang-undang. Salinan bercetak dan bertandatangan ini boleh
-                  bertindak sebagai sandaran kepada rekod digital anda.
-                </i>
-              </small>
             </div>
           ),
         },
@@ -362,7 +363,39 @@ const WillDetailsCard = () => {
           description: `If any beneficiary predeceases me, their share shall be redistributed among the remaining beneficiaries or as specified in this Will.`,
         },
         {
-          title: '8.	Witnesses',
+          title: '8.	Signature',
+          description: (
+            <div>
+              <strong>Signed by</strong>
+              <br />
+              <br />
+              <br />
+              <br />
+              ________________
+              <br />
+              {myInfo.nric_name}
+              <br />
+              {myInfo.nric_no}
+              <br />
+              on {myInfo.last_updated}
+            </div>
+          ),
+        },
+        {
+          title: '9.	Notice',
+          description: (
+            <div>
+              While our platform provides a digital service for creating wills,
+              we strongly recommend that you print out your completed will and
+              sign it physically for your personal safekeeping. In the event of
+              any potential disputes, a physically signed copy of your will
+              shall provide legal certainty. This printed and signed version can
+              serve as a tangible backup to your digital records.
+            </div>
+          ),
+        },
+        {
+          title: '10.	Witnesses',
           description: (
             <div>
               <strong>Signed by</strong>
@@ -385,38 +418,6 @@ const WillDetailsCard = () => {
               Co-Founder, SAMPUL
               <br />
               on {myInfo.last_updated}
-            </div>
-          ),
-        },
-        {
-          title: '9.	Signature',
-          description: (
-            <div>
-              <strong>Signed by</strong>
-              <br />
-              <br />
-              <br />
-              <br />
-              ________________
-              <br />
-              {myInfo.nric_name}
-              <br />
-              {myInfo.nric_no}
-              <br />
-              on {myInfo.last_updated}
-              <br />
-              <br />
-              <small>
-                <i>
-                  While our platform provides a digital service for creating
-                  wills, we strongly recommend that you print out your completed
-                  will and sign it physically for your personal safekeeping. In
-                  the event of any potential disputes, a physically signed copy
-                  of your will shall provide legal certainty. This printed and
-                  signed version can serve as a tangible backup to your digital
-                  records.
-                </i>
-              </small>
             </div>
           ),
         },
