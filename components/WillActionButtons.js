@@ -389,7 +389,7 @@ const WillActionButtons = ({ viewOnly = false }) => {
             </g>
           </svg>
         </button>
-        <button
+        {/* <button
           type="button"
           class={`btn ${
             viewOnly ? 'btn-primary' : 'btn-light '
@@ -412,7 +412,7 @@ const WillActionButtons = ({ viewOnly = false }) => {
           }}
         >
           <Loading title="Download PDF" loading={buttonLoading.download} />
-        </button>
+        </button> */}
         {viewOnly ? (
           ''
         ) : (
