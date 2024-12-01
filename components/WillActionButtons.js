@@ -5,6 +5,7 @@ import successWillAnimationData from '../public/animation/lottie_will_success_ge
 import { supabase } from '../utils/supabase';
 import Loading from './Laoding';
 import ShareModal from './ShareModal';
+import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -242,42 +243,35 @@ const WillActionButtons = ({ viewOnly = false }) => {
       download: true,
     });
 
-    var element = document.getElementById('certificate-container');
-    console.log('element', element);
-    let pdf = new jsPDF('p', 'pt', 'a4');
+    const element = document.getElementById('certificate-container');
 
-    const contentWidth = element.offsetWidth;
-    const contentHeight = element.offsetHeight;
-    const scaleX = pdf.internal.pageSize.width / contentWidth;
-    const scaleY = pdf.internal.pageSize.height / contentHeight;
-    const scale = Math.min(scaleX, scaleY);
-
-    try {
-      await new Promise((resolve, reject) => {
-        pdf.html(element, {
-          html2canvas: {
-            scale: scale,
-            logging: true,
-          },
-          callback: function () {
-            // This code will run after PDF generation is complete
-            pdf.save('will.pdf');
-            resolve();
-          },
-        });
-      });
-    } catch (error) {
+    if (!element) {
+      toast.error('Certificate container not found!');
       setButtonLoading({
         ...buttonLoading,
         download: false,
       });
-      toast.error(error.message);
+      return;
     }
 
-    setButtonLoading({
-      ...buttonLoading,
-      download: false,
-    });
+    try {
+      const canvas = await html2canvas(element, { scale: 2 }); // Increase scale for better quality
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'pt', 'a4');
+
+      const imgWidth = pdf.internal.pageSize.getWidth();
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+      pdf.save('will.pdf');
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setButtonLoading({
+        ...buttonLoading,
+        download: false,
+      });
+    }
   };
 
   const checkCompleteProfile = () => {
