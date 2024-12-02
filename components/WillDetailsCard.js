@@ -298,6 +298,40 @@ const WillDetailsCard = () => {
               Pengasas Bersama, SAMPUL
               <br />
               pada {myInfo.last_updated}
+              <br />
+              <br />
+              <strong>Diperakui oleh</strong>
+              <br />
+              <br />
+              <br />
+              <br />
+              ____________________
+              <br />
+              Nama:
+              <br />
+              No IC:
+              <br />
+              Hubungan:
+              <br />
+              Tarikh:
+              <br />
+              <br />
+              <strong>Diperakui oleh</strong>
+              <br />
+              <br />
+              <br />
+              <br />
+              ____________________
+              <br />
+              Nama:
+              <br />
+              No IC:
+              <br />
+              Hubungan:
+              <br />
+              Tarikh:
+              <br />
+              <br />
             </div>
           ),
         },
@@ -418,6 +452,38 @@ const WillDetailsCard = () => {
               Co-Founder, SAMPUL
               <br />
               on {myInfo.last_updated}
+              <br />
+              <br />
+              <strong>Signed by</strong>
+              <br />
+              <br />
+              <br />
+              <br />
+              ____________________
+              <br />
+              Name:
+              <br />
+              IC Number:
+              <br />
+              Relationship:
+              <br />
+              Date:
+              <br />
+              <br />
+              <strong>Signed by</strong>
+              <br />
+              <br />
+              <br />
+              <br />
+              ____________________
+              <br />
+              Name:
+              <br />
+              IC Number:
+              <br />
+              Relationship:
+              <br />
+              Date:
             </div>
           ),
         },
