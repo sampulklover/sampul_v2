@@ -513,7 +513,6 @@ export default {
       take_the_first_: 'Take the First Step',
       losing_a_loved_:
         'Losing a loved one is never easy, and there are many things to take care of during such a difficult time. Our Aftercare Checklist provides step-by-step guidance and support, helping you manage important tasks with care and compassion. From handling the will and bills to making immediate arrangements and informing others, we are here to support you every step of the way. Use this checklist to keep track of what needs to be done, mark tasks as complete, or pin them for later.',
-
       add_a_new_: 'Add a new Step',
     },
     digital_assets: {
@@ -1191,6 +1190,7 @@ export default {
       take_the_first_: 'Ambil Langkah Pertama',
       losing_a_loved_:
         'Kehilangan insan tersayang tidak pernah mudah, dan terdapat banyak perkara yang perlu diuruskan pada waktu yang sukar ini. Senarai Semak Penjagaan Lanjutan kami menyediakan panduan langkah demi langkah dan sokongan untuk membantu anda menguruskan tugasan penting dengan penuh perhatian dan kasih sayang. Daripada menguruskan wasiat dan bil, membuat persiapan segera, hingga memaklumkan kepada pihak lain, kami sentiasa ada untuk menyokong anda di setiap langkah. Gunakan senarai semak ini untuk menjejaki apa yang perlu dilakukan, menandakan tugasan yang telah selesai, atau menyimpannya untuk kemudian.',
+      add_a_new_: 'Tambah langkah baru',
     },
     digital_assets: {
       list_down_your_: 'Senaraikan Aset & Perbelanjaan Anda',
