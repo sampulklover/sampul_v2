@@ -20,6 +20,10 @@ export const TempDataProvider = ({ children }) => {
       category: 'co_sampul',
       selectedItem: null,
     },
+    aftercare: {
+      key: 'add',
+      selectedItem: null,
+    },
   });
 
   const setValueTempData = (key, passData) => {

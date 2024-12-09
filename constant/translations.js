@@ -334,6 +334,7 @@ export default {
       side_bar: {
         assets: 'Assets',
         dashboard: 'Dashboard',
+        aftercare: 'Aftercare',
         digital: 'Digital',
         physical: 'Physical',
         coming_soon: 'Coming Soon',
@@ -506,6 +507,14 @@ export default {
       decide_what_happens_: 'Decide what happens to your assets',
       add_your_beloved: 'Add your Beloved',
       appoint_the_future_: 'Appoint the future owner of your assets',
+    },
+    aftercare: {
+      aftercare_checklist: 'Aftercare Checklist',
+      take_the_first_: 'Take the First Step',
+      losing_a_loved_:
+        'Losing a loved one is never easy, and there are many things to take care of during such a difficult time. Our Aftercare Checklist provides step-by-step guidance and support, helping you manage important tasks with care and compassion. From handling the will and bills to making immediate arrangements and informing others, we are here to support you every step of the way. Use this checklist to keep track of what needs to be done, mark tasks as complete, or pin them for later.',
+
+      add_a_new_: 'Add a new Step',
     },
     digital_assets: {
       list_down_your_: 'List down your Assets & Expenses',
@@ -994,6 +1003,7 @@ export default {
       side_bar: {
         assets: 'Aset',
         dashboard: 'Papan Pemuka',
+        aftercare: 'Penjagaan Lanjutan',
         digital: 'Digital',
         physical: 'Fizikal',
         coming_soon: 'Akan Datang',
@@ -1176,6 +1186,12 @@ export default {
       add_your_beloved: 'Tambah Orang Tersayang Anda',
       appoint_the_future_: 'Lantik pemilik masa depan aset anda',
     },
+    aftercare: {
+      aftercare_checklist: 'Senarai Semak Penjagaan Lanjutan',
+      take_the_first_: 'Ambil Langkah Pertama',
+      losing_a_loved_:
+        'Kehilangan insan tersayang tidak pernah mudah, dan terdapat banyak perkara yang perlu diuruskan pada waktu yang sukar ini. Senarai Semak Penjagaan Lanjutan kami menyediakan panduan langkah demi langkah dan sokongan untuk membantu anda menguruskan tugasan penting dengan penuh perhatian dan kasih sayang. Daripada menguruskan wasiat dan bil, membuat persiapan segera, hingga memaklumkan kepada pihak lain, kami sentiasa ada untuk menyokong anda di setiap langkah. Gunakan senarai semak ini untuk menjejaki apa yang perlu dilakukan, menandakan tugasan yang telah selesai, atau menyimpannya untuk kemudian.',
+    },
     digital_assets: {
       list_down_your_: 'Senaraikan Aset & Perbelanjaan Anda',
       ensure_no_asset_:
@@ -1207,7 +1223,6 @@ export default {
         'Selesaikan sebarang hutang dan pinjaman tertunggak.',
       add_debts: 'Tambah Hutang',
     },
-
     physical_assets: {
       physical_assets: 'Aset Fizikal',
       overview_of_secured_:

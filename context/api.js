@@ -2,6 +2,7 @@ import { pages } from '../constant/element';
 import { systemLanguages } from '../constant/enum';
 import {
   getAccountApi,
+  getAftercareApi,
   getBelovedApi,
   getBodiesApi,
   getDigitalAssetsApi,
@@ -68,6 +69,10 @@ export const ApiProvider = ({ children }) => {
       isLoading: true,
     },
     informDeath: {
+      data: null,
+      isLoading: true,
+    },
+    aftercare: {
       data: null,
       isLoading: true,
     },
@@ -482,6 +487,40 @@ export const ApiProvider = ({ children }) => {
     }
   };
 
+  const getAftercare = async () => {
+    setContextApiData((prevData) => ({
+      ...prevData,
+      aftercare: {
+        data: [],
+        isLoading: true,
+      },
+    }));
+
+    try {
+      const data = await getAftercareApi({
+        uuid: contextApiData.user.data.id,
+      });
+
+      setContextApiData((prevData) => ({
+        ...prevData,
+        aftercare: {
+          data: data,
+          isLoading: false,
+        },
+      }));
+    } catch (error) {
+      console.error(error);
+      setContextApiData((prevData) => ({
+        ...prevData,
+        aftercare: {
+          data: [],
+          isLoading: false,
+        },
+      }));
+      Sentry.captureException(error);
+    }
+  };
+
   const normalLogin = async ({ email, password }) => {
     const { data, error } = await supabase.auth.signInWithPassword({
       email: email,
@@ -587,6 +626,7 @@ export const ApiProvider = ({ children }) => {
       getExtraWishes(),
       getWill(),
       getInformDeath(),
+      getAftercare(),
     ]);
   };
 
@@ -638,6 +678,7 @@ export const ApiProvider = ({ children }) => {
         getExtraWishes,
         getWill,
         getInformDeath,
+        getAftercare,
         normalLogin,
         googleLogin,
         normalSignup,
