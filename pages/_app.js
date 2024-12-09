@@ -3,6 +3,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../styles/global.css';
+import AftercareModal from '../components/AftercareModal';
 import BelovedModal from '../components/BelovedModal';
 import DigitalAssetsModal from '../components/DigitalAssetsModal';
 import IntroModal from '../components/IntroModal';
@@ -76,6 +77,7 @@ const MyApp = ({ Component, pageProps }) => {
               <IntroModal />
               <InviteModal />
               <BelovedModal />
+              <AftercareModal />
               <DigitalAssetsModal />
               <DynamicToaster position="top-right" />
               <NavBar />

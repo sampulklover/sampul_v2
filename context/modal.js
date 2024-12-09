@@ -11,6 +11,7 @@ export const ModalProvider = ({ children }) => {
     invite: false,
     beloved: false,
     assets: false,
+    aftercare: false,
   });
 
   const toggleModal = (key) => {

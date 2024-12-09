@@ -1,5 +1,5 @@
-import toast from 'react-hot-toast';
 import { supabase } from './supabase';
+import toast from 'react-hot-toast';
 
 export const getUserApi = async () => {
   try {
@@ -202,6 +202,24 @@ export const getInformDeathApi = async (postData) => {
     }
 
     return data.length > 0 ? data[0] : null;
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
+
+export const getAftercareApi = async (postData) => {
+  try {
+    const { data, error } = await supabase
+      .from('aftercare')
+      .select('*')
+      .eq('uuid', postData.uuid)
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      throw error;
+    }
+
+    return data.length > 0 ? data : null;
   } catch (error) {
     toast.error(error.message);
   }
