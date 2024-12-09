@@ -22,8 +22,8 @@ export const pages = [
     },
   },
   {
-    dashboard: {
-      route: '/dashboard',
+    aftercare: {
+      route: '/aftercare',
       auth: true,
     },
   },
