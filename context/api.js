@@ -492,7 +492,7 @@ export const ApiProvider = ({ children }) => {
     setContextApiData((prevData) => ({
       ...prevData,
       aftercare: {
-        data: [],
+        data: prevData.aftercare.data,
         isLoading: true,
       },
     }));
@@ -583,11 +583,13 @@ export const ApiProvider = ({ children }) => {
           { task: '15. Process grief', uuid: contextApiData.user.data.id },
         ];
 
+        const rearrangedAfterCare = defaultAfterCare.reverse();
+
         console.log('Default task aftercare added!');
 
         try {
           const data = await addBulkAftercareApi({
-            bulkData: defaultAfterCare,
+            bulkData: rearrangedAfterCare,
             uuid: contextApiData.user.data.id,
           });
 
