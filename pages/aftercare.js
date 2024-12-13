@@ -35,7 +35,7 @@ const AfterCare = () => {
   useEffect(() => {
     if (contextApiData.profile.data) {
       if (contextApiData.profile.data.is_aftercare_onboard == false) {
-        addBulkAftercare();
+        // addBulkAftercare();
       }
     }
   }, [contextApiData.profile.data]);
