@@ -594,23 +594,10 @@ export const ApiProvider = ({ children }) => {
           });
 
           if (data) {
-            setContextApiData((prevData) => ({
-              ...prevData,
-              aftercare: {
-                data: data,
-                isLoading: false,
-              },
-            }));
+            getAftercare();
           }
         } catch (error) {
           console.error(error);
-          setContextApiData((prevData) => ({
-            ...prevData,
-            aftercare: {
-              data: [],
-              isLoading: false,
-            },
-          }));
           Sentry.captureException(error);
         }
       }

@@ -232,7 +232,7 @@ export const addBulkAftercareApi = async (postData) => {
       .insert(postData.bulkData)
       .select('*')
       .eq('uuid', postData.uuid)
-      .order('id', { ascending: false });
+      .order('id', { ascending: true });
 
     if (error) {
       throw error;
