@@ -538,14 +538,6 @@ export const ApiProvider = ({ children }) => {
         .single();
 
       if (returnData) {
-        setContextApiData((prevData) => ({
-          ...prevData,
-          aftercare: {
-            data: [],
-            isLoading: true,
-          },
-        }));
-
         const defaultAfterCare = [
           { task: '1. Manage the Burial', uuid: contextApiData.user.data.id },
           {
@@ -592,6 +584,8 @@ export const ApiProvider = ({ children }) => {
         ];
 
         console.log('Default task aftercare added!');
+        console.log('huihih');
+        return;
 
         try {
           const data = await addBulkAftercareApi({
