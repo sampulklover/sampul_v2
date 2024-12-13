@@ -584,8 +584,6 @@ export const ApiProvider = ({ children }) => {
         ];
 
         console.log('Default task aftercare added!');
-        console.log('huihih');
-        return;
 
         try {
           const data = await addBulkAftercareApi({
