@@ -757,6 +757,7 @@ export const ApiProvider = ({ children }) => {
   }, [router.pathname]);
 
   useEffect(() => {
+    console.log('hihiihiiss', contextApiData.user.data);
     if (contextApiData.user.data !== null) {
       getAllApi();
 

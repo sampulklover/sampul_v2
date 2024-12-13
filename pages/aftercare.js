@@ -33,6 +33,7 @@ const AfterCare = () => {
   }, [contextApiData.aftercare.data]);
 
   useEffect(() => {
+    console.log('hihi', contextApiData.profile);
     if (contextApiData.profile.data) {
       if (contextApiData.profile.data.is_aftercare_onboard == false) {
         // addBulkAftercare();
