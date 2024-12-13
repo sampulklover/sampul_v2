@@ -19,7 +19,7 @@ import Select from 'react-select';
 import { Tooltip } from 'react-tooltip';
 
 const AfterCare = () => {
-  const { contextApiData } = useApi();
+  const { contextApiData, addBulkAftercare } = useApi();
   const { locale } = useLocale();
   const router = useRouter();
   const { isModalOpen, toggleModal } = useModal();
@@ -28,11 +28,17 @@ const AfterCare = () => {
 
   useEffect(() => {
     if (contextApiData.aftercare.data) {
-      if (contextApiData.aftercare.data?.length > 0) {
-        setItems(contextApiData.aftercare.data);
-      }
+      setItems(contextApiData.aftercare.data);
     }
   }, [contextApiData.aftercare.data]);
+
+  useEffect(() => {
+    if (contextApiData.profile.data) {
+      if (contextApiData.profile.data.is_aftercare_onboard == false) {
+        addBulkAftercare();
+      }
+    }
+  }, [contextApiData.profile.data]);
 
   const onUpdateCompleted = async (taskId, completeStatus) => {
     const { data, error } = await supabase
@@ -149,6 +155,7 @@ const AfterCare = () => {
       </li>
     );
   };
+
   return (
     <SideBar>
       <div class="body-01 inner-body-01">
@@ -187,7 +194,9 @@ const AfterCare = () => {
               <>
                 <ul className="list-group mb-3">
                   {pinnedItems.length > 0 ? (
-                    pinnedItems.map((item, index) => <>{itemCard(item)}</>)
+                    pinnedItems.map((item, index) => (
+                      <div key={index}>{itemCard(item)}</div>
+                    ))
                   ) : (
                     <li className="list-group-item">No pinned items</li>
                   )}
@@ -198,7 +207,7 @@ const AfterCare = () => {
             )}
             <ul className="list-group">
               {unpinnedItems.map((item, index) => (
-                <>{itemCard(item)}</>
+                <div key={index}>{itemCard(item)}</div>
               ))}
             </ul>
           </div>

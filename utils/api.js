@@ -219,6 +219,25 @@ export const getAftercareApi = async (postData) => {
       throw error;
     }
 
+    return data.length > 0 ? data : [];
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
+
+export const addBulkAftercareApi = async (postData) => {
+  try {
+    const { data, error } = await supabase
+      .from('aftercare')
+      .insert(postData.bulkData)
+      .select('*')
+      .eq('uuid', postData.uuid)
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      throw error;
+    }
+
     return data.length > 0 ? data : null;
   } catch (error) {
     toast.error(error.message);
