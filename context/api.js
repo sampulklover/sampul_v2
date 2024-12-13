@@ -1,6 +1,7 @@
 import { pages } from '../constant/element';
 import { systemLanguages } from '../constant/enum';
 import {
+  addBulkAftercareApi,
   getAccountApi,
   getAftercareApi,
   getBelovedApi,
@@ -521,6 +522,107 @@ export const ApiProvider = ({ children }) => {
     }
   };
 
+  const addBulkAftercare = async () => {
+    const data = await getProfileApi({
+      uuid: contextApiData.user.data.id,
+    });
+
+    if (data.is_aftercare_onboard == false) {
+      const { data: returnData, error } = await supabase
+        .from('profiles')
+        .update({
+          is_aftercare_onboard: true,
+        })
+        .eq('uuid', contextApiData.user.data?.id)
+        .select()
+        .single();
+
+      if (returnData) {
+        setContextApiData((prevData) => ({
+          ...prevData,
+          aftercare: {
+            data: [],
+            isLoading: true,
+          },
+        }));
+
+        const defaultAfterCare = [
+          { task: '1. Manage the Burial', uuid: contextApiData.user.data.id },
+          {
+            task: '2. Claim Khairat/Mutual Benevolent',
+            uuid: contextApiData.user.data.id,
+          },
+          {
+            task: '3. Apply for Death Certificate with National Registration Department (Jabatan Pendaftaran Negara)',
+            uuid: contextApiData.user.data.id,
+          },
+          {
+            task: '4. Apply for List of Asset, Debt, Wishes and Wasiat via Sampul.co',
+            uuid: contextApiData.user.data.id,
+          },
+          {
+            task: '5. Claim Takaful/Insurance',
+            uuid: contextApiData.user.data.id,
+          },
+          {
+            task: '6. Terminate Digital Accounts and Subscription',
+            uuid: contextApiData.user.data.id,
+          },
+          {
+            task: '7. Identify other Asset',
+            uuid: contextApiData.user.data.id,
+          },
+          {
+            task: '8. Identify other Debts to be Settled',
+            uuid: contextApiData.user.data.id,
+          },
+          { task: '9. Legal consultation', uuid: contextApiData.user.data.id },
+          { task: '10. Get authority', uuid: contextApiData.user.data.id },
+          { task: '11. Manage assets', uuid: contextApiData.user.data.id },
+          {
+            task: '12. Distribute to heirs',
+            uuid: contextApiData.user.data.id,
+          },
+          {
+            task: '13. Channel Charity and Waqf',
+            uuid: contextApiData.user.data.id,
+          },
+          { task: '14. Continuous Prayers', uuid: contextApiData.user.data.id },
+          { task: '15. Process grief', uuid: contextApiData.user.data.id },
+        ];
+
+        console.log('Default task aftercare added!');
+
+        try {
+          const data = await addBulkAftercareApi({
+            bulkData: defaultAfterCare,
+            uuid: contextApiData.user.data.id,
+          });
+
+          if (data) {
+            setContextApiData((prevData) => ({
+              ...prevData,
+              aftercare: {
+                data: data,
+                isLoading: false,
+              },
+            }));
+          }
+        } catch (error) {
+          console.error(error);
+          setContextApiData((prevData) => ({
+            ...prevData,
+            aftercare: {
+              data: [],
+              isLoading: false,
+            },
+          }));
+          Sentry.captureException(error);
+        }
+      }
+    }
+  };
+
   const normalLogin = async ({ email, password }) => {
     const { data, error } = await supabase.auth.signInWithPassword({
       email: email,
@@ -679,6 +781,7 @@ export const ApiProvider = ({ children }) => {
         getWill,
         getInformDeath,
         getAftercare,
+        addBulkAftercare,
         normalLogin,
         googleLogin,
         normalSignup,
