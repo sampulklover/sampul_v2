@@ -9,10 +9,12 @@ import { useApi } from '../context/api';
 import { useLocale } from '../context/locale';
 import { formatTimestamp } from '../utils/helpers';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const Will = () => {
-  const { contextApiData } = useApi();
+  const { contextApiData, getDiditAuth, getDiditSession } = useApi();
   const { locale } = useLocale();
+  const router = useRouter();
 
   const summary = {
     data: {
@@ -148,12 +150,40 @@ const Will = () => {
     return alerts;
   };
 
+  const showTempDiditTest = () => {
+    if (contextApiData) {
+      if (
+        contextApiData?.user?.data?.id == '46847b5e-ab58-42c7-bfcc-1efe5f97729c'
+      ) {
+        return (
+          <div
+            onClick={async () => {
+              const diditAuthData = await getDiditAuth();
+              if (diditAuthData) {
+                const diditSessionData = await getDiditSession(diditAuthData);
+                if (diditSessionData && diditSessionData.url) {
+                  router.push(diditSessionData.url);
+                }
+              }
+            }}
+          >
+            Test
+          </div>
+        );
+      }
+      return <></>;
+    }
+
+    return <></>;
+  };
+
   const tabSection = () => {
     return (
       <>
         {disyplayInfo().map((alert, index) => (
           <div key={index}>{alert}</div>
         ))}
+        {showTempDiditTest()}
         <ul
           class="nav nav-pills justify-content-center tab-background mt-3"
           id="pills-tab"
