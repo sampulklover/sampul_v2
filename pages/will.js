@@ -10,6 +10,7 @@ import { useLocale } from '../context/locale';
 import { formatTimestamp } from '../utils/helpers';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import toast from 'react-hot-toast';
 
 const Will = () => {
   const { contextApiData, getDiditAuth, getDiditSession } = useApi();
