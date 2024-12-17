@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
   const { method, body } = req;
   if (method === 'POST') {
-    const url = process.env.NEXT_DIDIT_PUBLIC_API_AUTH_URL + '/auth/v2/token/';
+    const url = process.env.NEXT_PUBLIC_DIDIT_URL + '/auth/v2/token/';
     const clientID = process.env.NEXT_PUBLIC_DIDIT_CLIENT_ID;
     const clientSecret = process.env.DIDIT_CLIENT_SECRET;
 

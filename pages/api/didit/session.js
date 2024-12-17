@@ -2,7 +2,7 @@ export default async function createSession(req, res) {
   const { method, body } = req;
 
   if (method === 'POST') {
-    const url = `${process.env.NEXT_DIDIT_PUBLIC_API_VERIFICATION_URL}/v1/session/`;
+    const url = `${process.env.NEXT_PUBLIC_DIDIT_VERIFICATION_URL}/v1/session/`;
 
     const { access_token, vendor_data } = body;
 
