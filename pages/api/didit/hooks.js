@@ -29,9 +29,9 @@ const handler = async (req, res) => {
 
   const reqBuffer = await buffer(req);
 
-  // if (!verifySignature(reqBuffer, signature, secret)) {
-  //   return res.status(401).json({ message: 'Unauthorized' });
-  // }
+  if (!verifySignature(reqBuffer, signature, secret)) {
+    return res.status(401).json({ message: 'Unauthorized' });
+  }
 
   const body = JSON.parse(reqBuffer.toString());
 
@@ -39,9 +39,9 @@ const handler = async (req, res) => {
 
   const timestamp = body.created_at;
 
-  // if (!verifyTimestamp(timestamp)) {
-  //   return res.status(401).json({ message: 'Unauthorized' });
-  // }
+  if (!verifyTimestamp(timestamp)) {
+    return res.status(401).json({ message: 'Unauthorized' });
+  }
 
   const { session_id, status, vendor_data } = body;
 
@@ -54,7 +54,7 @@ const handler = async (req, res) => {
       uuid: vendor_data,
       status,
     },
-    { onConflict: 'uuid' }
+    { onConflict: 'session_id' }
   );
 
   if (error) {
