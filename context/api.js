@@ -6,6 +6,8 @@ import {
   getAftercareApi,
   getBelovedApi,
   getBodiesApi,
+  getDiditAuthApi,
+  getDiditSessionApi,
   getDigitalAssetsApi,
   getExtraWishesApi,
   getInformDeathApi,
@@ -594,13 +596,38 @@ export const ApiProvider = ({ children }) => {
           });
 
           if (data) {
-            getAftercare();
+            await getAftercare();
           }
         } catch (error) {
           console.error(error);
           Sentry.captureException(error);
         }
       }
+    }
+  };
+
+  const getDiditAuth = async () => {
+    try {
+      const data = await getDiditAuthApi();
+      return data;
+    } catch (error) {
+      console.error(error);
+      Sentry.captureException(error);
+      return null;
+    }
+  };
+
+  const getDiditSession = async (postData) => {
+    try {
+      const data = await getDiditSessionApi({
+        ...postData,
+        uuid: contextApiData.user.data.id,
+      });
+      return data;
+    } catch (error) {
+      console.error(error);
+      Sentry.captureException(error);
+      return null;
     }
   };
 
@@ -763,6 +790,8 @@ export const ApiProvider = ({ children }) => {
         getInformDeath,
         getAftercare,
         addBulkAftercare,
+        getDiditAuth,
+        getDiditSession,
         normalLogin,
         googleLogin,
         normalSignup,

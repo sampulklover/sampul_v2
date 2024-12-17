@@ -243,3 +243,52 @@ export const addBulkAftercareApi = async (postData) => {
     toast.error(error.message);
   }
 };
+
+export const getDiditAuthApi = async (postData) => {
+  try {
+    const response = await fetch('/api/didit/authenticate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: null,
+      }),
+    });
+
+    if (!response.ok) {
+      throw error;
+    }
+
+    const { data } = await response.json();
+
+    return data;
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
+
+export const getDiditSessionApi = async (postData) => {
+  try {
+    const response = await fetch('/api/didit/session', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        access_token: postData.access_token,
+        vendor_data: postData.uuid,
+      }),
+    });
+
+    if (!response.ok) {
+      throw error;
+    }
+
+    const { data } = await response.json();
+
+    return data;
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
