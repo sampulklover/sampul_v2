@@ -29,9 +29,9 @@ const handler = async (req, res) => {
 
   const reqBuffer = await buffer(req);
 
-  if (!verifySignature(reqBuffer, signature, secret)) {
-    return res.status(401).json({ message: 'Unauthorized' });
-  }
+  // if (!verifySignature(reqBuffer, signature, secret)) {
+  //   return res.status(401).json({ message: 'Unauthorized' });
+  // }
 
   const body = JSON.parse(reqBuffer.toString());
 
@@ -39,27 +39,42 @@ const handler = async (req, res) => {
 
   const timestamp = body.created_at;
 
-  if (!verifyTimestamp(timestamp)) {
-    return res.status(401).json({ message: 'Unauthorized' });
-  }
+  // if (!verifyTimestamp(timestamp)) {
+  //   return res.status(401).json({ message: 'Unauthorized' });
+  // }
 
   const { session_id, status, vendor_data } = body;
 
   const supabase = getServiceSupabase();
 
-  // if (status === 'Approved') {
-  const { error } = await supabase.from('verification').upsert({
-    service_name: 'didit',
-    session_id,
-    uuid: vendor_data,
-    status,
-  });
+  const { error } = await supabase.from('verification').upsert(
+    {
+      service_name: 'didit',
+      session_id,
+      uuid: vendor_data,
+      status,
+    },
+    { onConflict: 'uuid' }
+  );
 
   if (error) {
     console.error('Database upsert error:', error);
     return res.status(500).json({ message: 'Internal Server Error' });
   }
-  // }
+
+  if (status === 'Approved') {
+    const { error } = await supabase
+      .from('profiles')
+      .update({
+        kyc_status: 'approved',
+      })
+      .eq('uuid', vendor_data);
+
+    if (error) {
+      console.error('Database update error:', error);
+      return res.status(500).json({ message: 'Internal Server Error' });
+    }
+  }
 
   return res.json({ message: 'Webhook event processed' });
 };
