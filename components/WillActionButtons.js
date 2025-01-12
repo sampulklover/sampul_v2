@@ -1,6 +1,7 @@
 import translations from '../constant/translations';
 import { useApi } from '../context/api';
 import { useLocale } from '../context/locale';
+import { useModal } from '../context/modal';
 import successWillAnimationData from '../public/animation/lottie_will_success_generated.json';
 import { supabase } from '../utils/supabase';
 import Loading from './Laoding';
@@ -15,6 +16,7 @@ import Lottie from 'react-lottie';
 const WillActionButtons = ({ viewOnly = false }) => {
   const { contextApiData, getWill } = useApi();
   const { locale } = useLocale();
+  const { isModalOpen, toggleModal } = useModal();
   const router = useRouter();
 
   const [shareUrl, setShareUrl] = useState(null);
@@ -276,7 +278,11 @@ const WillActionButtons = ({ viewOnly = false }) => {
 
   const checkCompleteProfile = () => {
     var is_completed = false;
-    if (contextApiData.profile.data?.nric_name) {
+
+    if (
+      contextApiData.profile.data?.nric_name &&
+      contextApiData.account.data?.kyc_status === 'approved'
+    ) {
       is_completed = true;
     } else {
       is_completed = false;
@@ -285,9 +291,10 @@ const WillActionButtons = ({ viewOnly = false }) => {
   };
 
   const showNotCompleteToast = () => {
-    toast.error(
-      translations[locale].component.will_action_btn.complete_your_profile_
-    );
+    toggleModal('kyc');
+    // toast.error(
+    //   translations[locale].component.will_action_btn.complete_your_profile_
+    // );
   };
 
   useEffect(() => {

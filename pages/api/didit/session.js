@@ -12,7 +12,7 @@ export default async function createSession(req, res) {
 
     const sessionBody = {
       vendor_data: vendor_data,
-      callback: process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL,
+      callback: process.env.NEXT_PUBLIC_DIDIT_REDIRECT_URL,
       features: 'OCR + NFC + FACE',
     };
 

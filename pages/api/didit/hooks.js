@@ -64,7 +64,7 @@ const handler = async (req, res) => {
 
   if (status === 'Approved') {
     const { error } = await supabase
-      .from('profiles')
+      .from('accounts')
       .update({
         kyc_status: 'approved',
       })
