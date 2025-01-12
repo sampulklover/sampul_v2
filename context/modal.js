@@ -12,6 +12,7 @@ export const ModalProvider = ({ children }) => {
     beloved: false,
     assets: false,
     aftercare: false,
+    kyc: false,
   });
 
   const toggleModal = (key) => {

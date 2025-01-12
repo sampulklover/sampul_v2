@@ -8,6 +8,7 @@ import BelovedModal from '../components/BelovedModal';
 import DigitalAssetsModal from '../components/DigitalAssetsModal';
 import IntroModal from '../components/IntroModal';
 import InviteModal from '../components/InviteModal';
+import KycModal from '../components/KycModal';
 import LogoutModal from '../components/LogoutModal';
 import NavBar from '../components/NavBar';
 import { ApiProvider } from '../context/api';
@@ -78,6 +79,7 @@ const MyApp = ({ Component, pageProps }) => {
               <InviteModal />
               <BelovedModal />
               <AftercareModal />
+              <KycModal />
               <DigitalAssetsModal />
               <DynamicToaster position="top-right" />
               <NavBar />
