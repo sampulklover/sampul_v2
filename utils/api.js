@@ -374,14 +374,29 @@ export const deleteTrustApi = async (postData) => {
 
 export const addTrustBeneficiaryApi = async (postData) => {
   try {
-    const { data, error } = await supabase
-      .from('trust_beneficiary')
-      .upsert(postData.trustData, { onConflict: ['id'] })
-      .select('*')
-      .order('id', { ascending: true });
+    const existingData = postData.trustData.filter((item) => item.id); // Items with an id
+    const newData = postData.trustData.filter((item) => !item.id); // Newly added items
 
-    if (error) {
-      throw error;
+    let data = [];
+
+    if (existingData.length > 0) {
+      const { data: updatedData, error: updateError } = await supabase
+        .from('trust_beneficiary')
+        .upsert(existingData, { onConflict: ['id'] })
+        .select('*');
+
+      if (updateError) throw updateError;
+      data = [...data, ...updatedData];
+    }
+
+    if (newData.length > 0) {
+      const { data: insertedData, error: insertError } = await supabase
+        .from('trust_beneficiary')
+        .insert(newData)
+        .select('*');
+
+      if (insertError) throw insertError;
+      data = [...data, ...insertedData];
     }
 
     return data;

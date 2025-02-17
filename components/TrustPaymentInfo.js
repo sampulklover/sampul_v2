@@ -17,13 +17,15 @@ const TrustPaymentInfo = ({ onSubmitToggle = false, nextStep }) => {
   const formRef = useRef(null);
   const receiptImageRef = useRef(null); // Ref for the receipt image input
   const [trustData, setTrustData] = useState([]);
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] =
+    useState('bank_transfer');
   const [paymentMethodError, setPaymentMethodError] = useState('');
   const [receiptError, setReceiptError] = useState('');
   const [selectedImage, setSelectedImage] = useState({
     data: null,
     url: '',
   });
+
   const MIN_TRUST_AMOUNT = 100000;
 
   // State variables for calculated amounts
@@ -58,6 +60,7 @@ const TrustPaymentInfo = ({ onSubmitToggle = false, nextStep }) => {
 
         if (foundTrust.trust_payment?.image_path) {
           const receiptImage = `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${foundTrust.trust_payment?.image_path}`;
+          setSelectedImage({ data: null, url: receiptImage });
         }
       }
     }

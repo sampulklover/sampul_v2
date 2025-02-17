@@ -83,7 +83,13 @@ export const replaceOrAddImage = async (options) => {
     });
 
     const file = imageInput.files[0];
-    const imagePath = userId + directory + file.name;
+    const originalName = file.name;
+    const fileExtension = originalName.split('.').pop();
+    const uniqueName = `${Date.now()}-${Math.round(
+      Math.random() * 1e9
+    )}.${fileExtension}`; // Create a unique name
+
+    const imagePath = userId + directory + uniqueName; // Use the unique name
 
     const { data: uploadedImage, error } = await supabase.storage
       .from(bucketName)
@@ -226,7 +232,7 @@ export const renderField = ({
   id,
   type = 'text',
   options = [],
-  required = false,
+  required = true,
   className = '',
   step,
   min,
