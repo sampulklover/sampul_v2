@@ -2,8 +2,15 @@ import { pages } from '../constant/element';
 import { systemLanguages } from '../constant/enum';
 import {
   addBulkAftercareApi,
+  addTrustApi,
+  addTrustBeneficiaryApi,
+  addTrustCharityApi,
+  addTrustPaymentApi,
+  deleteTrustApi,
+  deleteTrustCharityApi,
   getAccountApi,
   getAftercareApi,
+  getAllTrustApi,
   getBelovedApi,
   getBodiesApi,
   getDiditAuthApi,
@@ -14,6 +21,7 @@ import {
   getInvitesApi,
   getProfileApi,
   getRoleApi,
+  getTrustApi,
   getUserApi,
   getWillApi,
 } from '../utils/api';
@@ -77,6 +85,10 @@ export const ApiProvider = ({ children }) => {
     },
     aftercare: {
       data: null,
+      isLoading: true,
+    },
+    trust: {
+      data: [],
       isLoading: true,
     },
   });
@@ -631,6 +643,295 @@ export const ApiProvider = ({ children }) => {
     }
   };
 
+  const getAllTrust = async () => {
+    setContextApiData((prevData) => ({
+      ...prevData,
+      trust: {
+        data: [],
+        isLoading: true,
+      },
+    }));
+
+    try {
+      const data = await getAllTrustApi({
+        uuid: contextApiData.user.data.id,
+      });
+
+      setContextApiData((prevData) => ({
+        ...prevData,
+        trust: {
+          data: data,
+          isLoading: false,
+        },
+      }));
+    } catch (error) {
+      console.error(error);
+      setContextApiData((prevData) => ({
+        ...prevData,
+        trust: {
+          data: [],
+          isLoading: false,
+        },
+      }));
+      Sentry.captureException(error);
+    }
+  };
+
+  const addTrust = async (postData) => {
+    try {
+      const data = await addTrustApi({
+        ...postData.trustData,
+        uuid: postData.trustData.uuid
+          ? postData.trustData.uuid
+          : contextApiData.user.data.id,
+      });
+
+      const existingTrustIndex = contextApiData.trust.data.findIndex(
+        (trust) => trust.id === data.id
+      );
+
+      let newTrustData;
+
+      if (existingTrustIndex > -1) {
+        newTrustData = contextApiData.trust.data.map((trust, index) =>
+          index === existingTrustIndex ? data : trust
+        );
+      } else {
+        newTrustData = [data, ...contextApiData.trust.data];
+      }
+
+      setContextApiData((prevData) => ({
+        ...prevData,
+        trust: {
+          data: newTrustData,
+          isLoading: false,
+        },
+      }));
+
+      if (data) {
+        return data;
+      }
+    } catch (error) {
+      console.error(error);
+      Sentry.captureException(error);
+    }
+  };
+
+  const getTrust = async (postData) => {
+    try {
+      const data = await getTrustApi({
+        trustId: postData.trustId,
+      });
+
+      if (data) {
+        return data;
+      }
+    } catch (error) {
+      console.error(error);
+      Sentry.captureException(error);
+    }
+  };
+
+  const deleteTrust = async (postData) => {
+    try {
+      const data = await deleteTrustApi({
+        id: postData.id,
+      });
+
+      const newTrustData = contextApiData.trust.data.filter(
+        (trust) => trust.id !== data.id
+      );
+
+      setContextApiData((prevData) => ({
+        ...prevData,
+        trust: {
+          data: newTrustData,
+          isLoading: false,
+        },
+      }));
+
+      if (data) {
+        return data;
+      }
+    } catch (error) {
+      console.error(error);
+      Sentry.captureException(error);
+    }
+  };
+
+  const addTrustBeneficiary = async (postData, trustId = null) => {
+    try {
+      const updatedPostData = postData.trustData.map((item) => ({
+        ...item,
+        uuid: item.uuid ? item.uuid : contextApiData.user.data.id,
+        trust_id: item.trust_id ? item.trust_id : trustId,
+      }));
+
+      const data = await addTrustBeneficiaryApi({
+        trustData: updatedPostData,
+      });
+
+      const newTrustData = contextApiData.trust.data.map((trust) => {
+        const matchingData = data.find((item) => item.trust_id === trust.id);
+
+        if (matchingData) {
+          return {
+            ...trust,
+            trust_beneficiary: data,
+          };
+        }
+        return trust;
+      });
+
+      setContextApiData((prevData) => ({
+        ...prevData,
+        trust: {
+          data: newTrustData,
+          isLoading: false,
+        },
+      }));
+
+      if (data) {
+        return data;
+      }
+    } catch (error) {
+      console.error(error);
+      Sentry.captureException(error);
+    }
+  };
+
+  const addTrustCharity = async (postData) => {
+    try {
+      const updatedPostData = {
+        ...postData,
+        uuid: postData.uuid ? postData.uuid : contextApiData.user.data.id,
+      };
+
+      const data = await addTrustCharityApi({
+        trustCharityData: updatedPostData,
+      });
+
+      const newTrustData = contextApiData.trust.data.map((trust) => {
+        if (data.trust_id === trust.id) {
+          const existingIndex = trust.trust_charity.findIndex(
+            (charity) => charity.id === data.id
+          );
+
+          let updatedTrustCharity;
+
+          if (existingIndex > -1) {
+            updatedTrustCharity = trust.trust_charity.map((charity, index) =>
+              index === existingIndex ? data : charity
+            );
+          } else {
+            updatedTrustCharity = [...trust.trust_charity, data];
+          }
+
+          const updatedTrust = {
+            ...trust,
+            trust_charity: updatedTrustCharity,
+          };
+          return updatedTrust;
+        }
+        return trust;
+      });
+
+      setContextApiData((prevData) => ({
+        ...prevData,
+        trust: {
+          data: newTrustData,
+          isLoading: false,
+        },
+      }));
+
+      if (data) {
+        return data;
+      }
+    } catch (error) {
+      console.error(error);
+      Sentry.captureException(error);
+    }
+  };
+
+  const deleteTrustCharity = async (postData) => {
+    try {
+      const data = await deleteTrustCharityApi({
+        id: postData.id,
+      });
+
+      const newTrustData = contextApiData.trust.data.map((trust) => {
+        if (data.trust_id === trust.id) {
+          const updatedTrustCharity = trust.trust_charity.filter(
+            (charity) => charity.id !== data.id
+          );
+
+          const updatedTrust = {
+            ...trust,
+            trust_charity: updatedTrustCharity,
+          };
+          return updatedTrust;
+        }
+        return trust;
+      });
+
+      setContextApiData((prevData) => ({
+        ...prevData,
+        trust: {
+          data: newTrustData,
+          isLoading: false,
+        },
+      }));
+
+      if (data) {
+        return data;
+      }
+    } catch (error) {
+      console.error(error);
+      Sentry.captureException(error);
+    }
+  };
+
+  const addTrustPayment = async (postData) => {
+    try {
+      const updatedPostData = {
+        ...postData.data,
+        uuid: postData.data.uuid
+          ? postData.data.uuid
+          : contextApiData.user.data.id,
+      };
+
+      const data = await addTrustPaymentApi({
+        trustPaymentData: updatedPostData,
+        trustPaymentId: postData.otherData.trust_payment_id,
+      });
+
+      const newTrustData = contextApiData.trust.data.map((trust) => {
+        if (data.trust_id === trust.id) {
+          return {
+            ...trust,
+            trust_payment: data,
+          };
+        }
+        return trust;
+      });
+
+      setContextApiData((prevData) => ({
+        ...prevData,
+        trust: {
+          data: newTrustData,
+          isLoading: false,
+        },
+      }));
+
+      if (data) {
+        return data;
+      }
+    } catch (error) {
+      console.error(error);
+      Sentry.captureException(error);
+    }
+  };
+
   const normalLogin = async ({ email, password }) => {
     const { data, error } = await supabase.auth.signInWithPassword({
       email: email,
@@ -792,6 +1093,14 @@ export const ApiProvider = ({ children }) => {
         addBulkAftercare,
         getDiditAuth,
         getDiditSession,
+        getAllTrust,
+        addTrust,
+        getTrust,
+        deleteTrust,
+        addTrustBeneficiary,
+        addTrustCharity,
+        deleteTrustCharity,
+        addTrustPayment,
         normalLogin,
         googleLogin,
         normalSignup,

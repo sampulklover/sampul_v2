@@ -81,4 +81,16 @@ export const pages = [
       auth: true,
     },
   },
+  {
+    trust: {
+      route: '/trust',
+      auth: true,
+    },
+  },
+  {
+    onboard: {
+      route: '/onboard-trust',
+      auth: true,
+    },
+  },
 ];

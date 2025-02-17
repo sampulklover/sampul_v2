@@ -24,6 +24,14 @@ export const TempDataProvider = ({ children }) => {
       key: 'add',
       selectedItem: null,
     },
+    charity: {
+      key: 'add',
+      selectedItem: null,
+    },
+    trust: {
+      key: 'add',
+      selectedItem: null,
+    },
   });
 
   const setValueTempData = (key, passData) => {
