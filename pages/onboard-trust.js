@@ -26,6 +26,7 @@ const OnboardTrust = ({ handleClose = () => {} }) => {
   const [toggles, setToggles] = useState({});
   const [isLoading, setIsLoading] = useState({});
   const [trustData, setTrustData] = useState({});
+  const [stopToggle, setStopToggle] = useState(false);
 
   useEffect(() => {
     if (tempData.trust.selectedItem?.id) {
@@ -60,6 +61,7 @@ const OnboardTrust = ({ handleClose = () => {} }) => {
   const commonCardStyle = { paddingLeft: '20%', paddingRight: '20%' };
 
   const createOnNextHandler = (stepIndex) => async () => {
+    setStopToggle(false);
     if (stepIndex == stepsData.length - 1) {
       handleClose();
     } else {
@@ -72,10 +74,11 @@ const OnboardTrust = ({ handleClose = () => {} }) => {
   };
 
   const createOnPrevHandler = (stepIndex) => async () => {
+    setStopToggle(true);
     if (stepIndex === 0) {
       handleClose();
     } else {
-      // setCurrentStep(stepIndex - 1);
+      setCurrentStep(stepIndex - 1);
     }
   };
 
@@ -130,7 +133,7 @@ const OnboardTrust = ({ handleClose = () => {} }) => {
       onSuccess: (data) => {
         addBeneficiaryApi(data);
       },
-      allowPrev: false,
+      allowPrev: true,
       nextTitle: 'Save & Continue',
       showOnReview: true,
     },
@@ -140,7 +143,7 @@ const OnboardTrust = ({ handleClose = () => {} }) => {
       subheading:
         'When I no longer here, I’d like to donate from the Trust Fund to this charity',
       view: TrustGivingInfo,
-      allowPrev: false,
+      allowPrev: true,
       nextTitle: 'Save & Continue',
       showOnReview: true,
     },
@@ -149,7 +152,7 @@ const OnboardTrust = ({ handleClose = () => {} }) => {
       heading: 'Payment Information',
       subheading: 'Complete your payment to create the trust',
       view: TrustPaymentInfo,
-      allowPrev: false,
+      allowPrev: true,
       nextTitle: 'Save & Continue',
       showOnReview: true,
     },
@@ -159,7 +162,7 @@ const OnboardTrust = ({ handleClose = () => {} }) => {
       subheading:
         'Your trust account application is under review. We will get back to you and email you the status.',
       view: TrustReviewInfo,
-      allowPrev: false,
+      allowPrev: true,
       nextTitle: 'Back to main',
       showOnReview: true,
     },
@@ -168,6 +171,7 @@ const OnboardTrust = ({ handleClose = () => {} }) => {
   const steps = stepsData.map((step, index) => {
     const key = `step${index}`;
     const StepComponent = step.view;
+
     return {
       cardStyle: commonCardStyle,
       title: step.title,
@@ -175,7 +179,7 @@ const OnboardTrust = ({ handleClose = () => {} }) => {
       subheading: step.subheading,
       view: (
         <StepComponent
-          onSubmitToggle={toggles[key] || 0}
+          onSubmitToggle={stopToggle ? 0 : toggles[key] || 0}
           setOnSubmitToggle={(value) =>
             setToggles((prev) => ({ ...prev, [key]: value }))
           }
@@ -189,7 +193,7 @@ const OnboardTrust = ({ handleClose = () => {} }) => {
       onPrev: createOnPrevHandler(index),
       onNext: createOnNextHandler(index),
       nextBtnTitle: step.nextTitle,
-      prevBtnTitle: step.prevTitle || translations[locale].onboard.back,
+      prevBtnTitle: step.prevTitle || 'Back',
       isLoading: isLoading[key] || false,
     };
   });
