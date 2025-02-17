@@ -446,7 +446,7 @@ const TrustBeneficiaryInfo = ({
                     medical policy.
                   </label>
                 </div>
-                <div className="form-check mt-3">
+                <div className="form-check mt-3 mb-3">
                   <input
                     type="checkbox"
                     className="form-check-input"
@@ -469,7 +469,7 @@ const TrustBeneficiaryInfo = ({
 
             <button
               type="button"
-              className="btn btn-primary btn-text w-100 mt-3"
+              className="btn btn-primary btn-text w-100"
               onClick={addBeneficiary}
             >
               <Image

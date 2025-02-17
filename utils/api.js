@@ -359,7 +359,7 @@ export const deleteTrustApi = async (postData) => {
       .from('trust')
       .delete()
       .eq('id', postData.id)
-      .select()
+      .select('*, trust_payment (*)')
       .single();
 
     if (error) {

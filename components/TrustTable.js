@@ -3,7 +3,7 @@ import { useApi } from '../context/api';
 import { useLocale } from '../context/locale';
 import { useModal } from '../context/modal';
 import { useTempData } from '../context/tempData';
-import { formatTimestamp } from '../utils/helpers';
+import { formatTimestamp, replaceOrAddImage } from '../utils/helpers';
 import Loading from './Laoding';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -49,6 +49,18 @@ const TrustTable = ({ typeName, showAll = true }) => {
       });
 
       if (result) {
+        const directory = `/trust/payment/`;
+
+        await replaceOrAddImage({
+          userId: contextApiData.user.data?.id,
+          returnData: result.trust_payment,
+          directory,
+          imageInput: null,
+          dataBase: 'trust_payment',
+          isUpdateByReturnId: false,
+          deleted: true,
+        });
+
         toast.success(translations[locale].global.successfully_deleted);
       }
 
