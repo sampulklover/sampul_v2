@@ -4,6 +4,8 @@ import {
   resident_status,
   residentStatus,
 } from '../constant/enum';
+import { useApi } from '../context/api';
+import { useTempData } from '../context/tempData';
 import { removeEmptyKeyValue, renderField } from '../utils/helpers';
 import Image from 'next/image';
 import { useEffect, useState, useRef } from 'react';
@@ -12,8 +14,10 @@ import toast from 'react-hot-toast';
 const TrustBeneficiaryInfo = ({
   onSubmitToggle = false,
   onSuccess = () => {},
-  trustData = {},
 }) => {
+  const { contextApiData } = useApi();
+  const { tempData, setValueTempData } = useTempData();
+  const [trustData, setTrustData] = useState({});
   const [beneficiaries, setBeneficiaries] = useState([
     {
       name: '',
@@ -39,19 +43,32 @@ const TrustBeneficiaryInfo = ({
   const formRef = useRef(null);
 
   useEffect(() => {
-    if (trustData) {
-      if (trustData?.trust_beneficiary?.length > 0) {
-        const initialBeneficiaries = trustData.trust_beneficiary.map(
-          (beneficiary) => ({
-            ...beneficiary,
-            medical_expenses: beneficiary.medical_expenses || false,
-            education_expenses: beneficiary.education_expenses || false,
-          })
+    if (contextApiData.trust.data) {
+      if (contextApiData.trust.data.length > 0) {
+        const foundTrust = contextApiData.trust.data.find(
+          (trust) => trust.id === tempData.trust.selectedItem.id
         );
-        setBeneficiaries(initialBeneficiaries);
+
+        if (foundTrust) {
+          if (foundTrust?.trust_beneficiary?.length > 0) {
+            const initialBeneficiaries = foundTrust.trust_beneficiary.map(
+              (beneficiary) => ({
+                ...beneficiary,
+                medical_expenses: beneficiary.medical_expenses || false,
+                education_expenses: beneficiary.education_expenses || false,
+              })
+            );
+            setBeneficiaries(initialBeneficiaries);
+          } else {
+            setBeneficiaries([]);
+          }
+          setTrustData(foundTrust);
+        } else {
+          console.log('No matching trust found.');
+        }
       }
     }
-  }, [trustData]);
+  }, [contextApiData.trust.data]);
 
   const onSubmitForm = async () => {
     if (beneficiaries.length === 0) {
