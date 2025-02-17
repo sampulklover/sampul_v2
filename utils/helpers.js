@@ -1,6 +1,6 @@
-import toast from 'react-hot-toast';
 import { bucketName } from '../constant/element';
 import { supabase } from './supabase';
+import toast from 'react-hot-toast';
 
 export const formatTimestamp = (
   timestamp,
@@ -220,3 +220,72 @@ export const getOptionLabelWithIcon = (item) => (
     <span class="text-truncate">{item.label}</span>
   </div>
 );
+
+export const renderField = ({
+  label,
+  id,
+  type = 'text',
+  options = [],
+  required = false,
+  className = '',
+  step,
+  min,
+  max,
+  textUnder,
+  onChange,
+  value,
+}) => (
+  <div className={`mb-3 ${className}`}>
+    <label htmlFor={id} className="uui-field-label">
+      {label}
+    </label>
+    {options.length > 0 ? (
+      <select
+        id={id}
+        required={required}
+        className="form-select"
+        onChange={onChange} // Pass onChange to select
+        value={value} // Add value prop for select
+      >
+        <option value="" disabled selected>
+          Please select
+        </option>
+        {options.map(({ value, name }) => (
+          <option key={value} value={value}>
+            {name}
+          </option>
+        ))}
+      </select>
+    ) : (
+      <>
+        <input
+          type={type}
+          className="form-control"
+          id={id}
+          required={required}
+          step={step}
+          min={min}
+          onChange={onChange} // Pass onChange to input
+          value={value} // Add value prop for input
+        />
+        {textUnder ? (
+          <small className="text-muted" style={{ fontSize: 12 }}>
+            {textUnder}
+          </small>
+        ) : (
+          ''
+        )}
+      </>
+    )}
+  </div>
+);
+
+export const removeEmptyKeyValue = (elements) => {
+  const formData = Object.fromEntries(
+    Object.entries(elements)
+      .map(([key, element]) => [key, element?.value])
+      .filter(([_, value]) => value !== undefined && value !== '')
+  );
+
+  return formData;
+};

@@ -5,12 +5,14 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../styles/global.css';
 import AftercareModal from '../components/AftercareModal';
 import BelovedModal from '../components/BelovedModal';
+import CharityModal from '../components/CharityModal';
 import DigitalAssetsModal from '../components/DigitalAssetsModal';
 import IntroModal from '../components/IntroModal';
 import InviteModal from '../components/InviteModal';
 import KycModal from '../components/KycModal';
 import LogoutModal from '../components/LogoutModal';
 import NavBar from '../components/NavBar';
+import TrustModal from '../components/TrustModal';
 import { ApiProvider } from '../context/api';
 import { LocaleProvider } from '../context/locale';
 import { ModalProvider } from '../context/modal';
@@ -79,6 +81,8 @@ const MyApp = ({ Component, pageProps }) => {
               <InviteModal />
               <BelovedModal />
               <AftercareModal />
+              <CharityModal />
+              <TrustModal />
               <KycModal />
               <DigitalAssetsModal />
               <DynamicToaster position="top-right" />

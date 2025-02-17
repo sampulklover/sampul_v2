@@ -29,6 +29,7 @@ const Stepper = ({ steps, currentStep, nextStep, prevStep }) => {
     position: 'relative',
     width: '100%',
     color: isCompleted || isActive ? primaryColor : '#6c757d',
+    paddingBottom: isActive ? '5px' : '0',
   });
 
   const stepCircleStyles = (isActive, isCompleted) => ({
@@ -48,6 +49,7 @@ const Stepper = ({ steps, currentStep, nextStep, prevStep }) => {
     marginBottom: '10px',
     fontSize: isActive ? '24px' : '18px',
     zIndex: '1',
+    border: isActive ? `2px solid ${secondaryColor}` : 'none', // Added border for active step
   });
 
   const stepLineStyles = (isCompleted) => ({
@@ -80,8 +82,11 @@ const Stepper = ({ steps, currentStep, nextStep, prevStep }) => {
                 {index !== steps.length - 1 && (
                   <div style={stepLineStyles(isCompleted)} />
                 )}
-                <div style={stepperTitle(isActive, isCompleted)}>
-                  {step.title}{' '}
+                <div
+                  style={stepperTitle(isActive, isCompleted)}
+                  class="text-center"
+                >
+                  <small>{step.title}</small>
                   {isCompleted ? (
                     <i class="bi bi-check-circle-fill text-success ms-1 h5"></i>
                   ) : (

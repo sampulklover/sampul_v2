@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import ManageBodies from '../components/ManageBodies';
 import RequestedBodies from '../components/RequestedBodies';
 import SideBar from '../components/SideBar';
+import ManageTrust from '../components/TrustAdminTable';
 import UsersChart from '../components/UsersChart';
 import { useApi } from '../context/api';
 import adminStyles from '../styles/admin.module.scss';
@@ -56,22 +57,29 @@ const Admin = () => {
     });
 
     try {
-      const [profilesResult, bodiesResult] = await Promise.all([
+      const [profilesResult, bodiesResult, trustResult] = await Promise.all([
         supabase
           .from('profiles')
           .select(
             '*, accounts (*), roles (*), beloved (*), digital_assets (*)'
           ),
         supabase.from('bodies').select('*').order('id', { ascending: false }),
+        supabase
+          .from('trust')
+          .select(
+            '*, trust_beneficiary (*), trust_charity (*), trust_payment (*)'
+          )
+          .order('id', { ascending: false }),
       ]);
 
-      if (profilesResult.error || bodiesResult.error) {
+      if (profilesResult.error || bodiesResult.error || trustResult.error) {
         setSummary({
           ...summary,
           isLoading: false,
         });
         if (profilesResult.error) toast.error(profilesResult.error.message);
         if (bodiesResult.error) toast.error(bodiesResult.error.message);
+        if (trustResult.error) toast.error(trustResult.error.message);
         return;
       }
 
@@ -80,6 +88,7 @@ const Admin = () => {
         data: {
           profiles: profilesResult.data,
           bodies: bodiesResult.data,
+          trust: trustResult.data,
         },
         isLoading: false,
       });
@@ -167,6 +176,18 @@ const Admin = () => {
             >
               Requested Bodies
             </button>
+            <button
+              class="nav-link"
+              id="nav-trust-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#nav-trust"
+              type="button"
+              role="tab"
+              aria-controls="nav-trust"
+              aria-selected="false"
+            >
+              Manage Trust
+            </button>
           </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -193,6 +214,14 @@ const Admin = () => {
             aria-labelledby="nav-requested-bodies-tab"
           >
             <RequestedBodies summary={summary} refreshFunction={fetchData} />
+          </div>
+          <div
+            class="tab-pane fade"
+            id="nav-trust"
+            role="tabpanel"
+            aria-labelledby="nav-trust-tab"
+          >
+            <ManageTrust summary={summary} refreshFunction={fetchData} />
           </div>
         </div>
       </div>
