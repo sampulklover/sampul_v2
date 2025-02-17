@@ -257,7 +257,7 @@ const CharityModal = () => {
               options: donationDurations(),
             })}
           </div>
-          <div class="d-grid gap-2 mt-5">
+          <div class="d-grid gap-2">
             <button type="submit" class="btn btn-primary btn-text">
               <Loading
                 title={charityType == 'add' ? 'Add' : 'Update'}
