@@ -97,6 +97,28 @@ const ManageTrust = ({ summary, refreshFunction }) => {
       ),
     },
     {
+      name: <small class="smpl_text-xs-medium">Receipt</small>,
+      selector: (item) => {
+        const receiptImage = `${process.env.NEXT_PUBLIC_CDNUR_IMAGE}/${item.trust_payment?.image_path}`;
+
+        return (
+          <td>
+            <div class="custom-table-cell">
+              <div class="smpl_text-sm-regular crop-text">
+                {item.trust_payment?.image_path ? (
+                  <a href={receiptImage} target="_blank" class="text-primary">
+                    View
+                  </a>
+                ) : (
+                  '-'
+                )}
+              </div>
+            </div>
+          </td>
+        );
+      },
+    },
+    {
       name: <small class="smpl_text-xs-medium">Action</small>,
       selector: (item) => (
         <td>
