@@ -71,6 +71,14 @@ const OnboardTrust = ({ handleClose = () => {} }) => {
     }
   };
 
+  const createOnPrevHandler = (stepIndex) => async () => {
+    if (stepIndex === 0) {
+      handleClose();
+    } else {
+      // setCurrentStep(stepIndex - 1);
+    }
+  };
+
   const addBeneficiaryApi = async (params) => {
     try {
       const result = await addTrustBeneficiary({
@@ -111,7 +119,7 @@ const OnboardTrust = ({ handleClose = () => {} }) => {
       subheading: '',
       view: TrustClientInfo,
       allowPrev: false,
-      nextTitle: translations[locale].onboard.save_and_continue,
+      nextTitle: 'Save & Continue',
       showOnReview: true,
     },
     {
@@ -123,7 +131,7 @@ const OnboardTrust = ({ handleClose = () => {} }) => {
         addBeneficiaryApi(data);
       },
       allowPrev: false,
-      nextTitle: translations[locale].onboard.save_and_continue,
+      nextTitle: 'Save & Continue',
       showOnReview: true,
     },
     {
@@ -133,7 +141,7 @@ const OnboardTrust = ({ handleClose = () => {} }) => {
         'When I no longer here, I’d like to donate from the Trust Fund to this charity',
       view: TrustGivingInfo,
       allowPrev: false,
-      nextTitle: translations[locale].onboard.save_and_continue,
+      nextTitle: 'Save & Continue',
       showOnReview: true,
     },
     {
@@ -142,7 +150,7 @@ const OnboardTrust = ({ handleClose = () => {} }) => {
       subheading: 'Complete your payment to create the trust',
       view: TrustPaymentInfo,
       allowPrev: false,
-      nextTitle: translations[locale].onboard.save_and_continue,
+      nextTitle: 'Save & Continue',
       showOnReview: true,
     },
     {
@@ -178,13 +186,7 @@ const OnboardTrust = ({ handleClose = () => {} }) => {
         />
       ),
       allowPrev: step.allowPrev,
-      onPrev: () => {
-        if (index > 0) {
-          setCurrentStep(index - 1);
-        } else {
-          handleClose();
-        }
-      },
+      onPrev: createOnPrevHandler(index),
       onNext: createOnNextHandler(index),
       nextBtnTitle: step.nextTitle,
       prevBtnTitle: step.prevTitle || translations[locale].onboard.back,

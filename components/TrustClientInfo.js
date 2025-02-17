@@ -278,14 +278,17 @@ const TrustClientInfo = ({ onSubmitToggle = 0, nextStep }) => {
           {renderField({
             label: 'Name of Employer/ Name of Business',
             id: 'input-employer-name',
+            required: false,
           })}
           {renderField({
             label: 'Nature of Business:',
             id: 'input-business-nature',
+            required: false,
           })}
           {renderField({
             label: 'Business Address Line 1',
             id: 'input-business-address-1',
+            required: false,
           })}
           {renderField({
             label: 'Business Address Line 2',
@@ -297,11 +300,13 @@ const TrustClientInfo = ({ onSubmitToggle = 0, nextStep }) => {
               label: 'City',
               id: 'input-business-city',
               className: 'w-100 w-md-50',
+              required: false,
             })}
             {renderField({
               label: 'Postcode',
               id: 'input-business-postcode',
               className: 'w-100 w-md-50',
+              required: false,
             })}
           </div>
           <div className="d-flex flex-column flex-md-row gap-3">
@@ -309,12 +314,14 @@ const TrustClientInfo = ({ onSubmitToggle = 0, nextStep }) => {
               label: 'State / Province',
               id: 'input-business-state',
               className: 'w-100 w-md-50',
+              required: false,
             })}
             {renderField({
               label: 'Country',
               id: 'select-business-country',
               options: countries(),
               className: 'w-100 w-md-50',
+              required: false,
             })}
           </div>
         </div>

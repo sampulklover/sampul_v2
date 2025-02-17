@@ -17,9 +17,9 @@ const TrustBeneficiaryInfo = ({
   const [beneficiaries, setBeneficiaries] = useState([
     {
       name: '',
-      percentage_distribution: 0,
-      monthly_distribution_living: 0,
-      monthly_distribution_education: 0,
+      percentage_distribution: '',
+      monthly_distribution_living: '',
+      monthly_distribution_education: '',
       relationship: '',
       gender: '',
       resident_status: '',
@@ -96,9 +96,9 @@ const TrustBeneficiaryInfo = ({
       ...beneficiaries,
       {
         name: '',
-        percentage_distribution: 0,
-        monthly_distribution_living: 0,
-        monthly_distribution_education: 0,
+        percentage_distribution: '',
+        monthly_distribution_living: '',
+        monthly_distribution_education: '',
         relationship: '',
         gender: '',
         resident_status: '',
