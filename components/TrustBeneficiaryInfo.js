@@ -21,7 +21,6 @@ const TrustBeneficiaryInfo = ({
   const [beneficiaries, setBeneficiaries] = useState([
     {
       name: '',
-      percentage_distribution: '',
       monthly_distribution_living: '',
       monthly_distribution_education: '',
       relationship: '',
@@ -36,8 +35,12 @@ const TrustBeneficiaryInfo = ({
       postcode: '',
       state_province: '',
       country: '',
+      mentally_incapacitated: false,
       medical_expenses: false,
       education_expenses: false,
+      settle_outstanding: false,
+      invest_market: false,
+      invest_unit: false,
     },
   ]);
   const formRef = useRef(null);
@@ -54,8 +57,13 @@ const TrustBeneficiaryInfo = ({
             const initialBeneficiaries = foundTrust.trust_beneficiary.map(
               (beneficiary) => ({
                 ...beneficiary,
+                mentally_incapacitated:
+                  beneficiary.mentally_incapacitated || false,
                 medical_expenses: beneficiary.medical_expenses || false,
                 education_expenses: beneficiary.education_expenses || false,
+                settle_outstanding: beneficiary.settle_outstanding || false,
+                invest_market: beneficiary.invest_market || false,
+                invest_unit: beneficiary.invest_unit || false,
               })
             );
             setBeneficiaries(initialBeneficiaries);
@@ -113,7 +121,6 @@ const TrustBeneficiaryInfo = ({
       ...beneficiaries,
       {
         name: '',
-        percentage_distribution: '',
         monthly_distribution_living: '',
         monthly_distribution_education: '',
         relationship: '',
@@ -128,8 +135,12 @@ const TrustBeneficiaryInfo = ({
         postcode: '',
         state_province: '',
         country: '',
+        mentally_incapacitated: false,
         medical_expenses: false,
         education_expenses: false,
+        settle_outstanding: false,
+        invest_market: false,
+        invest_unit: false,
       },
     ]);
   };
@@ -156,6 +167,20 @@ const TrustBeneficiaryInfo = ({
     setBeneficiaries(newBeneficiaries);
   };
 
+  const handleMentallyIncapacitatedChange = (index) => {
+    const newBeneficiaries = [...beneficiaries];
+    newBeneficiaries[index].mentally_incapacitated =
+      !newBeneficiaries[index].mentally_incapacitated;
+    setBeneficiaries(newBeneficiaries);
+  };
+
+  const handleSettleOutstandingChange = (index) => {
+    const newBeneficiaries = [...beneficiaries];
+    newBeneficiaries[index].settle_outstanding =
+      !newBeneficiaries[index].settle_outstanding;
+    setBeneficiaries(newBeneficiaries);
+  };
+
   const handleMedicalExpensesChange = (index) => {
     const newBeneficiaries = [...beneficiaries];
     newBeneficiaries[index].medical_expenses =
@@ -167,6 +192,19 @@ const TrustBeneficiaryInfo = ({
     const newBeneficiaries = [...beneficiaries];
     newBeneficiaries[index].education_expenses =
       !newBeneficiaries[index].education_expenses;
+    setBeneficiaries(newBeneficiaries);
+  };
+
+  const handleInvestMarketChange = (index) => {
+    const newBeneficiaries = [...beneficiaries];
+    newBeneficiaries[index].invest_market =
+      !newBeneficiaries[index].invest_market;
+    setBeneficiaries(newBeneficiaries);
+  };
+
+  const handleInvestUnitChange = (index) => {
+    const newBeneficiaries = [...beneficiaries];
+    newBeneficiaries[index].invest_unit = !newBeneficiaries[index].invest_unit;
     setBeneficiaries(newBeneficiaries);
   };
 
@@ -372,24 +410,6 @@ const TrustBeneficiaryInfo = ({
                     value: beneficiary.country,
                   })}
                 </div>
-                {renderField({
-                  label: 'Percentage of Distribution',
-                  id: `percentage-${index}`,
-                  type: 'number',
-                  className: 'w-100 w-md-50',
-                  min: '0',
-                  max: '100',
-                  step: '0.01',
-                  onChange: (e) =>
-                    handleInputChange(index, {
-                      ...e,
-                      target: {
-                        id: 'percentage_distribution',
-                        value: e.target.value,
-                      },
-                    }),
-                  value: beneficiary.percentage_distribution,
-                })}
                 <div className="d-flex flex-column flex-md-row gap-3">
                   {renderField({
                     label: 'Monthly Distribution for Living Expenses (RM)',
@@ -428,6 +448,51 @@ const TrustBeneficiaryInfo = ({
                     value: beneficiary.monthly_distribution_education,
                   })}
                 </div>
+
+                <div className="form-check mt-3">
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id={`mentallyIncapacitatedCheckbox-${index}`}
+                    checked={beneficiary.mentally_incapacitated}
+                    onChange={() => handleMentallyIncapacitatedChange(index)}
+                  />
+                  <label
+                    className="form-check-label"
+                    htmlFor={`mentallyIncapacitatedCheckbox-${index}`}
+                  >
+                    In the event I become mentally incapacitated to make
+                    decisions or is unable to provide any written instructions
+                    to the Trustee or is unable to be contacted for a period of
+                    30 days and/or I require support from this Trust Fund, it is
+                    my wish that the Trustee shall utilize the Trust Fund to
+                    take care of my maintenance, medical/hospitalization,
+                    caretaker’s allowances, household expenses and other
+                    personal needs, whether I am residing in Malaysia or abroad
+                    upon submission of relevant supporting documents to you. Or
+                    Alternatively distribute to this per person.
+                  </label>
+                </div>
+
+                <div className="form-check mt-3">
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id={`settleOutstandingCheckbox-${index}`}
+                    checked={beneficiary.settle_outstanding}
+                    onChange={() => handleSettleOutstandingChange(index)}
+                  />
+                  <label
+                    className="form-check-label"
+                    htmlFor={`settleOutstandingCheckbox-${index}`}
+                  >
+                    It is my wish that the Trustee shall settle all the
+                    outstanding debts/liabilities, legal fees, executor fees and
+                    other administration expenses incurred for my Estate before
+                    and after the extraction of Grant of Probate.
+                  </label>
+                </div>
+
                 <div className="form-check mt-3">
                   <input
                     type="checkbox"
@@ -446,7 +511,8 @@ const TrustBeneficiaryInfo = ({
                     medical policy.
                   </label>
                 </div>
-                <div className="form-check mt-3 mb-3">
+
+                <div className="form-check mt-3">
                   <input
                     type="checkbox"
                     className="form-check-input"
@@ -462,6 +528,41 @@ const TrustBeneficiaryInfo = ({
                     upon submission of supporting documents. A monthly allowance
                     may also be provided for living expenses during local or
                     overseas studies.
+                  </label>
+                </div>
+
+                <div className="form-check mt-3">
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id={`investMarketCheckbox-${index}`}
+                    checked={beneficiary.invest_market}
+                    onChange={() => handleInvestMarketChange(index)}
+                  />
+                  <label
+                    className="form-check-label"
+                    htmlFor={`investMarketCheckbox-${index}`}
+                  >
+                    Trust Fund is to be invested in money market instruments
+                    with any of the licensed financial institution in Malaysia.
+                  </label>
+                </div>
+                <div className="form-check mt-3 mb-3">
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id={`investUnitCheckbox-${index}`}
+                    checked={beneficiary.invest_unit}
+                    onChange={() => handleInvestUnitChange(index)}
+                  />
+                  <label
+                    className="form-check-label"
+                    htmlFor={`investUnitCheckbox-${index}`}
+                  >
+                    Trust Fund is to be invested in Unit Trust/Mutual Fund
+                    investment with any of the licensed fund management company
+                    in Malaysia based on the recommendation from the Management
+                    Committee.
                   </label>
                 </div>
               </div>
