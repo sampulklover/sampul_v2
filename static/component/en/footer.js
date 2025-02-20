@@ -31,70 +31,82 @@ function footer() {
       <div class="uui-page-padding">
         <div class="uui-container-large">
           <div class="uui-padding-vertical-xlarge">
-
-<div class="w-layout-grid uui-footer02_top-wrapper" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
-  <div class="uui-footer02_left-wrapper-new" 
-     style="flex: 0.2; min-width: 320px; display: flex; flex-direction: column; gap: 24px; align-items: flex-start; padding-left: 1rem; text-align: left;">
-  
-  <div class="footer-image" style="width: 150px; max-width: 100%; height: auto;">
-  <img src="../images/Logo.svg" alt="Logo" 
-       style="width: auto; max-width: 100%; height: auto; object-fit: contain;">
-</div>
-  
-  <div class="footer-text" style="font-weight: 400; font-size: 16px; color: #535862; max-width: 280px;">
-    Redefining estate planning—fast, transparent, and built for the future
-  </div>
-  <div class="footer-image">
-  <img src="static/images/Ratings-badge.svg" alt="Logo" 
-       style="width: auto; max-width: 100%; height: auto; object-fit: contain;">
-</div>
-
-</div>
-
-  <!-- Links Section -->
-  <div class="uui-footer02_right-wrapper-new" style="display: flex; flex-wrap: wrap; flex: 0.6; max-width: 832px; justify-content: center; gap: 32px; align-items: flex-start; padding: 0 0 30px 0">    
-    <div class="uui-footer02_link-list" style="min-width: 120px; display: flex; flex-direction: column; align-items: flex-start;">
-    
-      <div class="uui-footer02_link-list-heading">Product</div>
-      <a href="resources" class="uui-footer02_link w-inline-block"><div>Sampul Wasiat</div></a>
-        <a href="solutions" class="uui-footer02_link w-inline-block">
-          <div>Sampul Trust</div>
-          <div class="uui-badge-small-success"><div>New</div></div>
-        </a>
-        <a href="solutions" class="uui-footer02_link w-inline-block">
-          <div>Sampul Executor</div>
-          <div class="uui-badge-small-success"><div>New</div></div>
-        </a>
-        <a href="price" class="uui-footer02_link w-inline-block"><div>Pricing</div></a>
-      </div>
-
-    <div class="uui-footer02_link-list" style="min-width: 120px; display: flex; flex-direction: column; align-items: flex-start;">
-      <div class="uui-footer02_link-list-heading">Company</div>
-      <a href="company" class="uui-footer02_link w-inline-block"><div>About us</div></a>
-      <a href="resources" class="uui-footer02_link w-inline-block"><div>Careers</div></a>
-      <a href="resources" class="uui-footer02_link w-inline-block"><div>Media kit</div></a>
-      <a href="contact" class="uui-footer02_link w-inline-block"><div>Contact</div></a>
-    </div>
-
-    <div class="uui-footer02_link-list" style="min-width: 120px; display: flex; flex-direction: column; align-items: flex-start;">
-      <div class="uui-footer02_link-list-heading">Resources</div>
-      <a href="resources" class="uui-footer02_link w-inline-block"><div>Blog</div></a>
-      <a href="resources" class="uui-footer02_link w-inline-block"><div>Events</div></a>
-      <a href="resources" class="uui-footer02_link w-inline-block"><div>Help centre</div></a>
-      <a href="resources" class="uui-footer02_link w-inline-block"><div>Support</div></a>
-    </div>
-
-    <div class="uui-footer02_link-list" style="min-width: 120px; display: flex; flex-direction: column; align-items: flex-start;">
-      <div class="uui-footer02_link-list-heading">Legal</div>
-      <a href="resources" class="uui-footer02_link w-inline-block"><div>Terms</div></a>
-      <a href="resources" class="uui-footer02_link w-inline-block"><div>Privacy</div></a>
-      <a href="resources" class="uui-footer02_link w-inline-block"><div>Cookies</div></a>
-      <a href="resources" class="uui-footer02_link w-inline-block"><div>Licenses</div></a>
-    </div>
-    
-  </div>
-</div>
-
+          <div class="w-layout-grid uui-footer02_top-wrapper" 
+            style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;"
+          >
+          <div class="uui-footer02_left-wrapper-new" 
+            style="flex: 0.2; min-width: 320px; display: flex; flex-direction: column; gap: 24px; align-items: flex-start; padding-left: 1rem; text-align: left;"
+          > 
+          <div class="footer-image" style="width: 150px; max-width: 100%; height: auto;">
+            <img src="../images/Logo.svg" alt="Logo" 
+              style="width: auto; max-width: 100%; height: auto; object-fit: contain;"
+            >
+          </div>
+          <div class="footer-text" 
+            style="font-weight: 400; font-size: 16px; color: #535862; max-width: 280px;"
+          >
+            Redefining estate planning—fast, transparent, and built for the future
+          </div>
+          <div class="footer-image">
+            <img src="static/images/Ratings-badge.svg" alt="Logo" 
+              style="width: auto; max-width: 100%; height: auto; object-fit: contain;">
+            </div>
+          </div>
+          <!-- Links Section -->
+          <div class="uui-footer02_right-wrapper-new" 
+            style="display: flex; flex-wrap: wrap; flex: 0.6; max-width: 832px; justify-content: center; gap: 32px; align-items: flex-start; padding: 0 0 30px 0"
+          >    
+          <div class="uui-footer02_link-list" 
+            style="min-width: 120px; display: flex; flex-direction: column; align-items: flex-start;"
+          >
+          <div class="uui-footer02_link-list-heading">Product</div>
+          <a 
+            href="resources" 
+            class="uui-footer02_link w-inline-block"
+          ><div>Sampul Wasiat</div>
+          </a>
+          <a 
+            href="solutions" 
+            class="uui-footer02_link w-inline-block"
+            ><div>Sampul Trust</div>
+            <div class="uui-badge-small-success"><div>New</div></div>
+          </a>
+          <a 
+            href="solutions" 
+            class="uui-footer02_link w-inline-block"
+            ><div>Sampul Executor</div>
+            <div class="uui-badge-small-success"><div>New</div></div>
+          </a>
+          <a 
+            href="price" 
+            class="uui-footer02_link w-inline-block"
+            ><div>Pricing</div>
+          </a>
+        </div>
+        <div class="uui-footer02_link-list" 
+          style="min-width: 120px; display: flex; flex-direction: column; align-items: flex-start;"
+        ><div class="uui-footer02_link-list-heading">Company</div>
+          <a href="company" class="uui-footer02_link w-inline-block"><div>About us</div></a>
+          <a href="resources" class="uui-footer02_link w-inline-block"><div>Careers</div></a>
+          <a href="resources" class="uui-footer02_link w-inline-block"><div>Media kit</div></a>
+          <a href="contact" class="uui-footer02_link w-inline-block"><div>Contact</div></a>
+        </div>
+        <div class="uui-footer02_link-list" style="min-width: 120px; display: flex; flex-direction: column; align-items: flex-start;">
+          <div class="uui-footer02_link-list-heading">Resources</div>
+            <a href="resources" class="uui-footer02_link w-inline-block"><div>Blog</div></a>
+            <a href="resources" class="uui-footer02_link w-inline-block"><div>Events</div></a>
+            <a href="resources" class="uui-footer02_link w-inline-block"><div>Help centre</div></a>
+            <a href="resources" class="uui-footer02_link w-inline-block"><div>Support</div></a>
+          </div>
+          <div class="uui-footer02_link-list" style="min-width: 120px; display: flex; flex-direction: column; align-items: flex-start;">
+            <div class="uui-footer02_link-list-heading">Legal</div>
+              <a href="resources" class="uui-footer02_link w-inline-block"><div>Terms</div></a>
+              <a href="resources" class="uui-footer02_link w-inline-block"><div>Privacy</div></a>
+              <a href="resources" class="uui-footer02_link w-inline-block"><div>Cookies</div></a>
+              <a href="resources" class="uui-footer02_link w-inline-block"><div>Licenses</div></a>
+            </div>  
+          </div>
+        </div>
               <div class="uui-footer02_bottom-wrapper">
                 <div class="uui-footer02_legal-list-wrapper">
                   <div class="uui-text-size-small text-color-gray500">

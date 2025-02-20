@@ -3647,7 +3647,7 @@ blockquote {
 
 .smpl-button-new {
   grid-column-gap: .5rem;
-  color: #fff;
+  color: #2F1DA9;
   text-align: center;
   white-space: nowrap;
   background-color: #DDD8FB;
@@ -3667,43 +3667,12 @@ blockquote {
 }
 
 .smpl-button-new:hover {
-  background-color: #2f1da9;
-  border-color: #2f1da9;
+  background-color: #583cec;
+  border-color: #583cec;
+  color: #fff;
 }
 
 .smpl-button-new:focus {
-  background-color: #7564ed;
-  border-color: #7564ed;
-  box-shadow: 0 1px 2px rgba(16, 24, 40, .05), 0 0 0 4px #f4ebff;
-}
-
-.smpl-button-new2 {
-  grid-column-gap: .5rem;
-  color: #fff;
-  text-align: center;
-  white-space: nowrap;
-  background-color: #DDD8FB;
-  border: 1px solid #DDD8FB;
-  border-radius: .5rem;
-  justify-content: start;
-  align-items: center;
-  padding: .625rem 1.125rem;
-  font-family: Inter, sans-serif;
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 1.5;
-  text-decoration: none;
-  transition: all .3s;
-  display: flex;
-  box-shadow: 0 1px 2px rgba(16, 24, 40, .05);
-}
-
-.smpl-button-new2:hover {
-  background-color: #2f1da9;
-  border-color: #2f1da9;
-}
-
-.smpl-button-new2:focus {
   background-color: #7564ed;
   border-color: #7564ed;
   box-shadow: 0 1px 2px rgba(16, 24, 40, .05), 0 0 0 4px #f4ebff;
@@ -3715,7 +3684,7 @@ blockquote {
   text-align: center;
   white-space: nowrap;
   background-color: transparent;
-  border: 1.5px solid #3118D3;
+  border: 1.5px solid var(--Colors-Foreground-fg-brand-primary_alt, #3118D3);
   border-radius: 1.5rem;
   justify-content: start;
   align-items: center;
@@ -3730,9 +3699,8 @@ blockquote {
   box-shadow: 0 1px 2px rgba(16, 24, 40, .05);
 }
 
-.smpl-button-ne:hover {
-  background-color: #2f1da9;
-  border-color: #2f1da9;
+.smpl-button-new3:hover {
+  border-color: #e4e4e4;
 }
 
 .smpl-button:focus {
