@@ -22,6 +22,21 @@ function newsletterForm() {
 
 function footer() {
   return `
+  <div class="full-height d-flex justify-content-center align-items-center w-100" style="padding: 48px 0; gap: 64px; height: 156px; background-color: #FAFAFA;">
+  <div class="d-flex justify-content-between align-items-center w-100" style="height: 62px; max-width: 1280px; padding: 0 32px; gap: 64px;">
+    <!-- Left Column -->
+    <div class="d-flex flex-column">
+      <p class="fs-20 fw-bold">Join sampul.co newsletter</p>
+      <p class="fs-16" style="color:#535862;">Protect your assets with Sampul—fast, simple, and secure.</p>
+    </div>
+    <div class="uui-footer02_right-wrapper">
+      <div class="uui-footer02_form-block w-form">
+        ${newsletterForm()}
+      </div>
+    </div>
+  </div>
+</div>
+
   <div
   data-w-id="5bf44bd6-19a3-d974-dcf1-e2e7da6c3d3c"
   class="section no-bottom-padding clip bg-white"
