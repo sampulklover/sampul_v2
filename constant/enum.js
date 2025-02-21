@@ -491,3 +491,181 @@ export const systemLanguages = () => {
 
   return options;
 };
+
+// PENDING DB!!!
+export const genders = () => {
+  const options = [
+    { name: 'Male', value: 'male' },
+    { name: 'Female', value: 'female' },
+  ];
+
+  return options;
+};
+
+export const residentStatus = () => {
+  const options = [
+    { name: 'Resident', value: 'resident' },
+    { name: 'Non-resident', value: 'non_resident' },
+  ];
+
+  return options;
+};
+
+export const estimatedNetWorths = () => {
+  const options = [
+    { name: 'below RM50,000', value: 'below_rm_50k' },
+    { name: 'RM50,001 to RM100,000', value: 'rm_50k_to_100k' },
+    { name: 'RM100,001 to RM150,000', value: 'rm_100k_to_150k' },
+    { name: 'RM150,001 to RM200,000', value: 'rm_150k_to_200k' },
+    { name: 'RM200,001 to RM300,000', value: 'rm_200k_to_300k' },
+    { name: 'more than RM300,000', value: 'above_rm_300k' },
+  ];
+
+  return options;
+};
+
+export const pepTypes = () => {
+  const options = [
+    {
+      name: 'Head of Government/ State Politician',
+      value: 'head_of_state_or_state_politician',
+    },
+    {
+      name: 'Royal Family Friend/ Business Associates',
+      value: 'royal_family_friend_business_associates',
+    },
+    {
+      name: 'Family member of Politically Exposed Judicial, Army or Police Official',
+      value: 'family_member_of_pep_judicial_army_police',
+    },
+    {
+      name: 'Person (PEP)',
+      value: 'person_pep',
+    },
+    {
+      name: 'Senior Management of Government Linked Company',
+      value: 'senior_management_government_linked_company',
+    },
+    {
+      name: 'Not Applicable',
+      value: 'not_applicable',
+    },
+    {
+      name: 'Other',
+      value: 'other',
+    },
+  ];
+
+  return options;
+};
+
+export const donationCategories = () => {
+  const options = [
+    { name: 'Mosque', value: 'mosque' },
+    { name: 'School', value: 'school' },
+    { name: 'Hospital', value: 'hospital' },
+    { name: 'Qurban', value: 'qurban' },
+    { name: 'Other', value: 'other' },
+  ];
+
+  return options;
+};
+
+export const currencies = () => {
+  const options = [
+    { name: '$', fullName: 'US Dollar', value: 'USD' },
+    { name: '€', fullName: 'Euro', value: 'EUR' },
+    { name: '£', fullName: 'British Pound', value: 'GBP' },
+    { name: '¥', fullName: 'Japanese Yen', value: 'JPY' },
+    { name: '$', fullName: 'Canadian Dollar', value: 'CAD' },
+    { name: '$', fullName: 'Australian Dollar', value: 'AUD' },
+    { name: 'Fr', fullName: 'Swiss Franc', value: 'CHF' },
+    { name: '¥', fullName: 'Chinese Yuan', value: 'CNY' },
+    { name: '₹', fullName: 'Indian Rupee', value: 'INR' },
+    { name: 'R$', fullName: 'Brazilian Real', value: 'BRL' },
+    { name: 'RM', fullName: 'Malaysian Ringgit', value: 'MYR' },
+  ];
+
+  return options;
+};
+
+export const banks = () => {
+  const options = [
+    { name: 'Affin Bank Berhad', value: 'affin_bank' },
+    { name: 'Alliance Bank Malaysia Berhad', value: 'alliance_bank' },
+    { name: 'AmBank (M) Berhad', value: 'ambank' },
+    { name: 'CIMB Bank Berhad', value: 'cimb_bank' },
+    { name: 'Hong Leong Bank Berhad', value: 'hong_leong_bank' },
+    { name: 'Malayan Banking Berhad (Maybank)', value: 'maybank' },
+    { name: 'Public Bank Berhad', value: 'public_bank' },
+    { name: 'RHB Bank Berhad', value: 'rhb_bank' },
+    { name: 'Bank Islam Malaysia Berhad', value: 'bank_islam' },
+    { name: 'OCBC Bank (Malaysia) Berhad', value: 'ocbc_bank_malaysia' },
+    { name: 'HSBC Bank Malaysia Berhad', value: 'hsbc_bank_malaysia' },
+    { name: 'United Overseas Bank (Malaysia) Bhd', value: 'uob_malaysia' },
+    {
+      name: 'Standard Chartered Bank Malaysia Berhad',
+      value: 'standard_chartered_malaysia',
+    },
+    { name: 'Bank Muamalat Malaysia Berhad', value: 'bank_muamalat' },
+  ];
+
+  return options;
+};
+
+export const donationDurations = () => {
+  const options = [
+    { name: 'Yearly', value: 'yearly' },
+    { name: 'Monthly', value: 'monthly' },
+    { name: 'Quarterly', value: 'quarterly' },
+    { name: 'One-Time', value: 'one_time' },
+    { name: 'Weekly', value: 'weekly' },
+  ];
+
+  return options;
+};
+
+export const sourceOfWealth = () => {
+  const options = [
+    { name: 'Salary', value: 'salary' },
+    { name: 'Investment Account', value: 'investment_account' },
+    { name: 'Savings', value: 'savings' },
+    { name: 'Inheritance', value: 'inheritance' },
+    { name: 'Sale of Property/Asset', value: 'sale_of_property_asset' },
+    { name: 'Retirement Account (EPF/RPS)', value: 'retirement_account' },
+    { name: 'Other', value: 'other' },
+  ];
+
+  return options;
+};
+
+export const paymentMethods = () => {
+  const options = [
+    {
+      name: 'Bank Transfer',
+      value: 'bank_transfer',
+      sublabel: '(Manual Transfer)',
+      enable: true,
+    },
+    {
+      name: 'FPX',
+      value: 'fpx',
+      sublabel: '(Online Banking)',
+      enable: false,
+    },
+    {
+      name: 'Card',
+      value: 'card',
+      sublabel: '(Credit/Debit)',
+      enable: false,
+    },
+    {
+      name: 'E-Wallet',
+      value: 'e_wallet',
+      sublabel: `(Touch 'n Go, GrabPay)`,
+      enable: false,
+    },
+  ];
+
+  return options;
+};

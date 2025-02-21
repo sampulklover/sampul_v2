@@ -13,6 +13,8 @@ export const ModalProvider = ({ children }) => {
     assets: false,
     aftercare: false,
     kyc: false,
+    charity: false,
+    trust: false,
   });
 
   const toggleModal = (key) => {

@@ -292,3 +292,201 @@ export const getDiditSessionApi = async (postData) => {
     toast.error(error.message);
   }
 };
+
+export const getAllTrustApi = async (postData) => {
+  try {
+    const { data, error } = await supabase
+      .from('trust')
+      .select(
+        `*, trust_beneficiary ( * ), trust_charity ( * ), trust_payment ( * )`
+      )
+      .eq('uuid', postData.uuid)
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
+
+export const getTrustApi = async (postData) => {
+  try {
+    const { data, error } = await supabase
+      .from('trust')
+      .select(
+        `*, trust_beneficiary ( * ), trust_charity ( * ), trust_payment ( * )`
+      )
+      .eq('id', postData.trustId)
+      .single();
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
+
+export const addTrustApi = async (postData) => {
+  try {
+    const { data, error } = await supabase
+      .from('trust')
+      .upsert(postData, { onConflict: ['id'] })
+      .select(
+        `*, trust_beneficiary ( * ), trust_charity ( * ), trust_payment ( * )`
+      )
+      .single();
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
+
+export const deleteTrustApi = async (postData) => {
+  try {
+    const { data, error } = await supabase
+      .from('trust')
+      .delete()
+      .eq('id', postData.id)
+      .select('*, trust_payment (*)')
+      .single();
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
+
+export const addTrustBeneficiaryApi = async (postData) => {
+  try {
+    const existingData = postData.trustData.filter((item) => item.id); // Items with an id
+    const newData = postData.trustData.filter((item) => !item.id); // Newly added items
+
+    let data = [];
+
+    if (existingData.length > 0) {
+      const { data: updatedData, error: updateError } = await supabase
+        .from('trust_beneficiary')
+        .upsert(existingData, { onConflict: ['id'] })
+        .select('*');
+
+      if (updateError) throw updateError;
+      data = [...data, ...updatedData];
+    }
+
+    if (newData.length > 0) {
+      const { data: insertedData, error: insertError } = await supabase
+        .from('trust_beneficiary')
+        .insert(newData)
+        .select('*');
+
+      if (insertError) throw insertError;
+      data = [...data, ...insertedData];
+    }
+
+    return data;
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
+
+export const getCharityApi = async (postData) => {
+  try {
+    const { data, error } = await supabase
+      .from('trust_charity')
+      .select('*')
+      .eq('uuid', postData.uuid)
+      .order('id', { ascending: false });
+
+    if (error) {
+      throw error;
+    }
+
+    return data.length > 0 ? data : [];
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
+
+export const addTrustCharityApi = async (postData) => {
+  try {
+    const { data, error } = await supabase
+      .from('trust_charity')
+      .upsert(postData.trustCharityData, { onConflict: ['id'] })
+      .select()
+      .single();
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
+
+export const deleteTrustCharityApi = async (postData) => {
+  try {
+    const { data, error } = await supabase
+      .from('trust_charity')
+      .delete()
+      .eq('id', postData.id)
+      .select()
+      .single();
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
+
+export const addTrustPaymentApi = async (postData) => {
+  try {
+    let response;
+
+    if (postData.trustPaymentId) {
+      response = await supabase
+        .from('trust_payment')
+        .update(postData.trustPaymentData)
+        .eq('id', postData.trustPaymentId)
+        .select()
+        .single();
+    } else {
+      response = await supabase
+        .from('trust_payment')
+        .insert(postData.trustPaymentData)
+        .select()
+        .single();
+    }
+
+    const { data, error } = response;
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
