@@ -76,7 +76,7 @@ function footer() {
           >
           <div class="uui-footer02_link-list-heading">Product</div>
           <a 
-            href="resources" 
+            href="wasiat" 
             class="uui-footer02_link w-inline-block"
           ><div>Sampul Wasiat</div>
           </a>
