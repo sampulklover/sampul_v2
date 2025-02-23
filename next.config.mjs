@@ -136,6 +136,14 @@ const nextConfig = {
         source: '/bm/policy',
         destination: '/html/locale/bm/policy.html',
       },
+      {
+        source: '/wasiat',
+        destination: '/html/locale/en/wasiat.html',
+      },
+      {
+        source: '/bm/wasiat',
+        destination: '/html/locale/bm/wasiat.html',
+      },
     ];
   },
   reactStrictMode: true,
