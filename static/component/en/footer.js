@@ -81,13 +81,13 @@ function footer() {
           ><div>Sampul Wasiat</div>
           </a>
           <a 
-            href="solutions" 
+            href="sampul_trust" 
             class="uui-footer02_link w-inline-block"
             ><div>Sampul Trust</div>
             <div class="uui-badge-small-success"><div>New</div></div>
           </a>
           <a 
-            href="solutions" 
+            href="sampul_executor" 
             class="uui-footer02_link w-inline-block"
             ><div>Sampul Executor</div>
             <div class="uui-badge-small-success"><div>New</div></div>
