@@ -144,6 +144,22 @@ const nextConfig = {
         source: '/bm/wasiat',
         destination: '/html/locale/bm/wasiat.html',
       },
+      {
+        source: '/sampul_trust',
+        destination: '/html/locale/en/sampul_trust.html',
+      },
+      {
+        source: '/bm/sampul_trust',
+        destination: '/html/locale/bm/sampul_trust.html',
+      },
+      {
+        source: '/sampul_executor',
+        destination: '/html/locale/en/sampul_executor.html',
+      },
+      {
+        source: '/bm/sampul_executor',
+        destination: '/html/locale/bm/sampul_executor.html',
+      },
     ];
   },
   reactStrictMode: true,
