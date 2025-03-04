@@ -582,7 +582,7 @@
                                     <img src="static/images/document.svg" style="width: 20px; height: 20px;" alt="Check icon">
                                 </div>
                             </div>
-                            <h1 class="text-start">Put your wealth in writing now with <span style="color: #8D7FEF;">Sampul Wasiat</span></h1>
+                            <h1 class="text-center text-md-start">Put your wealth in writing now with <span style="color: #8D7FEF;">Sampul Wasiat</span></h1>
                             <p class="text-muted">
                                 Without a Wasiat, your wealth could end up in the wrong hands. Get it sorted today—fast, legal, and dispute-free.
                             </p>
@@ -602,7 +602,7 @@
                                 </li>
                             </ul>
 
-                            <div class="d-flex justify-content-start w-100 gap-3">
+                            <div class="d-flex justify-content-center justify-content-md-start w-100 gap-3">
                                 <div class="clip d-flex align-items-center" style="border-radius: 24px;">
                                     <div class="hero-button-wrapper"
                                          style="transform: translate3d(0, 100%, 0) scale3d(1, 1, 1) skew(0, 10deg); opacity: 1;">
@@ -625,7 +625,7 @@
                     </div>
 
                     <!-- ✅ Col 2: Image -->
-                    <div class="col-md-6 col-12 d-flex justify-content-center align-items-center">
+                    <div class="col-md-6 col-12 d-flex justify-content-center align-items-center" style="margin-top:40px;">
                         <img src="static/images/image 16.svg" alt="Illustration" class="img-fluid" style="max-width: 80%;">
                     </div>
                 </div>
@@ -650,7 +650,7 @@
                                     <img src="static/images/document.svg" style="width: 20px; height: 20px;" alt="Check icon">
                                 </div>
                             </div>
-                            <h1 class="text-start">Do more with <span style="color: #8D7FEF;">Sampul Trust</span></h1>
+                            <h1 class="text-md-start text-center">Do more with <span style="color: #8D7FEF;">Sampul Trust</span></h1>
                             <p class="text-muted">
                                 Lock in your assets, invest for the future, and ensure your loved ones get what's rightfully
                                 theirs.
@@ -671,7 +671,7 @@
                                 </li>
                             </ul>
 
-                            <div class="d-flex justify-content-start w-100 gap-3">
+                            <div class="d-flex justify-content-center justify-content-md-start w-100 gap-3">
                                 <div class="clip d-flex align-items-center" style="border-radius: 24px;">
                                     <div class="hero-button-wrapper"
                                          style="transform: translate3d(0, 100%, 0) scale3d(1, 1, 1) skew(0, 10deg); opacity: 1;">
@@ -710,7 +710,7 @@
                                     <img src="static/images/document.svg" style="width: 20px; height: 20px;" alt="Check icon">
                                 </div>
                             </div>
-                            <h1 class="text-start">Don't let emotions decide. Let professionals handle it with <span style="color: #8D7FEF;">Sampul Executor</span></h1>
+                            <h1 class="text-md-start">Don't let emotions decide. Let professionals handle it with <span style="color: #8D7FEF;">Sampul Executor</span></h1>
                             <p class="text-muted">
                                 A professional executor ensures your will is followed—no family drama, no legal mess, just a smooth handover.
                             </p>
@@ -730,10 +730,9 @@
                                 </li>
                             </ul>
 
-                            <div class="d-flex justify-content-start w-100 gap-3">
+                            <div class="d-flex w-100 gap-3 justify-content-center justify-content-md-start">
                                 <div class="clip d-flex align-items-center" style="border-radius: 24px;">
-                                    <div class="hero-button-wrapper"
-                                         style="transform: translate3d(0, 100%, 0) scale3d(1, 1, 1) skew(0, 10deg); opacity: 1;">
+                                    <div class="hero-button-wrapper">
                                         <a href="signin" class="smpl-button-new w-inline-block">
                                             <div class="button-text">Appoint Executor</div>
                                         </a>
@@ -741,19 +740,19 @@
                                 </div>
 
                                 <div class="clip d-flex align-items-center" style="border-radius: 24px;">
-                                    <div class="hero-button-wrapper"
-                                         style="transform: translate3d(0, 100%, 0) scale3d(1, 1, 1) skew(0, 10deg); opacity: 1;">
+                                    <div class="hero-button-wrapper">
                                         <a href="wasiat" class="smpl-button-new3 w-inline-block">
                                             <div class="button-text" style="color: #414651;">Learn More</div>
                                         </a>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
 
                     <!-- ✅ Col 2: Image -->
-                    <div class="col-md-6 col-12 d-flex justify-content-center align-items-center">
+                    <div class="col-md-6 col-12 d-flex justify-content-center align-items-center" style="margin-top:40px;">
                         <img src="static/images/image 17.svg" alt="Illustration" class="img-fluid" style="max-width: 80%;">
                     </div>
                 </div>
@@ -849,6 +848,21 @@
     .checkbox:checked + .toggle .toggle-button {
         left: 23px;
     }
+
+    @media (max-width: 768px) {
+        .services-grid-new {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .services-grid-new > div {
+            width: 100% !important;
+            margin-bottom: 20px; /* Adds spacing between cards */
+        }
+    }
+
 
 </style>
 
