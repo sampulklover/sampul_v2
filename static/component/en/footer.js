@@ -92,11 +92,11 @@ function footer() {
             ><div>Sampul Executor</div>
             <div class="uui-badge-small-success"><div>New</div></div>
           </a>
-          <a 
-            href="price" 
-            class="uui-footer02_link w-inline-block"
-            ><div>Pricing</div>
-          </a>
+<!--          <a -->
+<!--            href="price" -->
+<!--            class="uui-footer02_link w-inline-block"-->
+<!--            ><div>Pricing</div>-->
+<!--          </a>-->
         </div>
         <div class="uui-footer02_link-list" 
           style="min-width: 120px; display: flex; flex-direction: column; align-items: flex-start;"
