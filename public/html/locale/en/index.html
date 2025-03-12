@@ -543,7 +543,7 @@
         </div>
     </div>
 
-    <div data-w-id="e2699792-c77d-89e0-17cb-721eef36642c" class="section no-bottom-padding clip bg-white">
+    <div data-w-id="e2699792-c77d-89e0-17cb-721eef36642c" class="section no-bottom-padding clip bg-white no-bottom-padding-web-100" >
         <div class="wrapper" style="width: 100%; max-width: none">
             <section class="uui-section_faq01">
                 <div class="uui-padding-vertical-xhuge d-flex justify-content-center align-items-center">
@@ -569,15 +569,15 @@
         </div>
     </div>
 
-    <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh;" class="no-bottom-padding-web-100">
         <div class="row align-items-center justify-content-center col-md-8">
             <div class="container-fluid">
                 <div class="row align-items-center justify-content-center">
                     <!-- ✅ Col 1: Text Content -->
-                    <div class="col-md-6 col-12 d-flex flex-column align-items-start text-md-start text-center">
-                        <div class="container">
-                            <div class="d-flex align-items-center gap-2 justify-content-md-start justify-content-center">
-                                <div class="rounded-circle d-flex align-items-center justify-content-center"
+                    <div class="col-md-6 col-12 d-flex flex-column align-items-start text-md-start text-center  ">
+                        <div class="container ">
+                            <div class="d-flex align-items-center gap-2 justify-content-md-start justify-content-center no-bottom-padding-web-50">
+                                <div class="rounded-circle d-flex align-items-center justify-content-center "
                                      style="width: 40px; height: 40px; background-color: #D9D6FE;">
                                     <img src="static/images/document.svg" style="width: 20px; height: 20px;" alt="Check icon">
                                 </div>
@@ -633,18 +633,18 @@
         </div>
     </div>
 
-    <div style="display: flex; justify-content: center; align-items: center;">
+    <div style="display: flex; justify-content: center; align-items: center;" class="no-bottom-padding-web-100">
         <div class="row align-items-center justify-content-center col-md-8">
             <div class="container-fluid">
                 <div class="row align-items-center justify-content-center">
                     <!-- ✅ Col 2: Image -->
-                    <div class="col-md-6 col-12 d-flex justify-content-center align-items-center">
+                    <div class="col-md-6 col-12 d-flex justify-content-center align-items-center no-bottom-padding-web-50">
                         <img src="static/images/image.svg" alt="Illustration" class="img-fluid" style="max-width: 80%;">
                     </div>
                     <!-- ✅ Col 1: Text Content -->
-                    <div class="col-md-5 col-12 d-flex flex-column align-items-start text-md-start text-center">
+                    <div class="col-md-5 col-12 d-flex flex-column align-items-start text-md-start text-center ">
                         <div class="container">
-                            <div class="d-flex align-items-center gap-2 justify-content-md-start justify-content-center">
+                            <div class="d-flex align-items-center gap-2 justify-content-md-start justify-content-center no-bottom-padding-web-50">
                                 <div class="rounded-circle d-flex align-items-center justify-content-center"
                                      style="width: 40px; height: 40px; background-color: #D9D6FE;">
                                     <img src="static/images/document.svg" style="width: 20px; height: 20px;" alt="Check icon">
@@ -697,14 +697,14 @@
         </div>
     </div>
 
-    <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh;" class="no-bottom-padding-web-100">
         <div class="row align-items-center justify-content-center col-md-8">
             <div class="container-fluid">
                 <div class="row align-items-center justify-content-center">
                     <!-- ✅ Col 1: Text Content -->
                     <div class="col-md-6 col-12 d-flex flex-column align-items-start text-md-start text-center">
                         <div class="container">
-                            <div class="d-flex align-items-center gap-2 justify-content-md-start justify-content-center">
+                            <div class="d-flex align-items-center gap-2 justify-content-md-start justify-content-center no-bottom-padding-web-50">
                                 <div class="rounded-circle d-flex align-items-center justify-content-center"
                                      style="width: 40px; height: 40px; background-color: #D9D6FE;">
                                     <img src="static/images/document.svg" style="width: 20px; height: 20px;" alt="Check icon">
@@ -760,7 +760,7 @@
         </div>
     </div>
 
-    <div id="footer-container">
+    <div id="footer-container" class="top-padding-web-200">
         <!-- auto generate -->
     </div>
 </div>
@@ -800,6 +800,21 @@
 </html>
 
 <style>
+
+    @media (max-width: 767.98px) {  /* Target mobile screens */
+        .no-bottom-padding-web-100{
+            margin-bottom: 100px !important; /* Force override */
+        }
+
+        .no-bottom-padding-web-50{
+            margin-bottom: 50px !important; /* Force override */
+        }
+
+        .top-padding-web-200{
+            margin-top: 200px !important; /* Force override */
+        }
+    }
+
     .language-switcher {
         display: flex;
         align-items: center;
