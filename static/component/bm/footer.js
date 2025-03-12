@@ -72,9 +72,9 @@ function newsletterForm_BM() {
                         <div>Baharu</div>
                       </div>
                     </a>
-                    <a href="price" class="uui-footer02_link w-inline-block">
-                      <div>Harga</div>
-                    </a>
+<!--                    <a href="price" class="uui-footer02_link w-inline-block">-->
+<!--                      <div>Harga</div>-->
+<!--                    </a>-->
                     <a
                       href="resources"
                       class="uui-footer02_link w-inline-block"
