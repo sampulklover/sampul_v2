@@ -1,5 +1,5 @@
 function newsletterForm() {
-  return `
+    return `
   <form id="add-newsletter-form" class="uui-footer02_form">
   <input
     type="email"
@@ -21,7 +21,7 @@ function newsletterForm() {
 }
 
 function footer() {
-  return `
+    return `
   <div class="full-height d-flex justify-content-center align-items-center w-100" style="padding: 48px 0; gap: 64px; height: 156px; background-color: #FAFAFA;">
   <div class="d-flex justify-content-between align-items-center w-100" style="height: 62px; max-width: 1280px; padding: 0 32px; gap: 64px;">
     <!-- Left Column -->
@@ -58,9 +58,9 @@ function footer() {
             >
           </div>
           <div class="footer-text" 
-            style="font-weight: 400; font-size: 16px; color: #535862; max-width: 280px;"
+            style="font-weight: 400; font-size: 16px; color: #535862; max-width: 300px;"
           >
-            Redefining estate planning—fast, transparent, and built for the future
+            <span style="font-weight:700;">Sampul Sdn. Bhd.</span>  <span style="font-size:12px;">1521640-X</span><br>S1-05-17, Vista Alam, Jalan Ikhtisas 14/1, Seksyen 14, 40000 Shah Alam, Malaysia hello@sampul.co | +60 18-976 6429
           </div>
           <div class="footer-image">
             <img src="static/images/Ratings-badge.svg" alt="Logo" 
@@ -69,7 +69,7 @@ function footer() {
           </div>
           <!-- Links Section -->
           <div class="uui-footer02_right-wrapper-new" 
-            style="display: flex; flex-wrap: wrap; flex: 0.6; max-width: 832px; justify-content: center; gap: 32px; align-items: flex-start; padding: 0 0 30px 0"
+            style="display: flex; flex-wrap: wrap; flex: 0.6; max-width: 832px; justify-content: center; gap: 32px; align-items: flex-start; padding: 0 0 30px 0;"
           >    
           <div class="uui-footer02_link-list" 
             style="min-width: 120px; display: flex; flex-direction: column; align-items: flex-start;"
@@ -80,23 +80,22 @@ function footer() {
             class="uui-footer02_link w-inline-block"
           ><div>Sampul Wasiat</div>
           </a>
-          <a 
+            <a 
             href="sampul_trust" 
             class="uui-footer02_link w-inline-block"
-            ><div>Sampul Trust</div>
-            <div class="uui-badge-small-success"><div>New</div></div>
+          ><div class="col-9">Sampul Trust</div>
+                         <div class="d-flex align-items-center justify-content-center bg-white col-3" style="border-radius:5px;margin:5px;border: 1px solid var(--Colors-Border-border-primary, #D5D7DA)">
+                <span style="font-size:12px;color:gray;">New</span>
+                </div>
           </a>
-          <a 
+            <a 
             href="sampul_executor" 
             class="uui-footer02_link w-inline-block"
-            ><div>Sampul Executor</div>
-            <div class="uui-badge-small-success"><div>New</div></div>
+          ><div class="col-9">Sampul Executor</div>
+                         <div class="d-flex align-items-center justify-content-center bg-white col-3" style="border-radius:5px;margin:5px;border: 1px solid var(--Colors-Border-border-primary, #D5D7DA)">
+                <span style="font-size:12px;color:gray;">New</span>
+                </div>
           </a>
-<!--          <a -->
-<!--            href="price" -->
-<!--            class="uui-footer02_link w-inline-block"-->
-<!--            ><div>Pricing</div>-->
-<!--          </a>-->
         </div>
         <div class="uui-footer02_link-list" 
           style="min-width: 120px; display: flex; flex-direction: column; align-items: flex-start;"
@@ -109,7 +108,6 @@ function footer() {
         <div class="uui-footer02_link-list" style="min-width: 120px; display: flex; flex-direction: column; align-items: flex-start;">
           <div class="uui-footer02_link-list-heading">Resources</div>
             <a href="resources" class="uui-footer02_link w-inline-block"><div>Blog</div></a>
-            <a href="resources" class="uui-footer02_link w-inline-block"><div>Events</div></a>
             <a href="resources" class="uui-footer02_link w-inline-block"><div>Help centre</div></a>
             <a href="resources" class="uui-footer02_link w-inline-block"><div>Support</div></a>
           </div>
@@ -124,11 +122,41 @@ function footer() {
         </div>
               <div class="uui-footer02_bottom-wrapper">
                 <div class="uui-footer02_legal-list-wrapper">
-                  <div class="uui-text-size-small text-color-gray500">
+                  <div class="uui-text-size-small text-color-gray500" style="margin-right:40px;">
                     © 2025 Sampul.co. All rights reserved.
+                  </div>               
+                  <div class="w-layout-grid uui-footer02_social-list">
+                     <a href="#" class="uui-footer02_social-link w-inline-block">
+                  <div class="uui-footer02_social-icon w-embed">
+                     <svg width="24" 
+                       height="24" 
+                       viewBox="0 0 24 23" 
+                       fill="none" 
+                       xmlns="http://www.w3.org/2000/svg"
+                  >
+                     <path fill-rule="evenodd" clip-rule="evenodd" d="M15.9455 22.7662L10.396 14.8563L3.44886 22.7662H0.509766L9.09209 12.9973L0.509766 0.766174H8.05571L13.286 8.22119L19.8393 0.766174H22.7784L14.5943 10.0827L23.4914 22.7662H15.9455ZM19.2185 20.5362H17.2398L4.71811 2.99617H6.6971L11.7121 10.0193L12.5793 11.238L19.2185 20.5362Z" fill="#A4A7AE"/>
+                  </svg>
                   </div>
-                </div>
-                <div class="w-layout-grid uui-footer02_social-list">
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/sampul"
+                  class="uui-footer02_social-link w-inline-block"
+                >
+                  <div class="uui-footer02_social-icon w-embed">
+                    <svg
+                      width="24"
+                      height="24"
+                      viewbox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M22.2234 0H1.77187C0.792187 0 0 0.773438 0 1.72969V22.2656C0 23.2219 0.792187 24 1.77187 24H22.2234C23.2031 24 24 23.2219 24 22.2703V1.72969C24 0.773438 23.2031 0 22.2234 0ZM7.12031 20.4516H3.55781V8.99531H7.12031V20.4516ZM5.33906 7.43438C4.19531 7.43438 3.27188 6.51094 3.27188 5.37187C3.27188 4.23281 4.19531 3.30937 5.33906 3.30937C6.47813 3.30937 7.40156 4.23281 7.40156 5.37187C7.40156 6.50625 6.47813 7.43438 5.33906 7.43438ZM20.4516 20.4516H16.8937V14.8828C16.8937 13.5562 16.8703 11.8453 15.0422 11.8453C13.1906 11.8453 12.9094 13.2937 12.9094 14.7891V20.4516H9.35625V8.99531H12.7687V10.5609H12.8156C13.2891 9.66094 14.4516 8.70938 16.1813 8.70938C19.7859 8.70938 20.4516 11.0813 20.4516 14.1656V20.4516Z"
+                        fill="currentColor"
+                      ></path>
+                    </svg>
+                  </div>
+                </a>
                   <a href="https://www.facebook.com/hellosampul" class="uui-footer02_social-link w-inline-block">
                     <div class="uui-footer02_social-icon w-embed">
                       <svg
@@ -137,14 +165,14 @@ function footer() {
                       viewbox="0 0 24 24"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
+                      >
+                        <path
                         d="M24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 17.9895 4.3882 22.954 10.125 23.8542V15.4688H7.07812V12H10.125V9.35625C10.125 6.34875 11.9166 4.6875 14.6576 4.6875C15.9701 4.6875 17.3438 4.92188 17.3438 4.92188V7.875H15.8306C14.34 7.875 13.875 8.80008 13.875 9.75V12H17.2031L16.6711 15.4688H13.875V23.8542C19.6118 22.954 24 17.9895 24 12Z"
                         fill="currentColor"
-                      ></path>
-                    </svg>
-                  </div>
-                </a>
+                        ></path>
+                      </svg>
+                    </div>
+                  </a>
                 <a href="#" class="uui-footer02_social-link w-inline-block">
                   <div class="uui-footer02_social-icon w-embed">
                     <svg
@@ -171,39 +199,19 @@ function footer() {
                 </a>
                 <a href="#" class="uui-footer02_social-link w-inline-block">
                   <div class="uui-footer02_social-icon w-embed">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewbox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <svg 
+                        width="24" 
+                        height="24" 
+                        viewBox="0 0 24 25" 
+                        fill="none" 
+                        xmlns="http://www.w3.org/2000/svg"
                     >
-                      <path
-                        d="M7.55016 21.75C16.6045 21.75 21.5583 14.2467 21.5583 7.74186C21.5583 7.53092 21.5536 7.3153 21.5442 7.10436C22.5079 6.40746 23.3395 5.54425 24 4.5553C23.1025 4.9546 22.1496 5.21538 21.1739 5.32874C22.2013 4.71291 22.9705 3.74547 23.3391 2.60577C22.3726 3.17856 21.3156 3.58261 20.2134 3.80061C19.4708 3.01156 18.489 2.48912 17.4197 2.31405C16.3504 2.13899 15.2532 2.32105 14.2977 2.8321C13.3423 3.34314 12.5818 4.15471 12.1338 5.14131C11.6859 6.12792 11.5754 7.23462 11.8195 8.2903C9.86249 8.19209 7.94794 7.6837 6.19998 6.7981C4.45203 5.91249 2.90969 4.66944 1.67297 3.14952C1.0444 4.23324 0.852057 5.51565 1.13503 6.73609C1.418 7.95654 2.15506 9.02345 3.19641 9.71999C2.41463 9.69517 1.64998 9.48468 0.965625 9.10592V9.16686C0.964925 10.3041 1.3581 11.4066 2.07831 12.2868C2.79852 13.167 3.80132 13.7706 4.91625 13.995C4.19206 14.1931 3.43198 14.222 2.69484 14.0794C3.00945 15.0574 3.62157 15.9129 4.44577 16.5263C5.26997 17.1398 6.26512 17.4806 7.29234 17.5012C5.54842 18.8711 3.39417 19.6141 1.17656 19.6106C0.783287 19.61 0.390399 19.5859 0 19.5384C2.25286 20.9837 4.87353 21.7514 7.55016 21.75Z"
-                        fill="currentColor"
-                      ></path>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M12 23.2662C17.799 23.2662 22.5 18.5652 22.5 12.7662C22.5 6.96718 17.799 2.26617 12 2.26617C6.20101 2.26617 1.5 6.96718 1.5 12.7662C1.5 14.6493 1.99575 16.4167 2.86386 17.9449L1.5 23.2662L6.98615 21.994C8.47603 22.8053 10.1842 23.2662 12 23.2662ZM12 21.6508C16.9068 21.6508 20.8846 17.673 20.8846 12.7662C20.8846 7.85934 16.9068 3.88156 12 3.88156C7.09316 3.88156 3.11538 7.85934 3.11538 12.7662C3.11538 14.6607 3.70838 16.4168 4.71888 17.8588L3.92308 20.8431L6.95995 20.0839C8.39202 21.0721 10.1284 21.6508 12 21.6508Z" fill="#A4A7AE"/>
+                      <path d="M9.37502 7.89115C9.12537 7.38972 8.7424 7.43411 8.35551 7.43411C7.66407 7.43411 6.58594 8.26232 6.58594 9.8037C6.58594 11.0669 7.14259 12.4498 9.01831 14.5183C10.8285 16.5146 13.207 17.5473 15.1817 17.5122C17.1563 17.477 17.5625 15.7778 17.5625 15.204C17.5625 14.9496 17.4047 14.8227 17.296 14.7882C16.6231 14.4653 15.382 13.8636 15.0996 13.7505C14.8172 13.6375 14.6698 13.7904 14.5781 13.8736C14.3221 14.1176 13.8144 14.8368 13.6406 14.9986C13.4668 15.1603 13.2077 15.0785 13.0999 15.0173C12.7031 14.8581 11.6272 14.3795 10.7696 13.5482C9.70899 12.5201 9.64675 12.1663 9.44693 11.8515C9.28707 11.5996 9.40437 11.445 9.46291 11.3775C9.69142 11.1138 10.007 10.7067 10.1485 10.5044C10.29 10.3021 10.1776 9.995 10.1102 9.8037C9.82033 8.98099 9.57474 8.2923 9.37502 7.89115Z" fill="#A4A7AE"/>
                     </svg>
                   </div>
                 </a>
-                <a
-                  href="https://www.linkedin.com/company/sampul"
-                  class="uui-footer02_social-link w-inline-block"
-                >
-                  <div class="uui-footer02_social-icon w-embed">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewbox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M22.2234 0H1.77187C0.792187 0 0 0.773438 0 1.72969V22.2656C0 23.2219 0.792187 24 1.77187 24H22.2234C23.2031 24 24 23.2219 24 22.2703V1.72969C24 0.773438 23.2031 0 22.2234 0ZM7.12031 20.4516H3.55781V8.99531H7.12031V20.4516ZM5.33906 7.43438C4.19531 7.43438 3.27188 6.51094 3.27188 5.37187C3.27188 4.23281 4.19531 3.30937 5.33906 3.30937C6.47813 3.30937 7.40156 4.23281 7.40156 5.37187C7.40156 6.50625 6.47813 7.43438 5.33906 7.43438ZM20.4516 20.4516H16.8937V14.8828C16.8937 13.5562 16.8703 11.8453 15.0422 11.8453C13.1906 11.8453 12.9094 13.2937 12.9094 14.7891V20.4516H9.35625V8.99531H12.7687V10.5609H12.8156C13.2891 9.66094 14.4516 8.70938 16.1813 8.70938C19.7859 8.70938 20.4516 11.0813 20.4516 14.1656V20.4516Z"
-                        fill="currentColor"
-                      ></path>
-                    </svg>
-                  </div>
-                </a>
+                </div>
               </div>
             </div>
           </div>
@@ -216,49 +224,49 @@ function footer() {
 }
 
 function newsletterFormAddAPI() {
-  document
-    .getElementById('add-newsletter-form')
-    .addEventListener('submit', async function (event) {
-      event.preventDefault();
+    document
+        .getElementById('add-newsletter-form')
+        .addEventListener('submit', async function (event) {
+            event.preventDefault();
 
-      let useBtn = document.getElementById('btn-newsletter-add-form');
-      let defaultBtnText = useBtn.innerHTML;
-      useBtn.disabled = true;
-      useBtn.innerHTML = spinnerLoading(useBtn.innerHTML);
+            let useBtn = document.getElementById('btn-newsletter-add-form');
+            let defaultBtnText = useBtn.innerHTML;
+            useBtn.disabled = true;
+            useBtn.innerHTML = spinnerLoading(useBtn.innerHTML);
 
-      var email_input = document.getElementById('input-newsletter-email');
+            var email_input = document.getElementById('input-newsletter-email');
 
-      try {
-        const response = await fetch(
-          `${STATIC_PUBLIC_HOST}/api/newsletter/subscribe`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              email: email_input.value,
-            }),
-          }
-        );
+            try {
+                const response = await fetch(
+                    `${STATIC_PUBLIC_HOST}/api/newsletter/subscribe`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            email: email_input.value,
+                        }),
+                    }
+                );
 
-        if (!response.ok) {
-          const data = await response.json();
-          showToast('alert-toast-container', data.message, 'danger');
-          useBtn.disabled = false;
-          useBtn.innerHTML = defaultBtnText;
+                if (!response.ok) {
+                    const data = await response.json();
+                    showToast('alert-toast-container', data.message, 'danger');
+                    useBtn.disabled = false;
+                    useBtn.innerHTML = defaultBtnText;
 
-          return;
-        }
+                    return;
+                }
 
-        showToast('alert-toast-container', 'Subscribed!', 'success');
-      } catch (error) {
-        showToast('alert-toast-container', error.message, 'danger');
-        useBtn.disabled = false;
-        useBtn.innerHTML = defaultBtnText;
-      }
+                showToast('alert-toast-container', 'Subscribed!', 'success');
+            } catch (error) {
+                showToast('alert-toast-container', error.message, 'danger');
+                useBtn.disabled = false;
+                useBtn.innerHTML = defaultBtnText;
+            }
 
-      useBtn.disabled = false;
-      useBtn.innerHTML = defaultBtnText;
-    });
+            useBtn.disabled = false;
+            useBtn.innerHTML = defaultBtnText;
+        });
 }
