@@ -197,7 +197,7 @@ function footer() {
                     </svg>
                   </div>
                 </a>
-                <a href="#" class="uui-footer02_social-link w-inline-block">
+                <a href="https://wa.me/60189766429?text=Hello%20Sampul!" class="uui-footer02_social-link w-inline-block">
                   <div class="uui-footer02_social-icon w-embed">
                     <svg 
                         width="24" 
