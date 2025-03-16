@@ -62,11 +62,13 @@ function footer() {
           >
             <span style="font-weight:700;">Sampul Sdn. Bhd.</span>  <span style="font-size:12px;">1521640-X</span><br>S1-05-17, Vista Alam, Jalan Ikhtisas 14/1, Seksyen 14, 40000 Shah Alam, Malaysia hello@sampul.co | +60 18-976 6429
           </div>
+          <a  href="https://www.digitalnewsasia.com/startups/fikra-ace-accelerator-2023-picks-global-psytech-and-pewarisan-winners" >
           <div class="footer-image">
             <img src="static/images/Ratings-badge.svg" alt="Logo" 
               style="width: auto; max-width: 100%; height: auto; object-fit: contain;">
             </div>
           </div>
+          </a>
           <!-- Links Section -->
           <div class="uui-footer02_right-wrapper-new" 
             style="display: flex; flex-wrap: wrap; flex: 0.6; max-width: 832px; justify-content: center; gap: 32px; align-items: flex-start; padding: 0 0 30px 0;"
