@@ -429,6 +429,17 @@
     left: 23px;
   }
 
+  @media (max-width: 768px) {  /* Targets screens smaller than 768px (mobile view) */
+    .hide-on-mobile {
+      display: none !important;
+    }
+  }
+
+  @media (min-width: 768px) {  /* Bootstrap's breakpoint for medium screens */
+    .hide-on-desktop {
+      display: none !important;
+    }
+  }
 </style>
 
 <script>

@@ -122,7 +122,7 @@ function footer() {
         </div>
               <div class="uui-footer02_bottom-wrapper">
                 <div class="uui-footer02_legal-list-wrapper">
-                  <div class="uui-text-size-small text-color-gray500" style="margin-right:40px;">
+                  <div class="uui-text-size-small text-color-gray500 hide-on-mobile" style="margin-right:40px;">
                     © 2025 Sampul.co. All rights reserved.
                   </div>               
                   <div class="w-layout-grid uui-footer02_social-list">
@@ -214,6 +214,9 @@ function footer() {
                 </div>
               </div>
             </div>
+             <span class="uui-text-size-small text-color-gray500 hide-on-desktop" style="margin-right:40px;m">
+                    © 2025 Sampul.co. All rights reserved.
+              </span> 
           </div>
         </div>
       </div>
