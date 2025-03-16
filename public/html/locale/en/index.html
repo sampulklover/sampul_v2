@@ -882,44 +882,44 @@
 </style>
 
 <script>
-    var currentUrl = window.location.href;
-    document.getElementById('language-toggle').addEventListener('change', async function () {
-        if (this.checked) {
-            try {
-                await localStorage.setItem('lang', "bm");
-            } catch (error) {
-                console.error('Error saving data', error);
+    document.addEventListener("DOMContentLoaded", function () {
+        var languageToggle = document.getElementById('language-toggle');
+        var currentUrl = window.location.href;
+
+        // Check if the user has a language preference stored
+        var userLang = localStorage.getItem('lang');
+
+        // If no language is set (first-time visit), default to "en"
+        if (!userLang) {
+            localStorage.setItem('lang', 'en'); // Set default language to English
+            $("#language-toggle").prop("checked", false); // Ensure toggle is in 'EN' position
+
+            if (currentUrl.includes('/bm')) {
+                // Redirect back to English if they landed on /bm by mistake
+                window.location.href = currentUrl.replace(/\/bm$/, '/');
             }
-            $("#language-toggle").prop("checked", true);
-            window.location.href = "/bm";
         } else {
-            try {
-                await localStorage.setItem('lang', "en");
-            } catch (error) {
-                console.error('Error saving data', error);
+            // If user already has a preference, ensure toggle reflects it
+            $("#language-toggle").prop("checked", userLang === "bm");
+
+            if (userLang === "en" && currentUrl.includes('/bm')) {
+                window.location.href = currentUrl.replace(/\/bm$/, '/');
+            } else if (userLang === "bm" && !currentUrl.includes('/bm')) {
+                window.location.href = "/bm";
             }
-            $("#language-toggle").prop("checked", false);
-            window.location.href = window.location.href.replace(/\/bm$/, '/');
         }
-        // location.reload()
+
+        // Language toggle event listener
+        languageToggle.addEventListener("change", async function () {
+            if (this.checked) {
+                await localStorage.setItem('lang', "bm");
+                window.location.href = "/bm";
+            } else {
+                await localStorage.setItem('lang', "en");
+                window.location.href = currentUrl.replace(/\/bm$/, '/');
+            }
+        });
     });
 
-    //$("#language-toggle").prop("checked", true);
-
-    const isLocaleEn = localStorage.getItem('lang') === 'en'
-    const isToggleChecked = $("#language-toggle").prop("checked") === true
-
-    if (isLocaleEn && isToggleChecked) {
-        $("#language-toggle").prop("checked", false);
-        if (currentUrl.includes('/bm')) {
-            const newUrl = currentUrl.replace(/\/bm$/, '/');
-            window.location.href = newUrl;
-        }
-    } else if (!isLocaleEn && !isToggleChecked) {
-        $("#language-toggle").prop("checked", true);
-        if (!currentUrl.includes('/bm')) {
-            window.location.href = "/bm";
-        }
-    }
 
 </script>
