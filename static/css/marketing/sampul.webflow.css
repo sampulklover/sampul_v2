@@ -3686,7 +3686,7 @@ blockquote {
   background-color: transparent;
   border: 1.5px solid var(--Colors-Foreground-fg-brand-primary_alt, #3118D3);
   border-radius: 1.5rem;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
   padding: .625rem 1.125rem;
   font-family: Inter, sans-serif;

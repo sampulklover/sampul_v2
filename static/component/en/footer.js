@@ -21,15 +21,39 @@ function newsletterForm() {
 }
 
 function footer() {
+  const style = document.createElement('style');
+  style.innerHTML = `
+    @media (max-width: 450px) {
+      .responsive-collapse {
+        padding: 0;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+      }
+      .right-col {
+        width: 100%;
+      }
+      .uui-footer02_top-wrapper {
+        flex-direction: column;
+      }
+      .uui-footer02_left-wrapper-new {
+        width: 100%;
+      }
+      .footer-text {
+        max-width: 100%;
+      }
+    }
+  `;
+  document.head.appendChild(style);
     return `
-  <div class="full-height d-flex justify-content-center align-items-center w-100" style="padding: 48px 0; gap: 64px; height: 156px; background-color: #FAFAFA;">
-  <div class="d-flex justify-content-between align-items-center w-100" style="height: 62px; max-width: 1280px; padding: 0 32px; gap: 64px;">
+  <div class="full-height d-flex justify-content-center align-items-center w-100" style="padding: 48px 0; gap: 64px; height: auto; background-color: #FAFAFA;">
+  <div class="responsive-collapse d-flex justify-content-between align-items-center w-100" style="height: auto; max-width: 1280px; padding: 0 32px; gap: 0px;">
     <!-- Left Column -->
-    <div class="d-flex flex-column">
+    <div class="left-col d-flex flex-column">
       <p class="fs-20 fw-bold">Join sampul.co newsletter</p>
       <p class="fs-16" style="color:#535862;">Protect your assets with Sampul—fast, simple, and secure.</p>
     </div>
-    <div class="uui-footer02_right-wrapper">
+    <div class="right-col uui-footer02_right-wrapper">
       <div class="uui-footer02_form-block w-form">
         ${newsletterForm()}
       </div>
@@ -47,7 +71,7 @@ function footer() {
         <div class="uui-container-large">
           <div class="uui-padding-vertical-xlarge">
           <div class="w-layout-grid uui-footer02_top-wrapper" 
-            style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;"
+            style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;"
           >
           <div class="uui-footer02_left-wrapper-new" 
             style="flex: 0.2; min-width: 320px; display: flex; flex-direction: column; gap: 24px; align-items: flex-start; padding-left: 1rem; text-align: left;"

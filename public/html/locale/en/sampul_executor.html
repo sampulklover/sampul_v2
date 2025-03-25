@@ -187,6 +187,175 @@
             }
         }
 
+        @media only screen and (max-width: 450px) {
+            .page-wrapper {
+                overflow-x: hidden;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            .page-content {
+                padding: 48px 0;
+            }
+
+            .container-lg a {
+                width: 100%;
+                height: 100%;
+            }
+            /* Badge */
+            .new-badge {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+    }
+
+    .status-indicator {
+        width: 10px;
+        height: 10px;
+    }
+
+    .status-inner {
+        width: 6px;
+        height: 6px;
+    }
+            .full-height {
+                margin-top: 32px;
+            }
+            .container-fluid {
+                padding: 16px;
+            }
+            .row {
+                gap: 16px !important;
+            }
+            .col-md-5,
+            .col-md-6 {
+                width: 100% !important;
+                min-height: auto !important;
+                padding: 20px !important;
+                font-size: 20px;
+                line-height: 48px;
+            }
+            h2 {
+                font-size: 28px !important;
+                line-height: 36px !important;
+                letter-spacing: -0.5px !important;
+            }
+            p {
+                font-size: 16px !important;
+                line-height: 24px !important;
+                margin-top: 16px !important;
+            }
+            .ms-md-4 {
+                margin-left: 0 !important;
+            }
+            .gap-4 {
+                gap: 16px !important;
+            }
+
+            /* Title Card Wrapper 1 */
+            .tripple-grid {
+                flex-direction: column;
+                padding: 16px;
+                text-align: left;
+            }
+            .intro-wrapper {
+                width: 100%;
+            }
+            
+            .intro-wrapper div {
+                font-size: 3rem !important;
+                line-height: 28px;
+                letter-spacing: -0.4px;
+            }
+            .intro-wrapper span {
+                display: inline;
+                margin-top: 4px;
+            }
+            /* Card Wrapper 1 */
+            .card-wrapper {
+                height: auto;
+            }
+            .card-wrapper .container-fluid {
+                padding: 16px;
+            }
+            .card-wrapper .row {
+                gap: 16px;
+            }
+            .card-wrapper .col-md-5,
+            .card-wrapper .col-md-6 .flex-grow-1 {
+                width: 100%;
+                padding: 16px;
+                border-radius: 16px;
+                box-sizing: border-box;
+            }
+            .card-wrapper .col-md-5 {
+                min-height: auto;
+            }
+            .card-wrapper .col-md-5 h2,
+            .card-wrapper .col-md-6 h2 {
+                font-size: 24px;
+                line-height: 32px;
+                letter-spacing: -0.48px;
+            }
+            .card-wrapper .col-md-5 p,
+            .card-wrapper .col-md-6 p {
+                font-size: 16px;
+                line-height: 24px;
+                margin-top: 12px;
+            }
+            .card-wrapper .col-md-5 img {
+                width: 100%;
+                margin-top: 16px;
+            }
+            .card-wrapper .col-md-6 {
+                margin-left: 0;
+            }
+            .card-wrapper .col-md-6 .flex-grow-1 {
+                padding: 16px;
+            }
+            /* Card 2 */
+            .card-row {
+                padding: 0 20px;
+            }
+            /* Title No Stress */
+            .text {
+                flex-direction: column;
+                padding: 16px;
+                text-align: left;
+            }
+            /* No Stress, No Conflicts Section */
+            .col-md-6 {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            .col-md-6 .title {
+                flex-direction: column;
+                padding: 16px;
+                text-align: center;
+                font-size: 2.4rem !important;
+            }
+            /* Right FAQ Section */
+            .uui-faq01_list {
+                margin: 0 0px;
+            }
+            .uui-faq01_heading {
+                font-size: 1.325rem;
+            }
+            /* A smooth, fair estatate section */
+            .content-wrapper {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            .content {
+                flex-direction: column;
+                padding: 16px;
+                text-align: center;
+                font-size: 2.4rem !important;
+            }
+        }
+
         /*track*/
         #scrollbar::-webkit-scrollbar-track {
             background: rgba(243, 246, 252, 0);
@@ -201,7 +370,7 @@
 
         #scrollbar::-webkit-scrollbar-thumb:hover {
             background: #090b19;
-        }
+        }   
     </style>
 </head>
 <body class="body">
@@ -217,8 +386,7 @@
     </div>
 </div>
 <nav
-        class="navbar sticky-top navbar-expand-sm border-bottom bg-white navbar-padding py-3"
->
+        class="navbar sticky-top navbar-expand-sm border-bottom bg-white navbar-padding py-3">
     <div class="container-fluid">
         <a class="navbar-brand" href="/bm">
             <img
@@ -269,15 +437,15 @@
     </div>
 </nav>
 <div class="page-wrapper">
-    <div class="bg-white d-flex align-items-center min-vh-100 p-5">
+    <div class="page-content bg-white d-flex align-items-center min-vh-100 p-5">
         <div class="container-lg">
             <div class="row align-items-center">
                 <!-- Left Text Section -->
                 <div class="col-md-6">
                     <div class="col-md-5">
-                        <div class="d-flex align-items-center bg-white" style="border-radius:12px;border: 1px solid var(--Colors-Border-border-primary, #D5D7DA);margin-bottom:40px;box-shadow: 0px 1px 2px 0px #0A0D120D;">
+                        <div class="d-flex align-items-center" style="border-radius:12px;border: 1px solid var(--Colors-Border-border-primary, #D5D7DA);margin-bottom:40px;box-shadow: 0px 1px 2px 0px #0A0D120D;">
                             <!-- New Badge -->
-                            <div class="d-flex align-items-center bg-light px-2 py-1 col-4" style="border-radius:8px;margin:5px;border: 1px solid var(--Colors-Border-border-primary, #D5D7DA)">
+                            <div class="new-badge d-flex align-items-center bg-light px-2 py-1 col-4" style="border-radius:8px;margin:5px;border: 1px solid var(--Colors-Border-border-primary, #D5D7DA)">
                                 <div class="status-indicator">
                                     <div class="status-inner"></div>
                                 </div>
@@ -304,7 +472,7 @@
                 </div>
 
                 <!-- Right Image Section -->
-                <div class="col-md-6" style="margin-top:40px;">
+                <div class="col-md-6 dashboard-ui" style="margin-top:40px;">
                     <img src="static/images/image 17.svg" alt="Dashboard UI" class="img-fluid">
                 </div>
             </div>
@@ -328,7 +496,7 @@
                 </div>
             </div>
 
-            <div class="full-height d-flex justify-content-start align-items-center w-100" style="margin-top:64px;">
+            <div class="card-wrapper full-height d-flex justify-content-start align-items-center w-100" style="margin-top:64px;">
                 <div class="container-fluid min-vh-100 d-flex align-items-start">
                     <div class="row w-100 g-3">
                         <div class="col-12 col-md-5  p-4 d-flex flex-column justify-content-between"
@@ -388,7 +556,8 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+
+            <div class="card-row row">
                 <!-- Card 1 -->
                 <div class="col" style="margin-top:20px;">
                     <div class="card h-100 border-0 shadow-sm p-4 rounded-4 text-center text-md-start" style="border-radius: var(--radius-4xl, 24px);
@@ -505,7 +674,7 @@
     </div>
 
     <div class="container py-5">
-        <div class="text-left">
+        <div class="text text-left">
             <div style="color: var(--colors-text-text-brand-tertiary-600, #3118D3);
                 font-family: var(--Font-family-font-family-display, Inter);
                 font-size: var(--Font-size-display-xl, 60px);
@@ -572,7 +741,7 @@
             <div class="row">
                 <!-- Left Text Section -->
                 <div class="col-md-6" style="margin-top:80px;">
-                    <div style="color: var(--colors-text-text-brand-tertiary-600, #3118D3);
+                    <div class="title" style="color: var(--colors-text-text-brand-tertiary-600, #3118D3);
                         font-family: var(--Font-family-font-family-display, Inter);
                         font-size: var(--Font-size-display-xl, 60px);
                         font-style: normal;
@@ -580,7 +749,7 @@
                         line-height: var(--Line-height-display-xl, 72px); /* 120% */
                         letter-spacing: -1.2px;">Avoid family <br> disputes.
                     </div>
-                    <div style="color: var(--Colors-Text-text-quaternary_on-brand, #8D7FEF);
+                    <div class="title" style="color: var(--Colors-Text-text-quaternary_on-brand, #8D7FEF);
                         font-family: var(--Font-family-font-family-display, Inter);
                         font-size: var(--Font-size-display-xl, 60px);
                         font-style: normal;
@@ -592,7 +761,7 @@
                 </div>
 
                 <!-- Right FAQ Section -->
-                <div class="col-md-6">
+                <div class="col-md-6 FAQ_section">
                     <div class="uui-faq01_component">
                         <div class="uui-faq01_list">
                             <div class="uui-faq01_accordion">
@@ -748,10 +917,10 @@
     </div>
 
     <div class="container py-5">
-        <div class=" shadow-md rounded-lg p-8 max-w-2xl text-center"
+        <div class="shadow-md rounded-lg p-8 max-w-2xl text-center"
              style="background-color:#FAFAFA;gap: spacing-4xl;border-radius: radius-2xl;padding: spacing-7xl;height:432px;">
-            <div style="height:100%;align-content: center;justify-content:center;">
-                <h1>
+            <div class="content-wrapper" style="height:100%;align-content: center;justify-content:center;">
+                <h1 class="content">
                     <span style="color:#3118D3;font-family: Font family/font-family-display;font-weight: 700;font-size: Font size/display-xl;line-height: Line height/display-xl;letter-spacing: -2%;text-align: center;">A Smooth, Fair Estate <br> Process Starts Here</span>
                 </h1>
                 <div style="display: flex; justify-content: center; align-items: center; text-align: center; width: 50%; margin: auto;">

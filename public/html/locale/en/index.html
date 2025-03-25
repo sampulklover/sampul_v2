@@ -187,6 +187,11 @@
         #scrollbar::-webkit-scrollbar-thumb:hover {
             background: #090b19;
         }
+
+        * {
+            max-width: 100%;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body class="body overflow-x-hidden">
@@ -355,7 +360,7 @@
                     transform: translate3d(0, 100%, 0) scale3d(1, 1, 1)
                       rotateX(0) rotateY(0) rotateZ(0) skew(0, 10deg);
                     opacity: 0;
-                  " class="xxl-heading one text-center display-3 fw-medium">
+                  " class="xxl-heading one text-center display-1 fw-medium">
                             No Delays
                         </h1>
                     </div>
@@ -372,7 +377,7 @@
                       rotateX(0) rotateY(0) rotateZ(0) skew(0, 10deg);
                     opacity: 0;
                   "
-                                class="xxl-heading two text-center display-3 fw-medium"
+                                class="xxl-heading two text-center display-1 fw-medium"
                         >
                             No Disputes, No Drama
                         </h1>
@@ -380,7 +385,7 @@
                 </div>
                 <div id="w-node-dd002ff0-1786-f7aa-b0cb-21b79ffd8f18-df8a35c4">
                     <div class="clip">
-                        <div class="uui-heading-medium white align-center justify-center text-center fw-light fs-4 w-100">
+                        <div class="uui-heading-medium white align-center justify-center text-center fw-light fs-4 w-80">
                             Protect your assets with Sampul—fast, simple, and <br> secure.
                         </div>
                     </div>
@@ -543,46 +548,70 @@
         </div>
     </div>
 
-    <div data-w-id="e2699792-c77d-89e0-17cb-721eef36642c" class="section no-bottom-padding clip bg-white no-bottom-padding-web-100" >
-        <div class="wrapper" style="width: 100%; max-width: none">
-            <section class="uui-section_faq01">
-                <div class="uui-padding-vertical-xhuge d-flex justify-content-center align-items-center">
-                    <div class="uui-page-padding">
-                        <div class="uui-container-large">
-                            <div class="uui-text-align-center">
-                                <div class="uui-max-width-large align-center w-55">
-                                    <h1 class="uui-heading-medium display-5 fw-bold" style="color: #8D7FEF;">
-                                        <span style="color: #3118D3;">Your</span> Money<span style="color: #3118D3;">. Your</span>
-                                        Rules<span style="color: #3118D3;">.</span><br>
-                                        <span style="color: #3118D3;">even</span> after you're gone
-                                    </h1>
-                                    <div class="uui-space-xsmall"></div>
-                                    <div class="uui-text-size-large" style="color: #535862;">
-                                        Sampul isn't just paperwork—it's peace of mind for you and security for them.
-                                    </div>
+    <div data-w-id="e2699792-c77d-89e0-17cb-721eef36642c" class="section no-bottom-padding clip no-bottom-padding-web-100">
+    <div class="wrapper" style="width: 100%; max-width: none;">
+        <section class="uui-section_faq01">
+            <div class="uui-padding-vertical-xhuge d-flex justify-content-center align-items-center">
+                <div class="uui-page-padding">
+                    <div class="uui-container-large">
+                        <div class="uui-text-align-center">
+                            <div class="uui-max-width-large align-center w-55 responsive-container">
+                                <h1 class="uui-heading-medium display-5 fw-bold responsive-heading" style="color: #8D7FEF;">
+                                    <span style="color: #3118D3;">Your</span> Money<span style="color: #3118D3;">. Your</span>
+                                    Rules<span style="color: #3118D3;">.</span><br>
+                                    <span style="color: #3118D3;">even</span> after you're gone
+                                </h1>
+                                <div class="uui-space-xsmall"></div>
+                                <div class="uui-text-size-large responsive-text" style="color: #535862;">
+                                    Sampul isn't just paperwork—it's peace of mind for you and security for them.
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
-        </div>
+            </div>
+        </section>
     </div>
+</div>
+
+<style>
+    @media (max-width: 430px) {
+        .responsive-container {
+            width: 100%; /* Full width on smaller screens */
+            padding: 20px; /* Add padding for spacing */
+        }
+
+        .responsive-heading {
+            font-size: 24px; /* Reduce font size for smaller screens */
+            line-height: 1.2;
+        }
+
+        .responsive-text {
+            font-size: 16px; /* Adjust text size for readability */
+        }
+
+        .d-flex {
+            flex-direction: column; /* Stack vertically on small screens */
+        }
+
+    }
+</style>
+
 
     <div style="display: flex; justify-content: center; align-items: center; height: 100vh;" class="no-bottom-padding-web-100">
         <div class="row align-items-center justify-content-center col-md-8">
             <div class="container-fluid">
                 <div class="row align-items-center justify-content-center">
                     <!-- ✅ Col 1: Text Content -->
-                    <div class="col-md-6 col-12 d-flex flex-column align-items-start text-md-start text-center  ">
+                    <div class="col-md-6 col-12 d-flex flex-column align-items-start text-md-start">
                         <div class="container ">
-                            <div class="d-flex align-items-center gap-2 justify-content-md-start justify-content-center no-bottom-padding-web-50">
-                                <div class="rounded-circle d-flex align-items-center justify-content-center "
+                            <div class="d-flex align-items-center gap-2 justify-content-md-start no-bottom-padding-web-50">
+                                <div class="rounded-circle d-flex align-items-center justify-content-center"
                                      style="width: 40px; height: 40px; background-color: #D9D6FE;">
                                     <img src="static/images/document.svg" style="width: 20px; height: 20px;" alt="Check icon">
                                 </div>
                             </div>
-                            <h1 class="text-center text-md-start">Put your wealth in writing now with <span style="color: #8D7FEF;">Sampul Wasiat</span></h1>
+                            <h1 class="text-md-start">Put your wealth in writing now with <span style="color: #8D7FEF;">Sampul Wasiat</span></h1>
                             <p class="text-muted">
                                 Without a Wasiat, your wealth could end up in the wrong hands. Get it sorted today—fast, legal, and dispute-free.
                             </p>
@@ -602,25 +631,26 @@
                                 </li>
                             </ul>
 
-                            <div class="d-flex justify-content-center justify-content-md-start w-100 gap-3">
-                                <div class="clip d-flex align-items-center" style="border-radius: 24px;">
-                                    <div class="hero-button-wrapper"
-                                         style="transform: translate3d(0, 100%, 0) scale3d(1, 1, 1) skew(0, 10deg); opacity: 1;">
-                                        <a href="signin" class="smpl-button-new w-inline-block">
-                                            <div class="button-text">Create a Wasiat</div>
+                            <div class="d-flex flex-column flex-md-row justify-content-center w-100 gap-3">
+                                <div class="clip d-flex align-items-center w-100" style="border-radius: 24px;">
+                                    <div class="hero-button-wrapper w-100"
+                                         style="transform: translate3d(0, 0, 0) scale3d(1, 1, 1) skew(0, 0); opacity: 1;">
+                                        <a href="signin" class="smpl-button-new w-100">
+                                            <div class="button-text text-center">Create a Trust</div>
                                         </a>
                                     </div>
                                 </div>
-
-                                <div class="clip d-flex align-items-center" style="border-radius: 24px;">
-                                    <div class="hero-button-wrapper"
-                                         style="transform: translate3d(0, 100%, 0) scale3d(1, 1, 1) skew(0, 10deg); opacity: 1;">
-                                        <a href="wasiat" class="smpl-button-new3 w-inline-block">
-                                            <div class="button-text" style="color: #414651;">Learn More</div>
+                            
+                                <div class="clip d-flex align-items-center w-100" style="border-radius: 24px;">
+                                    <div class="hero-button-wrapper w-100"
+                                         style="transform: translate3d(0, 0, 0) scale3d(1, 1, 1) skew(0, 0); opacity: 1;">
+                                         <a href="sampul_trust" class="smpl-button-new3 w-100">
+                                            <div class="button-text text-center" style="color: #414651;">Learn More</div>
                                         </a>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
 
@@ -642,15 +672,15 @@
                         <img src="static/images/image.svg" alt="Illustration" class="img-fluid" style="max-width: 80%;">
                     </div>
                     <!-- ✅ Col 1: Text Content -->
-                    <div class="col-md-5 col-12 d-flex flex-column align-items-start text-md-start text-center ">
+                    <div class="col-md-5 col-12 d-flex flex-column align-items-start text-md-start">
                         <div class="container">
-                            <div class="d-flex align-items-center gap-2 justify-content-md-start justify-content-center no-bottom-padding-web-50">
+                            <div class="d-flex align-items-center gap-2 justify-content-md-start no-bottom-padding-web-50">
                                 <div class="rounded-circle d-flex align-items-center justify-content-center"
                                      style="width: 40px; height: 40px; background-color: #D9D6FE;">
                                     <img src="static/images/document.svg" style="width: 20px; height: 20px;" alt="Check icon">
                                 </div>
                             </div>
-                            <h1 class="text-md-start text-center">Do more with <span style="color: #8D7FEF;">Sampul Trust</span></h1>
+                            <h1 class="text-md-start">Do more with <span style="color: #8D7FEF;">Sampul Trust</span></h1>
                             <p class="text-muted">
                                 Lock in your assets, invest for the future, and ensure your loved ones get what's rightfully
                                 theirs.
@@ -671,25 +701,26 @@
                                 </li>
                             </ul>
 
-                            <div class="d-flex justify-content-center justify-content-md-start w-100 gap-3">
-                                <div class="clip d-flex align-items-center" style="border-radius: 24px;">
-                                    <div class="hero-button-wrapper"
-                                         style="transform: translate3d(0, 100%, 0) scale3d(1, 1, 1) skew(0, 10deg); opacity: 1;">
-                                        <a href="signin" class="smpl-button-new w-inline-block">
-                                            <div class="button-text">Create a Trust</div>
+                            <div class="d-flex flex-column flex-md-row justify-content-center w-100 gap-3">
+                                <div class="clip d-flex align-items-center w-100" style="border-radius: 24px;">
+                                    <div class="hero-button-wrapper w-100"
+                                         style="transform: translate3d(0, 0, 0) scale3d(1, 1, 1) skew(0, 0); opacity: 1;">
+                                        <a href="signin" class="smpl-button-new w-100">
+                                            <div class="button-text text-center">Create a Trust</div>
                                         </a>
                                     </div>
                                 </div>
-
-                                <div class="clip d-flex align-items-center" style="border-radius: 24px;">
-                                    <div class="hero-button-wrapper"
-                                         style="transform: translate3d(0, 100%, 0) scale3d(1, 1, 1) skew(0, 10deg); opacity: 1;">
-                                        <a href="sampul_trust" class="smpl-button-new3 w-inline-block">
-                                            <div class="button-text" style="color: #414651;">Learn More</div>
+                            
+                                <div class="clip d-flex align-items-center w-100" style="border-radius: 24px;">
+                                    <div class="hero-button-wrapper w-100"
+                                         style="transform: translate3d(0, 0, 0) scale3d(1, 1, 1) skew(0, 0); opacity: 1;">
+                                         <a href="sampul_trust" class="smpl-button-new3 w-100">
+                                            <div class="button-text text-center" style="color: #414651;">Learn More</div>
                                         </a>
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -704,7 +735,7 @@
                     <!-- ✅ Col 1: Text Content -->
                     <div class="col-md-6 col-12 d-flex flex-column align-items-start text-md-start text-center">
                         <div class="container">
-                            <div class="d-flex align-items-center gap-2 justify-content-md-start justify-content-center no-bottom-padding-web-50">
+                            <div class="d-flex align-items-center gap-2 justify-content-md-start no-bottom-padding-web-50">
                                 <div class="rounded-circle d-flex align-items-center justify-content-center"
                                      style="width: 40px; height: 40px; background-color: #D9D6FE;">
                                     <img src="static/images/document.svg" style="width: 20px; height: 20px;" alt="Check icon">
@@ -730,19 +761,21 @@
                                 </li>
                             </ul>
 
-                            <div class="d-flex w-100 gap-3 justify-content-center justify-content-md-start">
-                                <div class="clip d-flex align-items-center" style="border-radius: 24px;">
-                                    <div class="hero-button-wrapper">
-                                        <a href="signin" class="smpl-button-new w-inline-block">
-                                            <div class="button-text">Appoint Executor</div>
+                            <div class="d-flex flex-column flex-md-row justify-content-center w-100 gap-3">
+                                <div class="clip d-flex align-items-center w-100" style="border-radius: 24px;">
+                                    <div class="hero-button-wrapper w-100"
+                                         style="transform: translate3d(0, 0, 0) scale3d(1, 1, 1) skew(0, 0); opacity: 1;">
+                                        <a href="signin" class="smpl-button-new w-100">
+                                            <div class="button-text text-center">Create a Trust</div>
                                         </a>
                                     </div>
                                 </div>
-
-                                <div class="clip d-flex align-items-center" style="border-radius: 24px;">
-                                    <div class="hero-button-wrapper">
-                                        <a href="sampul_executor" class="smpl-button-new3 w-inline-block">
-                                            <div class="button-text" style="color: #414651;">Learn More</div>
+                            
+                                <div class="clip d-flex align-items-center w-100" style="border-radius: 24px;">
+                                    <div class="hero-button-wrapper w-100"
+                                         style="transform: translate3d(0, 0, 0) scale3d(1, 1, 1) skew(0, 0); opacity: 1;">
+                                         <a href="sampul_trust" class="smpl-button-new3 w-100">
+                                            <div class="button-text text-center" style="color: #414651;">Learn More</div>
                                         </a>
                                     </div>
                                 </div>
