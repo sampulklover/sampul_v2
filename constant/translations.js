@@ -347,9 +347,8 @@ export default {
         settings: 'Settings',
         sign_out: 'Sign out',
         trust: 'Trust',
-        trust_new: 'New',
         executor: 'Executor',
-        executor_new: 'New',
+        new: 'New',
       },
       under_maintenance: {
         under_maintenance: 'Under Maintenance',
@@ -1736,7 +1735,7 @@ export default {
       created_at: 'Tarikh Dibuat',
       status: 'Status',
       action: 'Tindakan',
-      pending: 'Dalam proses',
+      pending: 'Dalam Proses',
       edit: 'Kemas Kini',
       delete: 'Padam',
       certificate: 'Sijil',
@@ -1929,7 +1928,7 @@ export default {
         action: 'Tindakan',
         edit: 'Kemas Kini',
         delete: 'Padam',
-        pending: 'Dalam proses',
+        pending: 'Dalam Proses',
         create_new: 'Buat Pelaksana Baru',
       },
       summary: {
