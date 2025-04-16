@@ -67,12 +67,12 @@ export const replaceOrAddImage = async (options) => {
   } = options;
 
   if (deleted) {
-    await deleteImage({
+    const deleteResult = await deleteImage({
       returnData,
       dataBase,
       userId,
     });
-    return;
+    return deleteResult;
   }
 
   if (imageInput?.files.length > 0) {
@@ -98,7 +98,7 @@ export const replaceOrAddImage = async (options) => {
     if (error) {
       toast.error(error.message);
       return;
-    } else {
+    } else if (dataBase) {
       let query = supabase.from(dataBase);
 
       if (isUpdateByReturnId) {
@@ -122,6 +122,8 @@ export const replaceOrAddImage = async (options) => {
         toast.error(error.message);
         return;
       }
+    } else {
+      return uploadedImage;
     }
   }
 };

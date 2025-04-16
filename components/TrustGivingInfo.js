@@ -1,5 +1,7 @@
 import { donationCategories, donationDurations } from '../constant/enum';
+import translations from '../constant/translations';
 import { useApi } from '../context/api';
+import { useLocale } from '../context/locale';
 import { useModal } from '../context/modal';
 import { useTempData } from '../context/tempData';
 import Image from 'next/image';
@@ -9,6 +11,7 @@ const TrustGivingInfo = ({ onSubmitToggle = false, nextStep }) => {
   const { contextApiData } = useApi();
   const { tempData, setValueTempData } = useTempData();
   const { isModalOpen, toggleModal } = useModal();
+  const { locale } = useLocale();
   const [selectedItems, setSelectedItems] = useState([]);
   const formRef = useRef(null);
   const [data, setData] = useState([]);
@@ -90,7 +93,7 @@ const TrustGivingInfo = ({ onSubmitToggle = false, nextStep }) => {
             }`}
             onClick={() => handleCategoryChange('all')}
           >
-            All
+            {translations[locale].trust.charity_info.all}
           </button>
           {donationCategories().map((category) => (
             <button
@@ -180,7 +183,9 @@ const TrustGivingInfo = ({ onSubmitToggle = false, nextStep }) => {
               width={24}
               height={24}
             />
-            <span className="ms-2">Add New Charity</span>
+            <span className="ms-2">
+              {translations[locale].trust.charity_info.add_new_charity}
+            </span>
           </button>
         </div>
       </form>

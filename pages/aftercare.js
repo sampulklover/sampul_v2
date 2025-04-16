@@ -6,8 +6,6 @@ import SideBar from '../components/SideBar';
 import translations from '../constant/translations';
 import { useApi } from '../context/api';
 import { useLocale } from '../context/locale';
-import { useModal } from '../context/modal';
-import { useTempData } from '../context/tempData';
 import { getOptionLabelWithIcon } from '../utils/helpers';
 import { supabase } from '../utils/supabase';
 import Image from 'next/image';
@@ -18,199 +16,167 @@ import toast from 'react-hot-toast';
 import Select from 'react-select';
 import { Tooltip } from 'react-tooltip';
 
-const AfterCare = () => {
-  const { contextApiData, addBulkAftercare } = useApi();
+const Aftercare = () => {
+  const { contextApiData } = useApi();
   const { locale } = useLocale();
   const router = useRouter();
-  const { isModalOpen, toggleModal } = useModal();
-  const { tempData, setValueTempData } = useTempData();
-  const [items, setItems] = useState([]);
 
-  useEffect(() => {
-    if (contextApiData.aftercare.data) {
-      setItems(contextApiData.aftercare.data);
-    }
-  }, [contextApiData.aftercare.data]);
+  const careType = [
+    { title: translations[locale].care.avoid_common_mistakes },
+    { title: translations[locale].care.listens_without_judgement },
+    { title: translations[locale].care.confidential },
+    { title: translations[locale].care.friendly_casual_support },
+    { title: translations[locale].care.learn_from_their_ },
+    { title: translations[locale].care.follow_ups_available },
+  ];
 
-  useEffect(() => {
-    if (contextApiData.profile.data) {
-      if (contextApiData.profile.data.is_aftercare_onboard == false) {
-        addBulkAftercare();
-      }
-    }
-  }, [contextApiData.profile.data]);
-
-  const onUpdateCompleted = async (taskId, completeStatus) => {
-    const { data, error } = await supabase
-      .from('aftercare')
-      .update({
-        is_completed: completeStatus,
-      })
-      .eq('id', taskId)
-      .select()
-      .single();
-
-    if (error) {
-      toast.error(error.message);
-    }
+  const checkRestriction = (keyName) => {
+    const access =
+      contextApiData.account.data?.products?.access_control?.pages?.care[
+        keyName
+      ]?.access;
+    return access;
   };
 
-  const onUpdatePinned = async (taskId, pinStatus) => {
-    const { data, error } = await supabase
-      .from('aftercare')
-      .update({
-        is_pinned: pinStatus,
-      })
-      .eq('id', taskId)
-      .select()
-      .single();
+  const careUser = [
+    {
+      name: translations[locale].care.arham_merican_estate_,
+      imageUrl: 'images/avatar-arham.png',
+      bio: translations[locale].care.registered_shariah_advisor_,
+      onClick: () => {
+        if (checkRestriction('appointment')) {
+          window.open(
+            'https://cal.com/sampul/sampul-estate-planning-consultant-by-arham-merican',
+            '_blank'
+          );
+        } else {
+          toast.error(translations[locale].extra_wishes.you_need_to_);
+        }
+      },
+    },
+    // {
+    //   name: translations[locale].care.najiya_ilya_grief,
+    //   imageUrl: 'images/avatar-najiya.png',
+    //   bio: translations[locale].care.bsc_psychology_cardiff_,
+    //   onClick: () => {
+    //     window.open(
+    //       'https://cal.com/sampul/sampul-grief-and-loss-therapist',
+    //       '_blank'
+    //     );
+    //   },
+    // },
+    // {
+    //   name:  translations[locale].care.fatiha_shuib_grief,
+    //   imageUrl: 'images/avatar-fatiha.png',
+    //   bio: translations[locale].care.ba_islamic_jurisprudence_,
+    //   onClick: () => {
+    //     window.open(
+    //       'https://cal.com/sampul/sampul-grief-and-loss-therapist',
+    //       '_blank'
+    //     );
+    //   },
+    // },
+  ];
 
-    if (error) {
-      toast.error(error.message);
-    }
-  };
-
-  const toggleCompletion = (task) => {
-    setItems(
-      items.map((item) =>
-        item.id === task.id
-          ? { ...item, is_completed: !item.is_completed }
-          : item
-      )
-    );
-    onUpdateCompleted(task.id, !task.is_completed);
-  };
-
-  const togglePin = (task) => {
-    setItems(
-      items.map((item) =>
-        item.id === task.id ? { ...item, is_pinned: !item.is_pinned } : item
-      )
-    );
-
-    onUpdatePinned(task.id, !task.is_pinned);
-  };
-
-  const pinnedItems = items.filter((item) => item.is_pinned);
-  const unpinnedItems = items.filter((item) => !item.is_pinned);
-
-  const onEditItem = (item) => {
-    setValueTempData('aftercare', {
-      ...tempData.aftercare,
-      key: 'edit',
-      selectedItem: item,
-    });
-    toggleModal('aftercare');
-  };
-
-  const itemCard = (item) => {
+  const cardContent = () => {
     return (
-      <li
-        key={item.id}
-        className="list-group-item d-flex justify-content-between align-items-center"
-      >
-        <span
-          style={{
-            textDecoration: item.is_completed ? 'line-through' : 'none',
-          }}
-          class="pointer-on-hover"
-          onClick={() => {
-            onEditItem(item);
-          }}
-        >
-          {item.task}
-        </span>
-        <div>
-          <button
-            className={`btn ${
-              item.is_completed ? 'btn-primary' : 'btn-light'
-            } me-2 rounded-circle`}
-            onClick={() => toggleCompletion(item)}
-          >
-            <Image
-              src={
-                item.is_completed
-                  ? 'images/check-purple.svg'
-                  : 'images/check.svg'
-              }
-              alt="image"
-              width={15}
-              height={15}
-            />
-          </button>
-          <button
-            className={`btn ${
-              item.is_pinned ? 'btn-primary' : 'btn-light'
-            } rounded-circle`}
-            onClick={() => togglePin(item)}
-          >
-            <Image
-              src={item.is_pinned ? 'images/pin-purple.svg' : 'images/pin.svg'}
-              alt="image"
-              width={15}
-              height={15}
-            />
-          </button>
+      <>
+        <div class="settings_component-copy">
+          <div class="col">
+            <div>
+              <div>
+                <span class="heading-02">
+                  {translations[locale].care.our_care_team}
+                </span>
+              </div>
+              <div class="paragraph-01">
+                <p>{translations[locale].care.you_must_have_}</p>
+                <p>{translations[locale].care.lets_start_meaningful_}</p>
+                <p>{translations[locale].care.connect_with_our_}</p>
+                <ul>
+                  {careType.map((item, index) => {
+                    return (
+                      <li class="d-flex  align-items-center mb-2" key={index}>
+                        <Image
+                          src="images/check_icon_purple.svg"
+                          alt="image"
+                          width={0}
+                          height={0}
+                          sizes="100vw"
+                          style={{ width: '5%', height: '5%' }}
+                          class="me-2"
+                        />
+                        <span class="paragraph-02">{item.title}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg col-sm-12">
+            {careUser.map((item, index) => {
+              return (
+                <div
+                  class="mt-lg-0 mt-2 card mb-3"
+                  style={{ width: '100%' }}
+                  key={index}
+                >
+                  <div class="mb-3">
+                    <div>
+                      <img
+                        src={item.imageUrl}
+                        alt=""
+                        width="20%"
+                        height="20%"
+                        class="rounded-circle mb-3"
+                      />
+                    </div>
+                    <span class="heading-04">{item.name}</span>
+                    <p class="paragraph-02">{item.bio}</p>
+                  </div>
+                  <div>
+                    <button
+                      type="button"
+                      class="btn btn-primary btn-text"
+                      onClick={item.onClick}
+                    >
+                      <Loading
+                        title={translations[locale].care.book_appointment}
+                      />
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
-      </li>
+      </>
     );
   };
 
   return (
     <SideBar>
-      <div class="body-01 inner-body-01">
-        <div class="content">
-          <Breadcrumb
-            pageName={translations[locale].aftercare.aftercare_checklist}
-          />
+      <div class="body-01 default-background-color">
+        <div class="inner-body-01" style={{ paddingBottom: 0 }}>
+          <Breadcrumb pageName={translations[locale].care.care} />
           <InnerHeader
-            title={translations[locale].aftercare.take_the_first_}
-            subtitle={translations[locale].aftercare.losing_a_loved_}
-            imageSrc="images/Post_it.svg"
+            title={translations[locale].care.get_help_when_}
+            subtitle={translations[locale].care.healing_takes_hard_}
+            imageSrc="images/being-at-peace.svg"
           />
-          <div>
-            <button
-              type="button"
-              class="btn btn-primary btn-text"
-              onClick={() => {
-                toggleModal('aftercare');
-              }}
-            >
-              <div class="d-flex">
-                <Image
-                  src={'images/plus.svg'}
-                  alt="image"
-                  width={24}
-                  height={24}
-                />
-                <span class="ms-2">
-                  {translations[locale].aftercare.add_a_new_}
-                </span>
-              </div>
-            </button>
-          </div>
-          <div class="row mt-4">
-            {pinnedItems.length > 0 ? (
-              <>
-                <ul className="list-group mb-3">
-                  {pinnedItems.length > 0 ? (
-                    pinnedItems.map((item, index) => (
-                      <div key={index}>{itemCard(item)}</div>
-                    ))
-                  ) : (
-                    <li className="list-group-item">No pinned items</li>
-                  )}
-                </ul>
-              </>
-            ) : (
-              ''
-            )}
-            <ul className="list-group">
-              {unpinnedItems.map((item, index) => (
-                <div key={index}>{itemCard(item)}</div>
-              ))}
-            </ul>
-          </div>
+        </div>
+        <Image
+          src="images/care-marketing-banner.svg"
+          alt="image"
+          width={0}
+          height={0}
+          sizes="100vw"
+          style={{ width: '100%', height: '100%' }}
+          class="me-2"
+        />
+        <div class="content inner-body-01" style={{ paddingTop: 0 }}>
+          <div class="row mt-4">{cardContent()}</div>
         </div>
         <Footer />
       </div>
@@ -218,7 +184,7 @@ const AfterCare = () => {
   );
 };
 
-export default AfterCare;
+export default Aftercare;
 
 // The summary of this page includes:
 // This page allows users to customize their digital estate plans with specific religious obligations and charitable intentions.

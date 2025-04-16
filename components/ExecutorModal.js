@@ -2,21 +2,23 @@ import translations from '../constant/translations';
 import { useLocale } from '../context/locale';
 import { useModal } from '../context/modal';
 import { useTempData } from '../context/tempData';
+import OnboardExecutor from '../pages/onboard-executor';
 import OnboardTrust from '../pages/onboard-trust';
 import TrustCertificate from '../pages/trust-certificate';
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 
-const TrustModal = () => {
+const ExecutorModal = () => {
   const { isModalOpen, toggleModal } = useModal();
-  const { locale } = useLocale();
   const { tempData, setValueTempData } = useTempData();
-  const trustType = tempData.trust.key ? tempData.trust.key : 'add';
+  const { locale } = useLocale();
+  const t = translations[locale].executor;
+  const executorType = tempData.executor.key ? tempData.executor.key : 'add';
 
   const handleClose = () => {
-    toggleModal('trust');
-    setValueTempData('trust', {
-      ...tempData.trust,
+    toggleModal('executor');
+    setValueTempData('executor', {
+      ...tempData.executor,
       key: 'add',
       selectedItem: null,
     });
@@ -25,12 +27,12 @@ const TrustModal = () => {
   const formContainerConfig = {
     add: (
       <div>
-        <OnboardTrust handleClose={handleClose} />
+        <OnboardExecutor handleClose={handleClose} />
       </div>
     ),
     edit: (
       <div>
-        <OnboardTrust handleClose={handleClose} />
+        <OnboardExecutor handleClose={handleClose} />
       </div>
     ),
     view: (
@@ -42,36 +44,36 @@ const TrustModal = () => {
 
   const viewConfig = {
     add: {
-      modalTitle: translations[locale].trust.create_new_trust,
+      modalTitle: t.dashboard.create_new,
       body: formContainerConfig.add,
     },
     edit: {
-      modalTitle: translations[locale].trust.edit_trust,
+      modalTitle: t.dashboard.edit,
       body: formContainerConfig.edit,
     },
     view: {
-      modalTitle: translations[locale].trust.view_trust,
+      modalTitle: t.dashboard.view_executor,
       body: formContainerConfig.view,
     },
   };
 
   return (
     <Modal
-      show={isModalOpen.trust}
+      show={isModalOpen.executor}
       onHide={handleClose}
       class="modal-dialog"
       fullscreen
     >
       <Modal.Header closeButton>
         <Modal.Title>
-          <h5 class="modal-title">{viewConfig[trustType]?.modalTitle}</h5>
+          <h5 class="modal-title">{viewConfig[executorType]?.modalTitle}</h5>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body class="p-0 bg-white">
-        <div>{viewConfig[trustType]?.body}</div>
+        <div>{viewConfig[executorType]?.body}</div>
       </Modal.Body>
     </Modal>
   );
 };
 
-export default TrustModal;
+export default ExecutorModal;

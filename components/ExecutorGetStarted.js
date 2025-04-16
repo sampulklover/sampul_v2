@@ -3,8 +3,9 @@ import { useLocale } from '../context/locale';
 import Image from 'next/image';
 import { useEffect } from 'react';
 
-const TrustGetStarted = ({ onSubmitToggle = 0, onSuccess = () => {} }) => {
+const ExecutorGetStarted = ({ onSubmitToggle = 0, onSuccess = () => {} }) => {
   const { locale, changeLocale } = useLocale();
+  const t = translations[locale].executor.get_started;
 
   useEffect(() => {
     if (onSubmitToggle > 0) {
@@ -16,25 +17,20 @@ const TrustGetStarted = ({ onSubmitToggle = 0, onSuccess = () => {} }) => {
     {
       id: 1,
       icon: 'images/search-121.svg',
-      title:
-        translations[locale].trust.trust_get_started.professional_management,
-      description:
-        translations[locale].trust.trust_get_started
-          .professional_management_desc,
+      title: t.professional_management,
+      description: t.professional_management_desc,
     },
     {
       id: 2,
       icon: 'images/target-05.svg',
-      title: translations[locale].trust.trust_get_started.protect_legacy,
-      description:
-        translations[locale].trust.trust_get_started.protect_legacy_desc,
+      title: t.protect_legacy,
+      description: t.protect_legacy_desc,
     },
     {
       id: 3,
       icon: 'images/zap-2.svg',
-      title: translations[locale].trust.trust_get_started.your_wishes,
-      description:
-        translations[locale].trust.trust_get_started.your_wishes_desc,
+      title: t.your_wishes,
+      description: t.your_wishes_desc,
     },
   ];
 
@@ -93,4 +89,4 @@ const TrustGetStarted = ({ onSubmitToggle = 0, onSuccess = () => {} }) => {
   );
 };
 
-export default TrustGetStarted;
+export default ExecutorGetStarted;

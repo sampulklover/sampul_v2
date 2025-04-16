@@ -1,11 +1,12 @@
+import ExecutorApplicantInfo from '../components/ExecutorApplicantInfo';
+import ExecutorDeceasedAssets from '../components/ExecutorDeceasedAssets';
+import ExecutorDeceasedInfo from '../components/ExecutorDeceasedInfo';
+import ExecutorGetStarted from '../components/ExecutorGetStarted';
+import ExecutorGuardianInfo from '../components/ExecutorGuardianInfo';
+import ExecutorReceiveInfo from '../components/ExecutorReviewInfo';
+import ExecutorSupportingDocuments from '../components/ExecutorSupportingDocuments';
 import Loading from '../components/Laoding';
 import Stepper from '../components/Stepper';
-import TrustBeneficiaryInfo from '../components/TrustBeneficiaryInfo';
-import TrustCareInfo from '../components/TrustCareInfo';
-import TrustClientInfo from '../components/TrustClientInfo';
-import TrustDisclosureInfo from '../components/TrustDisclosureInfo';
-import TrustFinancialInfo from '../components/TrustFinancialInfo';
-import TrustGetStarted from '../components/TrustGetStarted';
 import TrustGivingInfo from '../components/TrustGivingInfo';
 import TrustPaymentInfo from '../components/TrustPaymentInfo';
 import TrustReviewInfo from '../components/TrustReviewInfo';
@@ -17,7 +18,7 @@ import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 
-const OnboardTrust = ({ handleClose = () => {} }) => {
+const OnboardExecutor = ({ handleClose = () => {} }) => {
   const { locale } = useLocale();
   const router = useRouter();
   const { contextApiData, getTrust, addTrust, addTrustBeneficiary } = useApi();
@@ -27,6 +28,18 @@ const OnboardTrust = ({ handleClose = () => {} }) => {
   const [isLoading, setIsLoading] = useState({});
   const [trustData, setTrustData] = useState({});
   const [stopToggle, setStopToggle] = useState(false);
+
+  const t = translations[locale].executor.onboard;
+
+  const scrollToTop = () => {
+    const modalContainer = document.querySelector('.vh-100');
+    if (modalContainer) {
+      modalContainer.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }
+  };
 
   useEffect(() => {
     if (tempData.trust.selectedItem?.id) {
@@ -42,15 +55,15 @@ const OnboardTrust = ({ handleClose = () => {} }) => {
     }
   }, [tempData.trust.selectedItem]);
 
-  const scrollToTop = () => {
-    const modalContainer = document.querySelector('.vh-100');
-    if (modalContainer) {
-      modalContainer.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
+  useEffect(() => {
+    if (currentStep !== 0) {
+      try {
+        window.scrollTo(0, 0);
+      } catch (error) {
+        console.error('Error scrolling to top:', error);
+      }
     }
-  };
+  }, [currentStep]);
 
   const nextStep = () => {
     if (currentStep < steps.length - 1) {
@@ -84,29 +97,12 @@ const OnboardTrust = ({ handleClose = () => {} }) => {
     }
   };
 
-  const addBeneficiaryApi = async (params) => {
-    try {
-      const result = await addTrustBeneficiary({
-        trustData: params,
-        trustId: trustData.id,
-      });
-
-      if (result) {
-        toast.success('Saved!');
-        nextStep();
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const stepsData = [
     {
-      title: translations[locale].trust.onboard.step_get_started.title,
-      heading: translations[locale].trust.onboard.step_get_started.heading,
-      subheading:
-        translations[locale].trust.onboard.step_get_started.subheading,
-      view: TrustGetStarted,
+      title: t.get_started.title,
+      heading: t.get_started.heading,
+      subheading: t.get_started.subheading,
+      view: ExecutorGetStarted,
       onSuccess: async () => {
         try {
           nextStep();
@@ -115,59 +111,62 @@ const OnboardTrust = ({ handleClose = () => {} }) => {
         }
       },
       allowPrev: true,
-      prevTitle:
-        translations[locale].trust.onboard.step_get_started.maybe_later,
-      nextTitle: translations[locale].trust.onboard.step_get_started.get_setup,
+      prevTitle: t.get_started.maybe_later,
+      nextTitle: t.get_started.get_setup,
       showOnReview: false,
     },
     {
-      title: translations[locale].trust.onboard.step_personal_info.title,
-      heading: translations[locale].trust.onboard.step_personal_info.heading,
-      subheading:
-        translations[locale].trust.onboard.step_personal_info.subheading,
-      view: TrustClientInfo,
+      title: t.applicant_info.title,
+      heading: t.applicant_info.heading,
+      subheading: t.applicant_info.subheading,
+      view: ExecutorApplicantInfo,
       allowPrev: false,
-      nextTitle: translations[locale].trust.onboard.save_continue,
+      nextTitle: t.save_continue,
       showOnReview: true,
     },
     {
-      title: translations[locale].trust.onboard.step_beneficiary.title,
-      heading: translations[locale].trust.onboard.step_beneficiary.heading,
-      subheading:
-        translations[locale].trust.onboard.step_beneficiary.subheading,
-      view: TrustBeneficiaryInfo,
-      onSuccess: (data) => {
-        addBeneficiaryApi(data);
-      },
+      title: t.deceased_info.title,
+      heading: t.deceased_info.heading,
+      subheading: t.deceased_info.subheading,
+      view: ExecutorDeceasedInfo,
       allowPrev: true,
-      nextTitle: translations[locale].trust.onboard.save_continue,
+      nextTitle: t.save_continue,
       showOnReview: true,
     },
     {
-      title: translations[locale].trust.onboard.step_donation.title,
-      heading: translations[locale].trust.onboard.step_donation.heading,
-      subheading: translations[locale].trust.onboard.step_donation.subheading,
-      view: TrustGivingInfo,
+      title: t.assets_info.title,
+      heading: t.assets_info.heading,
+      subheading: t.assets_info.subheading,
+      view: ExecutorDeceasedAssets,
       allowPrev: true,
-      nextTitle: translations[locale].trust.onboard.save_continue,
+      nextTitle: t.save_continue,
       showOnReview: true,
     },
-    // {
-    //   title: translations[locale].trust.onboard.step_payment.title,
-    //   heading: translations[locale].trust.onboard.step_payment.heading,
-    //   subheading: translations[locale].trust.onboard.step_payment.subheading,
-    //   view: TrustPaymentInfo,
-    //   allowPrev: true,
-    //   nextTitle: translations[locale].trust.onboard.save_continue,
-    //   showOnReview: true,
-    // },
     {
-      title: translations[locale].trust.onboard.step_done.title,
-      heading: translations[locale].trust.onboard.step_done.heading,
-      subheading: translations[locale].trust.onboard.step_done.subheading,
-      view: TrustReviewInfo,
+      title: t.guardian_info.title,
+      heading: t.guardian_info.heading,
+      subheading: t.guardian_info.subheading,
+      view: ExecutorGuardianInfo,
       allowPrev: true,
-      nextTitle: translations[locale].trust.onboard.back_to_main,
+      nextTitle: t.save_continue,
+      showOnReview: true,
+    },
+    {
+      title: t.documents.title,
+      heading: t.documents.heading,
+      subheading: t.documents.subheading,
+      view: ExecutorSupportingDocuments,
+      allowPrev: true,
+      nextTitle: t.continue,
+      showOnReview: true,
+    },
+    {
+      title: t.done.title,
+      heading: t.done.heading,
+      subheading: t.done.subheading,
+      view: ExecutorReceiveInfo,
+      allowPrev: true,
+      nextTitle: t.back_to_main,
       showOnReview: true,
     },
   ];
@@ -197,7 +196,7 @@ const OnboardTrust = ({ handleClose = () => {} }) => {
       onPrev: createOnPrevHandler(index),
       onNext: createOnNextHandler(index),
       nextBtnTitle: step.nextTitle,
-      prevBtnTitle: step.prevTitle || translations[locale].trust.onboard.back,
+      prevBtnTitle: step.prevTitle || t.back,
       isLoading: isLoading[key] || false,
     };
   });
@@ -218,8 +217,8 @@ const OnboardTrust = ({ handleClose = () => {} }) => {
         <div class="pb-5">{steps[currentStep].view}</div>
         <footer className="bg-white border-top text-end py-3 px-3 fixed-bottom">
           <span className="text-muted me-3">
-            {steps[currentStep].title} ({currentStep + 1}{' '}
-            {translations[locale].trust.onboard.step_of} {steps.length})
+            {steps[currentStep].title} ({currentStep + 1} {t.step_of}{' '}
+            {steps.length})
           </span>
           {steps[currentStep].allowPrev ? (
             <button
@@ -227,8 +226,7 @@ const OnboardTrust = ({ handleClose = () => {} }) => {
               class="btn btn-light btn-text me-2"
               onClick={() => steps[currentStep].onPrev()}
             >
-              {steps[currentStep].prevBtnTitle ||
-                translations[locale].trust.onboard.back}
+              {steps[currentStep].prevBtnTitle}
             </button>
           ) : (
             ''
@@ -254,4 +252,4 @@ const OnboardTrust = ({ handleClose = () => {} }) => {
   );
 };
 
-export default OnboardTrust;
+export default OnboardExecutor;

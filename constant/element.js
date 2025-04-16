@@ -22,12 +22,6 @@ export const pages = [
     },
   },
   {
-    aftercare: {
-      route: '/aftercare',
-      auth: true,
-    },
-  },
-  {
     digital_assets: {
       route: '/digital-assets',
       auth: true,
@@ -76,8 +70,14 @@ export const pages = [
     },
   },
   {
-    care: {
-      route: '/care',
+    checklist: {
+      route: '/checklist',
+      auth: true,
+    },
+  },
+  {
+    aftercare: {
+      route: '/aftercare',
       auth: true,
     },
   },
@@ -88,8 +88,8 @@ export const pages = [
     },
   },
   {
-    onboard: {
-      route: '/onboard-trust',
+    executor: {
+      route: '/executor',
       auth: true,
     },
   },

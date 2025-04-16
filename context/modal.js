@@ -15,6 +15,7 @@ export const ModalProvider = ({ children }) => {
     kyc: false,
     charity: false,
     trust: false,
+    executor: false,
   });
 
   const toggleModal = (key) => {

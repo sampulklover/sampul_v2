@@ -9,11 +9,11 @@ import Image from 'next/image';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 
-const TrustTable = ({ typeName, showAll = true }) => {
+const ExecutorTable = ({ typeName, showAll = true }) => {
   const { isModalOpen, toggleModal } = useModal();
   const { tempData, setValueTempData } = useTempData();
   const { locale } = useLocale();
-  const { contextApiData, deleteTrust } = useApi();
+  const { contextApiData, deleteExecutor } = useApi();
 
   const [buttonConfig, setButtonConfig] = useState({
     submit: {
@@ -25,16 +25,16 @@ const TrustTable = ({ typeName, showAll = true }) => {
   });
 
   const type = {
-    trust: {
-      title: translations[locale].trust.no_trust_found,
-      subtitle: translations[locale].trust.create_your_first_trust,
-      addNewBtnTitle: translations[locale].trust.create_now,
-      data: contextApiData.trust.data,
-      isReady: !contextApiData.trust.isLoading,
+    executor: {
+      title: translations[locale].executor.dashboard.no_executor,
+      subtitle: translations[locale].executor.dashboard.create_first,
+      addNewBtnTitle: translations[locale].executor.dashboard.create_now,
+      data: contextApiData.executor.data,
+      isReady: !contextApiData.executor.isLoading,
     },
   };
 
-  const deleteTrustFunction = async (item) => {
+  const deleteExecutorFunction = async (item) => {
     if (confirm(translations[locale].global.delete_confirmation)) {
       setButtonConfig({
         ...buttonConfig,
@@ -44,23 +44,11 @@ const TrustTable = ({ typeName, showAll = true }) => {
         },
       });
 
-      const result = await deleteTrust({
+      const result = await deleteExecutor({
         id: item.id,
       });
 
       if (result) {
-        const directory = `/trust/payment/`;
-
-        await replaceOrAddImage({
-          userId: contextApiData.user.data?.id,
-          returnData: result.trust_payment,
-          directory,
-          imageInput: null,
-          dataBase: 'trust_payment',
-          isUpdateByReturnId: false,
-          deleted: true,
-        });
-
         toast.success(translations[locale].global.successfully_deleted);
       }
 
@@ -80,7 +68,7 @@ const TrustTable = ({ typeName, showAll = true }) => {
         <>
           <div class="table-responsive" style={{ width: '100%' }}>
             <span class="heading-04">
-              {translations[locale].trust.recent_trust_list}
+              {translations[locale].executor.dashboard.recent_list}
             </span>
             <table class="table">
               <thead>
@@ -90,17 +78,17 @@ const TrustTable = ({ typeName, showAll = true }) => {
                   </th>
                   <th scope="col">
                     <small class="smpl_text-xs-medium">
-                      {translations[locale].trust.created_at}
+                      {translations[locale].executor.dashboard.created_at}
                     </small>
                   </th>
                   <th scope="col">
                     <small class="smpl_text-xs-medium">
-                      {translations[locale].trust.status}
+                      {translations[locale].executor.dashboard.status}
                     </small>
                   </th>
                   <th scope="col">
                     <small class="smpl_text-xs-medium">
-                      {translations[locale].trust.action}
+                      {translations[locale].executor.dashboard.action}
                     </small>
                   </th>
                 </tr>
@@ -114,14 +102,14 @@ const TrustTable = ({ typeName, showAll = true }) => {
                         <td>
                           <div class="custom-table-cell">
                             <p class="text-sm-regular-7 crop-text">
-                              {item?.trust_code}
+                              {item.executor_code}
                             </p>
                           </div>
                         </td>
                         <td>
                           <div class="custom-table-cell">
                             <div class="text-sm-regular-7 crop-text">
-                              {formatTimestamp(item?.created_at)}
+                              {formatTimestamp(item.created_at)}
                             </div>
                           </div>
                         </td>
@@ -129,7 +117,10 @@ const TrustTable = ({ typeName, showAll = true }) => {
                           <div class="custom-table-cell">
                             <div class="badge-instructions w-inline-block">
                               <span class="text-xs-medium crop-text">
-                                {translations[locale].trust.pending}
+                                {
+                                  translations[locale].executor.dashboard
+                                    .pending
+                                }
                               </span>
                             </div>
                           </div>
@@ -139,23 +130,23 @@ const TrustTable = ({ typeName, showAll = true }) => {
                             <div
                               class="text-sm-regular-8 crop-text text-primary pointer-on-hover"
                               onClick={() => {
-                                toggleModal('trust');
-                                setValueTempData('trust', {
-                                  ...tempData.trust,
+                                toggleModal('executor');
+                                setValueTempData('executor', {
+                                  ...tempData.executor,
                                   key: 'edit',
                                   selectedItem: item,
                                 });
                               }}
                             >
-                              {translations[locale].trust.edit}
+                              {translations[locale].executor.dashboard.edit}
                             </div>
                             <div
                               class="text-sm-regular-8 crop-text text-primary pointer-on-hover"
                               onClick={() => {
-                                deleteTrustFunction(item);
+                                deleteExecutorFunction(item);
                               }}
                             >
-                              {translations[locale].trust.delete}
+                              {translations[locale].executor.dashboard.delete}
                             </div>
                           </div>
                         </td>
@@ -219,7 +210,7 @@ const TrustTable = ({ typeName, showAll = true }) => {
               type="button"
               class="btn btn-primary btn-text"
               onClick={() => {
-                toggleModal('trust');
+                toggleModal('executor');
               }}
             >
               <div class="d-flex">
@@ -230,7 +221,7 @@ const TrustTable = ({ typeName, showAll = true }) => {
                   height={24}
                 />
                 <span class="ms-2">
-                  {translations[locale].trust.create_new_trust}
+                  {translations[locale].executor.dashboard.create_new}
                 </span>
               </div>
             </button>
@@ -246,4 +237,4 @@ const TrustTable = ({ typeName, showAll = true }) => {
   );
 };
 
-export default TrustTable;
+export default ExecutorTable;

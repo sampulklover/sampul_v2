@@ -154,26 +154,28 @@ const TrustClientInfo = ({ onSubmitToggle = 0, nextStep }) => {
       >
         <div className="card">
           <h4 className="uui-field-label mb-0">
-            <strong>Personal Information</strong>
+            <strong>
+              {translations[locale].trust.client_info.personal_information}
+            </strong>
           </h4>
           <small className="text-muted mb-3">
-            Your details will help us tailor the trust to your needs.
+            {translations[locale].trust.client_info.personal_information_desc}
           </small>
 
           {renderField({
-            label: 'Name',
+            label: translations[locale].trust.client_info.name,
             id: 'input-name',
-            textUnder: '(same as NRIC/Passport/)',
+            textUnder: translations[locale].trust.client_info.name_as_per,
             required: true,
           })}
           <div className="d-flex flex-column flex-md-row gap-3">
             {renderField({
-              label: 'NRIC/Passport Number',
+              label: translations[locale].trust.client_info.nric_passport,
               id: 'input-nric-no',
               className: 'w-100 w-md-50',
             })}
             {renderField({
-              label: 'Date of Birth',
+              label: translations[locale].trust.client_info.date_of_birth,
               id: 'select-dob',
               className: 'w-100 w-md-50',
               type: 'date',
@@ -181,22 +183,21 @@ const TrustClientInfo = ({ onSubmitToggle = 0, nextStep }) => {
           </div>
           <div className="d-flex flex-column flex-md-row gap-3">
             {renderField({
-              label: 'Gender',
+              label: translations[locale].trust.client_info.gender,
               id: 'select-gender',
               options: genders(),
               className: 'w-100 w-md-50',
             })}
             {renderField({
-              label: 'Resident Status',
+              label: translations[locale].trust.client_info.resident_status,
               id: 'select-resident-status',
               options: residentStatus(),
-              className: 'w-100 w-md-50',
               className: 'w-100 w-md-50',
             })}
           </div>
           <div className="d-flex flex-column flex-md-row gap-3">
             {renderField({
-              label: 'Nationality',
+              label: translations[locale].trust.client_info.nationality,
               id: 'select-nationality',
               options: countries(),
               className: 'w-100 w-md-50',
@@ -204,49 +205,51 @@ const TrustClientInfo = ({ onSubmitToggle = 0, nextStep }) => {
           </div>
           <div className="d-flex flex-column flex-md-row gap-3">
             {renderField({
-              label: 'Telephone/Mobile',
+              label: translations[locale].trust.client_info.phone,
               id: 'input-phone-no',
               className: 'w-100 w-md-50',
             })}
             {renderField({
-              label: 'Email',
+              label: translations[locale].trust.client_info.email,
               id: 'input-email',
               type: 'email',
               className: 'w-100 w-md-50',
             })}
           </div>
           <h4 className="uui-field-label mt-4">
-            <strong>Corresponding Address:</strong>
+            <strong>
+              {translations[locale].trust.client_info.corresponding_address}
+            </strong>
           </h4>
           {renderField({
-            label: 'Address Line 1',
+            label: translations[locale].trust.client_info.address_line_1,
             id: 'input-address-1',
           })}
           {renderField({
-            label: 'Address Line 2',
+            label: translations[locale].trust.client_info.address_line_2,
             id: 'input-address-2',
             required: false,
           })}
           <div className="d-flex flex-column flex-md-row gap-3">
             {renderField({
-              label: 'City',
+              label: translations[locale].trust.client_info.city,
               id: 'input-city',
               className: 'w-100 w-md-50',
             })}
             {renderField({
-              label: 'Postcode',
+              label: translations[locale].trust.client_info.postcode,
               id: 'input-postcode',
               className: 'w-100 w-md-50',
             })}
           </div>
           <div className="d-flex flex-column flex-md-row gap-3">
             {renderField({
-              label: 'State / Province',
+              label: translations[locale].trust.client_info.state_province,
               id: 'input-state',
               className: 'w-100 w-md-50',
             })}
             {renderField({
-              label: 'Country',
+              label: translations[locale].trust.client_info.country,
               id: 'select-country',
               options: countries(),
               className: 'w-100 w-md-50',
@@ -254,56 +257,61 @@ const TrustClientInfo = ({ onSubmitToggle = 0, nextStep }) => {
           </div>
 
           <h4 className="uui-field-label mt-4">
-            <strong>Other Information</strong>
+            <strong>
+              {translations[locale].trust.client_info.other_information}
+            </strong>
           </h4>
           {renderField({
-            label: 'Estimate Net Worth',
+            label: translations[locale].trust.client_info.estimated_net_worth,
             id: 'select-estimated-net-worth',
             options: estimatedNetWorths(),
           })}
           {renderField({
-            label: 'Source of Fund',
+            label: translations[locale].trust.client_info.source_of_fund,
             id: 'input-fund-source',
           })}
           {renderField({
-            label: 'Purpose of Transaction',
+            label:
+              translations[locale].trust.client_info.purpose_of_transaction,
             id: 'input-purpose-transaction',
           })}
 
           <h4 className="uui-field-label mt-4">
             <strong>
-              Employement Information (employed individual / self-employed):
+              {translations[locale].trust.client_info.employment_info}
             </strong>
           </h4>
           {renderField({
-            label: 'Name of Employer/ Name of Business',
+            label: translations[locale].trust.client_info.employer_name,
             id: 'input-employer-name',
             required: false,
           })}
           {renderField({
-            label: 'Nature of Business:',
+            label: translations[locale].trust.client_info.business_nature,
             id: 'input-business-nature',
             required: false,
           })}
           {renderField({
-            label: 'Business Address Line 1',
-            id: 'input-business-address-1',
+            label:
+              translations[locale].trust.client_info.business_address_line_1,
+            id: 'input-business-address-line-1',
             required: false,
           })}
           {renderField({
-            label: 'Business Address Line 2',
-            id: 'input-business-address-2',
+            label:
+              translations[locale].trust.client_info.business_address_line_2,
+            id: 'input-business-address-line-2',
             required: false,
           })}
           <div className="d-flex flex-column flex-md-row gap-3">
             {renderField({
-              label: 'City',
+              label: translations[locale].trust.client_info.business_city,
               id: 'input-business-city',
               className: 'w-100 w-md-50',
               required: false,
             })}
             {renderField({
-              label: 'Postcode',
+              label: translations[locale].trust.client_info.business_postcode,
               id: 'input-business-postcode',
               className: 'w-100 w-md-50',
               required: false,
@@ -311,13 +319,14 @@ const TrustClientInfo = ({ onSubmitToggle = 0, nextStep }) => {
           </div>
           <div className="d-flex flex-column flex-md-row gap-3">
             {renderField({
-              label: 'State / Province',
+              label:
+                translations[locale].trust.client_info.business_state_province,
               id: 'input-business-state',
               className: 'w-100 w-md-50',
               required: false,
             })}
             {renderField({
-              label: 'Country',
+              label: translations[locale].trust.client_info.business_country,
               id: 'select-business-country',
               options: countries(),
               className: 'w-100 w-md-50',

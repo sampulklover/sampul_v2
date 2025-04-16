@@ -2,20 +2,28 @@ import { pages } from '../constant/element';
 import { systemLanguages } from '../constant/enum';
 import {
   addBulkAftercareApi,
+  addExecutorApi,
+  addExecutorDeceasedApi,
+  addExecutorDeceasedAssetsApi,
+  addExecutorGuardianApi,
   addTrustApi,
   addTrustBeneficiaryApi,
   addTrustCharityApi,
   addTrustPaymentApi,
+  deleteExecutorApi,
   deleteTrustApi,
   deleteTrustCharityApi,
   getAccountApi,
   getAftercareApi,
+  getAllExecutorApi,
   getAllTrustApi,
   getBelovedApi,
   getBodiesApi,
+  getBucketExecutorApi,
   getDiditAuthApi,
   getDiditSessionApi,
   getDigitalAssetsApi,
+  getExecutorApi,
   getExtraWishesApi,
   getInformDeathApi,
   getInvitesApi,
@@ -88,6 +96,10 @@ export const ApiProvider = ({ children }) => {
       isLoading: true,
     },
     trust: {
+      data: [],
+      isLoading: true,
+    },
+    executor: {
       data: [],
       isLoading: true,
     },
@@ -932,6 +944,268 @@ export const ApiProvider = ({ children }) => {
     }
   };
 
+  const getAllExecutor = async () => {
+    setContextApiData((prevData) => ({
+      ...prevData,
+      executor: {
+        data: [],
+        isLoading: true,
+      },
+    }));
+
+    try {
+      const data = await getAllExecutorApi({
+        uuid: contextApiData.user.data.id,
+      });
+
+      setContextApiData((prevData) => ({
+        ...prevData,
+        executor: {
+          data: data,
+          isLoading: false,
+        },
+      }));
+    } catch (error) {
+      console.error(error);
+      setContextApiData((prevData) => ({
+        ...prevData,
+        executor: {
+          data: [],
+          isLoading: false,
+        },
+      }));
+      Sentry.captureException(error);
+    }
+  };
+
+  const addExecutor = async (postData) => {
+    try {
+      const data = await addExecutorApi({
+        ...postData.executorData,
+        uuid: postData.executorData.uuid
+          ? postData.executorData.uuid
+          : contextApiData.user.data.id,
+      });
+
+      const existingExecutorIndex = contextApiData.executor.data.findIndex(
+        (executor) => executor.id === data.id
+      );
+
+      let newExecutorData;
+
+      if (existingExecutorIndex > -1) {
+        newExecutorData = contextApiData.executor.data.map((executor, index) =>
+          index === existingExecutorIndex ? data : executor
+        );
+      } else {
+        newExecutorData = [data, ...contextApiData.executor.data];
+      }
+
+      setContextApiData((prevData) => ({
+        ...prevData,
+        executor: {
+          data: newExecutorData,
+          isLoading: false,
+        },
+      }));
+
+      if (data) {
+        return data;
+      }
+    } catch (error) {
+      console.error(error);
+      Sentry.captureException(error);
+    }
+  };
+
+  const getExecutor = async (postData) => {
+    try {
+      const data = await getExecutorApi({
+        executorId: postData.executorId,
+      });
+
+      if (data) {
+        return data;
+      }
+    } catch (error) {
+      console.error(error);
+      Sentry.captureException(error);
+    }
+  };
+
+  const deleteExecutor = async (postData) => {
+    try {
+      const data = await deleteExecutorApi({
+        id: postData.id,
+        uuid: contextApiData.user.data.id,
+      });
+
+      const newExecutorData = contextApiData.executor.data.filter(
+        (trust) => trust.id !== data.id
+      );
+
+      setContextApiData((prevData) => ({
+        ...prevData,
+        executor: {
+          data: newExecutorData,
+          isLoading: false,
+        },
+      }));
+
+      if (data) {
+        return data;
+      }
+    } catch (error) {
+      console.error(error);
+      Sentry.captureException(error);
+    }
+  };
+
+  const addExecutorDeceased = async (postData) => {
+    try {
+      const updatedPostData = {
+        ...postData.data,
+        uuid: postData.data.uuid
+          ? postData.data.uuid
+          : contextApiData.user.data.id,
+      };
+
+      const data = await addExecutorDeceasedApi({
+        ...updatedPostData,
+      });
+
+      let updatedExecutor = null;
+
+      const newExecutorData = contextApiData.executor.data.map((executor) => {
+        if (data.executor_id === executor.id) {
+          updatedExecutor = {
+            ...executor,
+            executor_deceased: data,
+          };
+          return updatedExecutor;
+        }
+        return executor;
+      });
+
+      setContextApiData((prevData) => ({
+        ...prevData,
+        executor: {
+          data: newExecutorData,
+          isLoading: false,
+        },
+      }));
+
+      if (updatedExecutor) {
+        return updatedExecutor;
+      }
+    } catch (error) {
+      console.error(error);
+      Sentry.captureException(error);
+    }
+  };
+
+  const addExecutorDeceasedAssets = async (postData) => {
+    try {
+      const updatedPostData = {
+        ...postData.data,
+        uuid: postData.data.uuid
+          ? postData.data.uuid
+          : contextApiData.user.data.id,
+      };
+
+      const data = await addExecutorDeceasedAssetsApi({
+        ...updatedPostData,
+      });
+
+      let updatedExecutor = null;
+
+      const newExecutorData = contextApiData.executor.data.map((executor) => {
+        if (data.executor_id === executor.id) {
+          updatedExecutor = {
+            ...executor,
+            executor_deceased_assets: data,
+          };
+          return updatedExecutor;
+        }
+        return executor;
+      });
+
+      setContextApiData((prevData) => ({
+        ...prevData,
+        executor: {
+          data: newExecutorData,
+          isLoading: false,
+        },
+      }));
+
+      if (updatedExecutor) {
+        return updatedExecutor;
+      }
+    } catch (error) {
+      console.error(error);
+      Sentry.captureException(error);
+    }
+  };
+
+  const addExecutorGuardian = async (postData) => {
+    try {
+      const updatedPostData = {
+        ...postData.data,
+        uuid: postData.data.uuid
+          ? postData.data.uuid
+          : contextApiData.user.data.id,
+      };
+
+      const data = await addExecutorGuardianApi({
+        ...updatedPostData,
+      });
+
+      let updatedExecutor = null;
+
+      const newExecutorData = contextApiData.executor.data.map((executor) => {
+        if (data.executor_id === executor.id) {
+          updatedExecutor = {
+            ...executor,
+            executor_guardian: data,
+          };
+          return updatedExecutor;
+        }
+        return executor;
+      });
+
+      setContextApiData((prevData) => ({
+        ...prevData,
+        executor: {
+          data: newExecutorData,
+          isLoading: false,
+        },
+      }));
+
+      if (updatedExecutor) {
+        return updatedExecutor;
+      }
+    } catch (error) {
+      console.error(error);
+      Sentry.captureException(error);
+    }
+  };
+
+  const getBucketExecutor = async (postData) => {
+    try {
+      const data = await getBucketExecutorApi({
+        executorId: postData.executorId,
+        uuid: contextApiData.user.data.id,
+      });
+
+      if (data) {
+        return data;
+      }
+    } catch (error) {
+      console.error(error);
+      Sentry.captureException(error);
+    }
+  };
+
   const normalLogin = async ({ email, password }) => {
     const { data, error } = await supabase.auth.signInWithPassword({
       email: email,
@@ -1101,6 +1375,14 @@ export const ApiProvider = ({ children }) => {
         addTrustCharity,
         deleteTrustCharity,
         addTrustPayment,
+        getAllExecutor,
+        addExecutor,
+        getExecutor,
+        deleteExecutor,
+        addExecutorDeceased,
+        addExecutorDeceasedAssets,
+        addExecutorGuardian,
+        getBucketExecutor,
         normalLogin,
         googleLogin,
         normalSignup,

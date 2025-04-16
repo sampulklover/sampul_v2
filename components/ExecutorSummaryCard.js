@@ -2,7 +2,7 @@ import translations from '../constant/translations';
 import { useApi } from '../context/api';
 import { useLocale } from '../context/locale';
 
-const TrustSummaryCard = () => {
+const ExecutorSummaryCard = () => {
   const { contextApiData } = useApi();
   const { locale } = useLocale();
 
@@ -11,7 +11,7 @@ const TrustSummaryCard = () => {
   let totalTrustAmount = 0;
 
   contextApiData.trust.data.forEach((trust) => {
-    if (Array.isArray(trust?.trust_charity)) {
+    if (Array.isArray(trust.trust_charity)) {
       trust.trust_charity.forEach((charity) => {
         if (charity.donation_amount) {
           totalDonation += charity.donation_amount;
@@ -21,7 +21,7 @@ const TrustSummaryCard = () => {
   });
 
   contextApiData.trust.data.forEach((trust) => {
-    if (Array.isArray(trust?.trust_beneficiary)) {
+    if (Array.isArray(trust.trust_beneficiary)) {
       trust.trust_beneficiary.forEach((charity) => {
         if (charity.monthly_distribution_living) {
           totalLivingExpenses += charity.monthly_distribution_living;
@@ -31,7 +31,7 @@ const TrustSummaryCard = () => {
   });
 
   contextApiData.trust.data.forEach((trust) => {
-    if (trust?.trust_payment) {
+    if (trust.trust_payment) {
       if (trust.trust_payment.trust_amount > 0) {
         totalTrustAmount += trust.trust_payment.trust_amount;
       }
@@ -51,21 +51,10 @@ const TrustSummaryCard = () => {
 
   const mainConfig = {
     total_assets: {
-      title: translations[locale].trust.total_trust,
-      value: contextApiData.trust.data.length,
+      title: translations[locale].executor.summary.total_executor,
+      value: contextApiData.executor.data.length,
     },
-    total_living_expension: {
-      title: translations[locale].trust.total_living_expenses,
-      value: formatePrice(totalLivingExpenses),
-    },
-    beneficiaries: {
-      title: translations[locale].trust.total_donation,
-      value: formatePrice(totalDonation),
-    },
-    instructions: {
-      title: translations[locale].trust.trust_amount,
-      value: formatePrice(totalTrustAmount),
-    },
+    // Other summary cards can be added here as needed
   };
 
   return (
@@ -86,4 +75,4 @@ const TrustSummaryCard = () => {
   );
 };
 
-export default TrustSummaryCard;
+export default ExecutorSummaryCard;

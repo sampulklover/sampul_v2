@@ -50,31 +50,6 @@ const SideBar = ({ children }) => {
       ),
     },
     {
-      title: translations[locale].component.side_bar.aftercare,
-      page: 'aftercare',
-      display: true,
-      action: () => {
-        router.push('aftercare');
-      },
-      icon: (
-        <svg
-          width="18"
-          height="18"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M6 15L8 17L12.5 12.5M8 8V5.2C8 4.0799 8 3.51984 8.21799 3.09202C8.40973 2.71569 8.71569 2.40973 9.09202 2.21799C9.51984 2 10.0799 2 11.2 2H18.8C19.9201 2 20.4802 2 20.908 2.21799C21.2843 2.40973 21.5903 2.71569 21.782 3.09202C22 3.51984 22 4.0799 22 5.2V12.8C22 13.9201 22 14.4802 21.782 14.908C21.5903 15.2843 21.2843 15.5903 20.908 15.782C20.4802 16 19.9201 16 18.8 16H16M5.2 22H12.8C13.9201 22 14.4802 22 14.908 21.782C15.2843 21.5903 15.5903 21.2843 15.782 20.908C16 20.4802 16 19.9201 16 18.8V11.2C16 10.0799 16 9.51984 15.782 9.09202C15.5903 8.71569 15.2843 8.40973 14.908 8.21799C14.4802 8 13.9201 8 12.8 8H5.2C4.0799 8 3.51984 8 3.09202 8.21799C2.71569 8.40973 2.40973 8.71569 2.21799 9.09202C2 9.51984 2 10.0799 2 11.2V18.8C2 19.9201 2 20.4802 2.21799 20.908C2.40973 21.2843 2.71569 21.5903 3.09202 21.782C3.51984 22 4.07989 22 5.2 22Z"
-            stroke={router?.route == `/aftercare` ? '#533de9' : '#667085'}
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      ),
-    },
-    {
       title: translations[locale].component.side_bar.assets,
       page: 'digital-assets',
       display: true,
@@ -99,53 +74,6 @@ const SideBar = ({ children }) => {
         </svg>
       ),
     },
-    // {
-    //   title: (
-    //     <div class="d-flex justify-content-between align-items-center">
-    //       <span class="me-1">
-    //         {translations[locale].component.side_bar.physical}
-    //       </span>
-    //       <div class="coming-soon-badge-container">
-    //         <div
-    //           class="coming-soon-badge-body"
-    //           style={{
-    //             color:
-    //               router?.route == `/physical-assets` ? '#533de9' : '#667085',
-    //           }}
-    //         >
-    //           {translations[locale].component.side_bar.coming_soon}
-    //         </div>
-    //       </div>
-    //     </div>
-    //   ),
-    //   page: 'physical-assets',
-    //   display: true,
-    //   action: () => {
-    //     router.push('physical-assets');
-    //   },
-    //   icon: (
-    //     <svg
-    //       width="18"
-    //       height="18"
-    //       viewBox="0 0 24 24"
-    //       fill="none"
-    //       xmlns="http://www.w3.org/2000/svg"
-    //     >
-    //       <g id="layers-three-01">
-    //         <path
-    //           id="Icon"
-    //           d="M2 11.9996L11.6422 16.8207C11.7734 16.8863 11.839 16.9191 11.9078 16.932C11.9687 16.9434 12.0313 16.9434 12.0922 16.932C12.161 16.9191 12.2266 16.8863 12.3578 16.8207L22 11.9996M2 16.9996L11.6422 21.8207C11.7734 21.8863 11.839 21.9191 11.9078 21.932C11.9687 21.9434 12.0313 21.9434 12.0922 21.932C12.161 21.9191 12.2266 21.8863 12.3578 21.8207L22 16.9996M2 6.99958L11.6422 2.17846C11.7734 2.11287 11.839 2.08008 11.9078 2.06717C11.9687 2.05574 12.0313 2.05574 12.0922 2.06717C12.161 2.08008 12.2266 2.11287 12.3578 2.17846L22 6.99958L12.3578 11.8207C12.2266 11.8863 12.161 11.9191 12.0922 11.932C12.0313 11.9434 11.9687 11.9434 11.9078 11.932C11.839 11.9191 11.7734 11.8863 11.6422 11.8207L2 6.99958Z"
-    //           stroke={
-    //             router?.route == `/physical-assets` ? '#533de9' : '#667085'
-    //           }
-    //           stroke-width="1.5"
-    //           stroke-linecap="round"
-    //           stroke-linejoin="round"
-    //         />
-    //       </g>
-    //     </svg>
-    //   ),
-    // },
     {
       title: translations[locale].component.side_bar.beloved,
       page: 'beloved',
@@ -233,9 +161,11 @@ const SideBar = ({ children }) => {
     {
       title: (
         <div class="d-flex">
-          Trust
+          {translations[locale].component.side_bar.trust}
           <div class="w-inline-block">
-            <span class="text-xs-medium crop-text ms-1 text-danger">New</span>
+            <span class="text-xs-medium crop-text ms-1 text-danger">
+              {translations[locale].component.side_bar.new}
+            </span>
           </div>
         </div>
       ),
@@ -246,28 +176,87 @@ const SideBar = ({ children }) => {
       },
       icon: (
         <svg
-          xmlns="http://www.w3.org/2000/svg"
           width="18"
           height="18"
           viewBox="0 0 24 24"
           fill="none"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M20 10V6.8C20 5.11984 20 4.27976 19.673 3.63803C19.3854 3.07354 18.9265 2.6146 18.362 2.32698C17.7202 2 16.8802 2 15.2 2H8.8C7.11984 2 6.27976 2 5.63803 2.32698C5.07354 2.6146 4.6146 3.07354 4.32698 3.63803C4 4.27976 4 5.11984 4 6.8V17.2C4 18.8802 4 19.7202 4.32698 20.362C4.6146 20.9265 5.07354 21.3854 5.63803 21.673C6.27976 22 7.11984 22 8.8 22H12M12.5 11H8M9 15H8M16 7H8M16.9973 14.8306C16.1975 13.9216 14.8639 13.6771 13.8619 14.5094C12.8599 15.3418 12.7188 16.7335 13.5057 17.7179C14.2926 18.7024 16.9973 21 16.9973 21C16.9973 21 19.7019 18.7024 20.4888 17.7179C21.2757 16.7335 21.1519 15.3331 20.1326 14.5094C19.1134 13.6858 17.797 13.9216 16.9973 14.8306Z"
+            d="M6 21H9M15 21H18M17.5 6.5V14.5M3 6.2L3 14.8C3 15.9201 3 16.4802 3.21799 16.908C3.40973 17.2843 3.71569 17.5903 4.09202 17.782C4.51984 18 5.07989 18 6.2 18L17.8 18C18.9201 18 19.4802 18 19.908 17.782C20.2843 17.5903 20.5903 17.2843 20.782 16.908C21 16.4802 21 15.9201 21 14.8V6.2C21 5.0799 21 4.51984 20.782 4.09202C20.5903 3.7157 20.2843 3.40974 19.908 3.21799C19.4802 3 18.9201 3 17.8 3L6.2 3C5.0799 3 4.51984 3 4.09202 3.21799C3.7157 3.40973 3.40973 3.71569 3.21799 4.09202C3 4.51984 3 5.07989 3 6.2ZM11.5 10.5C11.5 11.8807 10.3807 13 9 13C7.61929 13 6.5 11.8807 6.5 10.5C6.5 9.11929 7.61929 8 9 8C10.3807 8 11.5 9.11929 11.5 10.5Z"
             stroke={router?.route == `/trust` ? '#533de9' : '#667085'}
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
           />
         </svg>
       ),
     },
     {
-      title: translations[locale].component.side_bar.care,
-      page: 'care',
+      title: (
+        <div class="d-flex">
+          {translations[locale].component.side_bar.executor}
+          <div class="w-inline-block">
+            <span class="text-xs-medium crop-text ms-1 text-danger">
+              {translations[locale].component.side_bar.new}
+            </span>
+          </div>
+        </div>
+      ),
+      page: 'executor',
       display: true,
       action: () => {
-        router.push('care');
+        router.push('executor');
+      },
+      icon: (
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M15.5 3.5V2M19.4393 4.56066L20.5 3.5M20.5103 8.5H22.0103M21.9506 13C21.4489 18.0533 17.1853 22 12 22C6.47715 22 2 17.5228 2 12C2 6.81465 5.94668 2.5511 11 2.04938M12 8H16V12M15.6197 8C13.2653 11.3276 9.38636 13.5 5 13.5C3.9971 13.5 3.02072 13.3864 2.08302 13.1715"
+            stroke={router?.route == `/executor` ? '#533de9' : '#667085'}
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      ),
+    },
+    {
+      title: 'Checklist',
+      page: 'checklist',
+      display: true,
+      action: () => {
+        router.push('checklist');
+      },
+      icon: (
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M6 15L8 17L12.5 12.5M8 8V5.2C8 4.0799 8 3.51984 8.21799 3.09202C8.40973 2.71569 8.71569 2.40973 9.09202 2.21799C9.51984 2 10.0799 2 11.2 2H18.8C19.9201 2 20.4802 2 20.908 2.21799C21.2843 2.40973 21.5903 2.71569 21.782 3.09202C22 3.51984 22 4.0799 22 5.2V12.8C22 13.9201 22 14.4802 21.782 14.908C21.5903 15.2843 21.2843 15.5903 20.908 15.782C20.4802 16 19.9201 16 18.8 16H16M5.2 22H12.8C13.9201 22 14.4802 22 14.908 21.782C15.2843 21.5903 15.5903 21.2843 15.782 20.908C16 20.4802 16 19.9201 16 18.8V11.2C16 10.0799 16 9.51984 15.782 9.09202C15.5903 8.71569 15.2843 8.40973 14.908 8.21799C14.4802 8 13.9201 8 12.8 8H5.2C4.0799 8 3.51984 8 3.09202 8.21799C2.71569 8.40973 2.40973 8.71569 2.21799 9.09202C2 9.51984 2 10.0799 2 11.2V18.8C2 19.9201 2 20.4802 2.21799 20.908C2.40973 21.2843 2.71569 21.5903 3.09202 21.782C3.51984 22 4.07989 22 5.2 22Z"
+            stroke={router?.route == `/checklist` ? '#533de9' : '#667085'}
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      ),
+    },
+    {
+      title: 'Aftercare',
+      page: 'aftercare',
+      display: true,
+      action: () => {
+        router.push('aftercare');
       },
       icon: (
         <svg
@@ -279,7 +268,7 @@ const SideBar = ({ children }) => {
         >
           <path
             d="M8.59 13.51L15.42 17.49M15.41 6.51L8.59 10.49M21 5C21 6.65685 19.6569 8 18 8C16.3431 8 15 6.65685 15 5C15 3.34315 16.3431 2 18 2C19.6569 2 21 3.34315 21 5ZM9 12C9 13.6569 7.65685 15 6 15C4.34315 15 3 13.6569 3 12C3 10.3431 4.34315 9 6 9C7.65685 9 9 10.3431 9 12ZM21 19C21 20.6569 19.6569 22 18 22C16.3431 22 15 20.6569 15 19C15 17.3431 16.3431 16 18 16C19.6569 16 21 17.3431 21 19Z"
-            stroke={router?.route == `/care` ? '#533de9' : '#667085'}
+            stroke={router?.route == `/aftercare` ? '#533de9' : '#667085'}
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
