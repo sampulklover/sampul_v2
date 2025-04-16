@@ -172,7 +172,7 @@ const ExecutorDeceasedAssets = ({ onSubmitToggle = 0, nextStep }) => {
             {t.add_immovable}
           </button>
 
-          <h4 className="uui-field-label mt-4">
+          <h4 className="uui-field-label mt-5">
             <strong>{t.movable_assets}</strong>
             <p>{t.movable_assets_desc}</p>
           </h4>
@@ -189,7 +189,7 @@ const ExecutorDeceasedAssets = ({ onSubmitToggle = 0, nextStep }) => {
             {t.add_movable}
           </button>
 
-          <h4 className="uui-field-label mt-4">
+          <h4 className="uui-field-label mt-5">
             <strong>{t.liabilities}</strong>
             <p>{t.liabilities_desc}</p>
           </h4>
@@ -206,7 +206,7 @@ const ExecutorDeceasedAssets = ({ onSubmitToggle = 0, nextStep }) => {
             {t.add_liability}
           </button>
 
-          <h4 className="uui-field-label mt-4">
+          <h4 className="uui-field-label mt-5">
             <strong>{t.beneficiaries}</strong>
           </h4>
           {renderFields('beneficiaries', [
