@@ -966,21 +966,19 @@ export default {
       },
       get_started: {
         professional_management: 'Professional Management',
-        professional_management_desc:
-          'We make sure your assets are handled carefully',
-        protect_legacy: 'Protect your legacy',
+        professional_management_desc: `We handle the legal and administrative work—so you don't have to navigate it alone.`,
+        protect_legacy: `Find what's left behind`,
         protect_legacy_desc:
-          'Assets placed under a trust are safe from creditors and external claims',
-        your_wishes: 'Your wishes, our priority',
+          'We help identify key assets-so nothing essential is left behind.',
+        your_wishes: 'Support that goes beyond paperwork',
         your_wishes_desc:
-          'Set specific instructions to ensure your plans are carried out exactly as you intended.',
+          'From document prep to grief care, we guide you with empathy through a difficult time.',
       },
       onboard: {
         get_started: {
           title: 'Get Started',
-          heading: 'Get your executor account',
-          subheading:
-            "Keep funds secure and available when they're needed most.",
+          heading: `Claiming loved one's estate`,
+          subheading: `Let's help you manage your loved one's estate. We'll guide you step by step.`,
           maybe_later: 'Maybe later',
           get_setup: 'Get set up in minutes',
         },
@@ -2036,20 +2034,17 @@ export default {
       },
       get_started: {
         professional_management: 'Pengurusan Profesional',
-        professional_management_desc:
-          'Kami memastikan aset anda diuruskan dengan teliti',
-        protect_legacy: 'Lindungi Legasi Anda',
-        protect_legacy_desc:
-          'Aset yang diletakkan di bawah wasiat selamat daripada pemiutang dan tuntutan luar',
-        your_wishes: 'Hasrat anda, keutamaan kami',
-        your_wishes_desc:
-          'Tetapkan arahan khusus untuk memastikan rancangan anda dilaksanakan tepat seperti yang anda kehendaki.',
+        professional_management_desc: `Kami menguruskan kerja-kerja perundangan dan pentadbiran—supaya anda tidak perlu menguruskannya bersendirian.`,
+        protect_legacy: `Mengenal pasti harta peninggalan`,
+        protect_legacy_desc: `Kami membantu mengenal pasti aset-aset penting—supaya tiada yang tertinggal.`,
+        your_wishes: `Sokongan yang melampaui kertas kerja`,
+        your_wishes_desc: `Dari penyediaan dokumen hingga penjagaan emosi, kami membimbing anda dengan penuh empati sepanjang waktu yang sukar ini.`,
       },
       onboard: {
         get_started: {
           title: 'Mulakan',
-          heading: 'Dapatkan akaun pelaksana anda',
-          subheading: 'Pastikan dana selamat dan tersedia apabila diperlukan.',
+          heading: `Tuntutan harta si mati`,
+          subheading: `Mari kami bantu anda menguruskan harta si mati. Kami akan membimbing anda langkah demi langkah.`,
           maybe_later: 'Mungkin nanti',
           get_setup: 'Sediakan dalam beberapa minit',
         },
