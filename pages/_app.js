@@ -7,6 +7,7 @@ import AftercareModal from '../components/AftercareModal';
 import BelovedModal from '../components/BelovedModal';
 import CharityModal from '../components/CharityModal';
 import DigitalAssetsModal from '../components/DigitalAssetsModal';
+import ExecutorModal from '../components/ExecutorModal';
 import IntroModal from '../components/IntroModal';
 import InviteModal from '../components/InviteModal';
 import KycModal from '../components/KycModal';
@@ -83,6 +84,7 @@ const MyApp = ({ Component, pageProps }) => {
               <AftercareModal />
               <CharityModal />
               <TrustModal />
+              <ExecutorModal />
               <KycModal />
               <DigitalAssetsModal />
               <DynamicToaster position="top-right" />

@@ -1,6 +1,7 @@
 import AccountsChart from '../components/AccountsChart';
 import AllUser from '../components/AllUser';
 import Breadcrumb from '../components/Breadcrumb';
+import ManageExecutor from '../components/ExecutorAdminTable';
 import Footer from '../components/Footer';
 import ManageBodies from '../components/ManageBodies';
 import RequestedBodies from '../components/RequestedBodies';
@@ -27,6 +28,8 @@ const Admin = () => {
     data: {
       profiles: [],
       bodies: [],
+      trust: [],
+      executor: [],
     },
     isLoading: false,
   });
@@ -57,22 +60,34 @@ const Admin = () => {
     });
 
     try {
-      const [profilesResult, bodiesResult, trustResult] = await Promise.all([
-        supabase
-          .from('profiles')
-          .select(
-            '*, accounts (*), roles (*), beloved (*), digital_assets (*)'
-          ),
-        supabase.from('bodies').select('*').order('id', { ascending: false }),
-        supabase
-          .from('trust')
-          .select(
-            '*, trust_beneficiary (*), trust_charity (*), trust_payment (*)'
-          )
-          .order('id', { ascending: false }),
-      ]);
+      const [profilesResult, bodiesResult, trustResult, executorResult] =
+        await Promise.all([
+          supabase
+            .from('profiles')
+            .select(
+              '*, accounts (*), roles (*), beloved (*), digital_assets (*)'
+            ),
+          supabase.from('bodies').select('*').order('id', { ascending: false }),
+          supabase
+            .from('trust')
+            .select(
+              '*, trust_beneficiary (*), trust_charity (*), trust_payment (*)'
+            )
+            .order('id', { ascending: false }),
+          supabase
+            .from('executor')
+            .select(
+              '*, executor_deceased (*), executor_deceased_assets (*), executor_guardian (*)'
+            )
+            .order('id', { ascending: false }),
+        ]);
 
-      if (profilesResult.error || bodiesResult.error || trustResult.error) {
+      if (
+        profilesResult.error ||
+        bodiesResult.error ||
+        trustResult.error ||
+        executorResult.error
+      ) {
         setSummary({
           ...summary,
           isLoading: false,
@@ -80,6 +95,7 @@ const Admin = () => {
         if (profilesResult.error) toast.error(profilesResult.error.message);
         if (bodiesResult.error) toast.error(bodiesResult.error.message);
         if (trustResult.error) toast.error(trustResult.error.message);
+        if (executorResult.error) toast.error(executorResult.error.message);
         return;
       }
 
@@ -89,6 +105,7 @@ const Admin = () => {
           profiles: profilesResult.data,
           bodies: bodiesResult.data,
           trust: trustResult.data,
+          executor: executorResult.data,
         },
         isLoading: false,
       });
@@ -188,6 +205,18 @@ const Admin = () => {
             >
               Manage Trust
             </button>
+            <button
+              class="nav-link"
+              id="nav-executor-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#nav-executor"
+              type="button"
+              role="tab"
+              aria-controls="nav-executor"
+              aria-selected="false"
+            >
+              Manage Executor
+            </button>
           </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -222,6 +251,14 @@ const Admin = () => {
             aria-labelledby="nav-trust-tab"
           >
             <ManageTrust summary={summary} refreshFunction={fetchData} />
+          </div>
+          <div
+            class="tab-pane fade"
+            id="nav-executor"
+            role="tabpanel"
+            aria-labelledby="nav-executor-tab"
+          >
+            <ManageExecutor summary={summary} refreshFunction={fetchData} />
           </div>
         </div>
       </div>

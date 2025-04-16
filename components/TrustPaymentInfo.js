@@ -1,6 +1,8 @@
 import { addUserImg } from '../constant/element';
 import { paymentMethods } from '../constant/enum';
+import translations from '../constant/translations';
 import { useApi } from '../context/api';
+import { useLocale } from '../context/locale';
 import { useTempData } from '../context/tempData';
 import {
   mapViewElements,
@@ -14,6 +16,7 @@ import toast from 'react-hot-toast';
 const TrustPaymentInfo = ({ onSubmitToggle = false, nextStep }) => {
   const { contextApiData, addTrustPayment } = useApi();
   const { tempData } = useTempData();
+  const { locale } = useLocale();
   const formRef = useRef(null);
   const receiptImageRef = useRef(null); // Ref for the receipt image input
   const [trustData, setTrustData] = useState([]);
@@ -95,7 +98,9 @@ const TrustPaymentInfo = ({ onSubmitToggle = false, nextStep }) => {
     const trustAmountValue = parseInt(trustAmountInput.value, 10); //Get raw Value
 
     if (!selectedPaymentMethod) {
-      setPaymentMethodError('Please select a payment method.');
+      setPaymentMethodError(
+        translations[locale].trust.payment_info.payment_method_error
+      );
       return;
     } else {
       setPaymentMethodError('');
@@ -103,7 +108,9 @@ const TrustPaymentInfo = ({ onSubmitToggle = false, nextStep }) => {
 
     if (trustAmountValue < MIN_TRUST_AMOUNT) {
       trustAmountInput.setCustomValidity(
-        `Minimum trust amount is RM ${MIN_TRUST_AMOUNT.toLocaleString()}`
+        `${
+          translations[locale].trust.payment_info.minimum_trust_amount
+        }${MIN_TRUST_AMOUNT.toLocaleString()}`
       );
       trustAmountInput.reportValidity();
       return;
@@ -112,7 +119,9 @@ const TrustPaymentInfo = ({ onSubmitToggle = false, nextStep }) => {
     }
 
     if (selectedPaymentMethod === 'bank_transfer' && !selectedImage.data) {
-      setReceiptError('Please upload a receipt image.');
+      setReceiptError(
+        translations[locale].trust.payment_info.upload_receipt_error
+      );
       return;
     } else {
       setReceiptError('');
@@ -143,7 +152,7 @@ const TrustPaymentInfo = ({ onSubmitToggle = false, nextStep }) => {
         isUpdateByReturnId: true,
       });
 
-      toast.success('Saved!');
+      toast.success(translations[locale].trust.payment_info.payment_saved);
       nextStep();
     }
   };
@@ -182,13 +191,17 @@ const TrustPaymentInfo = ({ onSubmitToggle = false, nextStep }) => {
     <form ref={formRef} onSubmit={onSubmitForm} className="mt-3">
       <div className="card">
         <div className="card-body">
-          <h5 className="card-title">Fee Breakdown</h5>
+          <h5 className="card-title">
+            {translations[locale].trust.payment_info.fee_breakdown}
+          </h5>
           <ul className="list-group list-group-flush">
             <li className="list-group-item d-flex justify-content-between">
               <div>
-                <strong>Trust Amount</strong>
+                <strong>
+                  {translations[locale].trust.payment_info.trust_amount}
+                </strong>
                 <p className="text-muted mb-0">
-                  Please enter trust amount (minimum RM 100,000)
+                  {translations[locale].trust.payment_info.trust_amount_desc}
                 </p>
               </div>
               <span>
@@ -208,8 +221,15 @@ const TrustPaymentInfo = ({ onSubmitToggle = false, nextStep }) => {
             </li>
             <li className="list-group-item d-flex justify-content-between">
               <div>
-                <strong>Trust Account</strong>
-                <p className="text-muted mb-0">1.5% annual management free</p>
+                <strong>
+                  {translations[locale].trust.payment_info.trust_account}
+                </strong>
+                <p className="text-muted mb-0">
+                  {
+                    translations[locale].trust.payment_info
+                      .annual_management_fee
+                  }
+                </p>
               </div>
               <span>
                 RM{' '}
@@ -221,8 +241,12 @@ const TrustPaymentInfo = ({ onSubmitToggle = false, nextStep }) => {
             </li>
             <li className="list-group-item d-flex justify-content-between">
               <div>
-                <strong>Total Amount</strong>
-                <p className="text-muted mb-0">(Including all fees)</p>
+                <strong>
+                  {translations[locale].trust.payment_info.total_amount}
+                </strong>
+                <p className="text-muted mb-0">
+                  {translations[locale].trust.payment_info.including_fees}
+                </p>
               </div>
               <span className="fw-bold">
                 RM{' '}
@@ -234,7 +258,9 @@ const TrustPaymentInfo = ({ onSubmitToggle = false, nextStep }) => {
             </li>
           </ul>
 
-          <h5 className="mt-4">Select Payment Method</h5>
+          <h5 className="mt-4">
+            {translations[locale].trust.payment_info.select_payment}
+          </h5>
           <div className="d-flex flex-wrap gap-3 mt-3">
             {paymentMethods().map((method) => (
               <div
@@ -291,24 +317,38 @@ const TrustPaymentInfo = ({ onSubmitToggle = false, nextStep }) => {
           {selectedPaymentMethod === 'bank_transfer' && (
             <div className="card mt-3">
               <div className="card-body">
-                <h5 className="card-title">Bank Transfer Details</h5>
-                <p>Please transfer the funds to the following bank account:</p>
+                <h5 className="card-title">
+                  {
+                    translations[locale].trust.payment_info
+                      .bank_transfer_details
+                  }
+                </h5>
+                <p>
+                  {translations[locale].trust.payment_info.transfer_instruction}
+                </p>
                 <ul className="list-unstyled">
                   <li>
-                    <strong>Bank Name:</strong> {bankTransferDetails.bankName}
+                    <strong>
+                      {translations[locale].trust.payment_info.bank_name}:
+                    </strong>{' '}
+                    {bankTransferDetails.bankName}
                   </li>
                   <li>
-                    <strong>Account Name:</strong>{' '}
+                    <strong>
+                      {translations[locale].trust.payment_info.account_name}:
+                    </strong>{' '}
                     {bankTransferDetails.accountName}
                   </li>
                   <li>
-                    <strong>Account Number:</strong>{' '}
+                    <strong>
+                      {translations[locale].trust.payment_info.account_number}:
+                    </strong>{' '}
                     {bankTransferDetails.accountNumber}
                   </li>
                 </ul>
                 <div className="mb-3" ref={receiptImageRef}>
                   <label htmlFor="receiptImage" className="form-label">
-                    Upload Proof of Payment
+                    {translations[locale].trust.payment_info.upload_proof}
                   </label>
                   <input
                     className="form-control mb-3"

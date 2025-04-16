@@ -1,8 +1,9 @@
 import Breadcrumb from '../components/Breadcrumb';
+import ExecutorSummaryCard from '../components/ExecutorSummaryCard';
+import ExecutorTable from '../components/ExecutorTable';
 import Footer from '../components/Footer';
 import SideBar from '../components/SideBar';
 import TrustSummaryCard from '../components/TrustSummaryCard';
-import TrustTable from '../components/TrustTable';
 import translations from '../constant/translations';
 import { useApi } from '../context/api';
 import { useLocale } from '../context/locale';
@@ -11,15 +12,15 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
-const Trust = () => {
-  const { contextApiData, getAllTrust } = useApi();
+const Executor = () => {
+  const { contextApiData, getAllExecutor } = useApi();
   const { locale } = useLocale();
   const router = useRouter();
   const { isModalOpen, toggleModal } = useModal();
 
   useEffect(() => {
     if (contextApiData.profile.data) {
-      getAllTrust();
+      getAllExecutor();
     }
   }, [contextApiData.profile.data]);
 
@@ -29,10 +30,10 @@ const Trust = () => {
         <div class="row text-md-start text-center">
           <div class="col-lg">
             <div class="smpl_display-sm-semibold">
-              {translations[locale].trust.trust_account_dashboard}
+              {translations[locale].executor.dashboard.title}
             </div>
             <div class="smpl_text-md-regular">
-              {translations[locale].trust.monitor_and_manage}
+              {translations[locale].executor.dashboard.subtitle}
             </div>
           </div>
           <div class="col text-end">
@@ -40,7 +41,7 @@ const Trust = () => {
               type="button"
               class="btn btn-primary btn-text"
               onClick={() => {
-                toggleModal('trust');
+                toggleModal('executor');
               }}
             >
               <div class="d-flex">
@@ -51,7 +52,7 @@ const Trust = () => {
                   height={24}
                 />
                 <span class="ms-2">
-                  {translations[locale].trust.create_new_trust}
+                  {translations[locale].executor.dashboard.create_new}
                 </span>
               </div>
             </button>
@@ -67,14 +68,14 @@ const Trust = () => {
       <div class="body-01 inner-body-01">
         <div class="content">
           <Breadcrumb
-            pageName={translations[locale].component.side_bar.trust}
+            pageName={translations[locale].component.side_bar.executor}
           />
           <div class="mt-4">{title()}</div>
           <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-            <TrustSummaryCard />
+            <ExecutorSummaryCard />
           </div>
           <div class="card mt-3">
-            <TrustTable typeName={'trust'} />
+            <ExecutorTable typeName={'executor'} />
           </div>
         </div>
         <Footer />
@@ -83,4 +84,4 @@ const Trust = () => {
   );
 };
 
-export default Trust;
+export default Executor;

@@ -2,6 +2,7 @@ import { addUserImg } from '../constant/element';
 import {
   countries,
   maritalStatus,
+  preferablyCommunications,
   religions,
   systemLanguages,
 } from '../constant/enum';
@@ -86,6 +87,9 @@ const MyDetails = ({
           state: document.getElementById('input-my-details-state'),
           country: document.getElementById('select-my-details-country'),
           image_path: document.getElementById('preview-my-details-image'),
+          preferably_communication: document.getElementById(
+            'select-my-details-preferably-communication'
+          ),
           system_language: document.getElementById(
             'select-my-details-system-language'
           ),
@@ -510,13 +514,37 @@ const MyDetails = ({
           {checkView({
             labelDiv1: (
               <label
+                htmlFor="select-my-details-preferably-communication"
+                class="uui-field-label"
+              >
+                {
+                  translations[locale].component.my_details
+                    .preferably_communication
+                }
+              </label>
+            ),
+            inputDiv1: (
+              <select
+                id="select-my-details-preferably-communication"
+                required
+                class="form-select"
+              >
+                {preferablyCommunications().map((item) => (
+                  <option key={item.value} value={item.value}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+            ),
+            labelDiv2: (
+              <label
                 htmlFor="select-my-details-system-language"
                 class="uui-field-label"
               >
                 {translations[locale].component.my_details.system_language}
               </label>
             ),
-            inputDiv1: (
+            inputDiv2: (
               <select
                 id="select-my-details-system-language"
                 required

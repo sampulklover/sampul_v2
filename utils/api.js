@@ -490,3 +490,181 @@ export const addTrustPaymentApi = async (postData) => {
     toast.error(error.message);
   }
 };
+
+export const getAllExecutorApi = async (postData) => {
+  try {
+    const { data, error } = await supabase
+      .from('executor')
+      .select(
+        `*, executor_deceased(*), executor_deceased_assets(*), executor_guardian(*)`
+      )
+      .eq('uuid', postData.uuid)
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
+
+export const getExecutorApi = async (postData) => {
+  try {
+    const { data, error } = await supabase
+      .from('executor')
+      .select(
+        `*, executor_deceased(*), executor_deceased_assets(*), executor_guardian(*)`
+      )
+      .eq('id', postData.executorId)
+      .single();
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
+
+export const addExecutorApi = async (postData) => {
+  try {
+    const { data, error } = await supabase
+      .from('executor')
+      .upsert(postData, { onConflict: ['id'] })
+      .select(
+        `*, executor_deceased(*), executor_deceased_assets(*), executor_guardian(*)`
+      )
+      .single();
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
+
+export const deleteExecutorApi = async (postData) => {
+  try {
+    // First get list of files in the bucket
+    const { data: bucketFiles, error: bucketError } = await supabase.storage
+      .from('images')
+      .list(`${postData.uuid}/executor-documents/${postData.id}`, {
+        limit: 100,
+        offset: 0,
+      });
+
+    if (bucketError) throw bucketError;
+
+    // If there are files, delete them
+    if (bucketFiles && bucketFiles.length > 0) {
+      const filesToDelete = bucketFiles.map(
+        (file) =>
+          `${postData.uuid}/executor-documents/${postData.id}/${file.name}`
+      );
+
+      const { error: deleteError } = await supabase.storage
+        .from('images')
+        .remove(filesToDelete);
+
+      if (deleteError) throw deleteError;
+    }
+
+    // Then delete the executor record
+    const { data, error } = await supabase
+      .from('executor')
+      .delete()
+      .eq('id', postData.id)
+      .select('*')
+      .single();
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
+
+export const addExecutorDeceasedApi = async (postData) => {
+  try {
+    const { data, error } = await supabase
+      .from('executor_deceased')
+      .upsert(postData, { onConflict: ['executor_id'] })
+      .select('*')
+      .single();
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
+
+export const addExecutorDeceasedAssetsApi = async (postData) => {
+  try {
+    const { data, error } = await supabase
+      .from('executor_deceased_assets')
+      .upsert(postData, { onConflict: ['executor_id'] })
+      .select('*')
+      .single();
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
+
+export const addExecutorGuardianApi = async (postData) => {
+  try {
+    const { data, error } = await supabase
+      .from('executor_guardian')
+      .upsert(postData, { onConflict: ['executor_id'] })
+      .select('*')
+      .single();
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
+
+export const getBucketExecutorApi = async (postData) => {
+  try {
+    const { data, error } = await supabase.storage
+      .from(`images`)
+      .list(`${postData.uuid}/executor-documents/${postData.executorId}`, {
+        limit: 100,
+        offset: 0,
+        sortBy: { column: 'name', order: 'asc' },
+      });
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    toast.error(error.message);
+  }
+};

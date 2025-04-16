@@ -4,7 +4,9 @@ import {
   resident_status,
   residentStatus,
 } from '../constant/enum';
+import translations from '../constant/translations';
 import { useApi } from '../context/api';
+import { useLocale } from '../context/locale';
 import { useTempData } from '../context/tempData';
 import { removeEmptyKeyValue, renderField } from '../utils/helpers';
 import Image from 'next/image';
@@ -17,6 +19,7 @@ const TrustBeneficiaryInfo = ({
 }) => {
   const { contextApiData } = useApi();
   const { tempData, setValueTempData } = useTempData();
+  const { locale } = useLocale();
   const [trustData, setTrustData] = useState({});
   const [beneficiaries, setBeneficiaries] = useState([
     {
@@ -80,7 +83,9 @@ const TrustBeneficiaryInfo = ({
 
   const onSubmitForm = async () => {
     if (beneficiaries.length === 0) {
-      toast.error('You must have at least one beneficiary.');
+      toast.error(
+        translations[locale].trust.beneficiary_info.min_one_beneficiary
+      );
       return;
     }
 
@@ -147,7 +152,9 @@ const TrustBeneficiaryInfo = ({
 
   const handleDeleteBeneficiary = (index) => {
     if (beneficiaries.length <= 1) {
-      toast.error('You must have at least one beneficiary.');
+      toast.error(
+        translations[locale].trust.beneficiary_info.min_one_beneficiary
+      );
       return;
     }
 
@@ -211,11 +218,14 @@ const TrustBeneficiaryInfo = ({
   const getBeneficiaryLabel = (index) => {
     switch (index) {
       case 0:
-        return 'Principal Beneficiary';
+        return translations[locale].trust.beneficiary_info
+          .principal_beneficiary;
       case 1:
-        return 'Secondary Beneficiary';
+        return translations[locale].trust.beneficiary_info
+          .secondary_beneficiary;
       default:
-        return 'Additional Beneficiary';
+        return translations[locale].trust.beneficiary_info
+          .additional_beneficiary;
     }
   };
 
@@ -250,9 +260,10 @@ const TrustBeneficiaryInfo = ({
                   )}
                 </div>
                 {renderField({
-                  label: 'Name',
+                  label: translations[locale].trust.beneficiary_info.name,
                   id: `name-${index}`,
-                  textUnder: '(same as NRIC/Passport/)',
+                  textUnder:
+                    translations[locale].trust.beneficiary_info.name_as_per,
                   onChange: (e) =>
                     handleInputChange(index, {
                       ...e,
@@ -263,7 +274,8 @@ const TrustBeneficiaryInfo = ({
                 })}
                 <div className="d-flex flex-column flex-md-row gap-3">
                   {renderField({
-                    label: 'Relationship',
+                    label:
+                      translations[locale].trust.beneficiary_info.relationship,
                     id: `relationship-${index}`,
                     className: 'w-100 w-md-50',
                     onChange: (e) =>
@@ -274,7 +286,7 @@ const TrustBeneficiaryInfo = ({
                     value: beneficiary.relationship,
                   })}
                   {renderField({
-                    label: 'Gender',
+                    label: translations[locale].trust.beneficiary_info.gender,
                     id: `gender-${index}`,
                     options: genders(),
                     className: 'w-100 w-md-50',
@@ -286,7 +298,9 @@ const TrustBeneficiaryInfo = ({
                     value: beneficiary.gender,
                   })}
                   {renderField({
-                    label: 'Resident Status',
+                    label:
+                      translations[locale].trust.beneficiary_info
+                        .resident_status,
                     id: `resident-status-${index}`,
                     options: residentStatus(),
                     className: 'w-100 w-md-50',
@@ -303,7 +317,8 @@ const TrustBeneficiaryInfo = ({
                 </div>
                 <div className="d-flex flex-column flex-md-row gap-3">
                   {renderField({
-                    label: 'Nationality',
+                    label:
+                      translations[locale].trust.beneficiary_info.nationality,
                     id: `nationality-${index}`,
                     options: countries(),
                     className: 'w-100 w-md-50',
@@ -317,7 +332,7 @@ const TrustBeneficiaryInfo = ({
                 </div>
                 <div className="d-flex flex-column flex-md-row gap-3">
                   {renderField({
-                    label: 'Telephone/Mobile',
+                    label: translations[locale].trust.beneficiary_info.phone_no,
                     id: `phone-no-${index}`,
                     className: 'w-100 w-md-50',
                     onChange: (e) =>
@@ -328,7 +343,7 @@ const TrustBeneficiaryInfo = ({
                     value: beneficiary.phone_no,
                   })}
                   {renderField({
-                    label: 'Email',
+                    label: translations[locale].trust.beneficiary_info.email,
                     id: `email-${index}`,
                     type: 'email',
                     className: 'w-100 w-md-50',
@@ -341,7 +356,8 @@ const TrustBeneficiaryInfo = ({
                   })}
                 </div>
                 {renderField({
-                  label: 'Address Line 1',
+                  label:
+                    translations[locale].trust.beneficiary_info.address_line_1,
                   id: `address-line-1-${index}`,
                   onChange: (e) =>
                     handleInputChange(index, {
@@ -351,7 +367,8 @@ const TrustBeneficiaryInfo = ({
                   value: beneficiary.address_line_1,
                 })}
                 {renderField({
-                  label: 'Address Line 2',
+                  label:
+                    translations[locale].trust.beneficiary_info.address_line_2,
                   id: `address-line-2-${index}`,
                   onChange: (e) =>
                     handleInputChange(index, {
@@ -363,7 +380,7 @@ const TrustBeneficiaryInfo = ({
                 })}
                 <div className="d-flex flex-column flex-md-row gap-3">
                   {renderField({
-                    label: 'City',
+                    label: translations[locale].trust.beneficiary_info.city,
                     id: `city-${index}`,
                     className: 'w-100 w-md-50',
                     onChange: (e) =>
@@ -374,7 +391,7 @@ const TrustBeneficiaryInfo = ({
                     value: beneficiary.city,
                   })}
                   {renderField({
-                    label: 'Postcode',
+                    label: translations[locale].trust.beneficiary_info.postcode,
                     id: `postcode-${index}`,
                     className: 'w-100 w-md-50',
                     onChange: (e) =>
@@ -387,7 +404,9 @@ const TrustBeneficiaryInfo = ({
                 </div>
                 <div className="d-flex flex-column flex-md-row gap-3">
                   {renderField({
-                    label: 'State / Province',
+                    label:
+                      translations[locale].trust.beneficiary_info
+                        .state_province,
                     id: `state-province-${index}`,
                     className: 'w-100 w-md-50',
                     onChange: (e) =>
@@ -398,7 +417,7 @@ const TrustBeneficiaryInfo = ({
                     value: beneficiary.state_province,
                   })}
                   {renderField({
-                    label: 'Country',
+                    label: translations[locale].trust.beneficiary_info.country,
                     id: `country-${index}`,
                     options: countries(),
                     className: 'w-100 w-md-50',
@@ -412,7 +431,9 @@ const TrustBeneficiaryInfo = ({
                 </div>
                 <div className="d-flex flex-column flex-md-row gap-3">
                   {renderField({
-                    label: 'Monthly Distribution for Living Expenses (RM)',
+                    label:
+                      translations[locale].trust.beneficiary_info
+                        .monthly_distribution_living,
                     id: `monthly-distribution-living-expenses-${index}`,
                     type: 'number',
                     className: 'w-100 w-md-50',
@@ -430,7 +451,9 @@ const TrustBeneficiaryInfo = ({
                     value: beneficiary.monthly_distribution_living,
                   })}
                   {renderField({
-                    label: 'Monthly Distribution for Education Expenses (RM)',
+                    label:
+                      translations[locale].trust.beneficiary_info
+                        .monthly_distribution_education,
                     id: `monthly-distribution-education-expenses-${index}`,
                     type: 'number',
                     className: 'w-100 w-md-50',
@@ -461,16 +484,10 @@ const TrustBeneficiaryInfo = ({
                     className="form-check-label"
                     htmlFor={`mentallyIncapacitatedCheckbox-${index}`}
                   >
-                    In the event I become mentally incapacitated to make
-                    decisions or is unable to provide any written instructions
-                    to the Trustee or is unable to be contacted for a period of
-                    30 days and/or I require support from this Trust Fund, it is
-                    my wish that the Trustee shall utilize the Trust Fund to
-                    take care of my maintenance, medical/hospitalization,
-                    caretaker’s allowances, household expenses and other
-                    personal needs, whether I am residing in Malaysia or abroad
-                    upon submission of relevant supporting documents to you. Or
-                    Alternatively distribute to this per person.
+                    {
+                      translations[locale].trust.beneficiary_info
+                        .mentally_incapacitated_info
+                    }
                   </label>
                 </div>
 
@@ -486,10 +503,10 @@ const TrustBeneficiaryInfo = ({
                     className="form-check-label"
                     htmlFor={`settleOutstandingCheckbox-${index}`}
                   >
-                    It is my wish that the Trustee shall settle all the
-                    outstanding debts/liabilities, legal fees, executor fees and
-                    other administration expenses incurred for my Estate before
-                    and after the extraction of Grant of Probate.
+                    {
+                      translations[locale].trust.beneficiary_info
+                        .settle_outstanding_info
+                    }
                   </label>
                 </div>
 
@@ -505,10 +522,10 @@ const TrustBeneficiaryInfo = ({
                     className="form-check-label"
                     htmlFor={`medicalCheckbox-${index}`}
                   >
-                    The trustee may use the trust fund for medical expenses if
-                    there is no insurance coverage or the coverage limit has
-                    been exhausted. The fund may also be used to pay for a
-                    medical policy.
+                    {
+                      translations[locale].trust.beneficiary_info
+                        .medical_expenses_info
+                    }
                   </label>
                 </div>
 
@@ -524,10 +541,10 @@ const TrustBeneficiaryInfo = ({
                     className="form-check-label"
                     htmlFor={`educationCheckbox-${index}`}
                   >
-                    The trustee may use the trust fund for education expenses
-                    upon submission of supporting documents. A monthly allowance
-                    may also be provided for living expenses during local or
-                    overseas studies.
+                    {
+                      translations[locale].trust.beneficiary_info
+                        .education_expenses_info
+                    }
                   </label>
                 </div>
 
@@ -543,8 +560,10 @@ const TrustBeneficiaryInfo = ({
                     className="form-check-label"
                     htmlFor={`investMarketCheckbox-${index}`}
                   >
-                    Trust Fund is to be invested in money market instruments
-                    with any of the licensed financial institution in Malaysia.
+                    {
+                      translations[locale].trust.beneficiary_info
+                        .invest_market_info
+                    }
                   </label>
                 </div>
                 <div className="form-check mt-3 mb-3">
@@ -559,10 +578,10 @@ const TrustBeneficiaryInfo = ({
                     className="form-check-label"
                     htmlFor={`investUnitCheckbox-${index}`}
                   >
-                    Trust Fund is to be invested in Unit Trust/Mutual Fund
-                    investment with any of the licensed fund management company
-                    in Malaysia based on the recommendation from the Management
-                    Committee.
+                    {
+                      translations[locale].trust.beneficiary_info
+                        .invest_unit_info
+                    }
                   </label>
                 </div>
               </div>
@@ -579,7 +598,12 @@ const TrustBeneficiaryInfo = ({
                 width={24}
                 height={24}
               />
-              <span className="ms-2">Add More Beneficiary</span>
+              <span className="ms-2">
+                {
+                  translations[locale].trust.beneficiary_info
+                    .add_more_beneficiary
+                }
+              </span>
             </button>
           </div>
         </div>

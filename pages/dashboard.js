@@ -140,7 +140,7 @@ const Dashboard = () => {
             type="button"
             class="btn btn-primary btn-text mx-3"
             onClick={() => {
-              router.push('care');
+              router.push('aftercare');
             }}
           >
             <Loading title={translations[locale].dashboard.chat_with_us} />

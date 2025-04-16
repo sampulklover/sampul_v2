@@ -177,38 +177,38 @@ const CharityModal = () => {
       <div>
         <form onSubmit={onSubmitForm}>
           {renderField({
-            label: 'Name of organization',
+            label: translations[locale].trust.charity_info.organization_name,
             id: 'input-organization-name',
           })}
           {renderField({
-            label: 'Address Line 1',
+            label: translations[locale].trust.charity_info.address_line_1,
             id: 'input-address-1',
           })}
           {renderField({
-            label: 'Address Line 2',
+            label: translations[locale].trust.charity_info.address_line_2,
             id: 'input-address-2',
             required: false,
           })}
           <div className="d-flex flex-column flex-md-row gap-3">
             {renderField({
-              label: 'City',
+              label: translations[locale].trust.charity_info.city,
               id: 'input-city',
               className: 'w-100 w-md-50',
             })}
             {renderField({
-              label: 'Postcode',
+              label: translations[locale].trust.charity_info.postcode,
               id: 'input-postcode',
               className: 'w-100 w-md-50',
             })}
           </div>
           <div className="d-flex flex-column flex-md-row gap-3">
             {renderField({
-              label: 'State / Province',
+              label: translations[locale].trust.charity_info.state_province,
               id: 'input-state',
               className: 'w-100 w-md-50',
             })}
             {renderField({
-              label: 'Country',
+              label: translations[locale].trust.charity_info.country,
               id: 'select-country',
               options: countries(),
               className: 'w-100 w-md-50',
@@ -216,43 +216,43 @@ const CharityModal = () => {
           </div>
           <div className="d-flex flex-column flex-md-row gap-3">
             {renderField({
-              label: 'Contact no',
+              label: translations[locale].trust.charity_info.contact_no,
               id: 'input-phone-no',
               className: 'w-100 w-md-50',
             })}
             {renderField({
-              label: 'Email',
+              label: translations[locale].trust.charity_info.email,
               id: 'input-email',
               type: 'email',
               className: 'w-100 w-md-50',
             })}
           </div>
           {renderField({
-            label: 'Category',
+            label: translations[locale].trust.charity_info.category,
             id: 'select-category',
             options: donationCategories(),
           })}
           {renderField({
-            label: 'Bank Name',
+            label: translations[locale].trust.charity_info.bank_name,
             id: 'select-bank',
             options: banks(),
           })}
           {renderField({
-            label: 'Account Number',
+            label: translations[locale].trust.charity_info.account_number,
             id: 'input-account-number',
-            type: 'number', // Assuming account number is numeric
+            type: 'number',
           })}
           <div className="d-flex flex-column flex-md-row gap-3">
             {renderField({
-              label: 'Donation Amount (RM)',
+              label: translations[locale].trust.charity_info.donation_amount,
               id: 'input-donation-amount',
               type: 'number',
-              step: '0.01', // Allow decimal values for cents
-              min: '0.01', // Minimum donation amount
+              step: '0.01',
+              min: '0.01',
               className: 'w-70 w-md-50',
             })}
             {renderField({
-              label: 'Duration',
+              label: translations[locale].trust.charity_info.duration,
               id: 'select-duration',
               options: donationDurations(),
             })}
@@ -260,25 +260,25 @@ const CharityModal = () => {
           <div class="d-grid gap-2">
             <button type="submit" class="btn btn-primary btn-text">
               <Loading
-                title={charityType == 'add' ? 'Add' : 'Update'}
+                title={
+                  translations[locale].trust.charity_info[
+                    charityType === 'add' ? 'add' : 'update'
+                  ]
+                }
                 loading={buttonConfig.submit.isLoading}
               />
             </button>
-            {charityType == 'edit' ? (
+            {charityType == 'edit' && (
               <button
                 type="button"
                 class="btn btn-outline-danger btn-text"
-                onClick={() => {
-                  onDeleteorganization();
-                }}
+                onClick={onDeleteorganization}
               >
                 <Loading
-                  title={'Delete'}
+                  title={translations[locale].trust.charity_info.delete}
                   loading={buttonConfig.delete.isLoading}
                 />
               </button>
-            ) : (
-              ''
             )}
           </div>
         </form>
@@ -288,11 +288,11 @@ const CharityModal = () => {
 
   const viewConfig = {
     add: {
-      modalTitle: 'Add a new charity',
+      modalTitle: translations[locale].trust.charity_info.add_charity,
       body: formContainerConfig.general,
     },
     edit: {
-      modalTitle: 'Edit organization',
+      modalTitle: translations[locale].trust.charity_info.edit_organization,
       body: formContainerConfig.general,
     },
   };

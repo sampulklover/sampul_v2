@@ -32,6 +32,10 @@ export const TempDataProvider = ({ children }) => {
       key: 'add',
       selectedItem: null,
     },
+    executor: {
+      key: 'add',
+      selectedItem: null,
+    },
   });
 
   const setValueTempData = (key, passData) => {

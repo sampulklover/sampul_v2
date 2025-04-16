@@ -51,7 +51,7 @@ const Billing = ({ onSuccess = () => {} }) => {
   const PRICE_3_YEARLY_ID = 'price_1Pp7LMESARlUW00174bvJcnV';
 
   const [showMore, setShowMore] = useState({});
-  const [isYearly, setIsYearly] = useState(false);
+  const [isYearly, setIsYearly] = useState(true);
 
   const priceDisplay = (priceInCents) => {
     // Convert cents to ringgit
@@ -411,7 +411,7 @@ const Billing = ({ onSuccess = () => {} }) => {
   return (
     <>
       <div className="d-flex justify-content-center mb-3">
-        <div>
+        {/* <div>
           <div className="d-flex align-items-center mb-2">
             <span style={{ fontWeight: isYearly ? 'normal' : 'bold' }}>
               {translations[locale].component.billing.billed_monthly}
@@ -434,7 +434,7 @@ const Billing = ({ onSuccess = () => {} }) => {
               {translations[locale].component.billing.save_up_to_}
             </small>
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="card-group">
         {Object.keys(planConfig).map((planKey) => {

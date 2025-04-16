@@ -319,6 +319,39 @@ export const relationships = () => {
   return options;
 };
 
+export const executorRelationships = () => {
+  const options = [
+    { name: 'Husband', value: 'husband' },
+    { name: 'Wife', value: 'wife' },
+    { name: 'Father', value: 'father' },
+    { name: 'Mother', value: 'mother' },
+    { name: 'Child', value: 'child' },
+    { name: 'Others', value: 'others' },
+  ];
+
+  return options;
+};
+
+export const executorDeathCause = () => {
+  const options = [
+    { name: 'Natural Cause', value: 'natural' },
+    { name: 'Accident', value: 'accident' },
+  ];
+
+  return options;
+};
+
+export const ethnicities = () => {
+  const options = [
+    { name: 'Malay', value: 'malay' },
+    { name: 'Chinese', value: 'chinese' },
+    { name: 'Indian', value: 'indian' },
+    { name: 'Others', value: 'others' },
+  ];
+
+  return options;
+};
+
 export const beneficiaryTypes = () => {
   const options = [
     { name: 'Co-Sampul', value: 'co_sampul' },
@@ -359,6 +392,15 @@ export const religions = () => {
     { name: 'Confucianism', value: 'confucianism' },
     { name: 'Taoism', value: 'taoism' },
     { name: 'Others', value: 'others' },
+  ];
+
+  return options;
+};
+
+export const preferablyCommunications = () => {
+  const options = [
+    { name: 'Email', value: 'email' },
+    { name: 'WhatsApp', value: 'whatsapp' },
   ];
 
   return options;
