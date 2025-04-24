@@ -10,6 +10,7 @@ import {
   addTrustBeneficiaryApi,
   addTrustCharityApi,
   addTrustPaymentApi,
+  addChipPaymentApi,
   deleteExecutorApi,
   deleteTrustApi,
   deleteTrustCharityApi,
@@ -32,6 +33,7 @@ import {
   getTrustApi,
   getUserApi,
   getWillApi,
+  getChipClientApi,
 } from '../utils/api';
 import { supabase } from '../utils/supabase';
 import * as Sentry from '@sentry/nextjs';
@@ -771,6 +773,47 @@ export const ApiProvider = ({ children }) => {
     }
   };
 
+  const getChipClient = async (postData) => {
+    try {
+      const data = await getChipClientApi({
+        userId: contextApiData.user.data.id,
+        email: contextApiData.user.data.user_metadata.email,
+      });
+
+      if (data) {
+        return data;
+      }
+    } catch (error) {
+      console.error(error);
+      Sentry.captureException(error);
+    }
+  };
+
+  const addChipPayment = async (postData) => {
+    const result = await getChipClient();
+    if (result?.chip_customer_id) {
+      try {
+        const data = await addChipPaymentApi({
+          trustId: postData.trustId,
+          trustCode: postData.trustCode,
+          userId: contextApiData.user.data.id,
+          clientId: result?.chip_customer_id,
+          amount: parseFloat(postData.amount),
+          description: `Payment for Trust ${postData.trustCode}`,
+        });
+
+        if (data) {
+          return data;
+        }
+      } catch (error) {
+        console.error(error);
+        Sentry.captureException(error);
+      }
+    } else {
+      console.log('Client Id not found');
+    }
+  };
+
   const addTrustBeneficiary = async (postData, trustId = null) => {
     try {
       const updatedPostData = postData.trustData.map((item) => ({
@@ -1371,6 +1414,8 @@ export const ApiProvider = ({ children }) => {
         addTrust,
         getTrust,
         deleteTrust,
+        getChipClient,
+        addChipPayment,
         addTrustBeneficiary,
         addTrustCharity,
         deleteTrustCharity,

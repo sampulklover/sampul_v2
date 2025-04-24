@@ -13,7 +13,7 @@ const TrustTable = ({ typeName, showAll = true }) => {
   const { isModalOpen, toggleModal } = useModal();
   const { tempData, setValueTempData } = useTempData();
   const { locale } = useLocale();
-  const { contextApiData, deleteTrust } = useApi();
+  const { contextApiData, deleteTrust, addChipPayment } = useApi();
 
   const [buttonConfig, setButtonConfig] = useState({
     submit: {
@@ -23,6 +23,9 @@ const TrustTable = ({ typeName, showAll = true }) => {
       isLoading: false,
     },
   });
+
+  const [paymentAmount, setPaymentAmount] = useState('');
+  const [selectedTrust, setSelectedTrust] = useState(null);
 
   const type = {
     trust: {
@@ -74,6 +77,52 @@ const TrustTable = ({ typeName, showAll = true }) => {
     }
   };
 
+  const initiatePayment = async (trust) => {
+    if (!paymentAmount || isNaN(paymentAmount) || paymentAmount <= 0) {
+      toast.error('Please enter a valid amount');
+      return;
+    }
+
+    try {
+      setButtonConfig((prev) => ({
+        ...prev,
+        submit: { isLoading: true },
+      }));
+
+      const payment = await addChipPayment({
+        trustId: trust.id,
+        amount: paymentAmount,
+        trustCode: trust.trust_code,
+      });
+
+      if (!payment) {
+        throw new Error('Payment creation failed');
+      }
+
+      if (payment.error) {
+        throw new Error(payment.error);
+      }
+
+      const checkoutUrl = payment.checkout_url || payment.data?.checkout_url;
+      if (!checkoutUrl) {
+        throw new Error('No checkout URL received from payment provider');
+      }
+
+      // Clear form and redirect
+      setPaymentAmount('');
+      setSelectedTrust(null);
+      window.location.href = checkoutUrl;
+    } catch (error) {
+      console.error('Payment Error:', error);
+      toast.error(error.message || 'Payment failed. Please try again later');
+    } finally {
+      setButtonConfig((prev) => ({
+        ...prev,
+        submit: { isLoading: false },
+      }));
+    }
+  };
+
   if (type[typeName].isReady) {
     if (type[typeName].data?.length > 0 && type[typeName].isReady) {
       return (
@@ -103,6 +152,9 @@ const TrustTable = ({ typeName, showAll = true }) => {
                       {translations[locale].trust.action}
                     </small>
                   </th>
+                  {/* <th scope="col">
+                    <small class="smpl_text-xs-medium">Payment</small>
+                  </th> */}
                 </tr>
               </thead>
               <tbody>
@@ -159,6 +211,31 @@ const TrustTable = ({ typeName, showAll = true }) => {
                             </div>
                           </div>
                         </td>
+                        {/* <td>
+                          <div className="custom-table-cell">
+                            <div className="d-flex align-items-center gap-2">
+                              <input
+                                type="number"
+                                className="form-control form-control-sm"
+                                placeholder="Amount"
+                                value={
+                                  selectedTrust === item.id ? paymentAmount : ''
+                                }
+                                onChange={(e) => {
+                                  setSelectedTrust(item.id);
+                                  setPaymentAmount(e.target.value);
+                                }}
+                                style={{ width: '100px' }}
+                              />
+                              <button
+                                className="btn btn-primary btn-sm"
+                                onClick={() => initiatePayment(item)}
+                              >
+                                Pay
+                              </button>
+                            </div>
+                          </div>
+                        </td> */}
                       </tr>
                     );
                   })}
