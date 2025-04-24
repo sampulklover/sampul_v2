@@ -491,6 +491,107 @@ export const addTrustPaymentApi = async (postData) => {
   }
 };
 
+export const getChipClientApi = async (postData) => {
+  try {
+    const { data, error } = await supabase
+      .from('accounts')
+      .select('chip_customer_id')
+      .eq('uuid', postData.userId)
+      .single();
+
+    if (error) {
+      throw error;
+    }
+
+    if (data.chip_customer_id) {
+      return data;
+    } else {
+      const response = await fetch('/api/chip/create-client', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: postData.email,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create client');
+      }
+
+      const { data: createdClient } = await response.json();
+
+      let newChipId = null;
+      if (createdClient.id) {
+        const { data: storedClient, error } = await supabase
+          .from('accounts')
+          .update({ chip_customer_id: createdClient.id })
+          .eq('uuid', postData.userId)
+          .select()
+          .single();
+
+        if (error) {
+          throw error;
+        }
+
+        newChipId = storedClient.chip_customer_id;
+      }
+
+      return { chip_customer_id: newChipId };
+    }
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
+
+export const addChipPaymentApi = async (postData) => {
+  try {
+    const response = await fetch('/api/chip/create-payment', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        trustId: postData.trustId,
+        trustCode: postData.trustCode,
+        userId: postData.userId,
+        clientId: postData.clientId,
+        amount: postData.amount,
+        description: postData.description || 'Payment',
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Payment creation failed');
+    }
+
+    const { data } = await response.json();
+    return data;
+  } catch (error) {
+    toast.error(error.message);
+    throw error;
+  }
+};
+
+export const getChipPaymentHistoryApi = async (postData) => {
+  try {
+    const { data, error } = await supabase
+      .from('trust_payments')
+      .select('*')
+      .eq('trust_id', postData.trustId)
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
+
 export const getAllExecutorApi = async (postData) => {
   try {
     const { data, error } = await supabase
