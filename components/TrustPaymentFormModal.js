@@ -16,6 +16,7 @@ const TrustPaymentFormModal = ({
   const [amountInCents, setAmountInCents] = useState('');
   const [formattedAmount, setFormattedAmount] = useState('');
   const [error, setError] = useState('');
+  const [showFees, setShowFees] = useState(false);
 
   const handleAmountChange = (e) => {
     const value = e.target.value.replace(/[^\d]/g, '');
@@ -104,37 +105,119 @@ const TrustPaymentFormModal = ({
         </div>
 
         {/* Payment Limits Info */}
-        <div className="alert alert-info d-flex align-items-start mb-4">
-          <Image
-            src="/images/info-icon.svg"
-            width={16}
-            height={16}
-            className="me-2 mt-1"
-          />
-          <div>
-            <div className="fw-semibold mb-1">Payment Limits</div>
-            <ul className="mb-0 ps-3">
-              <li>
-                <small>
-                  Minimum trust amount: RM {formatRinggit(MIN_TRUST_AMOUNT)}
-                </small>
-              </li>
-              <li>
-                <small>
-                  Maximum per transaction: RM{' '}
-                  {formatRinggit(MAX_TRANSACTION_AMOUNT)}
-                </small>
-              </li>
-              {remainingTrustInCents > MAX_TRANSACTION_AMOUNT && (
-                <li>
-                  <small className="fw-semibold">
-                    You will need multiple payments to complete the minimum
-                    trust amount
-                  </small>
-                </li>
-              )}
-            </ul>
+        <div className="mb-4 border rounded-3 overflow-hidden">
+          <div className="p-3 bg-primary bg-opacity-10">
+            <div className="d-flex align-items-start">
+              <Image
+                src="/images/info-icon.svg"
+                width={16}
+                height={16}
+                className="me-2 mt-1"
+              />
+              <div>
+                <div className="fw-semibold mb-2">Payment Limits</div>
+                <ul className="mb-0 ps-3">
+                  <li>
+                    <small>
+                      Minimum trust amount: RM {formatRinggit(MIN_TRUST_AMOUNT)}
+                    </small>
+                  </li>
+                  <li>
+                    <small>
+                      Maximum per transaction: RM{' '}
+                      {formatRinggit(MAX_TRANSACTION_AMOUNT)}
+                    </small>
+                  </li>
+                  {remainingTrustInCents > MAX_TRANSACTION_AMOUNT && (
+                    <li>
+                      <small className="fw-semibold">
+                        You will need multiple payments to complete the minimum
+                        trust amount
+                      </small>
+                    </li>
+                  )}
+                </ul>
+              </div>
+            </div>
           </div>
+        </div>
+
+        {/* Fee Information Section */}
+        <div className="mb-4 border rounded-3 overflow-hidden">
+          <button
+            className="btn w-100 d-flex align-items-center justify-content-between p-3 border-0 bg-light"
+            onClick={() => setShowFees(!showFees)}
+            type="button"
+          >
+            <div className="d-flex align-items-center">
+              <div className="rounded-circle me-2">
+                <Image
+                  src="/images/info-icon.svg"
+                  width={16}
+                  height={16}
+                  className="text-primary"
+                />
+              </div>
+              <span className="fw-semibold text-start">Fee Structure</span>
+            </div>
+            <i className={`bi bi-chevron-${showFees ? 'up' : 'down'}`}></i>
+          </button>
+
+          {showFees && (
+            <div className="p-3 border-top bg-white">
+              <div className="d-flex align-items-center mb-3">
+                <div className="badge me-2">Immediate Asset Transfer</div>
+                <div className="border-bottom flex-grow-1"></div>
+              </div>
+
+              <div className="table-responsive">
+                <table className="table table-borderless mb-0">
+                  <tbody className="text-secondary">
+                    <tr>
+                      <td className="ps-0 py-2" style={{ width: '60%' }}>
+                        <div className="fw-medium">Management Fee</div>
+                        <small className="text-muted">Annual/Upfront</small>
+                      </td>
+                      <td className="pe-0 py-2 text-end fw-semibold">
+                        1.5% of assets
+                      </td>
+                    </tr>
+                    <tr className="border-top">
+                      <td className="ps-0 py-2">
+                        <div className="fw-medium">Documentation</div>
+                      </td>
+                      <td className="pe-0 py-2 text-end fw-semibold">RM 200</td>
+                    </tr>
+                    <tr className="border-top">
+                      <td className="ps-0 py-2">
+                        <div className="fw-medium">Amendment/Cancellation</div>
+                        <small className="text-muted">Per request</small>
+                      </td>
+                      <td className="pe-0 py-2 text-end fw-semibold">RM 300</td>
+                    </tr>
+                    <tr className="border-top">
+                      <td className="ps-0 py-2">
+                        <div className="fw-medium">Withdrawal</div>
+                        <small className="text-muted">
+                          Per trustor withdrawal
+                        </small>
+                      </td>
+                      <td className="pe-0 py-2 text-end fw-semibold">RM 25</td>
+                    </tr>
+                    <tr className="border-top">
+                      <td className="ps-0 py-2">
+                        <div className="fw-medium">Execution</div>
+                        <small className="text-muted">
+                          Per post-demise instruction
+                        </small>
+                      </td>
+                      <td className="pe-0 py-2 text-end fw-semibold">RM 25</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Payment Form */}
