@@ -5,6 +5,8 @@ import { useModal } from '../context/modal';
 import { useTempData } from '../context/tempData';
 import { formatTimestamp, replaceOrAddImage } from '../utils/helpers';
 import Loading from './Laoding';
+import TrustPaymentFormModal from './TrustPaymentFormModal';
+import TrustPaymentHistoryModal from './TrustPaymentHistoryModal';
 import Image from 'next/image';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -24,8 +26,10 @@ const TrustTable = ({ typeName, showAll = true }) => {
     },
   });
 
-  const [paymentAmount, setPaymentAmount] = useState('');
   const [selectedTrust, setSelectedTrust] = useState(null);
+  const [showPaymentHistory, setShowPaymentHistory] = useState(false);
+  const [selectedTrustPayments, setSelectedTrustPayments] = useState(null);
+  const [showPaymentForm, setShowPaymentForm] = useState(false);
 
   const type = {
     trust: {
@@ -77,12 +81,7 @@ const TrustTable = ({ typeName, showAll = true }) => {
     }
   };
 
-  const initiatePayment = async (trust) => {
-    if (!paymentAmount || isNaN(paymentAmount) || paymentAmount <= 0) {
-      toast.error('Please enter a valid amount');
-      return;
-    }
-
+  const initiatePayment = async (amount) => {
     try {
       setButtonConfig((prev) => ({
         ...prev,
@@ -90,9 +89,9 @@ const TrustTable = ({ typeName, showAll = true }) => {
       }));
 
       const payment = await addChipPayment({
-        trustId: trust.id,
-        amount: paymentAmount,
-        trustCode: trust.trust_code,
+        trustId: selectedTrust.id,
+        amount: amount,
+        trustCode: selectedTrust.trust_code,
       });
 
       if (!payment) {
@@ -109,7 +108,7 @@ const TrustTable = ({ typeName, showAll = true }) => {
       }
 
       // Clear form and redirect
-      setPaymentAmount('');
+      setShowPaymentForm(false);
       setSelectedTrust(null);
       window.location.href = checkoutUrl;
     } catch (error) {
@@ -122,6 +121,36 @@ const TrustTable = ({ typeName, showAll = true }) => {
       }));
     }
   };
+
+  const viewPaymentHistory = (trust) => {
+    setSelectedTrustPayments({
+      payments: trust.trust_payments || [],
+      trustCode: trust.trust_code,
+    });
+    setShowPaymentHistory(true);
+  };
+
+  const renderPaymentCell = (item) => (
+    <div className="custom-table-cell">
+      <div className="d-flex align-items-center gap-2">
+        <button
+          className="btn btn-primary btn-sm"
+          onClick={() => {
+            setSelectedTrust(item);
+            setShowPaymentForm(true);
+          }}
+        >
+          Make Payment
+        </button>
+        <button
+          className="btn btn-secondary btn-sm"
+          onClick={() => viewPaymentHistory(item)}
+        >
+          History
+        </button>
+      </div>
+    </div>
+  );
 
   if (type[typeName].isReady) {
     if (type[typeName].data?.length > 0 && type[typeName].isReady) {
@@ -152,9 +181,9 @@ const TrustTable = ({ typeName, showAll = true }) => {
                       {translations[locale].trust.action}
                     </small>
                   </th>
-                  {/* <th scope="col">
+                  <th scope="col">
                     <small class="smpl_text-xs-medium">Payment</small>
-                  </th> */}
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -211,37 +240,28 @@ const TrustTable = ({ typeName, showAll = true }) => {
                             </div>
                           </div>
                         </td>
-                        {/* <td>
-                          <div className="custom-table-cell">
-                            <div className="d-flex align-items-center gap-2">
-                              <input
-                                type="number"
-                                className="form-control form-control-sm"
-                                placeholder="Amount"
-                                value={
-                                  selectedTrust === item.id ? paymentAmount : ''
-                                }
-                                onChange={(e) => {
-                                  setSelectedTrust(item.id);
-                                  setPaymentAmount(e.target.value);
-                                }}
-                                style={{ width: '100px' }}
-                              />
-                              <button
-                                className="btn btn-primary btn-sm"
-                                onClick={() => initiatePayment(item)}
-                              >
-                                Pay
-                              </button>
-                            </div>
-                          </div>
-                        </td> */}
+                        <td>{renderPaymentCell(item)}</td>
                       </tr>
                     );
                   })}
               </tbody>
             </table>
           </div>
+
+          <TrustPaymentFormModal
+            isOpen={showPaymentForm}
+            onClose={() => setShowPaymentForm(false)}
+            onSubmit={initiatePayment}
+            trust={selectedTrust}
+            isLoading={buttonConfig.submit.isLoading}
+          />
+
+          <TrustPaymentHistoryModal
+            isOpen={showPaymentHistory}
+            onClose={() => setShowPaymentHistory(false)}
+            payments={selectedTrustPayments?.payments}
+            trustCode={selectedTrustPayments?.trustCode}
+          />
         </>
       );
     }
