@@ -95,8 +95,8 @@ const TrustPaymentHistoryModal = ({
                 <thead className="table-light">
                   <tr>
                     <th>Date & Time</th>
+                    <th>Payment reference ID</th>
                     <th className="text-end">Amount</th>
-                    {/* <th>Payment Method</th> */}
                     <th>Status</th>
                   </tr>
                 </thead>
@@ -113,10 +113,10 @@ const TrustPaymentHistoryModal = ({
                           <td className="text-nowrap">
                             {formatTimestamp(payment.created_at)}
                           </td>
+                          <td>{payment.chip_payment_id || '-'}</td>
                           <td className="text-end fw-semibold">
                             RM {formatRinggit(parseInt(payment.amount))}
                           </td>
-                          {/* <td>{payment.payment_method || '-'}</td> */}
                           <td>
                             <span
                               className={`badge rounded-pill d-inline-block ${status.class}`}
