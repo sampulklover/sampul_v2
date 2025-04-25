@@ -32,6 +32,7 @@ export default async function handler(req, res) {
 
     // Use absolute URL for trust page redirect
     const baseUrl = process.env.NEXT_PUBLIC_HOST;
+    const successCallback = `${baseUrl}/api/chip/success-callback`;
     const successUrl = `${baseUrl}/trust?payment=success`;
     const failureUrl = `${baseUrl}/trust?payment=failed`;
 
@@ -46,8 +47,10 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           brand_id: CHIP_BRAND_ID,
           client_id: clientId,
+          success_callback: successCallback,
           success_redirect: successUrl,
           failure_redirect: failureUrl,
+          send_receipt: true,
           purchase: {
             amount: amount,
             products: [
