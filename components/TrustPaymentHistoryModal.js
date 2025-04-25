@@ -82,7 +82,6 @@ const TrustPaymentHistoryModal = ({
             </div>
           </div>
         )}
-
         <div className="p-4">
           {isLoading ? (
             <div className="text-center py-5">
