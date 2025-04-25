@@ -30,6 +30,11 @@ export default async function handler(req, res) {
     const CHIP_SECRET_KEY = process.env.CHIP_SECRET_KEY;
     const CHIP_BRAND_ID = process.env.CHIP_BRAND_ID;
 
+    // Use absolute URL for trust page redirect
+    const baseUrl = process.env.NEXT_PUBLIC_HOST;
+    const successUrl = `${baseUrl}/trust?payment=success`;
+    const failureUrl = `${baseUrl}/trust?payment=failed`;
+
     const response = await fetch(
       'https://gate.chip-in.asia/api/v1/purchases/',
       {
@@ -40,7 +45,9 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify({
           brand_id: CHIP_BRAND_ID,
-          client_id: clientId, //TEST CLIENT ID
+          client_id: clientId,
+          success_redirect: successUrl,
+          failure_redirect: failureUrl,
           purchase: {
             amount: amount,
             products: [

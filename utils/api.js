@@ -298,7 +298,7 @@ export const getAllTrustApi = async (postData) => {
     const { data, error } = await supabase
       .from('trust')
       .select(
-        `*, trust_beneficiary ( * ), trust_charity ( * ), trust_payment ( * )`
+        `*, trust_beneficiary ( * ), trust_charity ( * ), trust_payment ( * ), trust_payments ( * )`
       )
       .eq('uuid', postData.uuid)
       .order('created_at', { ascending: false });

@@ -78,6 +78,7 @@ const TrustClientInfo = ({ onSubmitToggle = 0, nextStep }) => {
           trust_beneficiary,
           trust_charity,
           trust_payment,
+          trust_payments,
           ...filteredTrustData
         } = newTrustData;
         newTrustData = filteredTrustData;

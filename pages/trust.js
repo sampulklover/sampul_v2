@@ -1,5 +1,6 @@
 import Breadcrumb from '../components/Breadcrumb';
 import Footer from '../components/Footer';
+import PaymentStatusModal from '../components/PaymentStatusModal';
 import SideBar from '../components/SideBar';
 import TrustSummaryCard from '../components/TrustSummaryCard';
 import TrustTable from '../components/TrustTable';
@@ -9,19 +10,38 @@ import { useLocale } from '../context/locale';
 import { useModal } from '../context/modal';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const Trust = () => {
   const { contextApiData, getAllTrust } = useApi();
   const { locale } = useLocale();
   const router = useRouter();
   const { isModalOpen, toggleModal } = useModal();
+  const [paymentStatus, setPaymentStatus] = useState(null);
 
   useEffect(() => {
     if (contextApiData.profile.data) {
+      // Make sure getAllTrust includes payment history in the response
       getAllTrust();
     }
   }, [contextApiData.profile.data]);
+
+  useEffect(() => {
+    const { payment } = router.query;
+    if (payment === 'success' || payment === 'failed') {
+      setPaymentStatus(payment);
+      // Refresh trust data after successful payment
+      if (payment === 'success') {
+        getAllTrust();
+      }
+    }
+  }, [router.query]);
+
+  const handleClosePaymentModal = () => {
+    setPaymentStatus(null);
+    // Remove query parameters
+    router.replace('/trust', undefined, { shallow: true });
+  };
 
   const title = () => {
     return (
@@ -79,6 +99,11 @@ const Trust = () => {
         </div>
         <Footer />
       </div>
+      <PaymentStatusModal
+        isOpen={!!paymentStatus}
+        status={paymentStatus}
+        onClose={handleClosePaymentModal}
+      />
     </SideBar>
   );
 };
